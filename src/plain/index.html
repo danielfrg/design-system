@@ -1,0 +1,474 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" href="data:," />
+    <title>Plain HTML primitives</title>
+
+    <!-- Set the theme before first paint: saved choice, else the OS setting. -->
+    <script>
+      try {
+        const saved = localStorage.getItem("ds-theme");
+        const dark = saved ? saved === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+        document.documentElement.classList.toggle("dark", dark);
+      } catch {}
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&amp;family=Inter:wght@400;500;600;700&amp;display=swap"
+    />
+
+    <!--
+      The whole stack for a static page: tokens, primitives, Tailwind, Alpine.
+      Here the links are relative; on another site use
+      https://danielfrg.github.io/design-system/v1/<file>.css
+    -->
+    <link rel="stylesheet" href="../v1/theme.css" />
+    <link rel="stylesheet" href="../v1/primitives.css" />
+
+    <style type="text/tailwindcss">
+      /* tailwind.css:start */
+      @custom-variant dark (&:where(.dark, .dark *));
+
+      @theme inline {
+        --color-background: var(--bg-primary);
+        --color-foreground: var(--text-primary);
+        --color-subtle: var(--text-secondary);
+        --color-muted: var(--bg-inset);
+        --color-muted-foreground: var(--text-muted);
+
+        --color-card: var(--bg-surface);
+        --color-card-foreground: var(--text-primary);
+        --color-surface: var(--bg-surface);
+        --color-surface-hover: var(--bg-surface-hover);
+        --color-sidebar: var(--bg-sidebar);
+        --color-control: var(--bg-control);
+        --color-control-hover: var(--bg-control-hover);
+        --color-popover: var(--bg-popover);
+        --color-popover-foreground: var(--text-popover);
+
+        --color-border: var(--border-default);
+        --color-border-muted: var(--border-muted);
+        --color-input: var(--border-default);
+        --color-ring: var(--brand-accent);
+
+        --color-primary: var(--text-primary);
+        --color-primary-foreground: var(--bg-surface);
+        --color-accent: var(--brand-accent);
+        --color-accent-foreground: var(--brand-accent-foreground);
+        --color-accent-text: var(--text-accent);
+
+        --color-success: var(--accent-green);
+        --color-warning: var(--accent-amber);
+        --color-danger: var(--accent-red);
+        --color-destructive: var(--accent-red);
+        --color-info: var(--brand-accent);
+        --color-teal: var(--accent-teal);
+
+        --text-2xs: var(--font-size-2xs);
+        --text-xs: var(--font-size-xs);
+        --text-sm: var(--font-size-sm);
+        --text-base: var(--font-size-md);
+        --text-lg: var(--font-size-lg);
+        --text-xl: var(--font-size-xl);
+        --text-2xl: var(--font-size-2xl);
+      }
+      /* tailwind.css:end */
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.5"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.17.5/dist/cdn.min.js"></script>
+
+    <!-- Gallery chrome only; not part of the primitives. -->
+    <style>
+      [x-cloak] {
+        display: none !important;
+      }
+    </style>
+    <style type="text/tailwindcss">
+      .demo {
+        @apply rounded-lg border border-border-muted bg-background p-4;
+      }
+      .source summary {
+        @apply cursor-pointer select-none px-1 py-2 text-xs text-muted-foreground hover:text-foreground;
+      }
+      .source pre {
+        @apply m-0 overflow-x-auto rounded-lg border border-border-muted bg-muted p-3 text-xs leading-relaxed text-subtle;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="mx-auto flex max-w-4xl flex-col gap-12 px-6 pt-8 pb-24">
+      <!-- ============ Header ============ -->
+      <header class="flex items-start justify-between gap-4">
+        <div>
+          <h1 class="m-0 font-mono text-base font-medium uppercase">Plain HTML primitives</h1>
+          <p class="mt-1 text-sm">
+            <a class="link" href="../">Svelte gallery (kit-ui components)</a>
+          </p>
+        </div>
+        <button
+          class="btn btn-icon"
+          type="button"
+          aria-label="Toggle dark mode"
+          title="Toggle dark mode"
+          x-data="{ dark: document.documentElement.classList.contains('dark') }"
+          @click="
+            dark = !dark;
+            document.documentElement.classList.toggle('dark', dark);
+            try { localStorage.setItem('ds-theme', dark ? 'dark' : 'light') } catch {}
+          "
+        >
+          <span x-text="dark ? '☀' : '☾'" aria-hidden="true">☾</span>
+        </button>
+      </header>
+
+      <!-- ============ Setup ============ -->
+      <section class="grid gap-3">
+        <h2 class="m-0 text-lg font-medium">Setup</h2>
+        <p class="m-0 text-sm text-muted-foreground">
+          Paste this in <code>&lt;head&gt;</code>. Tailwind's browser build cannot
+          <code>@import</code> files, so the small <code>tailwind.css</code> theme block has to be
+          inlined. Everything else is linked.
+        </p>
+        <pre
+          class="m-0 overflow-x-auto rounded-lg border border-border-muted bg-muted p-3 text-xs leading-relaxed text-subtle"
+        ><code>&lt;link rel="stylesheet" href="https://danielfrg.github.io/design-system/v1/theme.css"&gt;
+&lt;link rel="stylesheet" href="https://danielfrg.github.io/design-system/v1/primitives.css"&gt;
+&lt;style type="text/tailwindcss"&gt;
+  /* contents of v1/tailwind.css */
+&lt;/style&gt;
+&lt;script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.5"&gt;&lt;/script&gt;
+&lt;script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.17.5/dist/cdn.min.js"&gt;&lt;/script&gt;</code></pre>
+        <p class="m-0 text-sm text-muted-foreground">
+          Dark mode: add the <code>dark</code> class to <code>&lt;html&gt;</code>. That is all the
+          tokens need.
+        </p>
+      </section>
+
+      <!-- ============ Buttons ============ -->
+      <section class="grid gap-3">
+        <h2 class="m-0 text-lg font-medium">Buttons</h2>
+        <p class="m-0 text-sm text-muted-foreground">
+          <code>.btn</code> is the outline default. Add a surface (<code>.btn-solid</code>,
+          <code>.btn-soft</code>, <code>.btn-ghost</code>), a tone (<code>.tone-danger</code>) and a
+          size.
+        </p>
+
+        <div class="source">
+          <div class="demo flex flex-wrap items-center gap-2" data-demo>
+            <button class="btn" type="button">Outline</button>
+            <button class="btn btn-solid" type="button">Solid</button>
+            <button class="btn btn-soft" type="button">Soft</button>
+            <button class="btn btn-ghost" type="button">Ghost</button>
+            <button class="btn" type="button" disabled>Disabled</button>
+          </div>
+        </div>
+
+        <div class="source">
+          <div class="demo flex flex-wrap items-center gap-2" data-demo>
+            <button class="btn btn-solid tone-info" type="button">Info</button>
+            <button class="btn btn-solid tone-success" type="button">Success</button>
+            <button class="btn btn-solid tone-warning" type="button">Warning</button>
+            <button class="btn btn-solid tone-danger" type="button">Danger</button>
+            <button class="btn btn-soft tone-success" type="button">Success</button>
+            <button class="btn btn-soft tone-danger" type="button">Danger</button>
+          </div>
+        </div>
+
+        <div class="source">
+          <div class="demo flex flex-wrap items-center gap-2" data-demo>
+            <button class="btn btn-solid btn-sm" type="button">Small</button>
+            <button class="btn btn-solid" type="button">Medium</button>
+            <button class="btn btn-solid btn-lg" type="button">Large</button>
+            <button class="btn btn-icon" type="button" aria-label="Add">+</button>
+            <a class="btn btn-soft" href="#buttons">As a link</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ Fields ============ -->
+      <section class="grid gap-3">
+        <h2 class="m-0 text-lg font-medium">Inputs</h2>
+
+        <div class="source">
+          <div class="demo grid gap-4 sm:grid-cols-2" data-demo>
+            <div class="field">
+              <label class="label" for="f-name">Name</label>
+              <input class="input" id="f-name" type="text" placeholder="Ada Lovelace" />
+              <span class="hint">Shown on your profile.</span>
+            </div>
+            <div class="field">
+              <label class="label" for="f-email">Email</label>
+              <input
+                class="input"
+                id="f-email"
+                type="email"
+                value="not-an-email"
+                aria-invalid="true"
+              />
+              <span class="hint is-error">Enter a valid address.</span>
+            </div>
+            <div class="field">
+              <label class="label" for="f-plan">Plan</label>
+              <select class="select" id="f-plan">
+                <option>Free</option>
+                <option>Team</option>
+                <option>Enterprise</option>
+              </select>
+            </div>
+            <div class="field">
+              <label class="label" for="f-off">Disabled</label>
+              <input class="input" id="f-off" type="text" value="Read only" disabled />
+            </div>
+            <div class="field sm:col-span-2">
+              <label class="label" for="f-notes">Notes</label>
+              <textarea class="textarea" id="f-notes" placeholder="Anything else?"></textarea>
+            </div>
+            <div class="flex flex-wrap items-center gap-4 sm:col-span-2">
+              <label class="check"
+                ><input class="checkbox" type="checkbox" checked /> Subscribe</label
+              >
+              <label class="check"><input class="checkbox" type="checkbox" /> Remember me</label>
+              <label class="check"
+                ><input class="radio" type="radio" name="r" checked /> Monthly</label
+              >
+              <label class="check"><input class="radio" type="radio" name="r" /> Yearly</label>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ Cards ============ -->
+      <section class="grid gap-3">
+        <h2 class="m-0 text-lg font-medium">Cards</h2>
+
+        <div class="source">
+          <div class="demo grid gap-4 sm:grid-cols-2" data-demo>
+            <div class="card">
+              <h3 class="card-title">Default card</h3>
+              <p class="card-description">Surface background, 1px border, flat.</p>
+              <div class="card-footer">
+                <button class="btn btn-sm" type="button">Cancel</button>
+                <button class="btn btn-solid btn-sm" type="button">Save</button>
+              </div>
+            </div>
+            <div class="card card-inset">
+              <h3 class="card-title">Inset card</h3>
+              <p class="card-description">Same shape on the inset background.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ Badges and alerts ============ -->
+      <section class="grid gap-3">
+        <h2 class="m-0 text-lg font-medium">Badges and alerts</h2>
+
+        <div class="source">
+          <div class="demo flex flex-wrap items-center gap-2" data-demo>
+            <span class="badge">Neutral</span>
+            <span class="badge tone-info">Info</span>
+            <span class="badge tone-success">Success</span>
+            <span class="badge tone-warning">Warning</span>
+            <span class="badge tone-danger">Danger</span>
+          </div>
+        </div>
+
+        <div class="source">
+          <div class="demo grid gap-3" data-demo>
+            <div class="alert tone-info">Heads up: the build runs on every push.</div>
+            <div class="alert tone-success">Deployed to production.</div>
+            <div class="alert tone-warning">Token expires in 3 days.</div>
+            <div class="alert tone-danger">Could not reach the server.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ Table and small things ============ -->
+      <section class="grid gap-3">
+        <h2 class="m-0 text-lg font-medium">Table, links, keys</h2>
+
+        <div class="source">
+          <div class="demo grid" data-demo>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Service</th>
+                  <th>Status</th>
+                  <th>Latency</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>api</td>
+                  <td><span class="badge tone-success">Up</span></td>
+                  <td>42 ms</td>
+                </tr>
+                <tr>
+                  <td>worker</td>
+                  <td><span class="badge tone-warning">Slow</span></td>
+                  <td>380 ms</td>
+                </tr>
+                <tr>
+                  <td>cron</td>
+                  <td><span class="badge tone-danger">Down</span></td>
+                  <td>n/a</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="source">
+          <div class="demo flex flex-wrap items-center gap-2" data-demo>
+            <a class="link" href="#">A link</a>
+            <span class="text-sm text-muted-foreground">Press</span>
+            <kbd class="kbd">⌘</kbd><kbd class="kbd">K</kbd>
+            <hr class="divider w-full" />
+            <span class="text-sm text-muted-foreground">A divider sits above.</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ Tailwind ============ -->
+      <section class="grid gap-3">
+        <h2 class="m-0 text-lg font-medium">Tailwind utilities on the tokens</h2>
+        <p class="m-0 text-sm text-muted-foreground">
+          Layout and one-offs come from Tailwind; colors come from the theme, so they follow dark
+          mode on their own. Utilities override primitives (they live in a later layer).
+        </p>
+
+        <div class="source">
+          <div class="demo grid gap-3 sm:grid-cols-3" data-demo>
+            <div class="rounded-lg bg-surface p-4 text-sm">bg-surface</div>
+            <div class="rounded-lg bg-muted p-4 text-sm text-muted-foreground">
+              bg-muted text-muted-foreground
+            </div>
+            <div class="rounded-lg border border-accent p-4 text-sm text-accent-text">
+              border-accent text-accent-text
+            </div>
+            <div class="rounded-lg bg-success/15 p-4 text-sm text-success">bg-success/15</div>
+            <div class="rounded-lg bg-warning/15 p-4 text-sm text-warning">bg-warning/15</div>
+            <div class="rounded-lg bg-danger/15 p-4 text-sm text-danger">bg-danger/15</div>
+            <button class="btn btn-solid rounded-md" type="button">btn + rounded-md</button>
+            <button class="btn btn-solid h-10 px-6 text-sm" type="button">btn + h-10 px-6</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ Alpine ============ -->
+      <section class="grid gap-3">
+        <h2 class="m-0 text-lg font-medium">With Alpine</h2>
+        <p class="m-0 text-sm text-muted-foreground">
+          Interactive pieces are plain Alpine on top of the same classes.
+        </p>
+
+        <div class="source">
+          <div class="demo grid gap-4 sm:grid-cols-2" data-demo>
+            <div
+              class="contents"
+              x-data="{ name: '', count: 0, open: false, items: ['Design', 'Ship'], draft: '' }"
+            >
+              <div class="card grid content-start gap-3">
+                <div class="field">
+                  <label class="label" for="a-name">Your name</label>
+                  <input class="input" id="a-name" x-model="name" placeholder="Type here" />
+                </div>
+                <p class="m-0 text-sm" x-text="name ? `Hello, ${name}!` : 'Say hello.'"></p>
+                <div class="flex items-center gap-2">
+                  <button
+                    class="btn btn-sm btn-icon"
+                    type="button"
+                    aria-label="Decrement"
+                    @click="count--"
+                  >
+                    −
+                  </button>
+                  <span class="badge tone-info h-6 min-w-8 justify-center text-sm" x-text="count"
+                    >0</span
+                  >
+                  <button
+                    class="btn btn-sm btn-icon"
+                    type="button"
+                    aria-label="Increment"
+                    @click="count++"
+                  >
+                    +
+                  </button>
+                </div>
+              </div>
+
+              <div class="card grid content-start gap-3">
+                <form
+                  class="flex gap-2"
+                  @submit.prevent="draft.trim() && items.push(draft.trim()); draft = ''"
+                >
+                  <input
+                    class="input"
+                    x-model="draft"
+                    placeholder="Add an item"
+                    aria-label="New item"
+                  />
+                  <button class="btn btn-solid" type="submit">Add</button>
+                </form>
+                <ul class="m-0 grid list-none gap-1 p-0 text-sm">
+                  <template x-for="(item, i) in items" :key="item">
+                    <li class="flex items-center justify-between rounded-md bg-muted px-3 py-1.5">
+                      <span x-text="item"></span>
+                      <button
+                        class="btn btn-ghost btn-sm"
+                        type="button"
+                        @click="items.splice(i, 1)"
+                      >
+                        Remove
+                      </button>
+                    </li>
+                  </template>
+                </ul>
+                <div>
+                  <button
+                    class="btn btn-soft btn-sm"
+                    type="button"
+                    @click="open = !open"
+                    :aria-expanded="open"
+                  >
+                    <span x-text="open ? 'Hide details' : 'Show details'"></span>
+                  </button>
+                  <div class="alert tone-info mt-2" x-show="open" x-cloak>
+                    Toggled with <code>x-show</code>.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!--
+      Gallery only: put each demo's markup under it in a collapsed "HTML" block.
+      Runs before Alpine starts, so the markup shown is the markup you wrote.
+    -->
+    <script>
+      for (const demo of document.querySelectorAll("[data-demo]")) {
+        const lines = demo.innerHTML.replace(/^\n+|\s+$/g, "").split("\n");
+        const indent = Math.min(
+          ...lines.filter((l) => l.trim()).map((l) => l.match(/^ */)[0].length),
+        );
+        const details = document.createElement("details");
+        const summary = document.createElement("summary");
+        const pre = document.createElement("pre");
+        summary.textContent = "HTML";
+        pre.textContent = lines.map((l) => l.slice(indent)).join("\n");
+        details.append(summary, pre);
+        demo.after(details);
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,49 @@
+/*
+ * Maps the design tokens to Tailwind v4 theme keys: bg-surface, text-muted-foreground,
+ * border-border, rounded-lg and so on.
+ */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme inline {
+  --color-background: var(--bg-primary);
+  --color-foreground: var(--text-primary);
+  --color-subtle: var(--text-secondary);
+  --color-muted: var(--bg-inset);
+  --color-muted-foreground: var(--text-muted);
+
+  --color-card: var(--bg-surface);
+  --color-card-foreground: var(--text-primary);
+  --color-surface: var(--bg-surface);
+  --color-surface-hover: var(--bg-surface-hover);
+  --color-sidebar: var(--bg-sidebar);
+  --color-control: var(--bg-control);
+  --color-control-hover: var(--bg-control-hover);
+  --color-popover: var(--bg-popover);
+  --color-popover-foreground: var(--text-popover);
+
+  --color-border: var(--border-default);
+  --color-border-muted: var(--border-muted);
+  --color-input: var(--border-default);
+  --color-ring: var(--brand-accent);
+
+  --color-primary: var(--text-primary);
+  --color-primary-foreground: var(--bg-surface);
+  --color-accent: var(--brand-accent);
+  --color-accent-foreground: var(--brand-accent-foreground);
+  --color-accent-text: var(--text-accent);
+
+  --color-success: var(--accent-green);
+  --color-warning: var(--accent-amber);
+  --color-danger: var(--accent-red);
+  --color-destructive: var(--accent-red);
+  --color-info: var(--brand-accent);
+  --color-teal: var(--accent-teal);
+
+  --text-2xs: var(--font-size-2xs);
+  --text-xs: var(--font-size-xs);
+  --text-sm: var(--font-size-sm);
+  --text-base: var(--font-size-md);
+  --text-lg: var(--font-size-lg);
+  --text-xl: var(--font-size-xl);
+  --text-2xl: var(--font-size-2xl);
+}
