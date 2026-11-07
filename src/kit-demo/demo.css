@@ -21,7 +21,8 @@ body {
   font-size: var(--font-size-root);
   line-height: 1.5;
   color: var(--text-primary);
-  background: var(--bg-primary);
+  /* The gallery's sidebar color, which also fills the scrollbar gutter. */
+  background: var(--bg-sidebar);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

@@ -93,7 +93,8 @@
       .demo {
         @apply rounded-lg border border-border-muted bg-background p-4;
       }
-      .source summary {
+      /* Only the gallery's own HTML toggle, not <summary> inside a demo. */
+      .source > details > summary {
         @apply cursor-pointer select-none px-1 py-2 text-xs text-muted-foreground hover:text-foreground;
       }
       .source pre {
@@ -155,14 +156,14 @@
       <section class="grid gap-3">
         <h2 class="m-0 text-lg font-medium">Buttons</h2>
         <p class="m-0 text-sm text-muted-foreground">
-          <code>.btn</code> is the outline default. Add a surface (<code>.btn-solid</code>,
+          <code>.btn</code> is the filled default. Add a surface (<code>.btn-solid</code>,
           <code>.btn-soft</code>, <code>.btn-ghost</code>), a tone (<code>.tone-danger</code>) and a
           size.
         </p>
 
         <div class="source">
           <div class="demo flex flex-wrap items-center gap-2" data-demo>
-            <button class="btn" type="button">Outline</button>
+            <button class="btn" type="button">Default</button>
             <button class="btn btn-solid" type="button">Solid</button>
             <button class="btn btn-soft" type="button">Soft</button>
             <button class="btn btn-ghost" type="button">Ghost</button>
@@ -244,6 +245,224 @@
         </div>
       </section>
 
+      <!-- ============ Native elements ============ -->
+      <section class="grid gap-3">
+        <h2 class="m-0 text-lg font-medium">Native elements</h2>
+        <p class="m-0 text-sm text-muted-foreground">
+          Every form control the browser ships, with the matching class. In Chrome the
+          <code>&lt;select&gt;</code> menu itself is styled too (customizable select); other
+          browsers keep their own menu.
+        </p>
+
+        <h3 class="m-0 mt-2 text-base font-medium">Input types</h3>
+        <div class="source">
+          <div class="demo grid gap-4 sm:grid-cols-3" data-demo>
+            <div class="field">
+              <label class="label" for="n-password">Password</label>
+              <input class="input" id="n-password" type="password" value="hunter22" />
+            </div>
+            <div class="field">
+              <label class="label" for="n-number">Number</label>
+              <input class="input" id="n-number" type="number" value="42" min="0" />
+            </div>
+            <div class="field">
+              <label class="label" for="n-search">Search</label>
+              <input class="input" id="n-search" type="search" placeholder="Search issues" />
+            </div>
+            <div class="field">
+              <label class="label" for="n-url">URL</label>
+              <input class="input" id="n-url" type="url" placeholder="https://" />
+            </div>
+            <div class="field">
+              <label class="label" for="n-tel">Phone</label>
+              <input class="input" id="n-tel" type="tel" placeholder="+1 555 0100" />
+            </div>
+            <div class="field">
+              <label class="label" for="n-date">Date</label>
+              <input class="input" id="n-date" type="date" value="2026-06-30" />
+            </div>
+            <div class="field">
+              <label class="label" for="n-time">Time</label>
+              <input class="input" id="n-time" type="time" value="09:30" />
+            </div>
+            <div class="field">
+              <label class="label" for="n-datetime">Date and time</label>
+              <input class="input" id="n-datetime" type="datetime-local" value="2026-06-30T09:30" />
+            </div>
+            <div class="field">
+              <label class="label" for="n-month">Month</label>
+              <input class="input" id="n-month" type="month" value="2026-06" />
+            </div>
+            <div class="field">
+              <label class="label" for="n-file">File</label>
+              <input class="input" id="n-file" type="file" />
+            </div>
+            <div class="field">
+              <label class="label" for="n-color">Color</label>
+              <input class="input" id="n-color" type="color" value="#3b82f6" />
+            </div>
+          </div>
+        </div>
+
+        <h3 class="m-0 mt-2 text-base font-medium">Selects, switches and disabled states</h3>
+        <div class="source">
+          <div class="demo grid gap-4 sm:grid-cols-2" data-demo>
+            <div class="field">
+              <label class="label" for="n-select">Select with groups</label>
+              <select class="select" id="n-select">
+                <optgroup label="Views">
+                  <option>Inbox</option>
+                  <option selected>My issues</option>
+                  <option>All issues</option>
+                </optgroup>
+                <optgroup label="Planning">
+                  <option>Current cycle</option>
+                  <option>Projects</option>
+                  <option disabled>Roadmap (soon)</option>
+                </optgroup>
+              </select>
+            </div>
+            <div class="field">
+              <label class="label" for="n-select-off">Disabled select</label>
+              <select class="select" id="n-select-off" disabled>
+                <option>Read only</option>
+              </select>
+            </div>
+            <div class="field">
+              <label class="label" for="n-multi">Multiple</label>
+              <select class="select" id="n-multi" multiple size="4">
+                <option selected>Design</option>
+                <option>Engineering</option>
+                <option selected>Product</option>
+                <option>Support</option>
+              </select>
+            </div>
+            <div class="grid content-start gap-3">
+              <label class="check"
+                ><input class="switch" type="checkbox" role="switch" checked /> Email
+                notifications</label
+              >
+              <label class="check"
+                ><input class="switch" type="checkbox" role="switch" /> Desktop notifications</label
+              >
+              <label class="check"
+                ><input class="switch" type="checkbox" role="switch" disabled /> Mobile (not
+                installed)</label
+              >
+              <label class="check"
+                ><input class="checkbox" type="checkbox" checked disabled /> Disabled
+                checkbox</label
+              >
+              <label class="check"
+                ><input class="radio" type="radio" name="n-r" disabled /> Disabled radio</label
+              >
+            </div>
+          </div>
+        </div>
+
+        <h3 class="m-0 mt-2 text-base font-medium">Range, progress and meter</h3>
+        <div class="source">
+          <div class="demo grid gap-4 sm:grid-cols-2" data-demo>
+            <div class="field">
+              <label class="label" for="n-range">Volume</label>
+              <input class="range" id="n-range" type="range" min="0" max="100" value="60" />
+            </div>
+            <div class="field">
+              <label class="label" for="n-progress">Upload</label>
+              <progress class="progress" id="n-progress" max="100" value="64">64%</progress>
+            </div>
+            <div class="field">
+              <span class="label">Disk usage (meter)</span>
+              <meter
+                class="meter"
+                aria-label="Good"
+                min="0"
+                max="100"
+                low="60"
+                high="85"
+                optimum="20"
+                value="35"
+              ></meter>
+              <meter
+                class="meter"
+                aria-label="Fair"
+                min="0"
+                max="100"
+                low="60"
+                high="85"
+                optimum="20"
+                value="72"
+              ></meter>
+              <meter
+                class="meter"
+                aria-label="Poor"
+                min="0"
+                max="100"
+                low="60"
+                high="85"
+                optimum="20"
+                value="94"
+              ></meter>
+            </div>
+            <div class="field">
+              <label class="label" for="n-busy">Working (no value)</label>
+              <progress class="progress" id="n-busy"></progress>
+            </div>
+          </div>
+        </div>
+
+        <h3 class="m-0 mt-2 text-base font-medium">Fieldset, details and dialog</h3>
+        <div class="source">
+          <div class="demo grid gap-4 sm:grid-cols-2" data-demo>
+            <fieldset class="fieldset">
+              <legend>Billing period</legend>
+              <label class="check"
+                ><input class="radio" type="radio" name="n-period" checked /> Monthly</label
+              >
+              <label class="check"
+                ><input class="radio" type="radio" name="n-period" /> Yearly, two months free</label
+              >
+            </fieldset>
+            <div class="grid content-start gap-2">
+              <details class="details" open>
+                <summary>What is a cycle?</summary>
+                <p>A fixed block of time, usually two weeks, that the team commits work to.</p>
+              </details>
+              <details class="details">
+                <summary>Can I change it later?</summary>
+                <p>Yes. Cycle length and start day live in the team settings.</p>
+              </details>
+            </div>
+            <div>
+              <button
+                class="btn"
+                type="button"
+                onclick="document.getElementById('n-dialog').showModal()"
+              >
+                Open dialog
+              </button>
+              <dialog class="dialog" id="n-dialog" aria-labelledby="n-dialog-title">
+                <form method="dialog">
+                  <div class="dialog-header">
+                    <h3 class="dialog-title" id="n-dialog-title">Archive project?</h3>
+                    <button class="btn btn-ghost btn-icon btn-sm" value="cancel" aria-label="Close">
+                      ✕
+                    </button>
+                  </div>
+                  <p class="dialog-body m-0">
+                    It leaves the sidebar and stops showing in views. You can restore it any time.
+                  </p>
+                  <div class="dialog-footer">
+                    <button class="btn" value="cancel">Cancel</button>
+                    <button class="btn btn-solid" value="archive">Archive</button>
+                  </div>
+                </form>
+              </dialog>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <!-- ============ Cards ============ -->
       <section class="grid gap-3">
         <h2 class="m-0 text-lg font-medium">Cards</h2>
@@ -252,7 +471,7 @@
           <div class="demo grid gap-4 sm:grid-cols-2" data-demo>
             <div class="card">
               <h3 class="card-title">Default card</h3>
-              <p class="card-description">Surface background, 1px border, flat.</p>
+              <p class="card-description">Surface background, hairline ring, soft shadow.</p>
               <div class="card-footer">
                 <button class="btn btn-sm" type="button">Cancel</button>
                 <button class="btn btn-solid btn-sm" type="button">Save</button>
@@ -290,6 +509,49 @@
         </div>
       </section>
 
+      <!-- ============ Tabs ============ -->
+      <section class="grid gap-3">
+        <h2 class="m-0 text-lg font-medium">Tabs</h2>
+        <p class="m-0 text-sm text-muted-foreground">
+          <code>.tabs</code> holds separate <code>.tab</code> pills for switching views. Mark the
+          current one with <code>aria-selected="true"</code> or <code>aria-current="page"</code>.
+        </p>
+
+        <div class="source">
+          <div class="demo flex items-center gap-3" data-demo>
+            <div class="tabs" role="tablist" aria-label="Issue view" x-data="{ view: 'all' }">
+              <button
+                class="tab"
+                type="button"
+                role="tab"
+                :aria-selected="view === 'active'"
+                @click="view = 'active'"
+              >
+                Active
+              </button>
+              <button
+                class="tab"
+                type="button"
+                role="tab"
+                :aria-selected="view === 'backlog'"
+                @click="view = 'backlog'"
+              >
+                Backlog
+              </button>
+              <button
+                class="tab"
+                type="button"
+                role="tab"
+                :aria-selected="view === 'all'"
+                @click="view = 'all'"
+              >
+                All issues
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <!-- ============ Table and small things ============ -->
       <section class="grid gap-3">
         <h2 class="m-0 text-lg font-medium">Table, links, keys</h2>
@@ -305,6 +567,9 @@
                 </tr>
               </thead>
               <tbody>
+                <tr class="table-group">
+                  <td colspan="3">Production</td>
+                </tr>
                 <tr>
                   <td>api</td>
                   <td><span class="badge tone-success">Up</span></td>
@@ -444,6 +709,192 @@
                     Toggled with <code>x-show</code>.
                   </div>
                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <h3 class="m-0 mt-2 text-base font-medium">Dropdown menu</h3>
+        <p class="m-0 text-sm text-muted-foreground">
+          <code>.dropdown</code> anchors a <code>.menu</code> under its trigger. Use
+          <code>role="menuitemradio"</code> with <code>aria-checked</code> for a choice (the
+          <code>.menu-check</code> shows on the checked item) and <code>role="menuitem"</code> for
+          actions. Alpine handles open, close, arrow keys and Escape.
+        </p>
+
+        <div class="source">
+          <div class="demo flex flex-wrap items-start gap-3" data-demo>
+            <div
+              class="dropdown"
+              x-data="{
+                open: false,
+                value: 'updated',
+                options: { updated: 'Recently updated', created: 'Newest', title: 'Title' },
+                show() { this.open = true; this.$nextTick(() => this.$refs.menu.querySelector('[aria-checked=true]').focus()) },
+                close() { this.open = false; this.$refs.trigger.focus() },
+                move(step) {
+                  const items = [...this.$refs.menu.querySelectorAll('[role^=menuitem]')];
+                  const at = items.indexOf(document.activeElement);
+                  items[(at + step + items.length) % items.length].focus();
+                },
+              }"
+              @keydown.escape="close()"
+              @click.outside="open = false"
+            >
+              <button
+                class="select"
+                type="button"
+                x-ref="trigger"
+                aria-haspopup="menu"
+                :aria-expanded="open"
+                @click="open ? (open = false) : show()"
+                @keydown.arrow-down.prevent="show()"
+                x-text="options[value]"
+              >
+                Recently updated
+              </button>
+              <div
+                class="menu"
+                role="menu"
+                aria-label="Sort by"
+                x-ref="menu"
+                x-show="open"
+                x-cloak
+                @keydown.arrow-down.prevent="move(1)"
+                @keydown.arrow-up.prevent="move(-1)"
+              >
+                <template x-for="(label, key) in options" :key="key">
+                  <button
+                    class="menu-item"
+                    type="button"
+                    role="menuitemradio"
+                    :aria-checked="value === key"
+                    @click="value = key; close()"
+                  >
+                    <span x-text="label"></span>
+                    <svg
+                      class="menu-check"
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                    >
+                      <path d="M20 6 9 17l-5-5" />
+                    </svg>
+                  </button>
+                </template>
+              </div>
+            </div>
+
+            <div
+              class="dropdown"
+              x-data="{
+                open: false,
+                show() { this.open = true; this.$nextTick(() => this.$refs.menu.querySelector('[role=menuitem]').focus()) },
+                close() { this.open = false; this.$refs.trigger.focus() },
+                move(step) {
+                  const items = [...this.$refs.menu.querySelectorAll('[role=menuitem]')];
+                  const at = items.indexOf(document.activeElement);
+                  items[(at + step + items.length) % items.length].focus();
+                },
+              }"
+              @keydown.escape="close()"
+              @click.outside="open = false"
+            >
+              <button
+                class="btn btn-icon"
+                type="button"
+                x-ref="trigger"
+                aria-label="Issue actions"
+                aria-haspopup="menu"
+                :aria-expanded="open"
+                @click="open ? (open = false) : show()"
+              >
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <circle cx="5" cy="12" r="2" />
+                  <circle cx="12" cy="12" r="2" />
+                  <circle cx="19" cy="12" r="2" />
+                </svg>
+              </button>
+              <div
+                class="menu"
+                role="menu"
+                aria-label="Issue actions"
+                x-ref="menu"
+                x-show="open"
+                x-cloak
+                @keydown.arrow-down.prevent="move(1)"
+                @keydown.arrow-up.prevent="move(-1)"
+              >
+                <button class="menu-item" type="button" role="menuitem" @click="close()">
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M12 20h9" />
+                    <path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z" />
+                  </svg>
+                  Rename
+                </button>
+                <button class="menu-item" type="button" role="menuitem" @click="close()">
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <rect width="14" height="14" x="8" y="8" rx="2" />
+                    <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
+                  </svg>
+                  Duplicate
+                </button>
+                <div class="menu-separator" role="separator"></div>
+                <button
+                  class="menu-item menu-item-danger"
+                  type="button"
+                  role="menuitem"
+                  @click="close()"
+                >
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M3 6h18" />
+                    <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
+                    <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+                  </svg>
+                  Delete
+                </button>
               </div>
             </div>
           </div>

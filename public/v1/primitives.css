@@ -2,7 +2,7 @@
  * Plain-HTML primitives: buttons, inputs, cards and a few friends.
  *
  * For pages with no-build or JS framework, e.g. a static page with Alpine.
- * The look matches components.css: pill buttons, 8px inputs, flat surfaces.
+ * The look matches components.css: pill buttons, 8px inputs, ring-shadow cards.
  * Needs theme.css loaded first.
  *
  */
@@ -85,9 +85,10 @@
     gap: 6px;
     height: var(--kit-control-height, 28px);
     padding-inline: 12px;
-    border: 1px solid var(--btn-border, var(--border-default));
+    border: var(--border-width, 1px) solid var(--btn-border, var(--border-hairline));
     border-radius: var(--kit-control-radius, 9999px);
-    background: var(--btn-bg, transparent);
+    background: var(--btn-bg, var(--bg-field));
+    box-shadow: var(--btn-shadow, var(--shadow-control));
     color: var(--btn-fg, var(--text-primary));
     font-size: var(--kit-control-font-size, var(--font-size-xs));
     font-weight: var(--font-weight-medium, 500);
@@ -101,7 +102,7 @@
       opacity 0.12s;
   }
   .btn:hover:not(:disabled, [aria-disabled="true"]) {
-    background: var(--btn-bg-hover, var(--bg-surface-hover));
+    background: var(--btn-bg-hover, var(--bg-control-hover));
   }
   .btn:disabled,
   .btn[aria-disabled="true"] {
@@ -120,9 +121,13 @@
     --btn-bg-hover: color-mix(in srgb, var(--tone, var(--text-accent)) 22%, transparent);
     --btn-fg: var(--tone, var(--text-accent));
     --btn-border: transparent;
+    --btn-shadow: none;
   }
   .btn-ghost {
+    --btn-bg: transparent;
+    --btn-bg-hover: var(--bg-surface-hover);
     --btn-border: transparent;
+    --btn-shadow: none;
   }
 
   .btn-sm {
@@ -152,10 +157,10 @@
     display: block;
     width: 100%;
     height: 32px;
-    padding-inline: 10px;
-    border: 1px solid var(--border-default);
+    padding-inline: 12px;
+    border: var(--border-width, 1px) solid var(--border-input);
     border-radius: var(--radius-md, 8px);
-    background: var(--bg-inset);
+    background: var(--bg-field);
     color: var(--text-primary);
     font-size: var(--font-size-sm);
     outline: none;
@@ -190,7 +195,19 @@
     resize: vertical;
   }
 
+  /* A select is a raised control, like kit-ui's SelectDropdown trigger and
+   * Linear's: control fill, a 0.5px ring and a small drop, no outline. */
   .select {
+    width: auto;
+    max-width: 100%;
+    height: 30px;
+    padding-left: 10px;
+    border-color: transparent;
+    background-color: var(--bg-control);
+    color: var(--text-secondary);
+    box-shadow:
+      0 0 0 0.5px var(--border-pill),
+      var(--shadow-control);
     appearance: none;
     padding-right: 28px;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%239c9da1' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
@@ -198,14 +215,201 @@
     background-position: right 10px center;
     cursor: pointer;
   }
+  .select:hover:not(:disabled) {
+    background-color: var(--bg-control-hover);
+  }
 
+  /* A list box (multiple or size) shows its options inline, so it is a
+   * field again, not a raised trigger. */
+  .select:is([multiple], [size]) {
+    width: 100%;
+    height: auto;
+    padding: 4px;
+    border-color: var(--border-input);
+    background-color: var(--bg-field);
+    background-image: none;
+    color: var(--text-primary);
+    box-shadow: none;
+    cursor: default;
+  }
+  .select:is([multiple], [size]) option {
+    padding: 4px 8px;
+    border-radius: 6px;
+  }
+  .select:is([multiple], [size]) option:checked {
+    background: var(--bg-popover-selected);
+    color: var(--text-primary);
+  }
+
+  /* Where the browser supports customizable selects (Chrome 135+), the
+   * native menu takes the same panel as .menu: 12px corners, 32px rows and
+   * the check at the end. Other browsers keep their own menu. */
+  @supports (appearance: base-select) {
+    .select:not([multiple], [size]),
+    .select:not([multiple], [size])::picker(select) {
+      appearance: base-select;
+    }
+    /* base-select lays the trigger out as a box of its own; keep it 30px
+     * with the label centered, like the classic select. */
+    .select:not([multiple], [size]) {
+      display: flex;
+      align-items: center;
+      height: 30px;
+      padding-block: 0;
+      /* The inner border box is 28px; a matching line box centers the label
+       * however the browser lays out base-select's internal parts. */
+      line-height: 28px;
+    }
+    .select:not([multiple], [size])::picker-icon {
+      display: none;
+    }
+    .select::picker(select) {
+      min-width: anchor-size(width);
+      margin-top: 4px;
+      padding: 4px;
+      border: 0.5px solid var(--border-popover);
+      border-radius: 12px;
+      background: var(--bg-popover);
+      color: var(--text-primary);
+      box-shadow: var(--shadow-popover);
+    }
+    .select:not([multiple], [size]) option {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 32px;
+      padding: 0 8px;
+      border-radius: 8px;
+      color: var(--text-primary);
+      font-size: var(--font-size-sm);
+      outline: none;
+    }
+    .select:not([multiple], [size]) option:is(:hover, :focus-visible) {
+      background: var(--bg-popover-hover);
+    }
+    .select:not([multiple], [size]) option:checked {
+      background: var(--bg-popover-selected);
+    }
+    .select:not([multiple], [size]) option::checkmark {
+      order: 1;
+      margin-left: auto;
+      color: var(--text-muted);
+    }
+    .select:not([multiple], [size]) option:disabled {
+      opacity: 0.5;
+    }
+    .select optgroup {
+      padding-top: 4px;
+      color: var(--text-muted);
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-medium, 500);
+    }
+  }
+
+  /* Browser-drawn parts of the other input types. */
+  .input::-webkit-calendar-picker-indicator {
+    opacity: 0.6;
+    cursor: pointer;
+  }
+  .input[type="color"] {
+    width: 44px;
+    padding: 3px;
+    cursor: pointer;
+  }
+  .input[type="color"]::-webkit-color-swatch-wrapper {
+    padding: 0;
+  }
+  .input[type="color"]::-webkit-color-swatch {
+    border: 0;
+    border-radius: 5px;
+  }
+  .input[type="color"]::-moz-color-swatch {
+    border: 0;
+    border-radius: 5px;
+  }
+  .input[type="file"] {
+    padding: 3px;
+    color: var(--text-muted);
+    cursor: pointer;
+  }
+  .input::file-selector-button {
+    height: 24px;
+    margin-right: 10px;
+    padding: 0 10px;
+    border: 0;
+    border-radius: 9999px;
+    background: var(--bg-control);
+    color: var(--text-primary);
+    font: inherit;
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium, 500);
+    box-shadow: 0 0 0 0.5px var(--border-pill);
+    cursor: pointer;
+  }
+  .input::file-selector-button:hover {
+    background: var(--bg-control-hover);
+  }
+
+  /* Drawn, not native: 16px like kit-ui's Checkbox. Unchecked is a field
+   * (fill and input border); checked fills with the accent and shows a white
+   * dot (radio) or check (checkbox). */
   .checkbox,
   .radio {
-    width: 14px;
-    height: 14px;
+    display: inline-grid;
+    place-content: center;
+    flex: none;
+    width: 16px;
+    height: 16px;
     margin: 0;
-    accent-color: var(--brand-accent);
+    border: var(--border-width, 1px) solid var(--border-input);
+    background: var(--bg-field);
     vertical-align: middle;
+    appearance: none;
+    cursor: pointer;
+    transition:
+      background-color 0.12s,
+      border-color 0.12s;
+  }
+  .checkbox {
+    border-radius: 4px;
+  }
+  .radio {
+    border-radius: 50%;
+  }
+  .checkbox:checked,
+  .radio:checked {
+    border-color: var(--brand-accent);
+    background: var(--brand-accent);
+  }
+  .radio::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #fff;
+    transform: scale(0);
+    transition: transform 0.12s;
+  }
+  .radio:checked::before {
+    transform: scale(1);
+  }
+  .checkbox::before {
+    content: "";
+    width: 10px;
+    height: 10px;
+    background: #fff;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E")
+      center / contain no-repeat;
+    transform: scale(0);
+    transition: transform 0.12s;
+  }
+  .checkbox:checked::before {
+    transform: scale(1);
+  }
+  .checkbox:focus-visible,
+  .radio:focus-visible {
+    outline: var(--focus-ring);
+    outline-offset: 2px;
   }
 
   /* A label, the control, and an optional hint or error underneath. */
@@ -234,17 +438,271 @@
     cursor: pointer;
   }
 
+  /* A checkbox drawn as a switch: <input type="checkbox" role="switch">. */
+  .switch {
+    position: relative;
+    flex: none;
+    width: 28px;
+    height: 16px;
+    margin: 0;
+    border-radius: 9999px;
+    background: var(--bg-control-hover);
+    box-shadow: inset 0 0 0 0.5px var(--border-pill);
+    vertical-align: middle;
+    appearance: none;
+    cursor: pointer;
+    transition: background-color 0.15s;
+  }
+  .switch::before {
+    content: "";
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 1px 2px rgb(0 0 0 / 0.3);
+    transition: transform 0.15s;
+  }
+  .switch:checked {
+    background: var(--brand-accent);
+  }
+  .switch:checked::before {
+    transform: translateX(12px);
+  }
+  .switch:disabled,
+  .checkbox:disabled,
+  .radio:disabled,
+  .range:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  /* A 4px track and a white thumb. Firefox also fills the track up to the
+   * thumb; WebKit has no native fill. */
+  .range {
+    width: 100%;
+    height: 16px;
+    margin: 0;
+    background: transparent;
+    appearance: none;
+    cursor: pointer;
+  }
+  .range::-webkit-slider-runnable-track {
+    height: 4px;
+    border-radius: 9999px;
+    background: var(--bg-control-hover);
+  }
+  .range::-webkit-slider-thumb {
+    width: 14px;
+    height: 14px;
+    margin-top: -5px;
+    border: 0;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow:
+      0 0 0 0.5px rgb(0 0 0 / 0.2),
+      0 1px 3px rgb(0 0 0 / 0.3);
+    appearance: none;
+  }
+  .range::-moz-range-track {
+    height: 4px;
+    border-radius: 9999px;
+    background: var(--bg-control-hover);
+  }
+  .range::-moz-range-progress {
+    height: 4px;
+    border-radius: 9999px;
+    background: var(--brand-accent);
+  }
+  .range::-moz-range-thumb {
+    width: 14px;
+    height: 14px;
+    border: 0;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow:
+      0 0 0 0.5px rgb(0 0 0 / 0.2),
+      0 1px 3px rgb(0 0 0 / 0.3);
+  }
+  .range:focus-visible {
+    outline: none;
+  }
+  .range:focus-visible::-webkit-slider-thumb {
+    outline: var(--focus-ring);
+    outline-offset: 1px;
+  }
+
+  /* Progress and meter: a 6px rounded track. Meter colors follow its
+   * low/high/optimum attributes: green good, amber fair, red poor. */
+  .progress,
+  .meter {
+    display: block;
+    width: 100%;
+    height: 6px;
+    border: 0;
+    border-radius: 9999px;
+    background: var(--bg-control-hover);
+    overflow: hidden;
+    appearance: none;
+  }
+  .progress::-webkit-progress-bar {
+    background: var(--bg-control-hover);
+  }
+  .progress::-webkit-progress-value {
+    border-radius: 9999px;
+    background: var(--brand-accent);
+  }
+  .progress::-moz-progress-bar {
+    border-radius: 9999px;
+    background: var(--brand-accent);
+  }
+  .meter::-webkit-meter-bar {
+    height: 6px;
+    border: 0;
+    border-radius: 9999px;
+    background: var(--bg-control-hover);
+  }
+  .meter::-webkit-meter-optimum-value {
+    border-radius: 9999px;
+    background: var(--accent-green);
+  }
+  .meter::-webkit-meter-suboptimum-value {
+    border-radius: 9999px;
+    background: var(--accent-amber);
+  }
+  .meter::-webkit-meter-even-less-good-value {
+    border-radius: 9999px;
+    background: var(--accent-red);
+  }
+  .meter:-moz-meter-optimum::-moz-meter-bar {
+    background: var(--accent-green);
+  }
+  .meter:-moz-meter-sub-optimum::-moz-meter-bar {
+    background: var(--accent-amber);
+  }
+  .meter:-moz-meter-sub-sub-optimum::-moz-meter-bar {
+    background: var(--accent-red);
+  }
+
+  /* ---------- Fieldset, details, dialog ---------- */
+
+  .fieldset {
+    display: grid;
+    align-content: start;
+    gap: 12px;
+    min-width: 0;
+    margin: 0;
+    padding: 12px 16px 16px;
+    border: var(--border-width, 1px) solid var(--border-shell);
+    border-radius: 10px;
+  }
+  .fieldset > legend {
+    margin-left: -4px;
+    padding: 0 4px;
+    color: var(--text-secondary);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium, 500);
+  }
+
+  /* A disclosure card. The chevron sits in a 12px slot and turns when it
+   * opens; the answer is indented to the question's text, 32px in. */
+  .details {
+    border-radius: 10px;
+    background: var(--bg-surface);
+    box-shadow: var(--shadow-card);
+  }
+  .details > summary {
+    display: flex;
+    align-items: center;
+    min-height: 40px;
+    padding: 0 12px;
+    border-radius: 10px;
+    color: var(--text-primary);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium, 500);
+    list-style: none;
+    cursor: pointer;
+  }
+  .details > summary::-webkit-details-marker {
+    display: none;
+  }
+  .details > summary::before {
+    content: "";
+    flex: none;
+    width: 6px;
+    height: 6px;
+    /* A 2px lead-in, the 6px mark and 12px after it put the question text
+     * 32px in (with the 12px padding), where the answer starts. */
+    margin: 0 12px 0 2px;
+    border-right: 1.5px solid var(--text-muted);
+    border-bottom: 1.5px solid var(--text-muted);
+    transform: rotate(-45deg);
+    transition: transform 0.15s;
+  }
+  .details[open] > summary::before {
+    margin: -3px 12px 0 2px;
+    transform: rotate(45deg);
+  }
+  .details > :not(summary) {
+    margin: 0;
+    padding: 0 12px 12px 32px;
+    color: var(--text-muted);
+    font-size: var(--font-size-sm);
+  }
+
+  /* <dialog class="dialog"> opened with showModal(). A <form method="dialog">
+   * inside closes it without script. Same layout as kit-ui's Modal. */
+  .dialog {
+    width: min(440px, calc(100vw - 32px));
+    margin: auto;
+    padding: 0;
+    border: var(--border-width, 1px) solid var(--border-popover);
+    border-radius: 12px;
+    background: var(--bg-surface);
+    color: var(--text-primary);
+    box-shadow: var(--shadow-lg);
+  }
+  .dialog::backdrop {
+    background: var(--overlay-bg);
+  }
+  .dialog-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 16px 16px 0;
+  }
+  .dialog-title {
+    margin: 0;
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-medium, 500);
+  }
+  .dialog-body {
+    padding: 12px 16px 0;
+    color: var(--text-muted);
+    font-size: var(--font-size-sm);
+  }
+  .dialog-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    padding: 24px 16px 16px;
+  }
+
   /* ---------- Card ---------- */
 
+  /* No border: a hairline ring and a soft drop shadow. */
   .card {
     padding: 16px;
-    border: 1px solid var(--border-default);
-    border-radius: var(--radius-lg, 12px);
+    border-radius: 10px;
     background: var(--bg-surface);
-    box-shadow: var(--shadow-raised, none);
+    box-shadow: var(--shadow-card);
   }
   .card-inset {
     background: var(--bg-inset);
+    box-shadow: none;
   }
   .card-title {
     margin: 0;
@@ -286,7 +744,8 @@
 
   .alert {
     padding: 10px 12px;
-    border: 1px solid color-mix(in srgb, var(--tone, var(--text-accent)) 30%, var(--border-default));
+    border: var(--border-width, 1px) solid
+      color-mix(in srgb, var(--tone, var(--text-accent)) 30%, var(--border-default));
     border-radius: var(--radius-md, 8px);
     background: color-mix(in srgb, var(--tone, var(--text-accent)) 8%, var(--bg-surface));
     color: var(--text-primary);
@@ -299,7 +758,7 @@
     display: inline-block;
     min-width: 20px;
     padding: 1px 5px;
-    border: 1px solid var(--border-default);
+    border: var(--border-width, 1px) solid var(--border-default);
     border-radius: 4px;
     background: var(--bg-inset);
     color: var(--text-secondary);
@@ -323,28 +782,155 @@
     height: 0;
     margin: 0;
     border: 0;
-    border-top: 1px solid var(--border-muted);
+    border-top: var(--border-width, 1px) solid var(--border-muted);
   }
 
+  /* An open list: no header band or row rules, 44px rows, rounded hover. */
   .table {
     width: 100%;
     border-collapse: collapse;
     font-size: var(--font-size-sm);
   }
   .table th {
-    padding: 8px 12px;
-    border-bottom: 1px solid var(--border-default);
+    height: 36px;
+    padding: 0 12px;
     color: var(--text-muted);
     font-size: var(--font-size-xs);
     font-weight: var(--font-weight-medium, 500);
     text-align: left;
   }
   .table td {
-    padding: 8px 12px;
-    border-bottom: 1px solid var(--border-muted);
+    height: 44px;
+    padding: 0 12px;
+    color: var(--text-secondary);
   }
   .table tbody tr:hover {
     background: var(--bg-surface-hover);
+  }
+  .table td:first-child {
+    border-radius: 8px 0 0 8px;
+  }
+  .table td:last-child {
+    border-radius: 0 8px 8px 0;
+  }
+  /* A group header row: <tr class="table-group"><td colspan="…">. */
+  .table .table-group td {
+    height: 32px;
+    background: var(--bg-inset);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium, 500);
+  }
+
+  /* ---------- Tabs ---------- */
+
+  /* Separate pills for switching views. Mark the current one with
+   * aria-selected="true" (role="tab") or aria-current="page" (links). */
+  .tabs {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+  .tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    height: 28px;
+    padding-inline: 10px;
+    border: 0;
+    border-radius: var(--kit-control-radius, 9999px);
+    background: var(--bg-pill);
+    box-shadow:
+      0 0 0 0.5px var(--border-pill),
+      var(--shadow-control);
+    color: var(--text-muted);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium, 500);
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+  .tab:hover {
+    background: var(--bg-control);
+    color: var(--text-secondary);
+  }
+  .tab:is([aria-selected="true"], [aria-current="page"]) {
+    background: var(--bg-pill-active);
+    box-shadow: 0 0 0 0.5px var(--border-pill);
+    color: var(--text-primary);
+  }
+
+  /* ---------- Dropdown menu ---------- */
+
+  /* .dropdown anchors a .menu panel under its trigger (a .select or .btn).
+   * Items are buttons with role="menuitem", or role="menuitemradio" plus
+   * aria-checked="true" for the current choice, which shows .menu-check.
+   * The look matches kit-ui's SelectDropdown and Menu popovers. */
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  .menu {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    z-index: 50;
+    display: grid;
+    min-width: 180px;
+    padding: 4px;
+    border: 0.5px solid var(--border-popover);
+    border-radius: 12px;
+    background: var(--bg-popover);
+    box-shadow: var(--shadow-popover);
+  }
+  .menu-end {
+    right: 0;
+    left: auto;
+  }
+  .menu-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    height: 32px;
+    padding-inline: 8px;
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    color: var(--text-primary);
+    font: inherit;
+    font-size: var(--font-size-sm);
+    text-align: left;
+    white-space: nowrap;
+    outline: none;
+    cursor: pointer;
+  }
+  .menu-item:is(:hover, :focus-visible) {
+    background: var(--bg-popover-hover);
+  }
+  .menu-item[aria-checked="true"] {
+    background: var(--bg-popover-selected);
+  }
+  .menu-item > svg {
+    flex: none;
+    color: var(--text-muted);
+  }
+  .menu-item .menu-check {
+    margin-left: auto;
+    visibility: hidden;
+  }
+  .menu-item[aria-checked="true"] .menu-check {
+    visibility: visible;
+  }
+  .menu-item-danger {
+    color: var(--accent-red);
+  }
+  .menu-item-danger > svg {
+    color: currentColor;
+  }
+  .menu-separator {
+    height: 1px;
+    margin: 4px -4px;
+    background: var(--border-popover-divider);
   }
 
   @media (hover: none) and (pointer: coarse) {

@@ -148,7 +148,7 @@
     gap: 8px;
     padding: 8px 10px;
     font-weight: 600;
-    border-bottom: 1px solid var(--border-muted);
+    border-bottom: var(--border-width) solid var(--border-muted);
   }
 
   .fake-list {

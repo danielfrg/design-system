@@ -199,7 +199,7 @@
     display: flex;
     flex-direction: column;
     padding: var(--space-3) var(--space-5);
-    border-bottom: 1px solid var(--border-muted);
+    border-bottom: var(--border-width) solid var(--border-muted);
     cursor: default;
   }
 

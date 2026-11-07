@@ -63,7 +63,7 @@
     padding: var(--space-2) var(--space-5);
     font-size: var(--font-size-sm);
     color: var(--text-secondary);
-    border-bottom: 1px solid var(--border-muted);
+    border-bottom: var(--border-width) solid var(--border-muted);
   }
 
   .note {

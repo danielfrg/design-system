@@ -47,9 +47,9 @@ pnpm build    # dist/, deployed to GitHub Pages by .github/workflows/pages.yml
 
 ## Files
 
-| File             | For                      | What it is                                                                                                                                                                      |
-| ---------------- | ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `theme.css`      | everything               | Palette and design tokens. Light on `:root`, dark on `:root.dark`. The single place with palette values. Also sets `scrollbar-gutter: stable` so modals don't shift the layout. |
-| `components.css` | Svelte apps using kit-ui | Retunes upstream `.kit-*` components (pill buttons, 8px inputs, flat surfaces).                                                                                                 |
-| `primitives.css` | static pages             | Plain `.btn`, `.input`, `.card`, `.badge`, `.alert`, `.table` and friends, matching `components.css`.                                                                           |
-| `tailwind.css`   | Tailwind v4              | Maps tokens to theme keys (`bg-surface`, `text-muted-foreground`, ...).                                                                                                         |
+| File             | For                      | What it is                                                                                                                                                                                                                    |
+| ---------------- | ------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `theme.css`      | everything               | Palette and design tokens. Light on `:root`, dark on `:root.dark`. The single place with palette values. Also sets `scrollbar-gutter: stable` so modals don't shift the layout.                                               |
+| `components.css` | Svelte apps using kit-ui | Retunes upstream `.kit-*` components (pill buttons, 8px inputs, flat surfaces).                                                                                                                                               |
+| `primitives.css` | static pages             | Plain `.btn`, `.input`, `.card`, `.badge`, `.alert`, `.table`, `.tabs`, `.menu`, plus styles for native controls (`.switch`, `.range`, `.progress`, `.meter`, `.fieldset`, `.details`, `.dialog`), matching `components.css`. |
+| `tailwind.css`   | Tailwind v4              | Maps tokens to theme keys (`bg-surface`, `text-muted-foreground`, ...).                                                                                                                                                       |

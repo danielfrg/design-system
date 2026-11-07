@@ -73,7 +73,7 @@
     gap: 24px;
     padding: 32px;
     background: var(--bg-sidebar);
-    border-right: 1px solid var(--border-default);
+    border-right: var(--border-width) solid var(--border-default);
   }
 
   .logo {

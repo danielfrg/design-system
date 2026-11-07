@@ -51,8 +51,8 @@
 </DemoSection>
 
 <DemoSection
-  title="Borderless (flat strip) variant"
-  description="The agentsview transcript-strip style: flush segments sharing hairline borders, the active one tinted with the accent. Each segment owns its border, so the accent-tinted border of the selection applies to its stretch of the control's edge — the outer border is never one uniform grey line fighting the tinted pill (same fixup as the Modal tone header)."
+  title="Borderless variant: pill tabs"
+  description="Our theme renders the borderless variant as separate pills, each with a hairline ring; the active one is a lighter fill with full-strength text. Use it to switch views of a list (Active, Backlog, All issues). The boxed variant stays one shared track for compact settings like the theme mode."
   code={`<SegmentedControl
   variant="borderless"
   options={[
@@ -81,7 +81,7 @@
 
 <DemoSection
   title="Per-segment tones (borderless)"
-  description="option.tone gives a segment its own semantic accent: tinted ink and border even while inactive, the full tone band when active. Shared-edge precedence: the active segment's border wins its edges; between inactive neighbors the leftmost segment's right border owns the shared edge. Untoned segments keep the default accent when active."
+  description="option.tone gives a pill its own semantic accent: tinted ink while inactive, and a tinted fill when active. Untoned pills keep the neutral active fill."
   code={`<SegmentedControl
   variant="borderless"
   options={[

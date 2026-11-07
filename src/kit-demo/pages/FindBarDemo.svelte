@@ -176,7 +176,7 @@
 
   .find-demo__reopen {
     padding: var(--space-3) var(--space-6);
-    border-bottom: 1px solid var(--border-muted);
+    border-bottom: var(--border-width) solid var(--border-muted);
   }
 
   .find-demo__list {

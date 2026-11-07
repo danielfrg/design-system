@@ -266,31 +266,32 @@
 {/snippet}
 
 <style>
+  /* The sidebar is the app background; the content is a raised panel inset
+   * on it, a step lighter. */
   .shell {
     display: flex;
     height: 100%;
+    background: var(--bg-sidebar);
   }
 
   .sidebar {
     display: flex;
     flex-direction: column;
-    width: 200px;
+    width: 240px;
     flex-shrink: 0;
-    border-right: 1px solid var(--border-default);
-    background: var(--bg-surface);
-    padding: 16px 10px;
+    padding: 12px;
     overflow-y: auto;
   }
 
   .sidebar__brand {
     display: flex;
     flex-direction: column;
-    padding: 0 8px 14px;
+    padding: 6px 10px 14px;
   }
 
   .sidebar__title {
     font-size: var(--font-size-lg);
-    font-weight: 700;
+    font-weight: var(--font-weight-semibold);
   }
 
   .sidebar__subtitle {
@@ -310,7 +311,7 @@
   }
 
   .sidebar__filter {
-    padding: 0 0 10px;
+    padding: 0 0 12px;
   }
 
   .sidebar__nav {
@@ -321,38 +322,39 @@
   }
 
   .sidebar__section {
-    padding: 2px 8px 4px;
+    padding: 0 10px 4px;
     color: var(--text-muted);
-    font-size: var(--font-size-2xs);
-    font-weight: 600;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium);
   }
 
   .sidebar__divider {
     height: 1px;
-    margin: 6px 8px;
-    background: var(--border-muted);
+    margin: 8px 10px;
+    background: var(--border-hairline);
     flex-shrink: 0;
   }
 
   .sidebar__empty {
-    padding: 5px 8px;
+    padding: 5px 10px;
     font-size: var(--font-size-sm);
     color: var(--text-muted);
   }
 
   .sidebar__link {
-    display: block;
+    display: flex;
+    align-items: center;
     width: 100%;
-    padding: 5px 8px;
+    min-height: 28px;
+    padding: 0 10px;
     border: 0;
+    border-radius: 8px;
     background: transparent;
-    color: var(--text-secondary);
+    color: var(--text-muted);
     font-family: inherit;
-    font-size: var(--font-size-md);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
     text-align: left;
-    border-radius: var(--radius-sm);
     cursor: pointer;
   }
 
@@ -362,9 +364,8 @@
   }
 
   .sidebar__link.active {
-    background: color-mix(in srgb, var(--accent-blue) 12%, transparent);
-    color: var(--accent-blue);
-    font-weight: 600;
+    background: var(--bg-control);
+    color: var(--text-primary);
   }
 
   .content {
@@ -372,6 +373,12 @@
     display: flex;
     flex-direction: column;
     min-width: 0;
+    margin: 8px 8px 8px 0;
+    overflow: hidden;
+    border: var(--border-width) solid var(--border-shell);
+    border-radius: var(--radius-lg);
+    background: var(--bg-primary);
+    box-shadow: var(--shadow-control);
   }
 
   /* Theme controls ride a pinned header so every page can flip theme,
@@ -383,9 +390,9 @@
     flex-wrap: wrap;
     gap: var(--space-4) var(--space-6);
     flex-shrink: 0;
-    padding: var(--space-5) 32px;
-    border-bottom: 1px solid var(--border-muted);
-    background: var(--bg-surface);
+    min-height: 52px;
+    padding: 8px 12px 8px 32px;
+    border-bottom: var(--border-width) solid var(--border-hairline);
   }
 
   .content__theme-controls {
@@ -405,8 +412,8 @@
   }
 
   .content__heading {
-    font-size: var(--font-size-xl);
-    font-weight: 700;
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
     margin: 0;
   }
 </style>

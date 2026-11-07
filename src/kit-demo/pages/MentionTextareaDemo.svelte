@@ -199,7 +199,7 @@
     --kit-mention-min-height: 56px;
     --kit-mention-max-height: 12rem;
     background: var(--bg-surface);
-    border: 1px solid var(--border-default);
+    border: var(--border-width) solid var(--border-default);
     border-radius: var(--radius-md);
   }
 

@@ -57,7 +57,7 @@
   .frame {
     height: 720px;
     overflow: auto;
-    border: 1px solid var(--border-default);
+    border: var(--border-width) solid var(--border-default);
     border-radius: var(--radius-lg);
     container-type: inline-size;
   }
