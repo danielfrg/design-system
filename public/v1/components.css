@@ -2,7 +2,7 @@
  * Shared kit-ui component styles.
  *
  * Reads only design tokens, so one file serves every theme. Palette, shape and
- * density values live in themes/<name>.css.
+ * density values live in theme.css.
  */
 
 /* Actions and icon utilities take the theme's control shape (pills, circles or

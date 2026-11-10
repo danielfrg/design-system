@@ -8,11 +8,11 @@ Also a simpler no-build version for static pages with plain-HTML + CSS + tailwin
 
 ## Usage: Svelte
 
-Copy `themes/linear.css` and `components.css` into the app, import in this order:
+Copy `theme.css` and `components.css` into the app, import in this order:
 
 ```ts
 import "@kenn-io/kit-ui/theme.css"; // upstream defaults
-import "./linear.css"; // ours, overrides the tokens
+import "./theme.css"; // ours, overrides the tokens
 import "./components.css"; // ours, styles components
 import "./popover-position.js"; // optional, see Files
 ```
@@ -27,7 +27,7 @@ Set the theme on the root element, once:
 
 ```html
 <html lang="en" data-kit-theme="linear">
-  <link rel="stylesheet" href="https://danielfrg.github.io/design-system/v1/themes/linear.css" />
+  <link rel="stylesheet" href="https://danielfrg.github.io/design-system/v1/theme.css" />
   <link rel="stylesheet" href="https://danielfrg.github.io/design-system/v1/primitives.css" />
 
   <style type="text/tailwindcss">
@@ -60,12 +60,12 @@ pnpm build    # dist/, deployed to GitHub Pages by .github/workflows/pages.yml
 
 | File                  | For                      | What it is                                                                                                                                                                                                                                                           |
 | --------------------- | ------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `themes/linear.css`   | everything               | Palette and design tokens. Light on `:root[data-kit-theme="linear"]`, dark on `:root.dark[data-kit-theme="linear"]`. The single place with palette and shape values. Also sets `scrollbar-gutter: stable` so modals don't shift the layout.                          |
+| `theme.css`           | everything               | Palette and design tokens. Light on `:root[data-kit-theme="linear"]`, dark on `:root.dark[data-kit-theme="linear"]`. The single place with palette and shape values. Also sets `scrollbar-gutter: stable` so modals don't shift the layout.                          |
 | `components.css`      | Svelte apps using kit-ui | Retunes upstream `.kit-*` components (pill buttons, 8px inputs, flat surfaces). Reads only tokens.                                                                                                                                                                   |
 | `popover-position.js` | Svelte apps using kit-ui | Optional. Opens `SelectDropdown` lists over their trigger (the current choice where the closed trigger was) and sets the gap under menus and filter panels, from `--select-overlay` and `--popover-gap`. kit-ui places these in JS, so CSS alone can't. Import once. |
 | `primitives.css`      | static pages             | Plain `.btn`, `.input`, `.card`, `.badge`, `.alert`, `.table`, `.tabs`, `.menu`, plus styles for native controls (`.switch`, `.range`, `.progress`, `.meter`, `.fieldset`, `.details`, `.dialog`), matching `components.css`.                                        |
 | `tailwind.css`        | Tailwind v4              | Maps tokens to theme keys (`bg-surface`, `text-muted-foreground`, ...).                                                                                                                                                                                              |
 
 `components.css` and `primitives.css` carry no look of their own: radii, control size, borders,
-table, menu and shell layout all come from tokens in `themes/linear.css`. `pnpm build` runs
+table, menu and shell layout all come from tokens in `theme.css`. `pnpm build` runs
 `scripts/check-themes.mjs`, which fails when the shared CSS uses a token the theme doesn't define.
