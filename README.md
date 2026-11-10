@@ -23,6 +23,14 @@ Set the theme on the root element, once:
 <html lang="en" data-kit-theme="linear"></html>
 ```
 
+kit-ui's `initTheme()` removes `data-kit-theme` when no theme name is stored, so
+set it again right after:
+
+```ts
+initTheme({ storageKey: "my-app-theme" });
+setThemeName("linear");
+```
+
 ## Usage: no-build
 
 ```html
@@ -61,7 +69,7 @@ pnpm build    # dist/, deployed to GitHub Pages by .github/workflows/pages.yml
 | File                  | For                      | What it is                                                                                                                                                                                                                                                           |
 | --------------------- | ------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `theme.css`           | everything               | Palette and design tokens. Light on `:root[data-kit-theme="linear"]`, dark on `:root.dark[data-kit-theme="linear"]`. The single place with palette and shape values. Also sets `scrollbar-gutter: stable` so modals don't shift the layout.                          |
-| `components.css`      | Svelte apps using kit-ui | Retunes upstream `.kit-*` components (pill buttons, 8px inputs, flat surfaces). Reads only tokens.                                                                                                                                                                   |
+| `components.css`      | Svelte apps using kit-ui | Retunes upstream `.kit-*` components (pill buttons, 8px inputs, flat surfaces) and adds `class="ghost"` for quiet Buttons and MenuTriggers. Reads only tokens.                                                                                                       |
 | `popover-position.js` | Svelte apps using kit-ui | Optional. Opens `SelectDropdown` lists over their trigger (the current choice where the closed trigger was) and sets the gap under menus and filter panels, from `--select-overlay` and `--popover-gap`. kit-ui places these in JS, so CSS alone can't. Import once. |
 | `primitives.css`      | static pages             | Plain `.btn`, `.input`, `.card`, `.badge`, `.alert`, `.table`, `.tabs`, `.menu`, plus styles for native controls (`.switch`, `.range`, `.progress`, `.meter`, `.fieldset`, `.details`, `.dialog`), matching `components.css`.                                        |
 | `tailwind.css`        | Tailwind v4              | Maps tokens to theme keys (`bg-surface`, `text-muted-foreground`, ...).                                                                                                                                                                                              |

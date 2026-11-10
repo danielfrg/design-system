@@ -48,6 +48,30 @@
   background: var(--bg-button-hover);
 }
 
+/* Ghost: class="ghost" on an outline Button or a MenuTrigger. No background,
+ * border or shadow until hovered (or open); for quiet actions in headers and
+ * rows ("New token", a row's "…" menu). */
+:root .kit-button.kit-button--outline.ghost,
+:root .kit-menu__trigger.ghost {
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
+}
+
+:root .kit-button.kit-button--outline.ghost:hover:not(:disabled),
+:root .kit-menu__trigger.ghost:hover:not(:disabled),
+:root .kit-menu__trigger.ghost[aria-expanded="true"] {
+  background: var(--bg-button-hover);
+  border-color: transparent;
+}
+
+/* Buttons keep their tone color (a ghost Delete stays red); a menu trigger
+ * brightens like kit-ui's own. */
+:root .kit-menu__trigger.ghost:hover:not(:disabled),
+:root .kit-menu__trigger.ghost[aria-expanded="true"] {
+  color: var(--text-primary);
+}
+
 :root .kit-button.kit-button--solid {
   box-shadow: var(--shadow-control);
 }

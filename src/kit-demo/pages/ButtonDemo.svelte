@@ -1,8 +1,18 @@
 <script lang="ts">
   import CheckIcon from "@lucide/svelte/icons/check";
+  import EllipsisIcon from "@lucide/svelte/icons/ellipsis";
   import GitMergeIcon from "@lucide/svelte/icons/git-merge";
   import XIcon from "@lucide/svelte/icons/x";
-  import { Button, showFlash, type ButtonSurface, type ButtonTone } from "../../lib/index.js";
+  import {
+    Button,
+    Menu,
+    MenuContent,
+    MenuItem,
+    MenuTrigger,
+    showFlash,
+    type ButtonSurface,
+    type ButtonTone,
+  } from "../../lib/index.js";
   import DemoSection from "../DemoSection.svelte";
 
   const tones: ButtonTone[] = ["neutral", "info", "success", "danger", "workflow"];
@@ -91,6 +101,45 @@
   <span class="kit-sr-only" data-testid="control-states-element-status">
     {structuralElement ? "bound" : "unbound"}
   </span>
+</DemoSection>
+
+<DemoSection
+  title="Ghost"
+  description={'components.css adds class="ghost" for quiet actions in headers and rows: an outline Button or a MenuTrigger with no background, border or shadow until hovered (or open). Buttons keep their tone color, so a ghost Delete still turns red on hover.'}
+  code={`<Button size="sm" class="ghost">New token</Button>
+<Button size="sm" tone="danger" class="ghost">Delete</Button>
+
+<Menu align="end">
+  <MenuTrigger ariaLabel="Actions" class="ghost">
+    <EllipsisIcon size={16} />
+  </MenuTrigger>
+  <MenuContent ariaLabel="Actions">…</MenuContent>
+</Menu>`}
+>
+  <div class="ghost-demo" data-demo="button-ghost">
+    <div class="ghost-demo__row">
+      <span>2 tokens</span>
+      <Button size="sm" class="ghost">New token</Button>
+    </div>
+    <div class="ghost-demo__row">
+      <span>Chrome extension</span>
+      <span class="ghost-demo__actions">
+        <Button size="sm" class="ghost">Rename</Button>
+        <Button size="sm" tone="danger" class="ghost">Delete</Button>
+        <Menu align="end">
+          <MenuTrigger ariaLabel="Actions for Chrome extension" class="ghost ghost-demo__dots">
+            <EllipsisIcon size={16} aria-hidden="true" />
+          </MenuTrigger>
+          <MenuContent ariaLabel="Actions for Chrome extension">
+            <MenuItem onselect={() => showFlash("Edit", { tone: "info" })}>Edit</MenuItem>
+            <MenuItem tone="danger" onselect={() => showFlash("Revoke", { tone: "danger" })}>
+              Revoke
+            </MenuItem>
+          </MenuContent>
+        </Menu>
+      </span>
+    </div>
+  </div>
 </DemoSection>
 
 <DemoSection
@@ -237,6 +286,41 @@
     grid-template-columns: repeat(5, max-content);
     gap: var(--space-4);
     align-items: center;
+  }
+
+  .ghost-demo {
+    display: flex;
+    flex-direction: column;
+    width: min(100%, 520px);
+    border-radius: var(--radius-md);
+    background: var(--bg-surface);
+    box-shadow: var(--shadow-card, 0 0 0 1px var(--border-default));
+  }
+
+  .ghost-demo__row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    padding: var(--space-4) var(--space-5);
+  }
+
+  .ghost-demo__row + .ghost-demo__row {
+    border-top: 1px solid var(--border-muted);
+  }
+
+  .ghost-demo__actions {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .ghost-demo :global(.ghost-demo__dots) {
+    width: 28px;
+    height: 28px;
+    min-height: 0;
+    padding: 0;
+    border-radius: 999px;
   }
 
   .glyph-safety {
