@@ -2,9 +2,9 @@
  * Plain-HTML primitives: buttons, inputs, cards and a few friends.
  *
  * For pages with no-build or JS framework, e.g. a static page with Alpine.
- * The look matches components.css: pill buttons, 8px inputs, ring-shadow cards.
- * Needs theme.css loaded first.
- *
+ * Reads only design tokens and matches components.css. Needs
+ * themes/linear.css loaded first, and <html data-kit-theme="linear"> to
+ * activate it.
  */
 @layer theme, base, components, utilities;
 
@@ -83,14 +83,14 @@
     align-items: center;
     justify-content: center;
     gap: 6px;
-    height: var(--kit-control-height, 28px);
+    height: var(--kit-control-height);
     padding-inline: 12px;
-    border: var(--border-width, 1px) solid var(--btn-border, var(--border-hairline));
-    border-radius: var(--kit-control-radius, 9999px);
-    background: var(--btn-bg, var(--bg-field));
+    border: var(--border-width) solid var(--btn-border, var(--border-control));
+    border-radius: var(--kit-control-radius);
+    background: var(--btn-bg, var(--bg-button));
     box-shadow: var(--btn-shadow, var(--shadow-control));
     color: var(--btn-fg, var(--text-primary));
-    font-size: var(--kit-control-font-size, var(--font-size-xs));
+    font-size: var(--kit-control-font-size);
     font-weight: var(--font-weight-medium, 500);
     line-height: 1;
     white-space: nowrap;
@@ -102,7 +102,7 @@
       opacity 0.12s;
   }
   .btn:hover:not(:disabled, [aria-disabled="true"]) {
-    background: var(--btn-bg-hover, var(--bg-control-hover));
+    background: var(--btn-bg-hover, var(--bg-button-hover));
   }
   .btn:disabled,
   .btn[aria-disabled="true"] {
@@ -131,22 +131,22 @@
   }
 
   .btn-sm {
-    height: 24px;
+    height: calc(var(--kit-control-height) - 4px);
     padding-inline: 10px;
   }
   .btn-lg {
-    height: 32px;
+    height: calc(var(--kit-control-height) + 4px);
   }
   /* Square, for a lone icon. Give it an aria-label. */
   .btn-icon {
-    width: var(--kit-control-height, 28px);
+    width: var(--kit-control-height);
     padding: 0;
   }
   .btn-icon.btn-sm {
-    width: 24px;
+    width: calc(var(--kit-control-height) - 4px);
   }
   .btn-icon.btn-lg {
-    width: 32px;
+    width: calc(var(--kit-control-height) + 4px);
   }
 
   /* ---------- Fields ---------- */
@@ -156,10 +156,10 @@
   .select {
     display: block;
     width: 100%;
-    height: 32px;
+    height: var(--input-height);
     padding-inline: 12px;
-    border: var(--border-width, 1px) solid var(--border-input);
-    border-radius: var(--radius-md, 8px);
+    border: var(--border-width) solid var(--border-input);
+    border-radius: var(--radius-field);
     background: var(--bg-field);
     color: var(--text-primary);
     font-size: var(--font-size-sm);
@@ -170,11 +170,14 @@
   .textarea::placeholder {
     color: var(--text-muted);
   }
-  /* One focus border, the same treatment as kit-ui's text input. */
+  /* One focus border (plus the theme's outline, if any), the same treatment
+   * as kit-ui's text input. */
   .input:focus,
   .textarea:focus,
   .select:focus {
-    border-color: var(--brand-accent);
+    border-color: var(--border-focus);
+    outline: var(--field-focus-outline);
+    outline-offset: 0;
   }
   .input:disabled,
   .textarea:disabled,
@@ -195,19 +198,17 @@
     resize: vertical;
   }
 
-  /* A select is a raised control, like kit-ui's SelectDropdown trigger and
-   * Linear's: control fill, a 0.5px ring and a small drop, no outline. */
+  /* A select is a raised control, like kit-ui's SelectDropdown trigger:
+   * control fill, the theme's edge and a small drop, no outline. */
   .select {
     width: auto;
     max-width: 100%;
-    height: 30px;
+    height: var(--select-height);
     padding-left: 10px;
-    border-color: transparent;
+    border-color: var(--border-select);
     background-color: var(--bg-control);
     color: var(--text-secondary);
-    box-shadow:
-      0 0 0 0.5px var(--border-pill),
-      var(--shadow-control);
+    box-shadow: var(--shadow-select);
     appearance: none;
     padding-right: 28px;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%239c9da1' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
@@ -242,7 +243,7 @@
   }
 
   /* Where the browser supports customizable selects (Chrome 135+), the
-   * native menu takes the same panel as .menu: 12px corners, 32px rows and
+   * native menu takes the same panel as .menu: themed corners and rows, and
    * the check at the end. Other browsers keep their own menu. */
   @supports (appearance: base-select) {
     .select:not([multiple], [size]),
@@ -254,11 +255,11 @@
     .select:not([multiple], [size]) {
       display: flex;
       align-items: center;
-      height: 30px;
+      height: var(--select-height);
       padding-block: 0;
-      /* The inner border box is 28px; a matching line box centers the label
-       * however the browser lays out base-select's internal parts. */
-      line-height: 28px;
+      /* A line box as tall as the inner border box centers the label however
+       * the browser lays out base-select's internal parts. */
+      line-height: calc(var(--select-height) - 2px);
     }
     .select:not([multiple], [size])::picker-icon {
       display: none;
@@ -266,9 +267,9 @@
     .select::picker(select) {
       min-width: anchor-size(width);
       margin-top: 4px;
-      padding: 4px;
-      border: 0.5px solid var(--border-popover);
-      border-radius: 12px;
+      padding: var(--menu-padding-y) var(--menu-padding-x);
+      border: var(--popover-border-width) solid var(--border-popover);
+      border-radius: var(--radius-popover);
       background: var(--bg-popover);
       color: var(--text-primary);
       box-shadow: var(--shadow-popover);
@@ -277,18 +278,19 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      min-height: 32px;
-      padding: 0 8px;
-      border-radius: 8px;
+      min-height: var(--menu-item-height);
+      padding: 0 var(--menu-item-padding-x);
+      border-radius: var(--radius-item);
       color: var(--text-primary);
       font-size: var(--font-size-sm);
       outline: none;
     }
+    /* The checked option shows its checkmark; only the hovered row is filled. */
+    .select:not([multiple], [size]) option:checked {
+      background: transparent;
+    }
     .select:not([multiple], [size]) option:is(:hover, :focus-visible) {
       background: var(--bg-popover-hover);
-    }
-    .select:not([multiple], [size]) option:checked {
-      background: var(--bg-popover-selected);
     }
     .select:not([multiple], [size]) option::checkmark {
       order: 1;
@@ -333,17 +335,17 @@
     cursor: pointer;
   }
   .input::file-selector-button {
-    height: 24px;
+    height: calc(var(--kit-control-height) - 4px);
     margin-right: 10px;
     padding: 0 10px;
     border: 0;
-    border-radius: 9999px;
+    border-radius: var(--kit-control-radius);
     background: var(--bg-control);
     color: var(--text-primary);
     font: inherit;
     font-size: var(--font-size-xs);
     font-weight: var(--font-weight-medium, 500);
-    box-shadow: 0 0 0 0.5px var(--border-pill);
+    box-shadow: var(--shadow-pill-active);
     cursor: pointer;
   }
   .input::file-selector-button:hover {
@@ -361,7 +363,7 @@
     width: 16px;
     height: 16px;
     margin: 0;
-    border: var(--border-width, 1px) solid var(--border-input);
+    border: var(--border-width) solid var(--border-input);
     background: var(--bg-field);
     vertical-align: middle;
     appearance: none;
@@ -371,7 +373,7 @@
       border-color 0.12s;
   }
   .checkbox {
-    border-radius: 4px;
+    border-radius: var(--radius-check);
   }
   .radio {
     border-radius: 50%;
@@ -442,12 +444,12 @@
   .switch {
     position: relative;
     flex: none;
-    width: 28px;
-    height: 16px;
+    width: var(--switch-width);
+    height: var(--switch-height);
     margin: 0;
     border-radius: 9999px;
     background: var(--bg-control-hover);
-    box-shadow: inset 0 0 0 0.5px var(--border-pill);
+    box-shadow: inset 0 0 0 var(--border-width) var(--border-pill);
     vertical-align: middle;
     appearance: none;
     cursor: pointer;
@@ -456,10 +458,10 @@
   .switch::before {
     content: "";
     position: absolute;
-    top: 2px;
-    left: 2px;
-    width: 12px;
-    height: 12px;
+    top: var(--switch-inset);
+    left: var(--switch-inset);
+    width: calc(var(--switch-height) - 2 * var(--switch-inset));
+    height: calc(var(--switch-height) - 2 * var(--switch-inset));
     border-radius: 50%;
     background: #fff;
     box-shadow: 0 1px 2px rgb(0 0 0 / 0.3);
@@ -469,7 +471,7 @@
     background: var(--brand-accent);
   }
   .switch:checked::before {
-    transform: translateX(12px);
+    transform: translateX(calc(var(--switch-width) - var(--switch-height)));
   }
   .switch:disabled,
   .checkbox:disabled,
@@ -595,8 +597,8 @@
     min-width: 0;
     margin: 0;
     padding: 12px 16px 16px;
-    border: var(--border-width, 1px) solid var(--border-shell);
-    border-radius: 10px;
+    border: var(--border-width) solid var(--border-shell);
+    border-radius: var(--radius-card);
   }
   .fieldset > legend {
     margin-left: -4px;
@@ -609,7 +611,8 @@
   /* A disclosure card. The chevron sits in a 12px slot and turns when it
    * opens; the answer is indented to the question's text, 32px in. */
   .details {
-    border-radius: 10px;
+    border: var(--border-width) solid var(--card-border);
+    border-radius: var(--radius-card);
     background: var(--bg-surface);
     box-shadow: var(--shadow-card);
   }
@@ -618,7 +621,7 @@
     align-items: center;
     min-height: 40px;
     padding: 0 12px;
-    border-radius: 10px;
+    border-radius: var(--radius-card);
     color: var(--text-primary);
     font-size: var(--font-size-sm);
     font-weight: var(--font-weight-medium, 500);
@@ -658,8 +661,8 @@
     width: min(440px, calc(100vw - 32px));
     margin: auto;
     padding: 0;
-    border: var(--border-width, 1px) solid var(--border-popover);
-    border-radius: 12px;
+    border: var(--popover-border-width) solid var(--border-popover);
+    border-radius: var(--radius-modal);
     background: var(--bg-surface);
     color: var(--text-primary);
     box-shadow: var(--shadow-lg);
@@ -693,14 +696,17 @@
 
   /* ---------- Card ---------- */
 
-  /* No border: a hairline ring and a soft drop shadow. */
+  /* The theme picks the edge: a border, or a ring-shadow with a transparent
+   * border. */
   .card {
     padding: 16px;
-    border-radius: 10px;
+    border: var(--border-width) solid var(--card-border);
+    border-radius: var(--radius-card);
     background: var(--bg-surface);
     box-shadow: var(--shadow-card);
   }
   .card-inset {
+    border-color: transparent;
     background: var(--bg-inset);
     box-shadow: none;
   }
@@ -729,10 +735,16 @@
     display: inline-flex;
     align-items: center;
     gap: 4px;
-    height: 20px;
+    height: var(--badge-height);
     padding-inline: 8px;
-    border-radius: 9999px;
-    background: color-mix(in srgb, var(--tone, var(--text-secondary)) 13%, transparent);
+    border: var(--badge-border-width) solid
+      color-mix(in srgb, var(--tone, var(--text-secondary)) var(--badge-border-alpha), transparent);
+    border-radius: var(--radius-badge);
+    background: color-mix(
+      in srgb,
+      var(--tone, var(--text-secondary)) var(--badge-bg-alpha),
+      transparent
+    );
     color: var(--tone, var(--text-secondary));
     font-size: var(--font-size-xs);
     font-weight: var(--font-weight-medium, 500);
@@ -744,9 +756,9 @@
 
   .alert {
     padding: 10px 12px;
-    border: var(--border-width, 1px) solid
+    border: var(--border-width) solid
       color-mix(in srgb, var(--tone, var(--text-accent)) 30%, var(--border-default));
-    border-radius: var(--radius-md, 8px);
+    border-radius: var(--radius-md);
     background: color-mix(in srgb, var(--tone, var(--text-accent)) 8%, var(--bg-surface));
     color: var(--text-primary);
     font-size: var(--font-size-sm);
@@ -758,7 +770,7 @@
     display: inline-block;
     min-width: 20px;
     padding: 1px 5px;
-    border: var(--border-width, 1px) solid var(--border-default);
+    border: var(--border-width) solid var(--border-default);
     border-radius: 4px;
     background: var(--bg-inset);
     color: var(--text-secondary);
@@ -782,36 +794,40 @@
     height: 0;
     margin: 0;
     border: 0;
-    border-top: var(--border-width, 1px) solid var(--border-muted);
+    border-top: var(--border-width) solid var(--border-muted);
   }
 
-  /* An open list: no header band or row rules, 44px rows, rounded hover. */
+  /* An open list with no header band. Row rules, row height, header case and
+   * the hover fill come from the theme. */
   .table {
     width: 100%;
     border-collapse: collapse;
     font-size: var(--font-size-sm);
   }
   .table th {
-    height: 36px;
+    height: var(--table-th-height);
     padding: 0 12px;
     color: var(--text-muted);
     font-size: var(--font-size-xs);
-    font-weight: var(--font-weight-medium, 500);
+    font-weight: var(--table-th-weight);
+    letter-spacing: var(--table-th-tracking);
     text-align: left;
+    text-transform: var(--table-th-transform);
   }
   .table td {
-    height: 44px;
+    height: var(--table-td-height);
     padding: 0 12px;
+    border-bottom: var(--table-row-border);
     color: var(--text-secondary);
   }
   .table tbody tr:hover {
-    background: var(--bg-surface-hover);
+    background: var(--bg-row-hover);
   }
   .table td:first-child {
-    border-radius: 8px 0 0 8px;
+    border-radius: var(--radius-item) 0 0 var(--radius-item);
   }
   .table td:last-child {
-    border-radius: 0 8px 8px 0;
+    border-radius: 0 var(--radius-item) var(--radius-item) 0;
   }
   /* A group header row: <tr class="table-group"><td colspan="…">. */
   .table .table-group td {
@@ -823,7 +839,7 @@
 
   /* ---------- Tabs ---------- */
 
-  /* Separate pills for switching views. Mark the current one with
+  /* Separate chips for switching views. Mark the current one with
    * aria-selected="true" (role="tab") or aria-current="page" (links). */
   .tabs {
     display: inline-flex;
@@ -834,14 +850,12 @@
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    height: 28px;
+    height: var(--kit-control-height);
     padding-inline: 10px;
     border: 0;
-    border-radius: var(--kit-control-radius, 9999px);
+    border-radius: var(--kit-control-radius);
     background: var(--bg-pill);
-    box-shadow:
-      0 0 0 0.5px var(--border-pill),
-      var(--shadow-control);
+    box-shadow: var(--shadow-pill);
     color: var(--text-muted);
     font-size: var(--font-size-xs);
     font-weight: var(--font-weight-medium, 500);
@@ -855,7 +869,7 @@
   }
   .tab:is([aria-selected="true"], [aria-current="page"]) {
     background: var(--bg-pill-active);
-    box-shadow: 0 0 0 0.5px var(--border-pill);
+    box-shadow: var(--shadow-pill-active);
     color: var(--text-primary);
   }
 
@@ -876,9 +890,9 @@
     z-index: 50;
     display: grid;
     min-width: 180px;
-    padding: 4px;
-    border: 0.5px solid var(--border-popover);
-    border-radius: 12px;
+    padding: var(--menu-padding-y) var(--menu-padding-x);
+    border: var(--popover-border-width) solid var(--border-popover);
+    border-radius: var(--radius-popover);
     background: var(--bg-popover);
     box-shadow: var(--shadow-popover);
   }
@@ -891,10 +905,10 @@
     align-items: center;
     gap: 8px;
     width: 100%;
-    height: 32px;
-    padding-inline: 8px;
+    height: var(--menu-item-height);
+    padding-inline: var(--menu-item-padding-x);
     border: 0;
-    border-radius: 8px;
+    border-radius: var(--radius-item);
     background: transparent;
     color: var(--text-primary);
     font: inherit;
@@ -906,9 +920,6 @@
   }
   .menu-item:is(:hover, :focus-visible) {
     background: var(--bg-popover-hover);
-  }
-  .menu-item[aria-checked="true"] {
-    background: var(--bg-popover-selected);
   }
   .menu-item > svg {
     flex: none;
@@ -929,7 +940,7 @@
   }
   .menu-separator {
     height: 1px;
-    margin: 4px -4px;
+    margin: 4px calc(var(--menu-padding-x) * -1);
     background: var(--border-popover-divider);
   }
 

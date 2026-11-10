@@ -71,25 +71,30 @@
         </SettingsSection>
       {:else if id === "appearance"}
         <SettingsSection title="Theme" description="Follow your system or pick one.">
-          <SegmentedControl
-            value={theme}
-            onchange={(v) => (theme = v)}
-            options={[
-              { value: "light", label: "Light" },
-              { value: "dark", label: "Dark" },
-              { value: "system", label: "System" },
-            ]}
-          />
+          <!-- Each direct child of a section is a padded row, so the control sits in one. -->
+          <div>
+            <SegmentedControl
+              value={theme}
+              onchange={(v) => (theme = v)}
+              options={[
+                { value: "light", label: "Light" },
+                { value: "dark", label: "Dark" },
+                { value: "system", label: "System" },
+              ]}
+            />
+          </div>
         </SettingsSection>
         <SettingsSection title="Density" description="How much space lists take up.">
-          <SegmentedControl
-            value={density}
-            onchange={(v) => (density = v)}
-            options={[
-              { value: "compact", label: "Compact" },
-              { value: "comfortable", label: "Comfortable" },
-            ]}
-          />
+          <div>
+            <SegmentedControl
+              value={density}
+              onchange={(v) => (density = v)}
+              options={[
+                { value: "compact", label: "Compact" },
+                { value: "comfortable", label: "Comfortable" },
+              ]}
+            />
+          </div>
         </SettingsSection>
       {:else if id === "security"}
         <SettingsSection title="Sign-in" description="Protect your account.">
