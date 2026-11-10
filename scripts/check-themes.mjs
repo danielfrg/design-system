@@ -10,8 +10,8 @@ const css = readFileSync("public/v1/theme.css", "utf8");
 // Blocks contain no nested braces, so a flat match is enough.
 const block = (selector) =>
   [...css.matchAll(new RegExp(`${selector}\\s*\\{([^}]*)\\}`, "g"))].map((m) => m[1]).join("\n");
-const light = decls(block(`:root\\[data-kit-theme="linear"\\]`));
-const dark = decls(block(`:root\\.dark\\[data-kit-theme="linear"\\]`));
+const light = decls(block(`:root`));
+const dark = decls(block(`:root\\.dark`));
 
 let failed = false;
 const fail = (msg) => {
@@ -20,7 +20,7 @@ const fail = (msg) => {
 };
 
 if (light.size === 0) {
-  fail(`theme.css: no :root[data-kit-theme="linear"] block found.`);
+  fail(`theme.css: no :root block found.`);
 } else {
   const darkOnly = [...dark].filter((t) => !light.has(t));
   if (darkOnly.length) {

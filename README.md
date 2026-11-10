@@ -17,24 +17,13 @@ import "./components.css"; // ours, styles components
 import "./popover-position.js"; // optional, see Files
 ```
 
-Set the theme on the root element, once:
-
-```html
-<html lang="en" data-kit-theme="linear"></html>
-```
-
-kit-ui's `initTheme()` removes `data-kit-theme` when no theme name is stored, so
-set it again right after:
-
-```ts
-initTheme({ storageKey: "my-app-theme" });
-setThemeName("linear");
-```
+No attribute or JS is needed: `theme.css` sets the tokens on `:root` (and `:root.dark`), so
+just import it after kit-ui's `theme.css`.
 
 ## Usage: no-build
 
 ```html
-<html lang="en" data-kit-theme="linear">
+<html lang="en">
   <link rel="stylesheet" href="https://danielfrg.github.io/design-system/v1/theme.css" />
   <link rel="stylesheet" href="https://danielfrg.github.io/design-system/v1/primitives.css" />
 
@@ -68,7 +57,7 @@ pnpm build    # dist/, deployed to GitHub Pages by .github/workflows/pages.yml
 
 | File                  | For                      | What it is                                                                                                                                                                                                                                                           |
 | --------------------- | ------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `theme.css`           | everything               | Palette and design tokens. Light on `:root[data-kit-theme="linear"]`, dark on `:root.dark[data-kit-theme="linear"]`. The single place with palette and shape values. Also sets `scrollbar-gutter: stable` so modals don't shift the layout.                          |
+| `theme.css`           | everything               | Palette and design tokens. Light on `:root`, dark on `:root.dark`. The single place with palette and shape values. Also sets `scrollbar-gutter: stable` so modals don't shift the layout.                          |
 | `components.css`      | Svelte apps using kit-ui | Retunes upstream `.kit-*` components (pill buttons, 8px inputs, flat surfaces) and adds `class="ghost"` for quiet Buttons and MenuTriggers. Reads only tokens.                                                                                                       |
 | `popover-position.js` | Svelte apps using kit-ui | Optional. Opens `SelectDropdown` lists over their trigger (the current choice where the closed trigger was) and sets the gap under menus and filter panels, from `--select-overlay` and `--popover-gap`. kit-ui places these in JS, so CSS alone can't. Import once. |
 | `primitives.css`      | static pages             | Plain `.btn`, `.input`, `.card`, `.badge`, `.alert`, `.table`, `.tabs`, `.menu`, plus styles for native controls (`.switch`, `.range`, `.progress`, `.meter`, `.fieldset`, `.details`, `.dialog`), matching `components.css`.                                        |

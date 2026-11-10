@@ -3,8 +3,7 @@
  *
  * For pages with no-build or JS framework, e.g. a static page with Alpine.
  * Reads only design tokens and matches components.css. Needs
- * theme.css loaded first, and <html data-kit-theme="linear"> to
- * activate it.
+ * theme.css loaded first.
  */
 @layer theme, base, components, utilities;
 
