@@ -138,12 +138,13 @@
   ];
 </script>
 
-{#snippet navItem(item: (typeof workspaceNav)[number], nested = false)}
+{#snippet navItem(item: (typeof workspaceNav)[number])}
   <Button
+    class="nav__item"
+    data-variant="ghost"
     aria-current={activeNav === item.id ? "page" : undefined}
     onclick={() => (activeNav = item.id)}
-  
-    data-variant={activeNav === item.id ? "solid" : undefined}>
+  >
     <item.icon aria-hidden="true" />
     {item.label}
   </Button>
@@ -156,10 +157,10 @@
         <span class="workspace__mark" aria-hidden="true">AC</span>
         Acme
       </span>
-      <Button aria-label="Search" onclick={() => toast("Search")}>
+      <Button data-variant="ghost" aria-label="Search" onclick={() => toast("Search")}>
         <SearchIcon aria-hidden="true" />
       </Button>
-      <Button aria-label="New issue" onclick={() => toast("New issue")}>
+      <Button data-variant="ghost" aria-label="New issue" onclick={() => toast("New issue")}>
         <SquarePenIcon aria-hidden="true" />
       </Button>
     </div>
@@ -171,7 +172,7 @@
       <span class="nav__section">Your teams</span>
       <span class="nav__team">Acme</span>
       {#each teamNav as item (item.id)}
-        {@render navItem(item, true)}
+        {@render navItem(item)}
       {/each}
     </nav>
   </aside>
@@ -181,7 +182,7 @@
       <span class="crumbs">
         Acme <ChevronRightIcon aria-hidden="true" /> <strong>Issues</strong>
       </span>
-      <Button aria-label="Notifications" onclick={() => toast("No new notifications")}>
+      <Button data-variant="ghost" aria-label="Notifications" onclick={() => toast("No new notifications")}>
         <BellIcon aria-hidden="true" />
       </Button>
     </header>
@@ -195,13 +196,13 @@
       </SegmentedControl>
       <span class="toolbar__actions">
         <Tooltip type="label">
-          <TooltipTrigger aria-label="Filter">
+          <TooltipTrigger data-variant="ghost" aria-label="Filter">
             <ListFilterIcon aria-hidden="true" />
           </TooltipTrigger>
           <TooltipContent>Filter</TooltipContent>
         </Tooltip>
         <Tooltip type="label">
-          <TooltipTrigger aria-label="Display options">
+          <TooltipTrigger data-variant="ghost" aria-label="Display options">
             <SlidersHorizontalIcon aria-hidden="true" />
           </TooltipTrigger>
           <TooltipContent>Display options</TooltipContent>
@@ -215,12 +216,14 @@
         <li>
           <Collapsible bind:open={open[group.status]}>
             <div class="group__head">
-              <CollapsibleTrigger>
+              <CollapsibleTrigger class="group__toggle" data-variant="ghost">
+                <ChevronRightIcon aria-hidden="true" class="group__chevron" />
                 <span class="status" data-status={group.status}><Icon aria-hidden="true" /></span>
                 {group.status}
                 <span class="group__count">{group.rows.length}</span>
               </CollapsibleTrigger>
               <Button
+                data-variant="ghost"
                 aria-label="Add issue to {group.status}"
                 onclick={() => toast(`New ${group.status} issue`)}
               >
@@ -231,7 +234,7 @@
               <ul class="rows">
                 {#each group.rows as issue (issue.id)}
                   <li>
-                    <Button onclick={() => toast(`Open ${issue.id}`)}>
+                    <Button class="issue" data-variant="ghost" onclick={() => toast(`Open ${issue.id}`)}>
                       <span class="issue__id">{issue.id}</span>
                       <span class="status" data-status={issue.status}
                         ><Icon aria-hidden="true" /></span
@@ -239,7 +242,7 @@
                       <span class="issue__title">{issue.title}</span>
                       <span class="issue__meta">
                         {#if issue.assignee}
-                          <Avatar>
+                          <Avatar class="assignee">
                             <AvatarFallback>
                               <span aria-hidden="true">{issue.assignee}</span>
                               <span class="sr-only">Assignee {issue.assignee}</span>
@@ -274,34 +277,37 @@
 <style>
   .app {
     display: flex;
+    align-items: stretch;
+    align-self: stretch;
+    width: 100%;
     height: 100%;
-    background: var(--ui-muted);
-    color: var(--ui-foreground);
+    background: var(--tint);
+    color: var(--ink);
+    font-size: var(--text-sm);
   }
 
+  /* Sidebar */
   .sidebar {
     display: flex;
     flex-direction: column;
+    gap: var(--space-3);
+    width: 220px;
     flex-shrink: 0;
-    gap: calc(var(--ui-spacing) * 3);
-    width: 232px;
-    padding: calc(var(--ui-spacing) * 2.5) calc(var(--ui-spacing) * 2) calc(var(--ui-spacing) * 2.5)
-      calc(var(--ui-spacing) * 3);
+    padding: var(--space-3) var(--space-2);
   }
 
   .sidebar__top {
     display: flex;
     align-items: center;
-    gap: calc(var(--ui-spacing) * 1);
+    gap: 2px;
+    padding-inline: var(--space-1);
   }
 
   .workspace {
     display: flex;
     flex: 1;
     align-items: center;
-    gap: calc(var(--ui-spacing) * 2);
-    padding: 0 6px;
-    font-size: 0.875rem;
+    gap: var(--space-2);
     font-weight: 600;
   }
 
@@ -310,115 +316,172 @@
     place-items: center;
     width: 20px;
     height: 20px;
-    border-radius: 6px;
-    background: var(--ui-primary);
-    color: var(--ui-primary-foreground);
+    background: var(--ink);
+    color: var(--paper);
     font-size: 9px;
+    font-weight: 700;
   }
 
   .nav {
-    display: grid;
+    display: flex;
+    flex-direction: column;
     gap: 1px;
   }
 
+  .nav :global(.nav__item) {
+    justify-content: flex-start;
+    width: 100%;
+    height: var(--size-sm);
+    padding-inline: var(--space-2);
+    font-weight: 500;
+  }
+
+  .nav :global(.nav__item:not([aria-current])) {
+    color: var(--muted);
+  }
+
+  .nav :global(.nav__item[aria-current]) {
+    background: var(--line-faint);
+  }
+
+  .nav :global(.nav__item svg) {
+    width: 15px;
+    height: 15px;
+  }
+
   .nav__section {
-    margin-top: calc(var(--ui-spacing) * 4);
-    padding: 0 10px 4px;
-    color: var(--ui-muted-foreground);
-    font-size: 0.75rem;
+    margin-top: var(--space-4);
+    padding: 0 var(--space-2) var(--space-1);
+    color: var(--muted);
+    font-size: var(--text-xs);
     font-weight: 500;
   }
 
   .nav__team {
-    padding: 4px 10px;
-    font-size: 0.875rem;
+    padding: var(--space-1) var(--space-2);
     font-weight: 500;
   }
 
+  /* Main panel: flat, beside the sidebar */
   .main {
     display: flex;
     flex: 1;
     flex-direction: column;
     min-width: 0;
-    margin: calc(var(--ui-spacing) * 2) calc(var(--ui-spacing) * 2) calc(var(--ui-spacing) * 2) 0;
-    overflow: hidden;
-    border: 1px solid var(--ui-border);
-    border-radius: calc(var(--ui-radius) * 2);
-    background: var(--ui-background);
+    overflow: auto;
+    border-inline-start: 1px solid var(--line-faint);
+    background: var(--paper);
   }
 
   .header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 44px;
-    padding: 0 calc(var(--ui-spacing) * 2) 0 calc(var(--ui-spacing) * 4);
-    border-bottom: 1px solid var(--ui-border);
+    min-height: 44px;
+    padding: 0 var(--space-2) 0 var(--space-4);
+    border-bottom: 1px solid var(--line-faint);
   }
 
   .crumbs {
     display: flex;
     align-items: center;
-    gap: 6px;
-    color: var(--ui-muted-foreground);
-    font-size: 0.875rem;
+    gap: var(--space-1);
+    color: var(--muted);
   }
 
   .crumbs strong {
-    color: var(--ui-foreground);
+    color: var(--ink);
     font-weight: 500;
+  }
+
+  .crumbs :global(svg) {
+    width: 14px;
+    height: 14px;
   }
 
   .toolbar {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: calc(var(--ui-spacing) * 2);
+    gap: var(--space-3);
+    padding: var(--space-2) var(--space-2) var(--space-2) var(--space-4);
+    border-bottom: 1px solid var(--line-faint);
   }
 
   .toolbar__actions {
     display: flex;
-    gap: calc(var(--ui-spacing) * 1);
+    gap: 2px;
   }
 
-  ul {
+  /* Grouped list. The docs styles size a collapsible for a demo; here it fills the panel. */
+  .list :global([data-slot="collapsible"]) {
+    width: 100%;
+    max-width: none;
+    gap: 0;
+  }
+
+  .list,
+  .rows {
+    display: flex;
+    flex-direction: column;
     margin: 0;
     padding: 0;
     list-style: none;
-  }
-
-  .list {
-    flex: 1;
-    overflow-y: auto;
-    padding: 0 calc(var(--ui-spacing) * 2) calc(var(--ui-spacing) * 4);
   }
 
   .group__head {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 2px;
-    padding: 0 calc(var(--ui-spacing) * 1) 0 calc(var(--ui-spacing) * 2);
-    border-radius: var(--ui-radius);
-    background: var(--ui-muted);
+    padding: 2px var(--space-2) 2px var(--space-3);
+    border-bottom: 1px solid var(--line-faint);
+    background: var(--tint);
+  }
+
+  .group__head :global(.group__toggle) {
+    align-self: auto;
+    gap: var(--space-2);
+    height: 32px;
+    padding-inline: var(--space-1);
+    font-weight: 500;
+  }
+
+  .group__head :global(.group__chevron) {
+    width: 14px;
+    height: 14px;
+    color: var(--muted);
   }
 
   .group__count {
-    color: var(--ui-muted-foreground);
+    color: var(--muted);
+    font-weight: 400;
+  }
+
+  .rows :global(.issue) {
+    display: grid;
+    grid-template-columns: 4.5rem 18px minmax(0, 1fr) auto;
+    align-items: center;
+    gap: var(--space-3);
+    width: 100%;
+    height: 40px;
+    padding-inline: var(--space-4) var(--space-4);
+    border-bottom: 1px solid var(--line-faint);
+    font-weight: 400;
+    text-align: start;
+  }
+
+  .rows :global(.issue:hover) {
+    background: var(--tint);
   }
 
   .issue__id {
-    width: 52px;
-    color: var(--ui-muted-foreground);
-    font-size: 0.75rem;
-    font-variant-numeric: tabular-nums;
+    color: var(--muted);
+    font-family: var(--mono);
+    font-size: var(--text-xs);
   }
 
   .issue__title {
-    flex: 1;
-    min-width: 0;
     overflow: hidden;
-    font-weight: 500;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
@@ -426,39 +489,63 @@
   .issue__meta {
     display: flex;
     align-items: center;
-    gap: calc(var(--ui-spacing) * 3);
+    gap: var(--space-3);
+    color: var(--muted);
   }
 
   .issue__date {
-    width: 48px;
-    color: var(--ui-muted-foreground);
-    font-size: 0.75rem;
+    width: 3.5rem;
+    font-size: var(--text-xs);
     text-align: end;
   }
 
-  .status {
-    display: inline-flex;
-    flex-shrink: 0;
-    color: var(--ui-muted-foreground);
-  }
-
-  .status[data-status="Todo"] {
-    color: var(--ui-foreground);
-  }
-
-  .status[data-status="In Progress"],
-  .status[data-status="Done"] {
-    color: var(--ui-primary);
+  .issue__meta :global(.assignee) {
+    width: 22px;
+    height: 22px;
+    font-size: 9px;
   }
 
   .unassigned {
-    display: inline-flex;
-    color: var(--ui-muted-foreground);
+    display: grid;
+    place-items: center;
+    width: 22px;
+    height: 22px;
   }
 
   .unassigned :global(svg) {
-    width: 18px;
-    height: 18px;
+    width: 16px;
+    height: 16px;
+  }
+
+  /* Status glyphs */
+  .status {
+    display: inline-grid;
+    place-items: center;
+  }
+
+  .status :global(svg) {
+    width: 15px;
+    height: 15px;
+  }
+
+  .status[data-status="Backlog"] {
+    color: var(--muted);
+  }
+
+  .status[data-status="Todo"] {
+    color: var(--ink);
+  }
+
+  .status[data-status="In Progress"] {
+    color: light-dark(#b45309, #f5b454);
+  }
+
+  .status[data-status="Done"] {
+    color: light-dark(#4b5ec9, #8f9dff);
+  }
+
+  .status[data-status="Canceled"] {
+    color: var(--muted);
   }
 
   .sr-only {
@@ -470,13 +557,21 @@
     white-space: nowrap;
   }
 
-  @container (max-width: 700px) {
+  @container (max-width: 640px) {
     .sidebar {
       display: none;
     }
 
     .main {
-      margin-left: calc(var(--ui-spacing) * 2);
+      border-inline-start: 0;
+    }
+
+    .rows :global(.issue) {
+      grid-template-columns: 18px minmax(0, 1fr) auto;
+    }
+
+    .issue__id {
+      display: none;
     }
   }
 </style>

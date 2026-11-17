@@ -47,29 +47,27 @@
 
   const toast = createToaster();
   onDestroy(() => toast.dismiss());
-
-  function select(event: MouseEvent, id: string) {
-    event.preventDefault();
-    active = id;
-  }
 </script>
 
-<div class="shell">
+<div class="app">
   <aside class="sidebar">
-    <h1>Settings</h1>
+    <div class="sidebar__top">
+      <h1 class="workspace">Settings</h1>
+    </div>
     <Input type="search" bind:value={query} placeholder="Search settings…" aria-label="Search settings" />
-    <nav aria-label="Settings">
+    <nav class="nav" aria-label="Settings">
       {#each groups as group (group)}
-        <span class="group">{group}</span>
+        <span class="nav__section">{group}</span>
         {#each visible.filter((c) => c.group === group) as category (category.id)}
-          <a
-            href="#{category.id}"
+          <Button
+            class="nav__item"
+            data-variant="ghost"
+            title={category.summary}
             aria-current={active === category.id ? "page" : undefined}
-            onclick={(event) => select(event, category.id)}
+            onclick={() => (active = category.id)}
           >
-            <span>{category.label}</span>
-            <small>{category.summary}</small>
-          </a>
+            {category.label}
+          </Button>
         {/each}
       {:else}
         <p class="empty">No settings match “{query}”.</p>
@@ -171,75 +169,94 @@
 </ToastRegion>
 
 <style>
-  .shell {
-    display: grid;
-    grid-template-columns: 15rem minmax(0, 1fr);
+  .app {
+    display: flex;
+    align-items: stretch;
+    align-self: stretch;
+    width: 100%;
     height: 100%;
-    background: var(--ui-background);
+    background: var(--tint);
+    color: var(--ink);
   }
 
+  /* Sidebar */
   .sidebar {
     display: flex;
     flex-direction: column;
-    gap: calc(var(--ui-spacing) * 3);
-    min-height: 0;
-    padding: calc(var(--ui-spacing) * 4) calc(var(--ui-spacing) * 3);
-    overflow-y: auto;
-    border-right: 1px solid var(--ui-border);
+    gap: var(--space-3);
+    width: 220px;
+    flex-shrink: 0;
+    padding: var(--space-3) var(--space-2);
+    font-size: var(--text-sm);
   }
 
-  h1 {
+  .sidebar__top {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    padding-inline: var(--space-1);
+  }
+
+  .workspace {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    gap: var(--space-2);
     margin: 0;
-    padding-inline: calc(var(--ui-spacing) * 2);
-    font-size: 1.125rem;
+    font-size: var(--text-md);
     font-weight: 600;
   }
 
-  nav {
-    display: grid;
-    gap: calc(var(--ui-spacing) * 0.5);
+  .nav {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
   }
 
-  .group {
-    padding: calc(var(--ui-spacing) * 3) calc(var(--ui-spacing) * 2) calc(var(--ui-spacing) * 1);
-    color: var(--ui-muted-foreground);
-    font-size: 0.75rem;
+  .nav :global(.nav__item) {
+    justify-content: flex-start;
+    width: 100%;
+    height: var(--size-sm);
+    padding-inline: var(--space-2);
     font-weight: 500;
   }
 
-  nav a {
-    display: grid;
-    gap: calc(var(--ui-spacing) * 0.5);
-    padding: calc(var(--ui-spacing) * 1.5) calc(var(--ui-spacing) * 2);
-    border-radius: var(--ui-radius);
-    color: var(--ui-foreground);
-    text-decoration: none;
+  .nav :global(.nav__item:not([aria-current])) {
+    color: var(--muted);
   }
 
-  nav a:hover,
-  nav a[aria-current="page"] {
-    background: var(--ui-muted);
+  .nav :global(.nav__item[aria-current]) {
+    background: var(--line-faint);
   }
 
-  nav a[aria-current="page"] span {
-    font-weight: 600;
+  .nav__section {
+    margin-top: var(--space-4);
+    padding: 0 var(--space-2) var(--space-1);
+    color: var(--muted);
+    font-size: var(--text-xs);
+    font-weight: 500;
   }
 
-  nav small,
-  .empty {
-    color: var(--ui-muted-foreground);
-    font-size: 0.75rem;
+  .nav__section:first-child {
+    margin-top: var(--space-1);
   }
 
   .empty {
     margin: 0;
-    padding-inline: calc(var(--ui-spacing) * 2);
+    padding-inline: var(--space-2);
+    color: var(--muted);
+    font-size: var(--text-xs);
   }
 
+  /* Main panel: flat, beside the sidebar */
   .main {
     display: flex;
+    flex: 1;
     flex-direction: column;
-    min-height: 0;
+    min-width: 0;
+    overflow: auto;
+    border-inline-start: 1px solid var(--line-faint);
+    background: var(--paper);
   }
 
   .content {
@@ -291,15 +308,12 @@
   }
 
   @container (max-width: 640px) {
-    .shell {
-      grid-template-columns: 1fr;
-      grid-template-rows: auto minmax(0, 1fr);
+    .sidebar {
+      display: none;
     }
 
-    .sidebar {
-      max-height: 14rem;
-      border-right: 0;
-      border-bottom: 1px solid var(--ui-border);
+    .main {
+      border-inline-start: 0;
     }
   }
 </style>

@@ -121,21 +121,24 @@
   </SelectContent>
 {/snippet}
 
-<div class="settings">
+<div class="app">
   <aside class="sidebar">
-    <Button>
-      <ChevronLeftIcon aria-hidden="true" /> Back to app
-    </Button>
+    <div class="sidebar__top">
+      <Button class="back" data-variant="ghost">
+        <ChevronLeftIcon aria-hidden="true" /> Back to app
+      </Button>
+    </div>
     <Input type="search" aria-label="Search settings" placeholder="Search…" bind:value={query} />
-    <nav aria-label="Settings">
+    <nav class="nav" aria-label="Settings">
       {#each navGroups as group (group.group)}
-        <span class="nav__group">{group.group}</span>
+        <span class="nav__section">{group.group}</span>
         {#each group.items as item (item.id)}
           <Button
+            class="nav__item"
+            data-variant="ghost"
             aria-current={active === item.id ? "page" : undefined}
             onclick={() => (active = item.id)}
-          
-    data-variant={active === item.id ? "solid" : undefined}>
+          >
             {item.label}
           </Button>
         {/each}
@@ -145,7 +148,7 @@
     </nav>
   </aside>
 
-  <main class="panel">
+  <main class="main">
     {#if active === "notifications"}
       <h1>Notifications</h1>
 
@@ -153,7 +156,7 @@
         <h2 id="channels-title">Notification channels</h2>
         <div class="card">
           {#each channels as channel (channel.id)}
-            <Field disabled={channel.id === "inbox"}>
+            <Field class="channel" disabled={channel.id === "inbox"}>
               <span class="icon"><channel.icon aria-hidden="true" /></span>
               {@render text(channel.label, summary(channel.id))}
               <Switch bind:checked={enabled[channel.id]}>
@@ -246,46 +249,94 @@
 </div>
 
 <style>
-  .settings {
+  .app {
     display: flex;
+    align-items: stretch;
+    align-self: stretch;
+    width: 100%;
     height: 100%;
-    background: var(--ui-background);
-    color: var(--ui-foreground);
+    background: var(--tint);
+    color: var(--ink);
   }
 
+  /* Sidebar */
   .sidebar {
     display: flex;
     flex-direction: column;
+    gap: var(--space-3);
+    width: 220px;
     flex-shrink: 0;
-    gap: calc(var(--ui-spacing) * 3);
-    width: 232px;
-    padding: calc(var(--ui-spacing) * 3);
-    overflow-y: auto;
-    border-inline-end: 1px solid var(--ui-border);
-    background: var(--ui-muted);
+    padding: var(--space-3) var(--space-2);
+    font-size: var(--text-sm);
   }
 
-  nav {
-    display: grid;
-    gap: 1px;
+  .sidebar__top {
+    display: flex;
+    align-items: center;
+    gap: 2px;
   }
 
-  .nav__group {
-    margin-top: calc(var(--ui-spacing) * 2);
-    padding: 0 calc(var(--ui-spacing) * 2) 4px;
-    color: var(--ui-muted-foreground);
-    font-size: 0.75rem;
+  .sidebar__top :global(.back) {
+    justify-content: flex-start;
+    height: var(--size-sm);
+    padding-inline: var(--space-2);
+    color: var(--muted);
     font-weight: 500;
   }
 
-  .panel {
-    flex: 1;
-    min-width: 0;
-    padding: calc(var(--ui-spacing) * 10) calc(var(--ui-spacing) * 6);
-    overflow-y: auto;
+  .sidebar__top :global(.back svg) {
+    width: 15px;
+    height: 15px;
   }
 
-  .panel > :global(*) {
+  .nav {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+
+  .nav :global(.nav__item) {
+    justify-content: flex-start;
+    width: 100%;
+    height: var(--size-sm);
+    padding-inline: var(--space-2);
+    font-weight: 500;
+  }
+
+  .nav :global(.nav__item:not([aria-current])) {
+    color: var(--muted);
+  }
+
+  .nav :global(.nav__item[aria-current]) {
+    background: var(--line-faint);
+  }
+
+  .nav__section {
+    margin-top: var(--space-4);
+    padding: 0 var(--space-2) var(--space-1);
+    color: var(--muted);
+    font-size: var(--text-xs);
+    font-weight: 500;
+  }
+
+  .nav__section:first-child {
+    margin-top: var(--space-1);
+  }
+
+  /* Main panel: flat, beside the sidebar */
+  .main {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-width: 0;
+    padding: calc(var(--ui-spacing) * 10) calc(var(--ui-spacing) * 6);
+    overflow: auto;
+    border-inline-start: 1px solid var(--line-faint);
+    background: var(--paper);
+  }
+
+  .main > :global(*) {
+    width: 100%;
     max-width: 640px;
     margin-inline: auto;
   }
@@ -372,9 +423,31 @@
     white-space: nowrap;
   }
 
-  @container (max-width: 700px) {
+  @container (max-width: 640px) {
     .sidebar {
       display: none;
     }
+
+    .main {
+      border-inline-start: 0;
+    }
+  }
+
+  /* Channel rows: icon, label and summary, switch at the end. */
+  .card :global(.channel) {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--space-3);
+    width: 100%;
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .card :global(.channel + .channel) {
+    border-top: 1px solid var(--line-faint);
+  }
+
+  .card :global(.channel [data-slot="switch"]) {
+    margin-inline-start: auto;
   }
 </style>

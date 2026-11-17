@@ -160,7 +160,23 @@ const { component, demo } = split(componentFiles);
 // The docs set the text components inherit on each demo box; a project gets it on
 // <body>, with no specificity so the app's own rules win.
 component.prepend(
-  postcss.parse(`:where(body) {
+  // The docs site runs Tailwind's preflight under every demo: parts start from no
+  // margin, padding or border, and native controls inherit the text around them.
+  // Same reset here, for ui-sdk parts only and with no specificity.
+  postcss.parse(`:where([data-slot], [data-slot]::before, [data-slot]::after) {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: 0 solid;
+}
+:where(button, input, select, textarea):where([data-slot]) {
+  font: inherit;
+  font-feature-settings: inherit;
+  letter-spacing: inherit;
+  color: inherit;
+  background-color: transparent;
+}
+:where(body) {
   color: var(--ink);
   background: var(--paper);
   font-family: var(--sans);
@@ -170,6 +186,15 @@ component.prepend(
 }`),
 );
 for (const root of [component, demo]) tokenizeRadius(root);
+
+// Icon sizing reaches every svg inside a part. Apps wrap the whole page in
+// <Preferences> (a part), so skip it, and drop specificity so an app's own svg
+// rules (a chart, an illustration) win.
+component.walkRules((rule) => {
+  if (rule.selector === "[data-slot] svg") {
+    rule.selector = ':where([data-slot]:not([data-slot="preferences"])) svg';
+  }
+});
 const tokens = buildTokens();
 for (const root of [component, demo, tokens]) root.cleanRaws();
 

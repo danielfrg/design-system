@@ -253,6 +253,8 @@
           {#each columns as column (column.key)}
             <th aria-sort={ariaSort(column.key)}>
               <Button
+                class="sort"
+                data-variant="ghost"
                 onclick={() => toggleSort(column.key, column.firstDirection)}
               >
                 {column.label}
@@ -564,5 +566,21 @@
     overflow: hidden;
     clip-path: inset(50%);
     white-space: nowrap;
+  }
+
+  /* Sortable headers: a ghost Button that reads as the header text. */
+  th :global(.sort) {
+    gap: var(--space-1);
+    height: auto;
+    margin-inline: calc(var(--space-1) * -1);
+    padding-inline: var(--space-1);
+    color: var(--muted);
+    font-size: var(--text-xs);
+    font-weight: 500;
+  }
+
+  th :global(.sort svg) {
+    width: 13px;
+    height: 13px;
   }
 </style>

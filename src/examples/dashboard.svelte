@@ -302,14 +302,20 @@
 
 <div class="app">
   <aside class="sidebar">
-    <div class="brand"><SparklesIcon aria-hidden="true" /> Acme Inc.</div>
-    <nav aria-label="Main">
+    <div class="sidebar__top">
+      <span class="workspace">
+        <span class="workspace__mark" aria-hidden="true"><SparklesIcon /></span>
+        Acme Inc.
+      </span>
+    </div>
+    <nav class="nav" aria-label="Main">
       {#each nav as item (item.id)}
         <Button
+          class="nav__item"
+          data-variant="ghost"
           aria-current={activeNav === item.id ? "page" : undefined}
           onclick={() => (activeNav = item.id)}
-        
-    data-variant={activeNav === item.id ? "solid" : undefined}>
+        >
           <item.icon aria-hidden="true" />
           {item.label}
         </Button>
@@ -460,6 +466,8 @@
                     : undefined}
                 >
                   <Button
+                    class="sort"
+                    data-variant="ghost"
                     onclick={() => toggleSort(column.key, column.numeric)}
                   >
                     {column.label}
@@ -508,66 +516,112 @@
     --desktop: var(--ui-primary);
     --mobile: var(--ui-muted-foreground);
     display: flex;
-    min-height: 100%;
-    background: var(--ui-muted);
-    color: var(--ui-foreground);
+    align-items: stretch;
+    align-self: stretch;
+    width: 100%;
+    height: 100%;
+    background: var(--tint);
+    color: var(--ink);
   }
 
+  /* Sidebar */
   .sidebar {
     display: flex;
     flex-direction: column;
+    gap: var(--space-3);
+    width: 220px;
     flex-shrink: 0;
-    gap: calc(var(--ui-spacing) * 4);
-    width: 208px;
-    padding: calc(var(--ui-spacing) * 3.5) calc(var(--ui-spacing) * 2) calc(var(--ui-spacing) * 2.5)
-      calc(var(--ui-spacing) * 3);
+    padding: var(--space-3) var(--space-2);
+    font-size: var(--text-sm);
   }
 
-  .brand {
+  .sidebar__top {
     display: flex;
     align-items: center;
-    gap: calc(var(--ui-spacing) * 2);
-    padding: 0 calc(var(--ui-spacing) * 2);
+    gap: 2px;
+    padding-inline: var(--space-1);
+  }
+
+  .workspace {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    gap: var(--space-2);
     font-weight: 600;
   }
 
-  nav {
+  .workspace__mark {
     display: grid;
+    place-items: center;
+    width: 20px;
+    height: 20px;
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  .workspace__mark :global(svg) {
+    width: 12px;
+    height: 12px;
+  }
+
+  .nav {
+    display: flex;
     flex: 1;
-    align-content: start;
+    flex-direction: column;
     gap: 1px;
+  }
+
+  .nav :global(.nav__item) {
+    justify-content: flex-start;
+    width: 100%;
+    height: var(--size-sm);
+    padding-inline: var(--space-2);
+    font-weight: 500;
+  }
+
+  .nav :global(.nav__item:not([aria-current])) {
+    color: var(--muted);
+  }
+
+  .nav :global(.nav__item[aria-current]) {
+    background: var(--line-faint);
+  }
+
+  .nav :global(.nav__item svg) {
+    width: 15px;
+    height: 15px;
   }
 
   .user {
     display: flex;
     align-items: center;
-    gap: calc(var(--ui-spacing) * 2);
-    padding: calc(var(--ui-spacing) * 2);
-    border-top: 1px solid var(--ui-border);
+    gap: var(--space-2);
+    padding: var(--space-2);
+    border-top: 1px solid var(--line-faint);
   }
 
   .who {
     display: grid;
     min-width: 0;
-    font-size: 0.75rem;
+    font-size: var(--text-xs);
     line-height: 1.3;
   }
 
   .who small {
-    color: var(--ui-muted-foreground);
+    color: var(--muted);
   }
 
+  /* Main panel: flat, beside the sidebar */
   .main {
     display: flex;
     flex: 1;
     flex-direction: column;
     gap: calc(var(--ui-spacing) * 4);
     min-width: 0;
-    margin: calc(var(--ui-spacing) * 2) calc(var(--ui-spacing) * 2) calc(var(--ui-spacing) * 2) 0;
     padding: calc(var(--ui-spacing) * 4) calc(var(--ui-spacing) * 6) calc(var(--ui-spacing) * 8);
-    border: 1px solid var(--ui-border);
-    border-radius: calc(var(--ui-radius) * 2);
-    background: var(--ui-background);
+    overflow: auto;
+    border-inline-start: 1px solid var(--line-faint);
+    background: var(--paper);
   }
 
   .top {
@@ -820,13 +874,29 @@
     white-space: nowrap;
   }
 
-  @container (max-width: 700px) {
+  @container (max-width: 640px) {
     .sidebar {
       display: none;
     }
 
     .main {
-      margin-left: calc(var(--ui-spacing) * 2);
+      border-inline-start: 0;
     }
+  }
+
+  /* Sortable headers: a ghost Button that reads as the header text. */
+  th :global(.sort) {
+    gap: var(--space-1);
+    height: auto;
+    margin-inline: calc(var(--space-1) * -1);
+    padding-inline: var(--space-1);
+    color: var(--muted);
+    font-size: var(--text-xs);
+    font-weight: 500;
+  }
+
+  th :global(.sort svg) {
+    width: 13px;
+    height: 13px;
   }
 </style>

@@ -197,28 +197,28 @@
       ],
     },
   ];
-
-  function select(event: MouseEvent, id: string) {
-    event.preventDefault();
-    active = id;
-  }
 </script>
 
-<div class="shell">
+<div class="app">
   <aside class="sidebar">
-    <div class="back">
-      <Button><ChevronLeftIcon size={16} aria-hidden="true" /> Back to app</Button>
+    <div class="sidebar__top">
+      <Button class="back" data-variant="ghost">
+        <ChevronLeftIcon aria-hidden="true" /> Back to app
+      </Button>
     </div>
     <Input type="search" bind:value={query} placeholder="Search…" aria-label="Search settings" />
-    <nav aria-label="Settings">
+    <nav class="nav" aria-label="Settings">
       {#each groups as group (group)}
-        <span class="group">{group}</span>
-        {#each visible.filter((c) => c.group === group) as category (category.id)}
-          <a
-            href="#{category.id}"
-            aria-current={active === category.id ? "page" : undefined}
-            onclick={(event) => select(event, category.id)}>{category.label}</a
+        <span class="nav__section">{group}</span>
+        {#each visible.filter((c) => c.group === group) as item (item.id)}
+          <Button
+            class="nav__item"
+            data-variant="ghost"
+            aria-current={active === item.id ? "page" : undefined}
+            onclick={() => (active = item.id)}
           >
+            {item.label}
+          </Button>
         {/each}
       {:else}
         <p class="empty">No settings match “{query}”.</p>
@@ -226,7 +226,7 @@
     </nav>
   </aside>
 
-  <main class="content">
+  <main class="main">
     {#if active === "preferences"}
       <h1>Preferences</h1>
       {#each sections as section (section.id)}
@@ -277,51 +277,78 @@
 </div>
 
 <style>
-  .shell {
-    display: grid;
-    grid-template-columns: 15rem minmax(0, 1fr);
+  .app {
+    display: flex;
+    align-items: stretch;
+    align-self: stretch;
+    width: 100%;
     height: 100%;
-    background: var(--ui-background);
+    background: var(--tint);
+    color: var(--ink);
   }
 
+  /* Sidebar */
   .sidebar {
     display: flex;
     flex-direction: column;
-    gap: calc(var(--ui-spacing) * 3);
-    min-height: 0;
-    padding: calc(var(--ui-spacing) * 4) calc(var(--ui-spacing) * 3);
-    overflow-y: auto;
-    border-right: 1px solid var(--ui-border);
-    background: color-mix(in oklab, var(--ui-muted) 50%, var(--ui-background));
+    gap: var(--space-3);
+    width: 220px;
+    flex-shrink: 0;
+    padding: var(--space-3) var(--space-2);
+    font-size: var(--text-sm);
   }
 
-  .back {
+  .sidebar__top {
     display: flex;
+    align-items: center;
+    gap: 2px;
   }
 
-  nav {
-    display: grid;
-    gap: calc(var(--ui-spacing) * 0.5);
-  }
-
-  .group {
-    padding: calc(var(--ui-spacing) * 3) calc(var(--ui-spacing) * 2) calc(var(--ui-spacing) * 1);
-    color: var(--ui-muted-foreground);
-    font-size: 0.75rem;
+  .sidebar__top :global(.back) {
+    justify-content: flex-start;
+    height: var(--size-sm);
+    padding-inline: var(--space-2);
+    color: var(--muted);
     font-weight: 500;
   }
 
-  nav a {
-    padding: calc(var(--ui-spacing) * 1.5) calc(var(--ui-spacing) * 2);
-    border-radius: var(--ui-radius);
-    color: var(--ui-foreground);
-    font-weight: 500;
-    text-decoration: none;
+  .sidebar__top :global(.back svg) {
+    width: 15px;
+    height: 15px;
   }
 
-  nav a:hover,
-  nav a[aria-current="page"] {
-    background: var(--ui-muted);
+  .nav {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+
+  .nav :global(.nav__item) {
+    justify-content: flex-start;
+    width: 100%;
+    height: var(--size-sm);
+    padding-inline: var(--space-2);
+    font-weight: 500;
+  }
+
+  .nav :global(.nav__item:not([aria-current])) {
+    color: var(--muted);
+  }
+
+  .nav :global(.nav__item[aria-current]) {
+    background: var(--line-faint);
+  }
+
+  .nav__section {
+    margin-top: var(--space-4);
+    padding: 0 var(--space-2) var(--space-1);
+    color: var(--muted);
+    font-size: var(--text-xs);
+    font-weight: 500;
+  }
+
+  .nav__section:first-child {
+    margin-top: var(--space-1);
   }
 
   .empty {
@@ -330,16 +357,20 @@
     color: var(--ui-muted-foreground);
   }
 
-  .content {
-    display: grid;
-    align-content: start;
+  /* Main panel: flat, beside the sidebar */
+  .main {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
     gap: calc(var(--ui-spacing) * 8);
-    min-height: 0;
+    min-width: 0;
     padding: calc(var(--ui-spacing) * 10) calc(var(--ui-spacing) * 8);
-    overflow-y: auto;
+    overflow: auto;
+    border-inline-start: 1px solid var(--line-faint);
+    background: var(--paper);
   }
 
-  .content > * {
+  .main > * {
     width: 100%;
     max-width: 44rem;
     margin-inline: auto;
@@ -394,18 +425,12 @@
   }
 
   @container (max-width: 640px) {
-    .shell {
-      grid-template-columns: 1fr;
-      grid-template-rows: auto minmax(0, 1fr);
-    }
-
     .sidebar {
-      max-height: 14rem;
-      border-right: 0;
-      border-bottom: 1px solid var(--ui-border);
+      display: none;
     }
 
-    .content {
+    .main {
+      border-inline-start: 0;
       padding: calc(var(--ui-spacing) * 6) calc(var(--ui-spacing) * 4);
     }
   }

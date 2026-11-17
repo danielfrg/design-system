@@ -247,21 +247,24 @@
   }
 </script>
 
-<div class="settings">
+<div class="app">
   <aside class="sidebar">
-    <Button>
-      <ChevronLeftIcon aria-hidden="true" /> Back to app
-    </Button>
+    <div class="sidebar__top">
+      <Button class="back" data-variant="ghost">
+        <ChevronLeftIcon aria-hidden="true" /> Back to app
+      </Button>
+    </div>
     <Input type="search" aria-label="Search settings" placeholder="Search…" bind:value={navQuery} />
-    <nav aria-label="Settings">
+    <nav class="nav" aria-label="Settings">
       {#each navGroups as group (group.group)}
-        <span class="nav__group">{group.group}</span>
+        <span class="nav__section">{group.group}</span>
         {#each group.items as item (item.id)}
           <Button
+            class="nav__item"
+            data-variant="ghost"
             aria-current={active === item.id ? "page" : undefined}
             onclick={() => (active = item.id)}
-          
-    data-variant={active === item.id ? "solid" : undefined}>
+          >
             {item.label}
           </Button>
         {/each}
@@ -271,7 +274,7 @@
     </nav>
   </aside>
 
-  <main class="panel">
+  <main class="main">
     {#if active === "members"}
       <h1>Members</h1>
 
@@ -320,6 +323,8 @@
                     : undefined}
                 >
                   <Button
+                    class="sort"
+                    data-variant="ghost"
                     onclick={() => toggleSort(column.key, column.firstDirection)}
                   >
                     {column.label}
@@ -422,46 +427,91 @@
 </div>
 
 <style>
-  .settings {
+  .app {
     display: flex;
+    align-items: stretch;
+    align-self: stretch;
+    width: 100%;
     height: 100%;
-    background: var(--ui-background);
-    color: var(--ui-foreground);
+    background: var(--tint);
+    color: var(--ink);
   }
 
+  /* Sidebar */
   .sidebar {
     display: flex;
     flex-direction: column;
+    gap: var(--space-3);
+    width: 220px;
     flex-shrink: 0;
-    gap: calc(var(--ui-spacing) * 3);
-    width: 232px;
-    padding: calc(var(--ui-spacing) * 3);
-    overflow-y: auto;
-    border-inline-end: 1px solid var(--ui-border);
-    background: var(--ui-muted);
+    padding: var(--space-3) var(--space-2);
+    font-size: var(--text-sm);
   }
 
-  nav {
-    display: grid;
-    gap: 1px;
+  .sidebar__top {
+    display: flex;
+    align-items: center;
+    gap: 2px;
   }
 
-  .nav__group {
-    margin-top: calc(var(--ui-spacing) * 2);
-    padding: 0 calc(var(--ui-spacing) * 2) 4px;
-    color: var(--ui-muted-foreground);
-    font-size: 0.75rem;
+  .sidebar__top :global(.back) {
+    justify-content: flex-start;
+    height: var(--size-sm);
+    padding-inline: var(--space-2);
+    color: var(--muted);
     font-weight: 500;
   }
 
-  .panel {
+  .sidebar__top :global(.back svg) {
+    width: 15px;
+    height: 15px;
+  }
+
+  .nav {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+
+  .nav :global(.nav__item) {
+    justify-content: flex-start;
+    width: 100%;
+    height: var(--size-sm);
+    padding-inline: var(--space-2);
+    font-weight: 500;
+  }
+
+  .nav :global(.nav__item:not([aria-current])) {
+    color: var(--muted);
+  }
+
+  .nav :global(.nav__item[aria-current]) {
+    background: var(--line-faint);
+  }
+
+  .nav__section {
+    margin-top: var(--space-4);
+    padding: 0 var(--space-2) var(--space-1);
+    color: var(--muted);
+    font-size: var(--text-xs);
+    font-weight: 500;
+  }
+
+  .nav__section:first-child {
+    margin-top: var(--space-1);
+  }
+
+  /* Main panel: flat, beside the sidebar */
+  .main {
     display: flex;
     flex: 1;
     flex-direction: column;
     gap: calc(var(--ui-spacing) * 4);
     min-width: 0;
     padding: calc(var(--ui-spacing) * 8);
-    overflow-y: auto;
+    overflow: auto;
+    border-inline-start: 1px solid var(--line-faint);
+    background: var(--paper);
   }
 
   h1 {
@@ -578,12 +628,13 @@
     text-align: center;
   }
 
-  @container (max-width: 700px) {
+  @container (max-width: 640px) {
     .sidebar {
       display: none;
     }
 
-    .panel {
+    .main {
+      border-inline-start: 0;
       padding: calc(var(--ui-spacing) * 6);
     }
   }
@@ -595,5 +646,21 @@
     overflow: hidden;
     clip-path: inset(50%);
     white-space: nowrap;
+  }
+
+  /* Sortable headers: a ghost Button that reads as the header text. */
+  th :global(.sort) {
+    gap: var(--space-1);
+    height: auto;
+    margin-inline: calc(var(--space-1) * -1);
+    padding-inline: var(--space-1);
+    color: var(--muted);
+    font-size: var(--text-xs);
+    font-weight: 500;
+  }
+
+  th :global(.sort svg) {
+    width: 13px;
+    height: 13px;
   }
 </style>
