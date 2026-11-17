@@ -1,0 +1,159 @@
+<script lang="ts">
+  import type { ColorSchemeValue } from "@ui-sdk/core";
+  import { Input } from "@ui-sdk/svelte/input";
+  import { Preferences, usePreference } from "@ui-sdk/svelte/preferences";
+  import {
+    SegmentedControl,
+    SegmentedControlIndicator,
+    SegmentedControlItem,
+  } from "@ui-sdk/svelte/segmented-control";
+  import { examples } from "../examples/index";
+  import { colorScheme } from "./color-scheme";
+  import ComponentPage from "./ComponentPage.svelte";
+  import CustomComponentPage from "./CustomComponentPage.svelte";
+  import { customPages } from "./custom";
+  import { componentPages } from "./pages";
+  import SourceView from "./SourceView.svelte";
+  import { currentTheme, setTheme, themes, type Theme } from "./theme";
+
+  interface NavItem {
+    id: string;
+    label: string;
+  }
+
+  const scheme = usePreference(colorScheme);
+  let theme = $state<Theme>(currentTheme());
+
+  const examplePages: NavItem[] = examples.map(({ id, label }) => ({ id, label }));
+  const firstId = componentPages[0]!.id;
+
+  let activeId = $state(location.hash.slice(1) || firstId);
+  let filter = $state("");
+
+  function matches(item: NavItem): boolean {
+    const q = filter.trim().toLowerCase();
+    return !q || item.label.toLowerCase().includes(q) || item.id.includes(q);
+  }
+
+  const visibleExamples = $derived(examplePages.filter(matches));
+  const visibleComponents = $derived(componentPages.filter(matches));
+  const visibleCustom = $derived(customPages.filter(matches));
+
+  const activeExample = $derived(examples.find((e) => e.id === activeId));
+  const activeComponent = $derived(componentPages.find((p) => p.id === activeId));
+  const activeCustom = $derived(customPages.find((p) => p.id === activeId));
+  const activeLabel = $derived(
+    activeExample?.label ?? activeComponent?.label ?? activeCustom?.label ?? "Not found",
+  );
+</script>
+
+<svelte:window
+  onhashchange={() => {
+    const id = location.hash.slice(1) || firstId;
+    // Demos link to in-page anchors like #installation; only gallery ids switch pages.
+    const known = [...examples, ...componentPages, ...customPages].some((p) => p.id === id);
+    if (known) activeId = id;
+  }}
+/>
+
+{#snippet navLink(item: NavItem)}
+  <a
+    class="sidebar__link"
+    href="#{item.id}"
+    aria-current={item.id === activeId ? "page" : undefined}
+  >
+    {item.label}
+  </a>
+{/snippet}
+
+<Preferences preferences={[colorScheme]}>
+  <div class="shell">
+    <aside class="sidebar">
+      <div class="sidebar__brand">
+        <span class="sidebar__title">design-system</span>
+        <span class="sidebar__subtitle">ui-sdk component gallery</span>
+      </div>
+      <div class="control control--block" data-example="gallery/filter">
+        <Input
+          class="sidebar__filter"
+          type="search"
+          aria-label="Filter components"
+          placeholder="Filter components…"
+          bind:value={filter}
+        />
+      </div>
+      <nav class="sidebar__nav" aria-label="Gallery">
+        {#snippet group(title: string, items: NavItem[])}
+          {#if items.length > 0}
+            <div class="sidebar__group">
+              <span class="sidebar__section">{title}</span>
+              {#each items as item (item.id)}
+                {@render navLink(item)}
+              {/each}
+            </div>
+          {/if}
+        {/snippet}
+        {@render group("Examples", visibleExamples)}
+        {@render group("Components", visibleComponents)}
+        {@render group("Custom components", visibleCustom)}
+        {#if visibleExamples.length + visibleComponents.length + visibleCustom.length === 0}
+          <span class="sidebar__empty">No matches</span>
+        {/if}
+      </nav>
+    </aside>
+
+    <main class="content">
+      <header class="content__topbar">
+        <h2 class="content__heading">{activeLabel}</h2>
+        <div class="content__controls">
+          <div class="control" data-example="gallery/theme">
+            <SegmentedControl
+              aria-label="Theme"
+              value={theme}
+              onValueChange={(next) => {
+                theme = next as Theme;
+                setTheme(theme);
+              }}
+            >
+              <SegmentedControlIndicator />
+              {#each themes as option (option.value)}
+                <SegmentedControlItem value={option.value}>{option.label}</SegmentedControlItem>
+              {/each}
+            </SegmentedControl>
+          </div>
+          <div class="control" data-example="gallery/color-scheme">
+            <SegmentedControl
+              aria-label="Color scheme"
+              value={scheme.current.value}
+              onValueChange={(next) => colorScheme.set(next as ColorSchemeValue)}
+            >
+              <SegmentedControlIndicator />
+              <SegmentedControlItem value="light">Light</SegmentedControlItem>
+              <SegmentedControlItem value="dark">Dark</SegmentedControlItem>
+              <SegmentedControlItem value="system">System</SegmentedControlItem>
+            </SegmentedControl>
+          </div>
+        </div>
+      </header>
+      <div class="content__body">
+        {#key activeId}
+          {#if activeExample}
+            <SourceView
+              description={activeExample.description}
+              filename={activeExample.filename}
+              component={activeExample.component}
+              source={activeExample.source}
+              framed
+            />
+          {:else if activeComponent}
+            <ComponentPage id={activeComponent.id} description={activeComponent.description} />
+          {:else if activeCustom}
+            <CustomComponentPage page={activeCustom} />
+          {:else}
+            <p class="content__pending">No page called “{activeId}”.</p>
+          {/if}
+        {/key}
+      </div>
+    </main>
+  </div>
+</Preferences>

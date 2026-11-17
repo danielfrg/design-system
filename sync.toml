@@ -1,0 +1,85 @@
+# Apps that copy files from public/v1. Run `pnpm sync` to update them,
+# `pnpm sync --check` to see whether they have drifted.
+#
+# path    the app's repo, relative to this one
+# dest    folder inside the app that is wholly owned by the sync (never edit it by hand)
+# theme   a folder in public/v1 (ui-sdk, cadence): copied to <dest>/theme/
+# custom  folders in public/v1/custom: copied to <dest>/custom/<name>/
+
+[apps.bookmarks]
+path = "../bookmarks"
+dest = "frontend/src/design-system"
+theme = "cadence"
+custom = ["table", "theme-toggle"]
+
+[apps.bookmarks-extension]
+path = "../bookmarks/extension"
+dest = "src/design-system"
+theme = "cadence"
+custom = ["theme-toggle"]
+
+[apps.ciview]
+path = "../ciview"
+dest = "frontend/src/design-system"
+theme = "cadence"
+custom = ["status-badge", "theme-toggle"]
+
+[apps.chrome-url-redirector]
+path = "../chrome-url-redirector"
+dest = "src/design-system"
+theme = "cadence"
+custom = ["theme-toggle"]
+
+[apps.chrome-website-blocker]
+path = "../chrome-website-blocker"
+dest = "src/design-system"
+theme = "cadence"
+custom = ["theme-toggle"]
+
+[apps.golinks]
+path = "../golinks"
+dest = "frontend/src/design-system"
+theme = "cadence"
+custom = ["table", "theme-toggle"]
+
+[apps.homeboard]
+path = "../homeboard"
+dest = "frontend/src/admin/design-system"
+theme = "cadence"
+custom = ["status-badge", "table", "theme-toggle"]
+
+[apps.homelab-console]
+path = "../homelab-console"
+dest = "frontend/src/design-system"
+theme = "cadence"
+custom = ["table", "theme-toggle", "status-badge"]
+
+[apps.notebook]
+path = "../notebook"
+dest = "frontend/src/design-system"
+theme = "cadence"
+custom = ["theme-toggle"]
+
+[apps.things]
+path = "../things"
+dest = "frontend/src/design-system"
+theme = "cadence"
+custom = ["status-badge", "theme-toggle"]
+
+[apps.budget]
+path = "../budget"
+dest = "frontend/src/design-system"
+theme = "cadence"
+custom = []
+
+[apps.sofigram]
+path = "../sofigram"
+dest = "frontend/src/design-system"
+theme = "cadence"
+custom = []
+
+[apps.songbook]
+path = "../songbook"
+dest = "frontend/src/design-system"
+theme = "cadence"
+custom = ["theme-toggle"]

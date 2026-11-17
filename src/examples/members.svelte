@@ -1,25 +1,36 @@
 <script lang="ts">
   import {
-    Button,
-    Chip,
+    ArrowDownIcon,
+    ArrowUpDownIcon,
+    ArrowUpIcon,
+    CheckIcon,
+    ChevronLeftIcon,
+    EllipsisIcon,
+  } from "@lucide/svelte";
+  import { Avatar, AvatarFallback } from "@ui-sdk/svelte/avatar";
+  import { Button } from "@ui-sdk/svelte/button";
+  import { Input } from "@ui-sdk/svelte/input";
+  import {
     Menu,
     MenuContent,
     MenuItem,
     MenuSeparator,
     MenuTrigger,
-    SearchInput,
-    SelectDropdown,
-    SettingsLayout,
-    Table,
-    TableHeaderCell,
-    TableSort,
-    showFlash,
-    type SettingsCategory,
-  } from "@kenn-io/kit-ui";
-  import ChevronLeftIcon from "@lucide/svelte/icons/chevron-left";
-  import EllipsisIcon from "@lucide/svelte/icons/ellipsis";
+    createMenuController,
+  } from "@ui-sdk/svelte/menu";
+  import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectItemIndicator,
+    SelectLabel,
+    SelectTrigger,
+    SelectValue,
+  } from "@ui-sdk/svelte/select";
+  import { Toast, ToastRegion, ToastTitle, createToaster } from "@ui-sdk/svelte/toast";
+  import { onDestroy } from "svelte";
 
-  const categories: SettingsCategory[] = [
+  const categories = [
     { id: "preferences", label: "Preferences", group: "Account" },
     { id: "profile", label: "Profile", group: "Account" },
     { id: "notifications", label: "Notifications", group: "Account" },
@@ -31,27 +42,29 @@
 
   let active = $state("members");
   let navQuery = $state("");
-  const visibleCategories = $derived.by(() => {
+  const navGroups = $derived.by(() => {
     const q = navQuery.trim().toLowerCase();
-    if (!q) return categories;
-    return categories.filter((c) => `${c.label} ${c.group}`.toLowerCase().includes(q));
+    const shown = categories.filter((c) => !q || `${c.label} ${c.group}`.toLowerCase().includes(q));
+    return [...new Set(shown.map((c) => c.group))].map((group) => ({
+      group,
+      items: shown.filter((c) => c.group === group),
+    }));
   });
 
   type Role = "Admin" | "Member" | "Guest";
-  type State = "Active" | "Invited" | "Suspended";
+  type MemberState = "Active" | "Invited" | "Suspended";
   interface Member {
     name: string;
     username: string;
     email: string;
     role: Role;
-    state: State;
+    state: MemberState;
     teams: number;
     joined: string;
-    /** ISO date, or "online". */
     lastSeen: string;
-    color: string;
   }
 
+  // lastSeen is an ISO date, "online", or empty for people who never signed in.
   const members: Member[] = [
     {
       name: "Ada Lovelace",
@@ -62,7 +75,6 @@
       teams: 3,
       joined: "2025-01-14",
       lastSeen: "online",
-      color: "#4cb782",
     },
     {
       name: "Grace Hopper",
@@ -73,7 +85,6 @@
       teams: 2,
       joined: "2025-02-02",
       lastSeen: "2026-11-05",
-      color: "#5e8ad6",
     },
     {
       name: "Alan Turing",
@@ -84,7 +95,6 @@
       teams: 4,
       joined: "2025-03-21",
       lastSeen: "online",
-      color: "#d6875e",
     },
     {
       name: "Katherine Johnson",
@@ -95,7 +105,6 @@
       teams: 1,
       joined: "2025-06-08",
       lastSeen: "2026-10-28",
-      color: "#b25ed6",
     },
     {
       name: "Edsger Dijkstra",
@@ -106,7 +115,6 @@
       teams: 2,
       joined: "2025-09-30",
       lastSeen: "2026-11-01",
-      color: "#d65e7c",
     },
     {
       name: "Barbara Liskov",
@@ -117,7 +125,6 @@
       teams: 1,
       joined: "2026-04-11",
       lastSeen: "2026-09-17",
-      color: "#5ec2d6",
     },
     {
       name: "Linus Torvalds",
@@ -128,7 +135,6 @@
       teams: 0,
       joined: "2026-11-03",
       lastSeen: "",
-      color: "#8a8f98",
     },
     {
       name: "Margaret Hamilton",
@@ -139,7 +145,6 @@
       teams: 0,
       joined: "2026-11-04",
       lastSeen: "",
-      color: "#8a8f98",
     },
     {
       name: "Dennis Ritchie",
@@ -150,29 +155,46 @@
       teams: 2,
       joined: "2025-01-20",
       lastSeen: "2026-03-02",
-      color: "#8a8f98",
     },
   ];
 
-  const STATES: State[] = ["Active", "Invited", "Suspended"];
+  const STATES: MemberState[] = ["Active", "Invited", "Suspended"];
+  const ROLES: Role[] = ["Admin", "Member", "Guest"];
+  const roleOptions = [
+    { value: "all", label: "All" },
+    { value: "admin", label: "Admins" },
+    { value: "member", label: "Members" },
+    { value: "guest", label: "Guests" },
+  ];
+
+  type SortKey = "name" | "email" | "role" | "teams" | "joined" | "lastSeen";
+  const columns: { key: SortKey; label: string; firstDirection: "asc" | "desc" }[] = [
+    { key: "name", label: "Name", firstDirection: "asc" },
+    { key: "email", label: "Email", firstDirection: "asc" },
+    { key: "role", label: "Role", firstDirection: "asc" },
+    { key: "teams", label: "Teams", firstDirection: "desc" },
+    { key: "joined", label: "Joined", firstDirection: "desc" },
+    { key: "lastSeen", label: "Last seen", firstDirection: "desc" },
+  ];
+  const sortValue: Record<SortKey, (m: Member) => string | number> = {
+    name: (m) => m.name,
+    email: (m) => m.email,
+    role: (m) => ROLES.indexOf(m.role),
+    teams: (m) => m.teams,
+    joined: (m) => m.joined,
+    lastSeen: (m) => (m.lastSeen === "online" ? "9999" : m.lastSeen),
+  };
 
   let query = $state("");
   let roleFilter = $state("all");
+  let sort = $state<{ key: SortKey; direction: "asc" | "desc" } | null>({
+    key: "name",
+    direction: "asc",
+  });
 
-  const sorter = new TableSort<Member>(
-    {
-      name: (m) => m.name,
-      email: (m) => m.email,
-      role: (m) => ["Admin", "Member", "Guest"].indexOf(m.role),
-      teams: { value: (m) => m.teams, firstDirection: "desc" },
-      joined: { value: (m) => m.joined, firstDirection: "desc" },
-      lastSeen: {
-        value: (m) => (m.lastSeen === "online" ? "9999" : m.lastSeen || null),
-        firstDirection: "desc",
-      },
-    },
-    { key: "name" },
-  );
+  const toast = createToaster();
+  onDestroy(() => toast.dismiss());
+  const rowMenu = createMenuController<Member>();
 
   const filtered = $derived(
     members.filter((m) => {
@@ -185,98 +207,156 @@
 
   // Sort first, then split by state, so each group keeps the column order.
   const groups = $derived.by(() => {
-    const sorted = sorter.sort(filtered);
+    let sorted = filtered;
+    if (sort) {
+      const { key, direction } = sort;
+      const sign = direction === "asc" ? 1 : -1;
+      sorted = [...filtered].sort((a, b) => {
+        const x = sortValue[key](a);
+        const y = sortValue[key](b);
+        return (x < y ? -1 : x > y ? 1 : 0) * sign;
+      });
+    }
     return STATES.map((state) => ({ state, rows: sorted.filter((m) => m.state === state) })).filter(
       (g) => g.rows.length > 0,
     );
   });
 
-  const monthYear = new Intl.DateTimeFormat("en-US", { month: "short", year: "numeric" });
-  function formatDate(iso: string): string {
-    return monthYear.format(new Date(`${iso}T12:00:00`));
+  function toggleSort(key: SortKey, firstDirection: "asc" | "desc") {
+    if (sort?.key !== key) sort = { key, direction: firstDirection };
+    else if (sort.direction === firstDirection)
+      sort = { key, direction: firstDirection === "asc" ? "desc" : "asc" };
+    else sort = null;
   }
 
-  function initials(name: string): string {
-    return name
+  const monthYear = new Intl.DateTimeFormat("en-US", { month: "short", year: "numeric" });
+  const formatDate = (iso: string) => monthYear.format(new Date(`${iso}T12:00:00`));
+  const initials = (name: string) =>
+    name
       .split(" ")
       .slice(0, 2)
       .map((part) => part[0])
       .join("");
+
+  function onAction(action: string) {
+    const member = rowMenu.getPayload();
+    if (!member) return;
+    if (action === "role") toast(`Role changed for ${member.name}`);
+    else if (action === "copy") toast(`Copied ${member.email}`);
+    else toast(`${member.name} suspended`);
   }
 </script>
 
-<div class="host">
-  <SettingsLayout categories={visibleCategories} bind:active title="">
-    {#snippet sidebarHeader()}
-      <button class="back kit-control-states" type="button">
-        <ChevronLeftIcon size={14} aria-hidden="true" /> Back to app
-      </button>
-      <SearchInput bind:value={navQuery} size="sm" block placeholder="Search…" />
-    {/snippet}
+<div class="app">
+  <aside class="sidebar">
+    <div class="sidebar__top">
+      <Button class="back" data-variant="ghost">
+        <ChevronLeftIcon aria-hidden="true" /> Back to app
+      </Button>
+    </div>
+    <Input type="search" aria-label="Search settings" placeholder="Search…" bind:value={navQuery} />
+    <nav class="nav" aria-label="Settings">
+      {#each navGroups as group (group.group)}
+        <span class="nav__section">{group.group}</span>
+        {#each group.items as item (item.id)}
+          <Button
+            class="nav__item"
+            data-variant="ghost"
+            aria-current={active === item.id ? "page" : undefined}
+            onclick={() => (active = item.id)}
+          >
+            {item.label}
+          </Button>
+        {/each}
+      {:else}
+        <p class="muted">No settings match.</p>
+      {/each}
+    </nav>
+  </aside>
 
-    {#snippet panel(id)}
-      {#if id === "members"}
-        <div class="page">
-          <h1 class="title">Members</h1>
+  <main class="main">
+    {#if active === "members"}
+      <h1>Members</h1>
 
-          <div class="toolbar">
-            <div class="toolbar__filters">
-              <SearchInput
-                bind:value={query}
-                placeholder="Search by name or email"
-                class="search"
-              />
-              <SelectDropdown
-                value={roleFilter}
-                onchange={(v) => (roleFilter = v)}
-                options={[
-                  { value: "all", label: "All" },
-                  { value: "admin", label: "Admins" },
-                  { value: "member", label: "Members" },
-                  { value: "guest", label: "Guests" },
-                ]}
-              />
-            </div>
-            <div class="toolbar__actions">
-              <Button
-                label="Export CSV"
-                size="lg"
-                onclick={() => showFlash("Exported members.csv")}
-              />
-              <Button
-                label="Invite"
-                size="lg"
-                tone="info"
-                surface="solid"
-                onclick={() => showFlash("Invite sent")}
-              />
-            </div>
-          </div>
+      <div class="toolbar">
+        <div class="toolbar__group">
+          <Input
+            type="search"
+            aria-label="Search members"
+            placeholder="Search by name or email"
+            bind:value={query}
+          />
+          <Select bind:value={roleFilter} items={roleOptions}>
+            <SelectLabel>Role</SelectLabel>
+            <SelectTrigger>
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              {#each roleOptions as option (option.value)}
+                <SelectItem value={option.value}>
+                  {option.label}
+                  <SelectItemIndicator>
+                    <CheckIcon aria-hidden="true" />
+                  </SelectItemIndicator>
+                </SelectItem>
+              {/each}
+            </SelectContent>
+          </Select>
+        </div>
+        <div class="toolbar__group">
+          <Button onclick={() => toast("Exported members.csv")}>Export CSV</Button>
+          <Button data-variant="solid" onclick={() => toast("Invite sent")}>Invite</Button>
+        </div>
+      </div>
 
-          <Table ariaLabel="Workspace members" scroll="page" zebra={false}>
-            {#snippet header()}
-              <TableHeaderCell label="Name" sort={sorter} column="name" />
-              <TableHeaderCell label="Email" sort={sorter} column="email" />
-              <TableHeaderCell label="Role" sort={sorter} column="role" />
-              <TableHeaderCell label="Teams" sort={sorter} column="teams" />
-              <TableHeaderCell label="Joined" sort={sorter} column="joined" />
-              <TableHeaderCell label="Last seen" sort={sorter} column="lastSeen" />
-              <TableHeaderCell width={44}><span class="sr-only">Actions</span></TableHeaderCell>
-            {/snippet}
-
-            {#each groups as group (group.state)}
+      <div class="table-wrap">
+        <table>
+          <caption class="sr-only">Workspace members</caption>
+          <thead>
+            <tr>
+              {#each columns as column (column.key)}
+                <th
+                  aria-sort={sort?.key === column.key
+                    ? sort.direction === "asc"
+                      ? "ascending"
+                      : "descending"
+                    : undefined}
+                >
+                  <Button
+                    class="sort"
+                    data-variant="ghost"
+                    onclick={() => toggleSort(column.key, column.firstDirection)}
+                  >
+                    {column.label}
+                    {#if sort?.key !== column.key}
+                      <ArrowUpDownIcon aria-hidden="true" class="sort__idle" />
+                    {:else if sort.direction === "asc"}
+                      <ArrowUpIcon aria-hidden="true" />
+                    {:else}
+                      <ArrowDownIcon aria-hidden="true" />
+                    {/if}
+                  </Button>
+                </th>
+              {/each}
+              <th class="actions"><span class="sr-only">Actions</span></th>
+            </tr>
+          </thead>
+          {#each groups as group (group.state)}
+            <tbody>
               <tr class="group">
-                <td colspan="7">
+                <th scope="rowgroup" colspan="7">
                   {group.state}<span class="group__count">{group.rows.length}</span>
-                </td>
+                </th>
               </tr>
               {#each group.rows as member (member.username)}
                 <tr>
                   <td>
                     <span class="who">
-                      <span class="avatar" style:background={member.color} aria-hidden="true">
-                        {initials(member.name)}
-                      </span>
+                      <Avatar>
+                        <AvatarFallback
+                          ><span aria-hidden="true">{initials(member.name)}</span></AvatarFallback
+                        >
+                      </Avatar>
                       <span class="who__text">
                         <span class="who__name">{member.name}</span>
                         <span class="muted">{member.username}</span>
@@ -286,7 +366,7 @@
                   <td class="muted">{member.email}</td>
                   <td>
                     {#if member.role === "Admin"}
-                      <Chip tone="info" size="sm" uppercase={false}>Admin</Chip>
+                      <span class="badge">Admin</span>
                     {:else}
                       <span class="muted">{member.role}</span>
                     {/if}
@@ -306,125 +386,192 @@
                       —
                     {/if}
                   </td>
-                  <td class="actions-col">
-                    <Menu>
-                      <MenuTrigger ariaLabel={`Actions for ${member.name}`}>
-                        <EllipsisIcon size={14} aria-hidden="true" />
-                      </MenuTrigger>
-                      <MenuContent ariaLabel={`Actions for ${member.name}`}>
-                        <MenuItem
-                          textValue="Change role"
-                          onselect={() => showFlash(`Role changed for ${member.name}`)}
-                        >
-                          Change role…
-                        </MenuItem>
-                        <MenuItem
-                          textValue="Copy email"
-                          onselect={() => showFlash(`Copied ${member.email}`)}
-                        >
-                          Copy email
-                        </MenuItem>
-                        <MenuSeparator />
-                        <MenuItem
-                          textValue="Suspend member"
-                          onselect={() => showFlash(`${member.name} suspended`)}
-                        >
-                          Suspend member
-                        </MenuItem>
-                      </MenuContent>
-                    </Menu>
+                  <td class="actions">
+                    <MenuTrigger
+                      controller={rowMenu}
+                      payload={member}
+                      aria-label="Actions for {member.name}"
+                    >
+                      <EllipsisIcon aria-hidden="true" />
+                    </MenuTrigger>
                   </td>
                 </tr>
               {/each}
-            {:else}
-              <tr>
-                <td colspan="7" class="empty">No members match “{query}”.</td>
-              </tr>
-            {/each}
-          </Table>
-        </div>
-      {:else}
-        <p class="placeholder">This example only implements Members.</p>
-      {/if}
-    {/snippet}
-  </SettingsLayout>
+            </tbody>
+          {:else}
+            <tbody>
+              <tr><td colspan="7" class="empty">No members match “{query}”.</td></tr>
+            </tbody>
+          {/each}
+        </table>
+      </div>
+    {:else}
+      <p class="muted">This example only implements Members.</p>
+    {/if}
+  </main>
+
+  <Menu controller={rowMenu} {onAction}>
+    <MenuContent align="end">
+      <MenuItem value="role">Change role…</MenuItem>
+      <MenuItem value="copy">Copy email</MenuItem>
+      <MenuSeparator />
+      <MenuItem value="suspend" destructive>Suspend member</MenuItem>
+    </MenuContent>
+  </Menu>
+
+  <ToastRegion toaster={toast}>
+    <Toast>
+      <ToastTitle />
+    </Toast>
+  </ToastRegion>
 </div>
 
 <style>
-  .host {
+  .app {
     display: flex;
+    align-items: stretch;
+    align-self: stretch;
+    width: 100%;
     height: 100%;
+    /* Light: a gray sidebar. Dark: a sidebar a step darker than the page. */
+    background: light-dark(var(--tint), color-mix(in oklab, var(--paper) 78%, black));
+    color: var(--ink);
   }
 
-  /* Members uses the full panel width, not the narrow settings column. */
-  .host :global(.kit-settings__panel) {
-    max-width: none;
-    padding-inline: 48px;
+  /* Sidebar */
+  .sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    width: 220px;
+    flex-shrink: 0;
+    padding: var(--space-3) var(--space-2);
+    font-size: var(--text-sm);
   }
 
-  .back {
+  .sidebar__top {
     display: flex;
     align-items: center;
-    gap: 6px;
-    min-height: 28px;
-    padding: 0 8px;
-    border: 0;
-    border-radius: 8px;
-    background: transparent;
-    color: var(--text-secondary);
-    font: inherit;
-    font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-medium);
-    cursor: pointer;
+    gap: 2px;
   }
 
-  .back:hover {
-    background: var(--bg-surface-hover);
-    color: var(--text-primary);
+  .sidebar__top :global(.back) {
+    justify-content: flex-start;
+    height: var(--size-sm);
+    padding-inline: var(--space-2);
+    color: var(--muted);
+    font-weight: 500;
   }
 
-  .page {
-    display: grid;
-    gap: 16px;
+  .sidebar__top :global(.back svg) {
+    width: 15px;
+    height: 15px;
   }
 
-  .title {
+  .nav {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+
+  .nav :global(.nav__item) {
+    justify-content: flex-start;
+    width: 100%;
+    height: var(--size-sm);
+    padding-inline: var(--space-2);
+    font-weight: 500;
+  }
+
+  .nav :global(.nav__item:not([aria-current])) {
+    color: var(--muted);
+  }
+
+  .nav :global(.nav__item[aria-current]) {
+    background: var(--line-faint);
+  }
+
+  .nav__section {
+    margin-top: var(--space-4);
+    padding: 0 var(--space-2) var(--space-1);
+    color: var(--muted);
+    font-size: var(--text-xs);
+    font-weight: 500;
+  }
+
+  .nav__section:first-child {
+    margin-top: var(--space-1);
+  }
+
+  /* Main panel: flat, beside the sidebar */
+  .main {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: calc(var(--ui-spacing) * 4);
+    min-width: 0;
+    padding: calc(var(--ui-spacing) * 8);
+    overflow: auto;
+    border-inline-start: 1px solid var(--line-faint);
+    background: var(--paper);
+  }
+
+  h1 {
     margin: 0;
-    font-size: var(--font-size-2xl);
-    font-weight: var(--font-weight-medium);
+    font-size: 1.5rem;
+    font-weight: 500;
   }
 
   .toolbar {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 8px;
+    gap: calc(var(--ui-spacing) * 2);
   }
 
-  .toolbar__filters,
-  .toolbar__actions {
+  .toolbar__group {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: calc(var(--ui-spacing) * 2);
   }
 
-  .toolbar :global(.search) {
-    width: 300px;
+  .table-wrap {
+    flex-shrink: 0;
+    overflow-x: auto;
   }
 
-  /* Group header rows: a rounded band with the state and its count. */
-  .host .group td {
-    height: 32px;
-    background: var(--bg-inset);
-    color: var(--text-secondary);
-    font-size: var(--font-size-xs);
-    font-weight: var(--font-weight-medium);
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+  }
+
+  th,
+  td {
+    height: calc(var(--ui-spacing) * 12);
+    padding: 0 calc(var(--ui-spacing) * 2.5);
+    border-bottom: 1px solid var(--ui-border);
+    text-align: start;
+    white-space: nowrap;
+  }
+
+  thead th {
+    height: calc(var(--ui-spacing) * 9);
+    color: var(--ui-muted-foreground);
+    font-weight: 500;
+  }
+
+  .group th {
+    height: calc(var(--ui-spacing) * 8);
+    border-bottom: 0;
+    background: var(--ui-muted);
+    font-size: 0.75rem;
+    font-weight: 500;
   }
 
   .group__count {
-    margin-left: 6px;
-    color: var(--text-muted);
+    margin-inline-start: 6px;
+    color: var(--ui-muted-foreground);
   }
 
   .who {
@@ -433,33 +580,30 @@
     gap: 10px;
   }
 
-  .avatar {
-    display: grid;
-    place-items: center;
-    width: 24px;
-    height: 24px;
-    flex-shrink: 0;
-    border-radius: 9999px;
-    color: #fff;
-    font-size: 10px;
-    font-weight: var(--font-weight-semibold);
-  }
-
   .who__text {
     display: grid;
     line-height: 1.25;
   }
 
   .who__name {
-    color: var(--text-primary);
-    font-weight: var(--font-weight-medium);
+    font-weight: 500;
   }
 
-  /* .host raises the cell rule above the theme's table cell styles. */
-  .muted,
-  .host td.muted {
-    color: var(--text-muted);
-    font-size: var(--font-size-xs);
+  .muted {
+    color: var(--ui-muted-foreground);
+    font-size: 0.75rem;
+  }
+
+  .badge {
+    display: inline-flex;
+    padding: 0 calc(var(--ui-spacing) * 1.5);
+    border: 1px solid var(--ui-primary);
+    border-radius: 9999px;
+    background: var(--ui-primary);
+    color: var(--ui-primary-foreground);
+    font-size: 0.75rem;
+    font-weight: 500;
+    line-height: 1.25rem;
   }
 
   .online {
@@ -472,25 +616,28 @@
     width: 6px;
     height: 6px;
     border-radius: 9999px;
-    background: var(--accent-green);
+    background: var(--ui-primary);
   }
 
-  .actions-col {
-    text-align: right;
-  }
-
-  /* The row menu trigger appears on hover, or while focused or open. */
-  td.actions-col :global(.kit-menu__trigger:not([aria-expanded="true"]):not(:focus-visible)) {
-    opacity: 0;
-  }
-
-  tr:hover td.actions-col :global(.kit-menu__trigger) {
-    opacity: 1;
+  .actions {
+    width: 44px;
+    text-align: end;
   }
 
   .empty {
-    color: var(--text-muted);
+    color: var(--ui-muted-foreground);
     text-align: center;
+  }
+
+  @container (max-width: 640px) {
+    .sidebar {
+      display: none;
+    }
+
+    .main {
+      border-inline-start: 0;
+      padding: calc(var(--ui-spacing) * 6);
+    }
   }
 
   .sr-only {
@@ -502,8 +649,19 @@
     white-space: nowrap;
   }
 
-  .placeholder {
-    color: var(--text-muted);
-    font-size: var(--font-size-sm);
+  /* Sortable headers: a ghost Button that reads as the header text. */
+  th :global(.sort) {
+    gap: var(--space-1);
+    height: auto;
+    margin-inline: calc(var(--space-1) * -1);
+    padding-inline: var(--space-1);
+    color: var(--muted);
+    font-size: var(--text-xs);
+    font-weight: 500;
+  }
+
+  th :global(.sort svg) {
+    width: 13px;
+    height: 13px;
   }
 </style>

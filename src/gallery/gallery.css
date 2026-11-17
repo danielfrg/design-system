@@ -1,0 +1,389 @@
+/* Gallery chrome only. ui-sdk components get their look from the vendored docs
+ * demo styles (tokens.css, base.css and one stylesheet per component), scoped to
+ * [data-example], which <html> carries so the whole app uses them. */
+@layer ui-sdk;
+
+:root,
+[data-color-scheme="system"] {
+  color-scheme: light dark;
+}
+
+[data-color-scheme="light"] {
+  color-scheme: light;
+}
+
+[data-color-scheme="dark"] {
+  color-scheme: dark;
+}
+
+/* The example pages and the chrome below were written against web.css's --ui-*
+ * names. Point them at the docs tokens. */
+:root {
+  --ui-background: var(--paper);
+  --ui-foreground: var(--ink);
+  --ui-muted: var(--tint);
+  --ui-muted-foreground: var(--muted);
+  --ui-border: var(--line-faint);
+  --ui-input: var(--line);
+  --ui-primary: var(--ink);
+  --ui-primary-foreground: var(--paper);
+  --ui-destructive: var(--danger);
+  --ui-ring: var(--halo);
+  --ui-overlay: var(--backdrop);
+  --ui-shadow: var(--shadow-2);
+  --ui-radius: var(--radius-control);
+  --ui-spacing: 0.25rem;
+  --ui-font-size: var(--text-sm);
+  --ui-line-height: 1.5;
+  --ui-font-sans: var(--sans);
+  --ui-font-mono: var(--mono);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: var(--ui-font-sans);
+  font-size: var(--text-md);
+  color: var(--ink);
+  background: var(--paper);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Scoped to body so these win ties against the docs rules scoped to <html>. */
+@scope (body) {
+  /* Shell */
+  .shell {
+    display: flex;
+    height: 100%;
+  }
+
+  .sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 240px;
+    flex-shrink: 0;
+    padding: 12px;
+    overflow-y: auto;
+    border-inline-end: 1px solid var(--line-faint);
+  }
+
+  .sidebar__brand {
+    display: flex;
+    flex-direction: column;
+    padding: 6px 10px 0;
+  }
+
+  .sidebar__title {
+    font-size: var(--text-lg);
+    font-weight: 600;
+  }
+
+  .sidebar__subtitle,
+  .sidebar__empty {
+    color: var(--muted);
+    font-size: var(--text-xs);
+  }
+
+  .sidebar__nav {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .sidebar__group {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+
+  .sidebar__group + .sidebar__group {
+    padding-top: 16px;
+    border-top: 1px solid var(--line-faint);
+  }
+
+  .sidebar__section {
+    padding: 0 10px 6px;
+    color: var(--ink);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  a.sidebar__link {
+    display: flex;
+    align-items: center;
+    min-height: 28px;
+    padding: 0 10px;
+    border-radius: var(--radius-row);
+    color: var(--muted);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  a.sidebar__link:hover,
+  a.sidebar__link[aria-current="page"] {
+    background: var(--tint);
+    color: var(--ink);
+  }
+
+  .content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  .content__topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    min-height: 52px;
+    padding: 8px 12px 8px 32px;
+    border-bottom: 1px solid var(--line-faint);
+  }
+
+  .content__controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .content__heading {
+    margin: 0;
+    font-size: var(--text-lg);
+    font-weight: 600;
+  }
+
+  .content__body {
+    flex: 1;
+    overflow-y: auto;
+    scrollbar-gutter: stable;
+    padding: 24px 32px 64px;
+  }
+
+  .content__pending {
+    color: var(--muted);
+  }
+
+  /* Gallery controls sit in their own small [data-example] box, like a demo. */
+  .control {
+    display: inline-flex;
+  }
+
+  .control--block {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Component pages: one section per docs demo */
+  .page__lead {
+    max-width: 680px;
+    margin: 0 0 32px;
+    color: var(--muted);
+  }
+
+  .section {
+    max-width: 880px;
+    margin-bottom: 40px;
+  }
+
+  .section__title {
+    margin: 0 0 6px;
+    font-size: var(--text-lg);
+    font-weight: 600;
+  }
+
+  .section__text,
+  .section__caption {
+    max-width: 680px;
+    margin: 0 0 12px;
+    color: var(--muted);
+  }
+
+  .section__caption {
+    margin: 10px 0 0;
+    font-size: var(--text-sm);
+  }
+
+  .section code {
+    font-family: var(--mono);
+    font-size: 0.9em;
+  }
+
+  /* The preview frame matches the docs site's: a centered column with room around it. */
+  .demo {
+    border: 1px solid var(--line-faint);
+    border-radius: var(--radius-surface);
+    overflow: hidden;
+  }
+
+  .demo__bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--line-faint);
+  }
+
+  .demo__file {
+    color: var(--muted);
+    font-family: var(--mono);
+    font-size: var(--text-xs);
+  }
+
+  .demo__preview {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+    min-height: 14rem;
+    padding: 48px 40px;
+    overflow-x: auto;
+  }
+
+  .demo__preview[hidden] {
+    display: none;
+  }
+
+  .demo__content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .demo__log {
+    border-top: 1px solid var(--line-faint);
+    font-family: var(--mono);
+    font-size: var(--text-xs);
+  }
+
+  .demo__log-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 12px 0;
+    color: var(--muted);
+  }
+
+  .demo__log-head button {
+    border: 0;
+    background: none;
+    color: var(--muted);
+    font: inherit;
+    cursor: pointer;
+  }
+
+  .demo__log ol {
+    margin: 0;
+    padding: 6px 12px 10px;
+    list-style: none;
+  }
+
+  .demo .code-block {
+    border: 0;
+    border-radius: 0;
+  }
+
+  /* Example pages (Preview / Code) */
+  .view {
+    display: grid;
+    gap: 16px;
+    min-width: 0;
+  }
+
+  .view__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .view__head p {
+    margin: 0;
+    max-width: 640px;
+    color: var(--muted);
+  }
+
+  .view__frame {
+    height: 720px;
+    overflow: auto;
+    border: 1px solid var(--line-faint);
+    border-radius: var(--radius-surface);
+    container-type: inline-size;
+  }
+
+  .view [hidden] {
+    display: none;
+  }
+
+  .code-block {
+    margin: 0;
+    overflow: hidden;
+    border: 1px solid var(--line-faint);
+    border-radius: var(--radius-surface);
+  }
+
+  .code-block figcaption {
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--line-faint);
+    font-family: var(--mono);
+    font-size: var(--text-xs);
+    color: var(--muted);
+  }
+
+  .code-block pre {
+    margin: 0;
+    padding: 16px;
+    line-height: 1.6;
+    overflow-x: auto;
+    font-family: var(--mono);
+    font-size: var(--text-xs);
+    background: transparent !important;
+  }
+
+  .code-block code,
+  .code-block .line {
+    background: none;
+  }
+
+  .code-block .shiki span {
+    color: light-dark(var(--shiki-light), var(--shiki-dark));
+  }
+
+  .code-block code {
+    counter-reset: line;
+  }
+
+  .code-block .line::before {
+    counter-increment: line;
+    content: counter(line);
+    display: inline-block;
+    width: 2.5ch;
+    margin-inline-end: 2ch;
+    color: var(--line);
+    text-align: end;
+  }
+}

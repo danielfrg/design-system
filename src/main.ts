@@ -1,15 +1,13 @@
 import { mount } from "svelte";
-import { initTheme } from "@kenn-io/kit-ui";
-// Same order the apps use: upstream tokens first, then ours override them.
-import "@kenn-io/kit-ui/theme.css";
-import "../public/v1/theme.css";
-import "@kenn-io/kit-ui/mermaid.css";
-import "@kenn-io/kit-ui/markdown-images.css";
-import "./kit-demo/demo.css";
-import "../public/v1/components.css";
-// Opens select lists over their trigger, and sets the gap under other triggers.
-import "../public/v1/popover-position.js";
-import App from "./kit-demo/App.svelte";
+// The design system's tokens.css and components.css load as <link>s from
+// public/v1/<theme>, exactly as other projects use them: see index.html and theme.ts.
+// Custom components, each copied into apps with its own stylesheet.
+import "../public/v1/custom/status-badge/status-badge.css";
+import "../public/v1/custom/table/table.css";
+import "../public/v1/custom/theme-toggle/theme-toggle.css";
+// Gallery only: the ui-sdk docs' demo scaffolding, and the gallery's own chrome.
+import "./gallery/demo.css";
+import "./gallery/gallery.css";
+import App from "./gallery/App.svelte";
 
-initTheme();
 mount(App, { target: document.getElementById("app")! });
