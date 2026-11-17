@@ -63,7 +63,7 @@ export const customPages: CustomPage[] = [
     id: "custom-theme-toggle",
     label: "Theme Toggle",
     description:
-      "An icon-only button that cycles light, dark and system. The choice is saved under one shared localStorage key, so every app agrees.",
+      "An icon-only button that cycles light, dark and system, revealing the new scheme from the bottom-right corner. The choice is saved under one shared localStorage key, so every app agrees.",
     folder: "public/v2/custom/theme-toggle",
     demos: [
       {
