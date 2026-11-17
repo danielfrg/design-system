@@ -4,7 +4,21 @@ Shared design system.
 
 - Many apps share the design based on this design system.
 - The files in `public/` are design to be copy pasted into other apps.
-- The user might ask to keep these files in sync, you should copy/paste those files into each project, thats how it works for now.
+- To keep apps in sync run `pnpm sync` (see Syncing apps below), don't copy files by hand.
+
+## Syncing apps
+
+- `sync.toml` lists each app that uses these files: its repo `path` (relative to this repo), the
+  `dest` folder inside it, the `theme` (a folder in `public/v2`) and the `custom` components (folders
+  in `public/v2/custom`) it uses.
+- `pnpm sync` copies them: the theme to `<dest>/theme/{tokens,components}.css` and each component to
+  `<dest>/custom/<name>/`. `pnpm sync <app>` limits it to one app.
+- `pnpm sync --check` changes nothing and exits 1 if an app has drifted (a file differs, is missing, or
+  is unexpected). Run it after editing anything in `public/v2`.
+- The `dest` folder is owned by the sync: it is deleted/overwritten to match. Apps never edit it; changes
+  are made here and synced. App-specific styles live outside `dest`.
+- Adding an app, or a theme/component to one, is an edit to `sync.toml`, then `pnpm sync`.
+- Syncing writes into other repos' working trees: don't commit there unless asked.
 
 ## ui-sdk
 

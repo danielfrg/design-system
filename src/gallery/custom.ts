@@ -59,6 +59,22 @@ export const customPages: CustomPage[] = [
       },
     ],
   },
+  {
+    id: "custom-theme-toggle",
+    label: "Theme Toggle",
+    description:
+      "An icon-only button that cycles light, dark and system. The choice is saved under one shared localStorage key, so every app agrees.",
+    folder: "public/v2/custom/theme-toggle",
+    demos: [
+      {
+        file: "demo",
+        heading: "Overview",
+        intro:
+          "Wrap the app in `Preferences` with the shared `colorScheme`, and add the `preferencesScript` Vite plugin so the saved choice applies before first paint (see ui-sdk's Add Dark Mode guide). Pass your own scheme to `ThemeToggle` to change the default, for example `createAppColorScheme({ defaultValue: \"dark\" })`.",
+        caption: "Press it to cycle light, dark and system. This gallery's own switch shares the same scheme.",
+      },
+    ],
+  },
 ];
 
 const modules = import.meta.glob<Component>("./custom/*/*.svelte", { import: "default" });

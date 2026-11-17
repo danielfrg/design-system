@@ -9,7 +9,8 @@ Also a simpler no-build version for static pages with plain-HTML + CSS + tailwin
 
 ## Usage: ui-sdk apps (v2)
 
-Pick a theme from `public/v2`, copy its folder's two files into the app, and import them once:
+Pick a theme from `public/v2` and copy its folder's two files into the app (or list the app in
+[`sync.toml`](sync.toml) and run `pnpm sync`, see [Syncing apps](#syncing-apps)), and import them once:
 
 ```ts
 import "./tokens.css"; // colors, radii, spacing, type, shadows (light and dark)
@@ -49,6 +50,25 @@ import { Table, TableHead, sortRows } from "./lib/table";
 ```
 
 The gallery's "Custom components" section has the demos.
+
+| Component | What it is |
+| --- | --- |
+| `table` | A styled native table with optional sortable headers. |
+| `theme-toggle` | An icon button that cycles light, dark and system, plus the shared `colorScheme` (localStorage key `color-scheme`, so every app agrees). Wrap the app in ui-sdk's `Preferences` and add the `preferencesScript` Vite plugin, as in ui-sdk's "Add Dark Mode" guide. |
+
+### Syncing apps
+
+`sync.toml` lists the apps that use this design system, with the theme and custom components each one
+takes. `pnpm sync` copies them into the app's `dest` folder (`theme/` and `custom/<name>/`, wholly
+owned by the sync), and `pnpm sync --check` exits 1 if an app has drifted.
+
+```toml
+[apps.golinks]
+path = "../golinks"                  # the app's repo, relative to this one
+dest = "frontend/src/design-system"  # folder owned by the sync
+theme = "cadence"
+custom = ["table", "theme-toggle"]
+```
 
 ## Usage: kit-ui apps (v1)
 

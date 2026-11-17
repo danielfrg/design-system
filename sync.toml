@@ -1,0 +1,13 @@
+# Apps that copy files from public/v2. Run `pnpm sync` to update them,
+# `pnpm sync --check` to see whether they have drifted.
+#
+# path    the app's repo, relative to this one
+# dest    folder inside the app that is wholly owned by the sync (never edit it by hand)
+# theme   a folder in public/v2 (ui-sdk, cadence): copied to <dest>/theme/
+# custom  folders in public/v2/custom: copied to <dest>/custom/<name>/
+
+[apps.golinks]
+path = "../golinks"
+dest = "frontend/src/design-system"
+theme = "cadence"
+custom = ["table", "theme-toggle"]
