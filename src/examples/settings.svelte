@@ -1,8 +1,9 @@
 <script lang="ts">
+  import { SearchIcon } from "@lucide/svelte";
   import { onDestroy } from "svelte";
   import { Button } from "@ui-sdk/svelte/button";
   import { Field, FieldLabel } from "@ui-sdk/svelte/field";
-  import { Input } from "@ui-sdk/svelte/input";
+  import { Input, InputGroup } from "@ui-sdk/svelte/input";
   import {
     SegmentedControl,
     SegmentedControlIndicator,
@@ -49,12 +50,22 @@
   onDestroy(() => toast.dismiss());
 </script>
 
+{#snippet heading(title: string, description: string)}
+  <header class="heading">
+    <h2>{title}</h2>
+    <p>{description}</p>
+  </header>
+{/snippet}
+
 <div class="app">
   <aside class="sidebar">
     <div class="sidebar__top">
       <h1 class="workspace">Settings</h1>
     </div>
-    <Input type="search" bind:value={query} placeholder="Search settings…" aria-label="Search settings" />
+    <InputGroup class="search">
+      <SearchIcon aria-hidden="true" />
+      <Input type="search" bind:value={query} placeholder="Search settings…" aria-label="Search settings" />
+    </InputGroup>
     <nav class="nav" aria-label="Settings">
       {#each groups as group (group)}
         <span class="nav__section">{group}</span>
@@ -62,11 +73,11 @@
           <Button
             class="nav__item"
             data-variant="ghost"
-            title={category.summary}
             aria-current={active === category.id ? "page" : undefined}
             onclick={() => (active = category.id)}
           >
-            {category.label}
+            <span class="nav__label">{category.label}</span>
+            <span class="nav__summary">{category.summary}</span>
           </Button>
         {/each}
       {:else}
@@ -78,81 +89,70 @@
   <div class="main">
     <div class="content">
       {#if active === "profile"}
-        <section class="card">
-          <header>
-            <h2>Profile</h2>
-            <p>This is how others see you on the site.</p>
-          </header>
-          <Field name="name">
+        {@render heading("Profile", "This is how others see you on the site.")}
+        <div class="card">
+          <Field name="name" class="row">
             <FieldLabel>Name</FieldLabel>
             <Input bind:value={name} autocomplete="name" />
           </Field>
-          <Field name="email">
+          <Field name="email" class="row">
             <FieldLabel>Email</FieldLabel>
             <Input type="email" bind:value={email} autocomplete="email" />
           </Field>
-          <Field name="bio">
+          <Field name="bio" class="row">
             <FieldLabel>Bio</FieldLabel>
-            <Textarea bind:value={bio} rows={3} />
+            <Textarea bind:value={bio} rows={1} />
           </Field>
-        </section>
+        </div>
       {:else if active === "notifications"}
-        <section class="card">
-          <header>
-            <h2>Email</h2>
-            <p>Choose what lands in your inbox.</p>
-          </header>
-          <label class="toggle-row">
-            Mentions and replies
+        {@render heading("Email", "Choose what lands in your inbox.")}
+        <div class="card">
+          <Field class="row">
+            <FieldLabel>Mentions and replies</FieldLabel>
             <Switch bind:checked={mentions}><SwitchThumb /></Switch>
-          </label>
-          <label class="toggle-row">
-            Weekly digest
+          </Field>
+          <Field class="row">
+            <FieldLabel>Weekly digest</FieldLabel>
             <Switch bind:checked={digest}><SwitchThumb /></Switch>
-          </label>
-          <label class="toggle-row">
-            Product news and offers
+          </Field>
+          <Field class="row">
+            <FieldLabel>Product news and offers</FieldLabel>
             <Switch bind:checked={marketing}><SwitchThumb /></Switch>
-          </label>
-        </section>
+          </Field>
+        </div>
       {:else if active === "appearance"}
-        <section class="card">
-          <header>
-            <h2 id="theme-title">Theme</h2>
-            <p>Follow your system or pick one.</p>
-          </header>
-          <SegmentedControl bind:value={theme} aria-labelledby="theme-title">
-            <SegmentedControlIndicator />
-            <SegmentedControlItem value="light">Light</SegmentedControlItem>
-            <SegmentedControlItem value="dark">Dark</SegmentedControlItem>
-            <SegmentedControlItem value="system">System</SegmentedControlItem>
-          </SegmentedControl>
-        </section>
-        <section class="card">
-          <header>
-            <h2 id="density-title">Density</h2>
-            <p>How much space lists take up.</p>
-          </header>
-          <SegmentedControl bind:value={density} aria-labelledby="density-title">
-            <SegmentedControlIndicator />
-            <SegmentedControlItem value="compact">Compact</SegmentedControlItem>
-            <SegmentedControlItem value="comfortable">Comfortable</SegmentedControlItem>
-          </SegmentedControl>
-        </section>
-      {:else if active === "security"}
-        <section class="card">
-          <header>
-            <h2>Sign-in</h2>
-            <p>Protect your account.</p>
-          </header>
-          <label class="toggle-row">
-            Two-factor authentication
-            <Switch bind:checked={twoFactor}><SwitchThumb /></Switch>
-          </label>
-          <div>
-            <Button>Change password</Button>
+        {@render heading("Appearance", "Follow your system or pick a theme, and choose how dense lists are.")}
+        <div class="card">
+          <div class="row">
+            <span id="theme-title" class="row__label">Theme</span>
+            <SegmentedControl bind:value={theme} aria-labelledby="theme-title">
+              <SegmentedControlIndicator />
+              <SegmentedControlItem value="light">Light</SegmentedControlItem>
+              <SegmentedControlItem value="dark">Dark</SegmentedControlItem>
+              <SegmentedControlItem value="system">System</SegmentedControlItem>
+            </SegmentedControl>
           </div>
-        </section>
+          <div class="row">
+            <span id="density-title" class="row__label">Density</span>
+            <SegmentedControl bind:value={density} aria-labelledby="density-title">
+              <SegmentedControlIndicator />
+              <SegmentedControlItem value="compact">Compact</SegmentedControlItem>
+              <SegmentedControlItem value="comfortable">Comfortable</SegmentedControlItem>
+            </SegmentedControl>
+          </div>
+        </div>
+      {:else if active === "security"}
+        {@render heading("Sign-in", "Protect your account.")}
+        <div class="card">
+          <Field class="row">
+            <FieldLabel>Two-factor authentication</FieldLabel>
+            <Switch bind:checked={twoFactor}><SwitchThumb /></Switch>
+          </Field>
+          <div class="row">
+            <span class="row__label">Password</span>
+            <div><Button>Change password</Button></div>
+          </div>
+        </div>
       {/if}
     </div>
 
@@ -214,11 +214,21 @@
   }
 
   .nav :global(.nav__item) {
-    justify-content: flex-start;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 1px;
     width: 100%;
-    height: var(--size-sm);
-    padding-inline: var(--space-2);
+    height: auto;
+    padding: var(--space-1) var(--space-2);
     font-weight: 500;
+    text-align: start;
+  }
+
+  .nav__summary {
+    color: var(--muted);
+    font-size: var(--text-xs);
+    font-weight: 400;
   }
 
   .nav :global(.nav__item:not([aria-current])) {
@@ -260,43 +270,79 @@
   }
 
   .content {
-    display: grid;
-    align-content: start;
-    gap: calc(var(--ui-spacing) * 4);
+    display: flex;
     flex: 1;
+    flex-direction: column;
+    gap: var(--space-3);
+    width: 100%;
+    max-width: 46rem;
     min-height: 0;
-    padding: calc(var(--ui-spacing) * 6);
+    margin-inline: auto;
+    padding: calc(var(--space-8) * 2) var(--space-6) var(--space-6);
     overflow-y: auto;
   }
 
-  .card {
+  .heading {
     display: grid;
-    gap: calc(var(--ui-spacing) * 4);
-    max-width: 36rem;
-    padding: calc(var(--ui-spacing) * 5);
-    border: 1px solid var(--ui-border);
-    border-radius: calc(var(--ui-radius) * 2);
-  }
-
-  .card header {
-    display: grid;
-    gap: calc(var(--ui-spacing) * 1);
+    gap: 2px;
+    padding-inline: var(--space-4);
   }
 
   h2 {
     margin: 0;
-    font-size: 1rem;
-    font-weight: 600;
+    font-size: var(--text-lg);
+    font-weight: 500;
   }
 
-  .card header p {
+  .heading p {
     margin: 0;
-    color: var(--ui-muted-foreground);
+    color: var(--muted);
   }
 
-  .toggle-row {
+  .card {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    padding-inline: var(--space-4);
+    border: 1px solid var(--line-faint);
+    border-radius: var(--radius-surface);
+    background: var(--surface-1);
+    box-shadow: var(--shadow-drop);
+  }
+
+  /* A label column and a control column, one setting per row. */
+  .card :global(.row),
+  .row {
+    display: grid;
+    grid-template-columns: 11rem minmax(0, 1fr);
+    align-items: center;
+    gap: var(--space-4);
+    width: 100%;
+    max-width: none;
+    padding-block: var(--space-3);
+  }
+
+  .card :global(.row + .row) {
+    border-top: 1px solid var(--line-faint);
+  }
+
+  .card :global(.row [data-slot="field-label"]),
+  .row__label {
+    color: var(--muted);
+    font-weight: 400;
+  }
+
+  .card :global(.row :is([data-slot="input"], [data-slot="textarea"])) {
+    width: 100%;
+    max-width: 32rem;
+  }
+
+  .card :global(.row [data-slot="textarea"]) {
+    min-height: 0;
+    resize: vertical;
+  }
+
+  .card :global(.row :is([data-slot="switch"], [data-slot="segmented-control"])) {
+    justify-self: start;
   }
 
   .save-bar {

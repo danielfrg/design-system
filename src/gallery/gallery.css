@@ -163,6 +163,12 @@ body {
     border-bottom: 1px solid var(--line-faint);
   }
 
+  .content__controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
   .content__heading {
     margin: 0;
     font-size: var(--text-lg);

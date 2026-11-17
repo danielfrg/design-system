@@ -457,7 +457,13 @@
     font-weight: 400;
   }
 
+  /* The docs styles draw a tree line beside a list in a collapsible panel. */
+  .rows {
+    border-inline-start: 0;
+  }
+
   .rows :global(.issue) {
+    border-radius: 0;
     display: grid;
     grid-template-columns: 4.5rem 18px minmax(0, 1fr) auto;
     align-items: center;

@@ -3,6 +3,7 @@
   import {
     BellIcon,
     CheckIcon,
+    ChevronDownIcon,
     ChevronLeftIcon,
     MailIcon,
     MonitorIcon,
@@ -108,6 +109,7 @@
 {#snippet choose(options: { value: string; label: string }[])}
   <SelectTrigger>
     <SelectValue />
+    <ChevronDownIcon aria-hidden="true" />
   </SelectTrigger>
   <SelectContent align="end">
     {#each options as option (option.value)}
@@ -156,7 +158,7 @@
         <h2 id="channels-title">Notification channels</h2>
         <div class="card">
           {#each channels as channel (channel.id)}
-            <Field class="channel" disabled={channel.id === "inbox"}>
+            <Field class="setting" disabled={channel.id === "inbox"}>
               <span class="icon"><channel.icon aria-hidden="true" /></span>
               {@render text(channel.label, summary(channel.id))}
               <Switch bind:checked={enabled[channel.id]}>
@@ -169,7 +171,7 @@
 
       <section aria-labelledby="events-title">
         <h2 id="events-title">Notify me about</h2>
-        <div class="card">
+        <div class="card card--table">
           <table>
             <caption class="sr-only">Notification types by channel</caption>
             <thead>
@@ -207,13 +209,13 @@
       <section aria-labelledby="email-title">
         <h2 id="email-title">Email</h2>
         <div class="card">
-          <Field>
+          <Field class="setting">
             {@render text("Digest", "A summary of unread notifications")}
             <Select bind:value={digest} items={digestOptions}>
               {@render choose(digestOptions)}
             </Select>
           </Field>
-          <Field>
+          <Field class="setting">
             {@render text(
               "Delay",
               "Wait before emailing, so notifications you already read are skipped",
@@ -228,15 +230,15 @@
       <section aria-labelledby="updates-title">
         <h2 id="updates-title">Updates from us</h2>
         <div class="card">
-          <Field>
+          <Field class="setting">
             {@render text("Show updates in sidebar", "Highlight new features in the app sidebar")}
             <Switch bind:checked={sidebarUpdates}><SwitchThumb /></Switch>
           </Field>
-          <Field>
+          <Field class="setting">
             {@render text("Changelog newsletter", "An email about what shipped, every two weeks")}
             <Switch bind:checked={changelog}><SwitchThumb /></Switch>
           </Field>
-          <Field>
+          <Field class="setting">
             {@render text("Marketing and onboarding", "Tips, events and product announcements")}
             <Switch bind:checked={marketing}><SwitchThumb /></Switch>
           </Field>
@@ -358,9 +360,49 @@
   }
 
   .card {
-    display: grid;
-    border: 1px solid var(--ui-border);
-    border-radius: calc(var(--ui-radius) * 2);
+    display: flex;
+    flex-direction: column;
+    padding-inline: var(--space-4);
+    border: 1px solid var(--line-faint);
+    border-radius: var(--radius-surface);
+    background: var(--surface-1);
+    box-shadow: var(--shadow-drop);
+  }
+
+  .card--table {
+    padding: var(--space-2) var(--space-4);
+  }
+
+  /* Settings rows: label and description on the left, the control at the end. */
+  .card :global(.setting) {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--space-3);
+    width: 100%;
+    max-width: none;
+    padding-block: var(--space-4);
+  }
+
+  .card :global(.setting + .setting) {
+    border-top: 1px solid var(--line-faint);
+  }
+
+  .row__text {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+  }
+
+  .card :global(.setting [data-slot="field-description"]) {
+    margin: 0;
+  }
+
+  .card :global(.setting [data-slot="select-trigger"]) {
+    width: auto;
+    min-width: 7.5rem;
   }
 
   .icon {
@@ -387,26 +429,31 @@
 
   th,
   td {
-    height: calc(var(--ui-spacing) * 10);
-    padding: 0 calc(var(--ui-spacing) * 4);
+    height: 44px;
+    padding: 0;
+    border: 0;
     text-align: start;
   }
 
   thead th {
-    border-bottom: 1px solid var(--ui-border);
-    color: var(--ui-muted-foreground);
-    font-size: 0.75rem;
-    font-weight: 500;
+    color: var(--muted);
+    font-size: var(--text-sm);
+    font-weight: 400;
   }
 
   tbody th {
-    font-weight: 500;
+    color: var(--ink);
+    font-weight: 400;
   }
 
-  .channel {
-    width: 72px;
-    padding: 0;
+  th.channel,
+  td.channel {
+    width: 84px;
     text-align: center;
+  }
+
+  td.channel :global([data-slot="checkbox"]) {
+    margin-inline: auto;
   }
 
   .muted {
@@ -431,23 +478,5 @@
     .main {
       border-inline-start: 0;
     }
-  }
-
-  /* Channel rows: icon, label and summary, switch at the end. */
-  .card :global(.channel) {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: var(--space-3);
-    width: 100%;
-    padding: var(--space-3) var(--space-4);
-  }
-
-  .card :global(.channel + .channel) {
-    border-top: 1px solid var(--line-faint);
-  }
-
-  .card :global(.channel [data-slot="switch"]) {
-    margin-inline-start: auto;
   }
 </style>

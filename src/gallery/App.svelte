@@ -14,6 +14,7 @@
   import { customPages } from "./custom";
   import { componentPages } from "./pages";
   import SourceView from "./SourceView.svelte";
+  import { currentTheme, setTheme, themes, type Theme } from "./theme";
 
   interface NavItem {
     id: string;
@@ -21,6 +22,7 @@
   }
 
   const scheme = usePreference(colorScheme);
+  let theme = $state<Theme>(currentTheme());
 
   const examplePages: NavItem[] = examples.map(({ id, label }) => ({ id, label }));
   const firstId = componentPages[0]!.id;
@@ -104,17 +106,34 @@
     <main class="content">
       <header class="content__topbar">
         <h2 class="content__heading">{activeLabel}</h2>
-        <div class="control" data-example="gallery/color-scheme">
-          <SegmentedControl
-            aria-label="Color scheme"
-            value={scheme.current.value}
-            onValueChange={(next) => colorScheme.set(next as ColorSchemeValue)}
-          >
-            <SegmentedControlIndicator />
-            <SegmentedControlItem value="light">Light</SegmentedControlItem>
-            <SegmentedControlItem value="dark">Dark</SegmentedControlItem>
-            <SegmentedControlItem value="system">System</SegmentedControlItem>
-          </SegmentedControl>
+        <div class="content__controls">
+          <div class="control" data-example="gallery/theme">
+            <SegmentedControl
+              aria-label="Theme"
+              value={theme}
+              onValueChange={(next) => {
+                theme = next as Theme;
+                setTheme(theme);
+              }}
+            >
+              <SegmentedControlIndicator />
+              {#each themes as option (option.value)}
+                <SegmentedControlItem value={option.value}>{option.label}</SegmentedControlItem>
+              {/each}
+            </SegmentedControl>
+          </div>
+          <div class="control" data-example="gallery/color-scheme">
+            <SegmentedControl
+              aria-label="Color scheme"
+              value={scheme.current.value}
+              onValueChange={(next) => colorScheme.set(next as ColorSchemeValue)}
+            >
+              <SegmentedControlIndicator />
+              <SegmentedControlItem value="light">Light</SegmentedControlItem>
+              <SegmentedControlItem value="dark">Dark</SegmentedControlItem>
+              <SegmentedControlItem value="system">System</SegmentedControlItem>
+            </SegmentedControl>
+          </div>
         </div>
       </header>
       <div class="content__body">

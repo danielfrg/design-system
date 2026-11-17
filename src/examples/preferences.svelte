@@ -1,5 +1,6 @@
 <script lang="ts">
   import ChevronLeftIcon from "@lucide/svelte/icons/chevron-left";
+  import ChevronDownIcon from "@lucide/svelte/icons/chevron-down";
   import { Button } from "@ui-sdk/svelte/button";
   import { Field, FieldDescription, FieldLabel } from "@ui-sdk/svelte/field";
   import { Input } from "@ui-sdk/svelte/input";
@@ -244,7 +245,7 @@
                 </div>
               {:else}
                 <div class="row">
-                  <Field>
+                  <Field class="setting">
                     <div class="row__text">
                       <FieldLabel>{row.title}</FieldLabel>
                       <FieldDescription>{row.description}</FieldDescription>
@@ -253,6 +254,7 @@
                       <Select items={row.options} bind:value={selects[row.key]}>
                         <SelectTrigger>
                           <SelectValue />
+                          <ChevronDownIcon aria-hidden="true" />
                         </SelectTrigger>
                         <SelectContent align="end">
                           {#each row.options as option (option.value)}
@@ -389,20 +391,45 @@
   }
 
   .card {
-    border: 1px solid var(--ui-border);
-    border-radius: calc(var(--ui-radius) * 2);
+    padding-inline: var(--space-4);
+    border: 1px solid var(--line-faint);
+    border-radius: var(--radius-surface);
+    background: var(--surface-1);
+    box-shadow: var(--shadow-drop);
   }
 
   .row {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: calc(var(--ui-spacing) * 3);
-    padding: calc(var(--ui-spacing) * 3.5) calc(var(--ui-spacing) * 4);
+    gap: var(--space-4);
+    padding-block: var(--space-4);
   }
 
   .row + .row {
-    border-top: 1px solid var(--ui-border);
+    border-top: 1px solid var(--line-faint);
+  }
+
+  /* Each setting: label and description on the left, its control at the end. */
+  .row :global(.setting) {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--space-4);
+    width: 100%;
+    max-width: none;
+  }
+
+  .row__text {
+    flex: 1;
+  }
+
+  .row :global(.setting [data-slot="select-trigger"]) {
+    width: auto;
+    min-width: 7.5rem;
+  }
+
+  .row :global(.setting [data-slot="field-description"]) {
+    margin: 0;
   }
 
   .row__text {

@@ -9,8 +9,27 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&amp;family=Geist+Mono:wght@400;500&amp;display=swap"
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&amp;family=Geist+Mono:wght@400;500&amp;family=Inter:wght@400;500;600;700&amp;display=swap"
     />
+    <!-- The design system's theme, from public/v2/<theme>: the saved choice, before first paint. -->
+    <script>
+      (function () {
+        var themes = ["ui-sdk", "cadence"];
+        var theme = "ui-sdk";
+        try {
+          var saved = localStorage.getItem("gallery-theme");
+          if (themes.indexOf(saved) >= 0) theme = saved;
+        } catch (e) {}
+        document.documentElement.setAttribute("data-theme", theme);
+        ["tokens", "components"].forEach(function (file) {
+          var link = document.createElement("link");
+          link.rel = "stylesheet";
+          link.href = "v2/" + theme + "/" + file + ".css";
+          link.setAttribute("data-theme-file", file);
+          document.head.appendChild(link);
+        });
+      })();
+    </script>
     <title>design-system</title>
   </head>
   <body>
