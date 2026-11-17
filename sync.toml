@@ -71,3 +71,15 @@ path = "../budget"
 dest = "frontend/src/design-system"
 theme = "cadence"
 custom = []
+
+[apps.sofigram]
+path = "../sofigram"
+dest = "frontend/src/design-system"
+theme = "cadence"
+custom = []
+
+[apps.songbook]
+path = "../songbook"
+dest = "frontend/src/design-system"
+theme = "cadence"
+custom = ["theme-toggle"]
