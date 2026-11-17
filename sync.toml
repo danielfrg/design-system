@@ -17,3 +17,9 @@ path = "../bookmarks"
 dest = "frontend/src/design-system"
 theme = "cadence"
 custom = ["table", "theme-toggle"]
+
+[apps.bookmarks-extension]
+path = "../bookmarks/extension"
+dest = "src/design-system"
+theme = "cadence"
+custom = ["theme-toggle"]
