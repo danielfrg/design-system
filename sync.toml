@@ -41,3 +41,21 @@ path = "../notebook"
 dest = "frontend/src/design-system"
 theme = "cadence"
 custom = ["theme-toggle"]
+
+[apps.homeboard]
+path = "../homeboard"
+dest = "frontend/src/admin/design-system"
+theme = "cadence"
+custom = ["status-badge", "table", "theme-toggle"]
+
+[apps.url-redirector-extension]
+path = "../chrome-url-redirector"
+dest = "src/design-system"
+theme = "cadence"
+custom = ["theme-toggle"]
+
+[apps.website-blocker-extension]
+path = "../chrome-website-blocker"
+dest = "src/design-system"
+theme = "cadence"
+custom = ["theme-toggle"]
