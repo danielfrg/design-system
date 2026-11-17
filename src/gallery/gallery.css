@@ -91,7 +91,6 @@ body {
   }
 
   .sidebar__subtitle,
-  .sidebar__section,
   .sidebar__empty {
     color: var(--muted);
     font-size: var(--text-xs);
@@ -105,12 +104,27 @@ body {
   .sidebar__nav {
     display: flex;
     flex-direction: column;
+    gap: 20px;
+  }
+
+  .sidebar__group {
+    display: flex;
+    flex-direction: column;
     gap: 1px;
   }
 
+  .sidebar__group + .sidebar__group {
+    padding-top: 16px;
+    border-top: 1px solid var(--line-faint);
+  }
+
   .sidebar__section {
-    padding: 10px 10px 4px;
-    font-weight: 500;
+    padding: 0 10px 6px;
+    color: var(--ink);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
   }
 
   a.sidebar__link {

@@ -29,6 +29,19 @@ import "./components.css"; // every @ui-sdk part by data-slot and state, plus th
 These files are generated from the ui-sdk docs' own demo styles, so components look like
 the docs. Regenerate with `node scripts/build-design-css.mjs` (it runs in `pnpm build`).
 
+### Custom components
+
+Components ui-sdk doesn't ship live in `public/v2/custom/<name>/`, one folder each (Svelte
+components, a stylesheet that reads only `tokens.css`, and an `index.ts`). Copy the folder into
+the app, import its stylesheet once, and import the parts from the folder:
+
+```ts
+import "./lib/table/table.css";
+import { Table, TableHead, sortRows } from "./lib/table";
+```
+
+The gallery's "Custom components" section has the demos.
+
 ## Usage: kit-ui apps (v1)
 
 Copy `theme.css` and `components.css` into the app, import in this order:

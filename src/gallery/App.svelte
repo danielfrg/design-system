@@ -10,6 +10,8 @@
   import { examples } from "../examples/index";
   import { colorScheme } from "./color-scheme";
   import ComponentPage from "./ComponentPage.svelte";
+  import CustomComponentPage from "./CustomComponentPage.svelte";
+  import { customPages } from "./custom";
   import { componentPages } from "./pages";
   import SourceView from "./SourceView.svelte";
 
@@ -33,17 +35,22 @@
 
   const visibleExamples = $derived(examplePages.filter(matches));
   const visibleComponents = $derived(componentPages.filter(matches));
+  const visibleCustom = $derived(customPages.filter(matches));
 
   const activeExample = $derived(examples.find((e) => e.id === activeId));
   const activeComponent = $derived(componentPages.find((p) => p.id === activeId));
-  const activeLabel = $derived(activeExample?.label ?? activeComponent?.label ?? "Not found");
+  const activeCustom = $derived(customPages.find((p) => p.id === activeId));
+  const activeLabel = $derived(
+    activeExample?.label ?? activeComponent?.label ?? activeCustom?.label ?? "Not found",
+  );
 </script>
 
 <svelte:window
   onhashchange={() => {
     const id = location.hash.slice(1) || firstId;
     // Demos link to in-page anchors like #installation; only gallery ids switch pages.
-    if (examples.some((e) => e.id === id) || componentPages.some((p) => p.id === id)) activeId = id;
+    const known = [...examples, ...componentPages, ...customPages].some((p) => p.id === id);
+    if (known) activeId = id;
   }}
 />
 
@@ -75,19 +82,20 @@
         />
       </div>
       <nav class="sidebar__nav" aria-label="Gallery">
-        {#if visibleExamples.length > 0}
-          <span class="sidebar__section">Examples</span>
-          {#each visibleExamples as item (item.id)}
-            {@render navLink(item)}
-          {/each}
-        {/if}
-        {#if visibleComponents.length > 0}
-          <span class="sidebar__section">Components</span>
-          {#each visibleComponents as item (item.id)}
-            {@render navLink(item)}
-          {/each}
-        {/if}
-        {#if visibleExamples.length === 0 && visibleComponents.length === 0}
+        {#snippet group(title: string, items: NavItem[])}
+          {#if items.length > 0}
+            <div class="sidebar__group">
+              <span class="sidebar__section">{title}</span>
+              {#each items as item (item.id)}
+                {@render navLink(item)}
+              {/each}
+            </div>
+          {/if}
+        {/snippet}
+        {@render group("Examples", visibleExamples)}
+        {@render group("Components", visibleComponents)}
+        {@render group("Custom components", visibleCustom)}
+        {#if visibleExamples.length + visibleComponents.length + visibleCustom.length === 0}
           <span class="sidebar__empty">No matches</span>
         {/if}
       </nav>
@@ -121,6 +129,8 @@
             />
           {:else if activeComponent}
             <ComponentPage id={activeComponent.id} description={activeComponent.description} />
+          {:else if activeCustom}
+            <CustomComponentPage page={activeCustom} />
           {:else}
             <p class="content__pending">No page called “{activeId}”.</p>
           {/if}

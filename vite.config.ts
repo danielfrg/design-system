@@ -1,4 +1,5 @@
 import { readFileSync } from "node:fs";
+import { fileURLToPath } from "node:url";
 import { preferencesScript } from "@ui-sdk/core";
 import { svelte } from "@sveltejs/vite-plugin-svelte";
 import { defineConfig } from "vite";
@@ -35,6 +36,11 @@ export default defineConfig({
   ],
   // Relative asset URLs, so the build works from any GitHub Pages sub-path.
   base: "./",
+  // Custom components live in public/v2/custom so apps can copy them; demos import them
+  // the way an app would import its copy.
+  resolve: {
+    alias: { "@custom": fileURLToPath(new URL("./public/v2/custom", import.meta.url)) },
+  },
   build: {
     outDir: "../dist",
     emptyOutDir: true,
