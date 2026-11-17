@@ -80,6 +80,13 @@ const meta: Omit<Example, "component" | "source">[] = [
       "Full-width settings page: search and role filter, grouped sortable table, and row menus.",
     filename: "members.svelte",
   },
+  {
+    id: "example-machines",
+    label: "Machines",
+    description:
+      "Network admin page: nested sidebar nav, search and filters, and a sortable device table with tags, address popovers and row menus.",
+    filename: "machines.svelte",
+  },
 ];
 
 export const examples: Example[] = meta.flatMap((m) => {

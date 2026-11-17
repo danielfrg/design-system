@@ -43,3 +43,16 @@
   ) {
   box-shadow: var(--shadow-drop);
 }
+
+/* Group labels in the item color, so they read as headings instead of faint hints. */
+:is(
+  [data-slot="menu-group-label"],
+  [data-slot="select-group-label"],
+  [data-slot="combobox-group-label"],
+  [data-slot="autocomplete-group-label"],
+  [data-slot="listbox-group-label"],
+  [data-slot="command-group-label"],
+  [data-slot="trigger-menu-group-label"]
+) {
+  color: var(--ink);
+}

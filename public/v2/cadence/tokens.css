@@ -1,7 +1,8 @@
 /*
  * Theme: cadence. Design tokens for ui-sdk components; load before components.css.
- * A Tailwind-flavored look: Inter, cool grays, a blue primary for fills, focus and
- * selection, soft gray borders on controls, 6px corners and light shadows.
+ * A Tailwind-flavored look: Inter, cool grays in light mode and warm charcoal grays in
+ * dark mode, a blue primary for fills, focus and selection, soft gray borders on
+ * controls, 6px corners and light shadows.
  * Light and dark come from light-dark(): set color-scheme (or data-color-scheme) on <html>.
  * Hand-written: edit this file, then run scripts/build-design-css.mjs.
  */
@@ -9,19 +10,19 @@
 :root,
 [data-color-scheme] {
   /* Text and surfaces */
-  --ink: light-dark(#111827, #f3f4f6);
-  --paper: light-dark(#ffffff, #0b1120);
-  --surface-1: light-dark(#ffffff, #111827);
-  --surface-2: light-dark(#ffffff, #151d2e);
-  --surface-3: light-dark(#ffffff, #1b2436);
-  --tint: light-dark(#f3f4f6, #1f2937);
-  --muted: light-dark(#6b7280, #9ca3af);
-  --line: light-dark(#d1d5db, #4b5563);
-  --line-faint: light-dark(#e5e7eb, #2b3546);
-  --line-disabled: light-dark(#d1d5db, #4b5563);
+  --ink: light-dark(#111827, #f7f5f4);
+  --paper: light-dark(#ffffff, #1f1e1e);
+  --surface-1: light-dark(#ffffff, #232222);
+  --surface-2: light-dark(#ffffff, #282727);
+  --surface-3: light-dark(#ffffff, #2e2d2d);
+  --tint: light-dark(#f3f4f6, #2e2d2d);
+  --muted: light-dark(#6b7280, #afacab);
+  --line: light-dark(#d1d5db, #444342);
+  --line-faint: light-dark(#e5e7eb, #2e2d2d);
+  --line-disabled: light-dark(#d1d5db, #5c5a59);
   --danger: light-dark(#dc2626, #f87171);
   --danger-tint: color-mix(in oklab, var(--danger) 9%, var(--surface-2));
-  --backdrop: light-dark(rgb(17 24 39 / 0.35), rgb(3 7 18 / 0.7));
+  --backdrop: light-dark(rgb(17 24 39 / 0.35), rgb(10 9 9 / 0.7));
 
   /* Primary: solid buttons, checked and selected parts, focus */
   --accent: light-dark(#1d4fc5, #6c92e9);
@@ -30,7 +31,7 @@
   --fill-hover: light-dark(#376ae2, #6c92e9);
   --on-fill: #ffffff;
   --edge: var(--line);
-  --edge-hover: light-dark(#9ca3af, #6b7280);
+  --edge-hover: light-dark(#9ca3af, #6b6968);
   --edge-active: var(--accent);
 
   /* Elevation */

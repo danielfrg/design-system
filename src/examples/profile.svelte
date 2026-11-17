@@ -181,7 +181,8 @@
     align-self: stretch;
     width: 100%;
     height: 100%;
-    background: var(--tint);
+    /* Light: a gray sidebar. Dark: a sidebar a step darker than the page. */
+    background: light-dark(var(--tint), color-mix(in oklab, var(--paper) 78%, black));
     color: var(--ink);
   }
 
