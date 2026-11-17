@@ -6,18 +6,6 @@
 # theme   a folder in public/v1 (ui-sdk, cadence): copied to <dest>/theme/
 # custom  folders in public/v1/custom: copied to <dest>/custom/<name>/
 
-[apps.golinks]
-path = "../golinks"
-dest = "frontend/src/design-system"
-theme = "cadence"
-custom = ["table", "theme-toggle"]
-
-[apps.ciview]
-path = "../ciview"
-dest = "frontend/src/design-system"
-theme = "cadence"
-custom = ["theme-toggle"]
-
 [apps.bookmarks]
 path = "../bookmarks"
 dest = "frontend/src/design-system"
@@ -29,6 +17,18 @@ path = "../bookmarks/extension"
 dest = "src/design-system"
 theme = "cadence"
 custom = ["theme-toggle"]
+
+[apps.ciview]
+path = "../ciview"
+dest = "frontend/src/design-system"
+theme = "cadence"
+custom = ["theme-toggle"]
+
+[apps.golinks]
+path = "../golinks"
+dest = "frontend/src/design-system"
+theme = "cadence"
+custom = ["table", "theme-toggle"]
 
 [apps.homelab-console]
 path = "../homelab-console"
