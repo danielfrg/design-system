@@ -35,3 +35,9 @@ path = "../homelab-console"
 dest = "frontend/src/design-system"
 theme = "cadence"
 custom = ["table", "theme-toggle", "status-badge"]
+
+[apps.notebook]
+path = "../notebook"
+dest = "frontend/src/design-system"
+theme = "cadence"
+custom = ["theme-toggle"]
