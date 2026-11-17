@@ -12,6 +12,12 @@ dest = "frontend/src/design-system"
 theme = "cadence"
 custom = ["table", "theme-toggle"]
 
+[apps.ciview]
+path = "../ciview"
+dest = "frontend/src/design-system"
+theme = "cadence"
+custom = ["theme-toggle"]
+
 [apps.bookmarks]
 path = "../bookmarks"
 dest = "frontend/src/design-system"
