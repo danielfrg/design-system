@@ -1,6 +1,6 @@
 export const themes = [
   { value: "ui-sdk", label: "ui-sdk" },
-  { value: "cadence", label: "Cadence" },
+  { value: "cadence", label: "cadence" },
 ] as const;
 
 export type Theme = (typeof themes)[number]["value"];
