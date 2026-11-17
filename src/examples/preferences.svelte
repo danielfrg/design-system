@@ -1,16 +1,18 @@
 <script lang="ts">
-  import {
-    Button,
-    SearchInput,
-    SelectDropdown,
-    SettingsLayout,
-    SettingsSection,
-    Toggle,
-    type SettingsCategory,
-  } from "@kenn-io/kit-ui";
   import ChevronLeftIcon from "@lucide/svelte/icons/chevron-left";
+  import { Button } from "@ui-sdk/svelte/button";
+  import { Field, FieldDescription, FieldLabel } from "@ui-sdk/svelte/field";
+  import { Input } from "@ui-sdk/svelte/input";
+  import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+  } from "@ui-sdk/svelte/select";
+  import { Switch, SwitchThumb } from "@ui-sdk/svelte/switch";
 
-  const categories: SettingsCategory[] = [
+  const categories = [
     { id: "preferences", label: "Preferences", group: "Account" },
     { id: "profile", label: "Profile", group: "Account" },
     { id: "notifications", label: "Notifications", group: "Account" },
@@ -27,278 +29,384 @@
     if (!q) return categories;
     return categories.filter((c) => `${c.label} ${c.group}`.toLowerCase().includes(q));
   });
+  const groups = $derived([...new Set(visible.map((c) => c.group))]);
 
-  let homeView = $state("inbox");
-  let displayNames = $state("full");
-  let weekStart = $state("sunday");
-  let emoji = $state(true);
-  let sendOn = $state("mod-enter");
-  let fontSize = $state("default");
-  let pointer = $state(false);
-  let underline = $state(false);
-  let staticImages = $state(false);
-  let theme = $state("system");
-  let openDesktop = $state(true);
-  let autoAssign = $state(false);
-  let assignOnStart = $state(true);
+  let selects = $state<Record<string, string | null>>({
+    homeView: "inbox",
+    displayNames: "full",
+    weekStart: "sunday",
+    sendOn: "mod-enter",
+    fontSize: "default",
+    theme: "system",
+  });
+  let switches = $state<Record<string, boolean>>({
+    emoji: true,
+    pointer: false,
+    underline: false,
+    staticImages: false,
+    openDesktop: true,
+    autoAssign: false,
+    assignOnStart: true,
+  });
+
+  interface Option {
+    value: string;
+    label: string;
+  }
+
+  type Row =
+    | { kind: "select"; key: string; title: string; description: string; options: Option[] }
+    | { kind: "switch"; key: string; title: string; description: string }
+    | { kind: "button"; key: string; title: string; description: string; action: string };
+
+  const sections: { id: string; title: string; rows: Row[] }[] = [
+    {
+      id: "general",
+      title: "General",
+      rows: [
+        {
+          kind: "select",
+          key: "homeView",
+          title: "Default home view",
+          description: "Select which view to display when launching the app",
+          options: [
+            { value: "inbox", label: "Inbox" },
+            { value: "my-issues", label: "My issues" },
+            { value: "projects", label: "Projects" },
+          ],
+        },
+        {
+          kind: "select",
+          key: "displayNames",
+          title: "Display names",
+          description: "Select how names are displayed in the interface",
+          options: [
+            { value: "full", label: "Full name" },
+            { value: "username", label: "Username" },
+          ],
+        },
+        {
+          kind: "select",
+          key: "weekStart",
+          title: "First day of the week",
+          description: "Used for date pickers",
+          options: [
+            { value: "sunday", label: "Sunday" },
+            { value: "monday", label: "Monday" },
+          ],
+        },
+        {
+          kind: "switch",
+          key: "emoji",
+          title: "Convert text emoticons into emojis",
+          description: "Strings like :) will be converted to 🙂",
+        },
+        {
+          kind: "select",
+          key: "sendOn",
+          title: "Send comments on…",
+          description: "Choose which key press is used to submit comments",
+          options: [
+            { value: "mod-enter", label: "⌘+Enter" },
+            { value: "enter", label: "Enter" },
+          ],
+        },
+      ],
+    },
+    {
+      id: "interface",
+      title: "Interface and theme",
+      rows: [
+        {
+          kind: "button",
+          key: "sidebar",
+          title: "App sidebar",
+          description: "Customize sidebar item visibility, ordering, and badge style",
+          action: "Customize",
+        },
+        {
+          kind: "select",
+          key: "fontSize",
+          title: "Font size",
+          description: "Adjust the size of text across the app",
+          options: [
+            { value: "small", label: "Small" },
+            { value: "default", label: "Default" },
+            { value: "large", label: "Large" },
+          ],
+        },
+        {
+          kind: "switch",
+          key: "pointer",
+          title: "Use pointer cursors",
+          description: "Change the cursor to a pointer when hovering over any interactive elements",
+        },
+        {
+          kind: "switch",
+          key: "underline",
+          title: "Underline links",
+          description: "Always underline links in text content",
+        },
+        {
+          kind: "switch",
+          key: "staticImages",
+          title: "Disable animated images & emoji",
+          description: "GIFs and animated emojis stay static and animate only on hover",
+        },
+        {
+          kind: "select",
+          key: "theme",
+          title: "Interface theme",
+          description: "Select or customize your interface color scheme",
+          options: [
+            { value: "system", label: "System preference" },
+            { value: "light", label: "Light" },
+            { value: "dark", label: "Dark" },
+          ],
+        },
+      ],
+    },
+    {
+      id: "desktop",
+      title: "Desktop application",
+      rows: [
+        {
+          kind: "switch",
+          key: "openDesktop",
+          title: "Open in desktop app",
+          description: "Automatically open links in the desktop app when possible",
+        },
+      ],
+    },
+    {
+      id: "automations",
+      title: "Automations and workflows",
+      rows: [
+        {
+          kind: "switch",
+          key: "autoAssign",
+          title: "Auto-assign to self",
+          description: "When creating new issues, always assign them to yourself by default",
+        },
+        {
+          kind: "switch",
+          key: "assignOnStart",
+          title: "On move to started status, assign to yourself",
+          description: "When you move an unassigned issue to started, it is assigned to you",
+        },
+      ],
+    },
+  ];
+
+  function select(event: MouseEvent, id: string) {
+    event.preventDefault();
+    active = id;
+  }
 </script>
 
-<div class="host">
-  <SettingsLayout categories={visible} bind:active title="">
-    {#snippet sidebarHeader()}
-      <button class="back kit-control-states" type="button">
-        <ChevronLeftIcon size={14} aria-hidden="true" /> Back to app
-      </button>
-      <SearchInput bind:value={query} size="sm" block placeholder="Search…" />
-    {/snippet}
-
-    {#snippet panel(id)}
-      {#if id === "preferences"}
-        <h1 class="title">Preferences</h1>
-
-        <SettingsSection title="General">
-          <div class="row">
-            <div class="row__text">
-              <span class="row__title">Default home view</span>
-              <span class="row__description"
-                >Select which view to display when launching the app</span
-              >
-            </div>
-            <SelectDropdown
-              value={homeView}
-              onchange={(v) => (homeView = v)}
-              align="end"
-              options={[
-                { value: "inbox", label: "Inbox" },
-                { value: "my-issues", label: "My issues" },
-                { value: "projects", label: "Projects" },
-              ]}
-            />
-          </div>
-          <div class="row">
-            <div class="row__text">
-              <span class="row__title">Display names</span>
-              <span class="row__description">Select how names are displayed in the interface</span>
-            </div>
-            <SelectDropdown
-              value={displayNames}
-              onchange={(v) => (displayNames = v)}
-              align="end"
-              options={[
-                { value: "full", label: "Full name" },
-                { value: "username", label: "Username" },
-              ]}
-            />
-          </div>
-          <div class="row">
-            <div class="row__text">
-              <span class="row__title">First day of the week</span>
-              <span class="row__description">Used for date pickers</span>
-            </div>
-            <SelectDropdown
-              value={weekStart}
-              onchange={(v) => (weekStart = v)}
-              align="end"
-              options={[
-                { value: "sunday", label: "Sunday" },
-                { value: "monday", label: "Monday" },
-              ]}
-            />
-          </div>
-          <div class="row">
-            <div class="row__text">
-              <span class="row__title">Convert text emoticons into emojis</span>
-              <span class="row__description">Strings like :) will be converted to 🙂</span>
-            </div>
-            <Toggle bind:checked={emoji} ariaLabel="Convert text emoticons into emojis" />
-          </div>
-          <div class="row">
-            <div class="row__text">
-              <span class="row__title">Send comments on…</span>
-              <span class="row__description">Choose which key press is used to submit comments</span
-              >
-            </div>
-            <SelectDropdown
-              value={sendOn}
-              onchange={(v) => (sendOn = v)}
-              align="end"
-              options={[
-                { value: "mod-enter", label: "⌘+Enter" },
-                { value: "enter", label: "Enter" },
-              ]}
-            />
-          </div>
-        </SettingsSection>
-
-        <SettingsSection title="Interface and theme">
-          <div class="row">
-            <div class="row__text">
-              <span class="row__title">App sidebar</span>
-              <span class="row__description">
-                Customize sidebar item visibility, ordering, and badge style
-              </span>
-            </div>
-            <Button label="Customize" />
-          </div>
-          <div class="row">
-            <div class="row__text">
-              <span class="row__title">Font size</span>
-              <span class="row__description">Adjust the size of text across the app</span>
-            </div>
-            <SelectDropdown
-              value={fontSize}
-              onchange={(v) => (fontSize = v)}
-              align="end"
-              options={[
-                { value: "small", label: "Small" },
-                { value: "default", label: "Default" },
-                { value: "large", label: "Large" },
-              ]}
-            />
-          </div>
-          <div class="row">
-            <div class="row__text">
-              <span class="row__title">Use pointer cursors</span>
-              <span class="row__description">
-                Change the cursor to a pointer when hovering over any interactive elements
-              </span>
-            </div>
-            <Toggle bind:checked={pointer} ariaLabel="Use pointer cursors" />
-          </div>
-          <div class="row">
-            <div class="row__text">
-              <span class="row__title">Underline links</span>
-              <span class="row__description">Always underline links in text content</span>
-            </div>
-            <Toggle bind:checked={underline} ariaLabel="Underline links" />
-          </div>
-          <div class="row">
-            <div class="row__text">
-              <span class="row__title">Disable animated images & emoji</span>
-              <span class="row__description">
-                GIFs and animated emojis stay static and animate only on hover
-              </span>
-            </div>
-            <Toggle bind:checked={staticImages} ariaLabel="Disable animated images and emoji" />
-          </div>
-          <div class="row">
-            <div class="row__text">
-              <span class="row__title">Interface theme</span>
-              <span class="row__description">Select or customize your interface color scheme</span>
-            </div>
-            <SelectDropdown
-              value={theme}
-              onchange={(v) => (theme = v)}
-              align="end"
-              options={[
-                { value: "system", label: "System preference" },
-                { value: "light", label: "Light" },
-                { value: "dark", label: "Dark" },
-              ]}
-            />
-          </div>
-        </SettingsSection>
-
-        <SettingsSection title="Desktop application">
-          <div class="row">
-            <div class="row__text">
-              <span class="row__title">Open in desktop app</span>
-              <span class="row__description">
-                Automatically open links in the desktop app when possible
-              </span>
-            </div>
-            <Toggle bind:checked={openDesktop} ariaLabel="Open in desktop app" />
-          </div>
-        </SettingsSection>
-
-        <SettingsSection title="Automations and workflows">
-          <div class="row">
-            <div class="row__text">
-              <span class="row__title">Auto-assign to self</span>
-              <span class="row__description">
-                When creating new issues, always assign them to yourself by default
-              </span>
-            </div>
-            <Toggle bind:checked={autoAssign} ariaLabel="Auto-assign to self" />
-          </div>
-          <div class="row">
-            <div class="row__text">
-              <span class="row__title">On move to started status, assign to yourself</span>
-              <span class="row__description">
-                When you move an unassigned issue to started, it is assigned to you
-              </span>
-            </div>
-            <Toggle bind:checked={assignOnStart} ariaLabel="Assign to yourself when started" />
-          </div>
-        </SettingsSection>
+<div class="shell">
+  <aside class="sidebar">
+    <div class="back">
+      <Button><ChevronLeftIcon size={16} aria-hidden="true" /> Back to app</Button>
+    </div>
+    <Input type="search" bind:value={query} placeholder="Search…" aria-label="Search settings" />
+    <nav aria-label="Settings">
+      {#each groups as group (group)}
+        <span class="group">{group}</span>
+        {#each visible.filter((c) => c.group === group) as category (category.id)}
+          <a
+            href="#{category.id}"
+            aria-current={active === category.id ? "page" : undefined}
+            onclick={(event) => select(event, category.id)}>{category.label}</a
+          >
+        {/each}
       {:else}
-        <p class="placeholder">This example only implements Preferences.</p>
-      {/if}
-    {/snippet}
-  </SettingsLayout>
+        <p class="empty">No settings match “{query}”.</p>
+      {/each}
+    </nav>
+  </aside>
+
+  <main class="content">
+    {#if active === "preferences"}
+      <h1>Preferences</h1>
+      {#each sections as section (section.id)}
+        <section aria-labelledby="pref-{section.id}">
+          <h2 id="pref-{section.id}">{section.title}</h2>
+          <div class="card">
+            {#each section.rows as row (row.key)}
+              {#if row.kind === "button"}
+                <div class="row">
+                  <div class="row__text">
+                    <span class="row__title">{row.title}</span>
+                    <span class="row__description">{row.description}</span>
+                  </div>
+                  <Button>{row.action}</Button>
+                </div>
+              {:else}
+                <div class="row">
+                  <Field>
+                    <div class="row__text">
+                      <FieldLabel>{row.title}</FieldLabel>
+                      <FieldDescription>{row.description}</FieldDescription>
+                    </div>
+                    {#if row.kind === "select"}
+                      <Select items={row.options} bind:value={selects[row.key]}>
+                        <SelectTrigger>
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent align="end">
+                          {#each row.options as option (option.value)}
+                            <SelectItem value={option.value}>{option.label}</SelectItem>
+                          {/each}
+                        </SelectContent>
+                      </Select>
+                    {:else}
+                      <Switch bind:checked={switches[row.key]}><SwitchThumb /></Switch>
+                    {/if}
+                  </Field>
+                </div>
+              {/if}
+            {/each}
+          </div>
+        </section>
+      {/each}
+    {:else}
+      <p class="empty">This example only implements Preferences.</p>
+    {/if}
+  </main>
 </div>
 
 <style>
-  .host {
-    display: flex;
+  .shell {
+    display: grid;
+    grid-template-columns: 15rem minmax(0, 1fr);
     height: 100%;
+    background: var(--ui-background);
+  }
+
+  .sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--ui-spacing) * 3);
+    min-height: 0;
+    padding: calc(var(--ui-spacing) * 4) calc(var(--ui-spacing) * 3);
+    overflow-y: auto;
+    border-right: 1px solid var(--ui-border);
+    background: color-mix(in oklab, var(--ui-muted) 50%, var(--ui-background));
   }
 
   .back {
     display: flex;
-    align-items: center;
-    gap: 6px;
-    min-height: 28px;
-    padding: 0 8px;
-    border: 0;
-    border-radius: 8px;
-    background: transparent;
-    color: var(--text-secondary);
-    font: inherit;
-    font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-medium);
-    cursor: pointer;
   }
 
-  .back:hover {
-    background: var(--bg-surface-hover);
-    color: var(--text-primary);
+  nav {
+    display: grid;
+    gap: calc(var(--ui-spacing) * 0.5);
   }
 
-  .title {
-    margin: 0 0 -8px;
-    padding: 0 16px;
-    font-size: var(--font-size-2xl);
-    font-weight: var(--font-weight-medium);
+  .group {
+    padding: calc(var(--ui-spacing) * 3) calc(var(--ui-spacing) * 2) calc(var(--ui-spacing) * 1);
+    color: var(--ui-muted-foreground);
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+
+  nav a {
+    padding: calc(var(--ui-spacing) * 1.5) calc(var(--ui-spacing) * 2);
+    border-radius: var(--ui-radius);
+    color: var(--ui-foreground);
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  nav a:hover,
+  nav a[aria-current="page"] {
+    background: var(--ui-muted);
+  }
+
+  .empty {
+    margin: 0;
+    padding-inline: calc(var(--ui-spacing) * 2);
+    color: var(--ui-muted-foreground);
+  }
+
+  .content {
+    display: grid;
+    align-content: start;
+    gap: calc(var(--ui-spacing) * 8);
+    min-height: 0;
+    padding: calc(var(--ui-spacing) * 10) calc(var(--ui-spacing) * 8);
+    overflow-y: auto;
+  }
+
+  .content > * {
+    width: 100%;
+    max-width: 44rem;
+    margin-inline: auto;
+  }
+
+  h1 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 500;
+  }
+
+  h2 {
+    margin: 0 0 calc(var(--ui-spacing) * 3);
+    font-size: 0.9375rem;
+    font-weight: 600;
+  }
+
+  .card {
+    border: 1px solid var(--ui-border);
+    border-radius: calc(var(--ui-radius) * 2);
   }
 
   .row {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 12px;
+    gap: calc(var(--ui-spacing) * 3);
+    padding: calc(var(--ui-spacing) * 3.5) calc(var(--ui-spacing) * 4);
+  }
+
+  .row + .row {
+    border-top: 1px solid var(--ui-border);
   }
 
   .row__text {
     display: grid;
-    gap: 3px;
+    gap: calc(var(--ui-spacing) * 0.75);
     min-width: 0;
-    line-height: 1.25;
+  }
+
+  .row__title,
+  .row__description {
+    font-size: calc(var(--ui-font-size) - 0.0625rem);
   }
 
   .row__title {
-    font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-medium);
+    font-weight: 500;
   }
 
   .row__description {
-    color: var(--text-muted);
-    font-size: var(--font-size-xs);
+    color: var(--ui-muted-foreground);
   }
 
-  .placeholder {
-    padding: 0 16px;
-    color: var(--text-muted);
-    font-size: var(--font-size-sm);
+  @container (max-width: 640px) {
+    .shell {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto minmax(0, 1fr);
+    }
+
+    .sidebar {
+      max-height: 14rem;
+      border-right: 0;
+      border-bottom: 1px solid var(--ui-border);
+    }
+
+    .content {
+      padding: calc(var(--ui-spacing) * 6) calc(var(--ui-spacing) * 4);
+    }
   }
 </style>

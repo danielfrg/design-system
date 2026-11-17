@@ -1,20 +1,27 @@
 <script lang="ts">
+  import { Button } from "@ui-sdk/svelte/button";
   import {
-    Checkbox,
-    SearchInput,
-    SelectDropdown,
-    SettingsLayout,
-    SettingsSection,
-    Toggle,
-    type SettingsCategory,
-  } from "@kenn-io/kit-ui";
-  import BellIcon from "@lucide/svelte/icons/bell";
-  import ChevronLeftIcon from "@lucide/svelte/icons/chevron-left";
-  import MailIcon from "@lucide/svelte/icons/mail";
-  import MonitorIcon from "@lucide/svelte/icons/monitor";
-  import SmartphoneIcon from "@lucide/svelte/icons/smartphone";
+    BellIcon,
+    CheckIcon,
+    ChevronLeftIcon,
+    MailIcon,
+    MonitorIcon,
+    SmartphoneIcon,
+  } from "@lucide/svelte";
+  import { Checkbox, CheckboxIndicator } from "@ui-sdk/svelte/checkbox";
+  import { Field, FieldDescription, FieldLabel } from "@ui-sdk/svelte/field";
+  import { Input } from "@ui-sdk/svelte/input";
+  import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectItemIndicator,
+    SelectTrigger,
+    SelectValue,
+  } from "@ui-sdk/svelte/select";
+  import { Switch, SwitchThumb } from "@ui-sdk/svelte/switch";
 
-  const categories: SettingsCategory[] = [
+  const categories = [
     { id: "preferences", label: "Preferences", group: "Account" },
     { id: "profile", label: "Profile", group: "Account" },
     { id: "notifications", label: "Notifications", group: "Account" },
@@ -26,10 +33,13 @@
 
   let active = $state("notifications");
   let query = $state("");
-  const visible = $derived.by(() => {
+  const navGroups = $derived.by(() => {
     const q = query.trim().toLowerCase();
-    if (!q) return categories;
-    return categories.filter((c) => `${c.label} ${c.group}`.toLowerCase().includes(q));
+    const shown = categories.filter((c) => !q || `${c.label} ${c.group}`.toLowerCase().includes(q));
+    return [...new Set(shown.map((c) => c.group))].map((group) => ({
+      group,
+      items: shown.filter((c) => c.group === group),
+    }));
   });
 
   const channels = [
@@ -63,9 +73,21 @@
 
   let digest = $state("daily");
   let delay = $state("1h");
-  let changelog = $state(true);
   let sidebarUpdates = $state(true);
+  let changelog = $state(true);
   let marketing = $state(false);
+
+  const digestOptions = [
+    { value: "off", label: "Off" },
+    { value: "daily", label: "Daily" },
+    { value: "weekly", label: "Weekly" },
+  ];
+  const delayOptions = [
+    { value: "0", label: "Immediately" },
+    { value: "15m", label: "15 minutes" },
+    { value: "1h", label: "1 hour" },
+    { value: "3h", label: "3 hours" },
+  ];
 
   function summary(id: Channel): string {
     if (!enabled[id]) return "Disabled";
@@ -76,235 +98,283 @@
   }
 </script>
 
-<div class="host">
-  <SettingsLayout categories={visible} bind:active title="">
-    {#snippet sidebarHeader()}
-      <button class="back kit-control-states" type="button">
-        <ChevronLeftIcon size={14} aria-hidden="true" /> Back to app
-      </button>
-      <SearchInput bind:value={query} size="sm" block placeholder="Search…" />
-    {/snippet}
+{#snippet text(title: string, description: string)}
+  <div class="row__text">
+    <FieldLabel>{title}</FieldLabel>
+    <FieldDescription>{description}</FieldDescription>
+  </div>
+{/snippet}
 
-    {#snippet panel(id)}
-      {#if id === "notifications"}
-        <h1 class="title">Notifications</h1>
+{#snippet choose(options: { value: string; label: string }[])}
+  <SelectTrigger>
+    <SelectValue />
+  </SelectTrigger>
+  <SelectContent align="end">
+    {#each options as option (option.value)}
+      <SelectItem value={option.value}>
+        {option.label}
+        <SelectItemIndicator>
+          <CheckIcon aria-hidden="true" />
+        </SelectItemIndicator>
+      </SelectItem>
+    {/each}
+  </SelectContent>
+{/snippet}
 
-        <SettingsSection title="Notification channels">
-          {#each channels as channel (channel.id)}
-            <div class="row">
-              <span class="row__lead">
-                <span class="icon"><channel.icon size={14} aria-hidden="true" /></span>
-                <span class="row__text">
-                  <span class="row__title">{channel.label}</span>
-                  <span class="row__description">{summary(channel.id)}</span>
-                </span>
-              </span>
-              <Toggle
-                bind:checked={enabled[channel.id]}
-                ariaLabel="{channel.label} notifications"
-                disabled={channel.id === "inbox"}
-              />
-            </div>
-          {/each}
-        </SettingsSection>
-
-        <SettingsSection title="Notify me about">
-          <div class="grid" role="table" aria-label="Notification types by channel">
-            <div class="grid__head" role="row">
-              <span role="columnheader">Event</span>
-              {#each channels as channel (channel.id)}
-                <span role="columnheader" class="grid__channel">{channel.label}</span>
-              {/each}
-            </div>
-            {#each events as event (event.id)}
-              <div class="grid__row" role="row">
-                <span role="cell" class="row__title">{event.label}</span>
-                {#each channels as channel (channel.id)}
-                  <span role="cell" class="grid__channel">
-                    <Checkbox
-                      bind:checked={matrix[event.id]![channel.id]}
-                      disabled={!enabled[channel.id] || channel.id === "inbox"}
-                      ariaLabel="{event.label} by {channel.label}"
-                    />
-                  </span>
-                {/each}
-              </div>
-            {/each}
-          </div>
-        </SettingsSection>
-
-        <SettingsSection title="Email">
-          <div class="row">
-            <span class="row__text">
-              <span class="row__title">Digest</span>
-              <span class="row__description">A summary of unread notifications</span>
-            </span>
-            <SelectDropdown
-              value={digest}
-              onchange={(v) => (digest = v)}
-              align="end"
-              options={[
-                { value: "off", label: "Off" },
-                { value: "daily", label: "Daily" },
-                { value: "weekly", label: "Weekly" },
-              ]}
-            />
-          </div>
-          <div class="row">
-            <span class="row__text">
-              <span class="row__title">Delay</span>
-              <span class="row__description">
-                Wait before emailing, so notifications you already read are skipped
-              </span>
-            </span>
-            <SelectDropdown
-              value={delay}
-              onchange={(v) => (delay = v)}
-              align="end"
-              options={[
-                { value: "0", label: "Immediately" },
-                { value: "15m", label: "15 minutes" },
-                { value: "1h", label: "1 hour" },
-                { value: "3h", label: "3 hours" },
-              ]}
-            />
-          </div>
-        </SettingsSection>
-
-        <SettingsSection title="Updates from us">
-          <div class="row">
-            <span class="row__text">
-              <span class="row__title">Show updates in sidebar</span>
-              <span class="row__description">Highlight new features in the app sidebar</span>
-            </span>
-            <Toggle bind:checked={sidebarUpdates} ariaLabel="Show updates in sidebar" />
-          </div>
-          <div class="row">
-            <span class="row__text">
-              <span class="row__title">Changelog newsletter</span>
-              <span class="row__description">An email about what shipped, every two weeks</span>
-            </span>
-            <Toggle bind:checked={changelog} ariaLabel="Changelog newsletter" />
-          </div>
-          <div class="row">
-            <span class="row__text">
-              <span class="row__title">Marketing and onboarding</span>
-              <span class="row__description">Tips, events and product announcements</span>
-            </span>
-            <Toggle bind:checked={marketing} ariaLabel="Marketing and onboarding" />
-          </div>
-        </SettingsSection>
+<div class="settings">
+  <aside class="sidebar">
+    <Button>
+      <ChevronLeftIcon aria-hidden="true" /> Back to app
+    </Button>
+    <Input type="search" aria-label="Search settings" placeholder="Search…" bind:value={query} />
+    <nav aria-label="Settings">
+      {#each navGroups as group (group.group)}
+        <span class="nav__group">{group.group}</span>
+        {#each group.items as item (item.id)}
+          <Button
+            aria-current={active === item.id ? "page" : undefined}
+            onclick={() => (active = item.id)}
+          
+    data-variant={active === item.id ? "solid" : undefined}>
+            {item.label}
+          </Button>
+        {/each}
       {:else}
-        <p class="placeholder">This example only implements Notifications.</p>
-      {/if}
-    {/snippet}
-  </SettingsLayout>
+        <p class="muted">No settings match.</p>
+      {/each}
+    </nav>
+  </aside>
+
+  <main class="panel">
+    {#if active === "notifications"}
+      <h1>Notifications</h1>
+
+      <section aria-labelledby="channels-title">
+        <h2 id="channels-title">Notification channels</h2>
+        <div class="card">
+          {#each channels as channel (channel.id)}
+            <Field disabled={channel.id === "inbox"}>
+              <span class="icon"><channel.icon aria-hidden="true" /></span>
+              {@render text(channel.label, summary(channel.id))}
+              <Switch bind:checked={enabled[channel.id]}>
+                <SwitchThumb />
+              </Switch>
+            </Field>
+          {/each}
+        </div>
+      </section>
+
+      <section aria-labelledby="events-title">
+        <h2 id="events-title">Notify me about</h2>
+        <div class="card">
+          <table>
+            <caption class="sr-only">Notification types by channel</caption>
+            <thead>
+              <tr>
+                <th scope="col">Event</th>
+                {#each channels as channel (channel.id)}
+                  <th scope="col" class="channel">{channel.label}</th>
+                {/each}
+              </tr>
+            </thead>
+            <tbody>
+              {#each events as event (event.id)}
+                <tr>
+                  <th scope="row">{event.label}</th>
+                  {#each channels as channel (channel.id)}
+                    <td class="channel">
+                      <Checkbox
+                        bind:checked={matrix[event.id]![channel.id]}
+                        disabled={!enabled[channel.id] || channel.id === "inbox"}
+                        aria-label="{event.label} by {channel.label}"
+                      >
+                        <CheckboxIndicator>
+                          <CheckIcon aria-hidden="true" />
+                        </CheckboxIndicator>
+                      </Checkbox>
+                    </td>
+                  {/each}
+                </tr>
+              {/each}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section aria-labelledby="email-title">
+        <h2 id="email-title">Email</h2>
+        <div class="card">
+          <Field>
+            {@render text("Digest", "A summary of unread notifications")}
+            <Select bind:value={digest} items={digestOptions}>
+              {@render choose(digestOptions)}
+            </Select>
+          </Field>
+          <Field>
+            {@render text(
+              "Delay",
+              "Wait before emailing, so notifications you already read are skipped",
+            )}
+            <Select bind:value={delay} items={delayOptions}>
+              {@render choose(delayOptions)}
+            </Select>
+          </Field>
+        </div>
+      </section>
+
+      <section aria-labelledby="updates-title">
+        <h2 id="updates-title">Updates from us</h2>
+        <div class="card">
+          <Field>
+            {@render text("Show updates in sidebar", "Highlight new features in the app sidebar")}
+            <Switch bind:checked={sidebarUpdates}><SwitchThumb /></Switch>
+          </Field>
+          <Field>
+            {@render text("Changelog newsletter", "An email about what shipped, every two weeks")}
+            <Switch bind:checked={changelog}><SwitchThumb /></Switch>
+          </Field>
+          <Field>
+            {@render text("Marketing and onboarding", "Tips, events and product announcements")}
+            <Switch bind:checked={marketing}><SwitchThumb /></Switch>
+          </Field>
+        </div>
+      </section>
+    {:else}
+      <p class="muted">This example only implements Notifications.</p>
+    {/if}
+  </main>
 </div>
 
 <style>
-  .host {
+  .settings {
     display: flex;
     height: 100%;
+    background: var(--ui-background);
+    color: var(--ui-foreground);
   }
 
-  .back {
+  .sidebar {
     display: flex;
-    align-items: center;
-    gap: 6px;
-    min-height: 28px;
-    padding: 0 8px;
-    border: 0;
-    border-radius: 8px;
-    background: transparent;
-    color: var(--text-secondary);
-    font: inherit;
-    font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-medium);
-    cursor: pointer;
+    flex-direction: column;
+    flex-shrink: 0;
+    gap: calc(var(--ui-spacing) * 3);
+    width: 232px;
+    padding: calc(var(--ui-spacing) * 3);
+    overflow-y: auto;
+    border-inline-end: 1px solid var(--ui-border);
+    background: var(--ui-muted);
   }
 
-  .back:hover {
-    background: var(--bg-surface-hover);
-    color: var(--text-primary);
+  nav {
+    display: grid;
+    gap: 1px;
   }
 
-  .title {
-    margin: 0 0 -8px;
-    padding: 0 16px;
-    font-size: var(--font-size-2xl);
-    font-weight: var(--font-weight-medium);
+  .nav__group {
+    margin-top: calc(var(--ui-spacing) * 2);
+    padding: 0 calc(var(--ui-spacing) * 2) 4px;
+    color: var(--ui-muted-foreground);
+    font-size: 0.75rem;
+    font-weight: 500;
   }
 
-  .row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-  }
-
-  .row__lead {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+  .panel {
+    flex: 1;
     min-width: 0;
+    padding: calc(var(--ui-spacing) * 10) calc(var(--ui-spacing) * 6);
+    overflow-y: auto;
+  }
+
+  .panel > :global(*) {
+    max-width: 640px;
+    margin-inline: auto;
+  }
+
+  h1 {
+    margin: 0 auto calc(var(--ui-spacing) * 6);
+    font-size: 1.5rem;
+    font-weight: 500;
+  }
+
+  section {
+    margin-bottom: calc(var(--ui-spacing) * 8);
+  }
+
+  h2 {
+    margin: 0 0 calc(var(--ui-spacing) * 3);
+    font-size: 0.875rem;
+    font-weight: 600;
+  }
+
+  .card {
+    display: grid;
+    border: 1px solid var(--ui-border);
+    border-radius: calc(var(--ui-radius) * 2);
   }
 
   .icon {
     display: grid;
     place-items: center;
+    flex-shrink: 0;
     width: 28px;
     height: 28px;
-    flex-shrink: 0;
-    border-radius: 8px;
-    background: var(--bg-control);
-    color: var(--text-secondary);
+    border-radius: var(--ui-radius);
+    background: var(--ui-muted);
+    color: var(--ui-muted-foreground);
   }
 
-  .row__text {
-    display: grid;
-    gap: 3px;
-    min-width: 0;
-    line-height: 1.25;
+  .icon :global(svg) {
+    width: 14px;
+    height: 14px;
   }
 
-  .row__title {
-    font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-medium);
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
   }
 
-  .row__description {
-    color: var(--text-muted);
-    font-size: var(--font-size-xs);
+  th,
+  td {
+    height: calc(var(--ui-spacing) * 10);
+    padding: 0 calc(var(--ui-spacing) * 4);
+    text-align: start;
   }
 
-  /* One row of the settings card holding a small event-by-channel grid. */
-  .grid {
-    display: grid;
-    gap: 2px;
+  thead th {
+    border-bottom: 1px solid var(--ui-border);
+    color: var(--ui-muted-foreground);
+    font-size: 0.75rem;
+    font-weight: 500;
   }
 
-  .grid__head,
-  .grid__row {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) repeat(4, 64px);
-    align-items: center;
-    min-height: 32px;
+  tbody th {
+    font-weight: 500;
   }
 
-  .grid__head {
-    color: var(--text-muted);
-    font-size: var(--font-size-xs);
-    font-weight: var(--font-weight-medium);
+  .channel {
+    width: 72px;
+    padding: 0;
+    text-align: center;
   }
 
-  .grid__channel {
-    display: flex;
-    justify-content: center;
+  .muted {
+    color: var(--ui-muted-foreground);
+    font-size: 0.875rem;
   }
 
-  .placeholder {
-    padding: 0 16px;
-    color: var(--text-muted);
-    font-size: var(--font-size-sm);
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  @container (max-width: 700px) {
+    .sidebar {
+      display: none;
+    }
   }
 </style>

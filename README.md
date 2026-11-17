@@ -2,11 +2,34 @@
 
 A design-system for my apps.
 
-There is no components here, Svelte components come from [kit-ui](https://github.com/kenn-io/kit-ui) we just customize the theme.
+There are no components here: Svelte apps use [ui-sdk](https://ui-sdk.dev) components (v2) or
+[kit-ui](https://github.com/kenn-io/kit-ui) (v1), and this repo ships the CSS that styles them.
 
 Also a simpler no-build version for static pages with plain-HTML + CSS + tailwind.
 
-## Usage: Svelte
+## Usage: ui-sdk apps (v2)
+
+Copy the files from `public/v2` into the app and import them once, in this order:
+
+```ts
+import "./tokens.css"; // colors, radii, spacing, type, shadows (light and dark)
+import "./components.css"; // every @ui-sdk part by data-slot and state, plus the docs'
+// layout slots (data-slot="stack", "row", "hint", "card"...)
+```
+
+- Put `@layer ui-sdk;` at the top of the app's global stylesheet, as ui-sdk asks.
+- Light/dark follows `color-scheme`. To let people choose, use ui-sdk's
+  `createColorScheme({ global: true })`, which writes `data-color-scheme` on `<html>`.
+- Load the Geist and Geist Mono fonts (see `src/index.html`); `--sans` and `--mono` name them.
+- Write markup as the ui-sdk docs examples do, icons included: the styles expect an `<svg>`
+  where the examples put one, like a select's chevron or a checkbox's check.
+- Restyle from `tokens.css` alone: corners, for example, are square because every
+  `--radius-*` is `0`.
+
+These files are generated from the ui-sdk docs' own demo styles, so components look like
+the docs. Regenerate with `node scripts/build-design-css.mjs` (it runs in `pnpm build`).
+
+## Usage: kit-ui apps (v1)
 
 Copy `theme.css` and `components.css` into the app, import in this order:
 
@@ -41,10 +64,9 @@ See [`src/plain/index.html`](src/plain/index.html) for the full, working head.
 
 ## Gallery
 
-Showcase for all the kit-ui components plus example pages.
-
-The gallery loads every theme and has a theme picker next to the light/dark toggle
-(the choice is stored in `localStorage`, shared with the plain-HTML page).
+Showcase for every [ui-sdk](https://ui-sdk.dev) Svelte component (`src/gallery/pages/<id>.svelte`)
+plus example pages (`src/examples`). Components use ui-sdk's default `web.css` look for now. The
+light/dark/system switch is ui-sdk's `createColorScheme`, saved in `localStorage`.
 
 ```bash
 pnpm install

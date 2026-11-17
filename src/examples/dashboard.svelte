@@ -1,23 +1,30 @@
 <script lang="ts">
   import {
-    Button,
-    Chip,
-    MetricCard,
+    ArrowDownIcon,
+    ArrowUpDownIcon,
+    ArrowUpIcon,
+    ChartColumnIcon,
+    DatabaseIcon,
+    FileTextIcon,
+    FolderIcon,
+    LayoutDashboardIcon,
+    ListChecksIcon,
+    PlusIcon,
+    SettingsIcon,
+    SparklesIcon,
+    TrendingDownIcon,
+    TrendingUpIcon,
+    UsersIcon,
+  } from "@lucide/svelte";
+  import { Avatar, AvatarFallback } from "@ui-sdk/svelte/avatar";
+  import { Button } from "@ui-sdk/svelte/button";
+  import {
     SegmentedControl,
-    Table,
-    TableHeaderCell,
-    TableSort,
-  } from "@kenn-io/kit-ui";
-  import ChartColumnIcon from "@lucide/svelte/icons/chart-column";
-  import DatabaseIcon from "@lucide/svelte/icons/database";
-  import FileTextIcon from "@lucide/svelte/icons/file-text";
-  import FolderIcon from "@lucide/svelte/icons/folder";
-  import LayoutDashboardIcon from "@lucide/svelte/icons/layout-dashboard";
-  import ListChecksIcon from "@lucide/svelte/icons/list-checks";
-  import PlusIcon from "@lucide/svelte/icons/plus";
-  import SettingsIcon from "@lucide/svelte/icons/settings";
-  import SparklesIcon from "@lucide/svelte/icons/sparkles";
-  import UsersIcon from "@lucide/svelte/icons/users";
+    SegmentedControlIndicator,
+    SegmentedControlItem,
+  } from "@ui-sdk/svelte/segmented-control";
+  import { Toast, ToastRegion, ToastTitle, createToaster } from "@ui-sdk/svelte/toast";
+  import { onDestroy } from "svelte";
 
   const nav = [
     { id: "dashboard", label: "Dashboard", icon: LayoutDashboardIcon },
@@ -30,6 +37,44 @@
     { id: "settings", label: "Settings", icon: SettingsIcon },
   ];
   let activeNav = $state("dashboard");
+
+  const toast = createToaster();
+  onDestroy(() => toast.dismiss());
+
+  const metrics = [
+    {
+      label: "Total revenue",
+      value: "$1,250.00",
+      change: "+12.5%",
+      up: true,
+      note: "Trending up this month",
+      footer: "Visitors for the last 6 months",
+    },
+    {
+      label: "New customers",
+      value: "1,234",
+      change: "-20%",
+      up: false,
+      note: "Down 20% this period",
+      footer: "Acquisition needs attention",
+    },
+    {
+      label: "Active accounts",
+      value: "45,678",
+      change: "+12.5%",
+      up: true,
+      note: "Strong user retention",
+      footer: "Engagement exceeds targets",
+    },
+    {
+      label: "Growth rate",
+      value: "4.5%",
+      change: "+4.5%",
+      up: true,
+      note: "Steady performance increase",
+      footer: "Meets growth projections",
+    },
+  ];
 
   // Visitors per day. Seeded noise so the chart looks the same on every load.
   const DAYS = 90;
@@ -79,7 +124,7 @@
 
   // The plot is drawn in real pixels (the width is measured) so lines and
   // markers never stretch. Room at the bottom for the date axis.
-  const H = 240;
+  const H = 220;
   const PAD_TOP = 8;
   const AXIS = 24;
   const GUTTER = 36;
@@ -105,7 +150,6 @@
       if (i === n - 1) return d[n - 2]!;
       const a = d[i - 1]!;
       const b = d[i]!;
-      // Harmonic mean of the neighbouring slopes; flat at local peaks.
       return a * b <= 0 ? 0 : (2 * a * b) / (a + b);
     });
     let path = `M${pts[0]![0].toFixed(1)},${pts[0]![1].toFixed(1)}`;
@@ -125,6 +169,7 @@
   }
   const desktop = $derived(area("desktop"));
   const mobile = $derived(area("mobile"));
+  const total = $derived(shown.reduce((sum, d) => sum + d.desktop + d.mobile, 0));
 
   const xTicks = $derived.by(() => {
     // Evenly spaced days, counted back from the latest so it always has a label.
@@ -225,84 +270,101 @@
     },
   ];
 
-  const sorter = new TableSort<Row>(
-    {
-      header: (row) => row.header,
-      type: (row) => row.type,
-      status: (row) => row.status,
-      target: { value: (row) => row.target, firstDirection: "desc" },
-      limit: { value: (row) => row.limit, firstDirection: "desc" },
-      reviewer: (row) => row.reviewer,
-    },
-    { key: "header" },
-  );
+  type SortKey = Exclude<keyof Row, "id">;
+  const columns: { key: SortKey; label: string; numeric?: boolean }[] = [
+    { key: "header", label: "Header" },
+    { key: "type", label: "Section type" },
+    { key: "status", label: "Status" },
+    { key: "target", label: "Target", numeric: true },
+    { key: "limit", label: "Limit", numeric: true },
+    { key: "reviewer", label: "Reviewer" },
+  ];
+  let sort = $state<{ key: SortKey; direction: "asc" | "desc" } | null>({
+    key: "header",
+    direction: "asc",
+  });
+
+  const sortedRows = $derived.by(() => {
+    if (!sort) return rows;
+    const { key, direction } = sort;
+    const sign = direction === "asc" ? 1 : -1;
+    return [...rows].sort((a, b) => (a[key] < b[key] ? -1 : a[key] > b[key] ? 1 : 0) * sign);
+  });
+
+  // Numbers sort high to low first, text A to Z; a third press clears the sort.
+  function toggleSort(key: SortKey, numeric = false) {
+    const first = numeric ? "desc" : "asc";
+    if (sort?.key !== key) sort = { key, direction: first };
+    else if (sort.direction === first) sort = { key, direction: first === "asc" ? "desc" : "asc" };
+    else sort = null;
+  }
 </script>
 
 <div class="app">
   <aside class="sidebar">
-    <div class="brand"><SparklesIcon size={16} aria-hidden="true" /> Acme Inc.</div>
+    <div class="brand"><SparklesIcon aria-hidden="true" /> Acme Inc.</div>
     <nav aria-label="Main">
       {#each nav as item (item.id)}
-        <button
-          type="button"
-          class="nav kit-control-states"
-          class:active={activeNav === item.id}
+        <Button
           aria-current={activeNav === item.id ? "page" : undefined}
           onclick={() => (activeNav = item.id)}
-        >
-          <item.icon size={15} aria-hidden="true" />
+        
+    data-variant={activeNav === item.id ? "solid" : undefined}>
+          <item.icon aria-hidden="true" />
           {item.label}
-        </button>
+        </Button>
       {/each}
     </nav>
     <div class="user">
-      <span class="avatar" aria-hidden="true">SH</span>
-      <span class="who"><strong>shadcn</strong><small>m@example.com</small></span>
+      <Avatar>
+        <AvatarFallback>
+          <span aria-hidden="true">SH</span>
+        </AvatarFallback>
+      </Avatar>
+      <span class="who"><strong>Sam Hollis</strong><small>sam@example.com</small></span>
     </div>
   </aside>
 
   <main class="main">
     <header class="top">
       <h1>Documents</h1>
-      <Button tone="info" surface="solid" label="Quick create">
-        {#snippet trailing()}<PlusIcon size={14} aria-hidden="true" />{/snippet}
+      <Button data-variant="solid" onclick={() => toast("New document created")}>
+        <PlusIcon aria-hidden="true" />
+        Quick create
       </Button>
     </header>
 
     <section class="metrics" aria-label="Key metrics">
-      <MetricCard label="Total revenue" value="$1,250.00" meta="+12.5%" tone="success">
-        Trending up this month
-        {#snippet footer()}Visitors for the last 6 months{/snippet}
-      </MetricCard>
-      <MetricCard label="New customers" value="1,234" meta="-20%" tone="danger">
-        Down 20% this period
-        {#snippet footer()}Acquisition needs attention{/snippet}
-      </MetricCard>
-      <MetricCard label="Active accounts" value="45,678" meta="+12.5%" tone="success">
-        Strong user retention
-        {#snippet footer()}Engagement exceeds targets{/snippet}
-      </MetricCard>
-      <MetricCard label="Growth rate" value="4.5%" meta="+4.5%" tone="success">
-        Steady performance increase
-        {#snippet footer()}Meets growth projections{/snippet}
-      </MetricCard>
+      {#each metrics as metric (metric.label)}
+        <article class="card metric">
+          <div class="metric__head">
+            <span class="muted">{metric.label}</span>
+            <span class="change" data-down={!metric.up || undefined}>
+              {#if metric.up}<TrendingUpIcon aria-hidden="true" />{:else}<TrendingDownIcon
+                  aria-hidden="true"
+                />{/if}
+              {metric.change}
+            </span>
+          </div>
+          <strong class="metric__value">{metric.value}</strong>
+          <span class="metric__note">{metric.note}</span>
+          <span class="muted">{metric.footer}</span>
+        </article>
+      {/each}
     </section>
 
-    <section class="panel">
-      <div class="panel__head">
+    <section class="card">
+      <div class="card__head">
         <div>
           <h2>Total visitors</h2>
-          <p>Total for the selected range</p>
+          <p class="muted">{total.toLocaleString("en-US")} for the selected range</p>
         </div>
-        <SegmentedControl
-          value={range}
-          onchange={(v) => (range = v)}
-          options={[
-            { value: "90", label: "Last 3 months" },
-            { value: "30", label: "Last 30 days" },
-            { value: "7", label: "Last 7 days" },
-          ]}
-        />
+        <SegmentedControl aria-label="Range" bind:value={range}>
+          <SegmentedControlIndicator />
+          <SegmentedControlItem value="90">Last 3 months</SegmentedControlItem>
+          <SegmentedControlItem value="30">Last 30 days</SegmentedControlItem>
+          <SegmentedControlItem value="7">Last 7 days</SegmentedControlItem>
+        </SegmentedControl>
       </div>
       <div class="chart" bind:clientWidth={W}>
         <svg
@@ -316,12 +378,12 @@
         >
           <defs>
             <linearGradient id="fill-desktop" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="var(--accent-blue)" stop-opacity="0.3" />
-              <stop offset="100%" stop-color="var(--accent-blue)" stop-opacity="0" />
+              <stop offset="0%" stop-color="var(--desktop)" stop-opacity="0.3" />
+              <stop offset="100%" stop-color="var(--desktop)" stop-opacity="0" />
             </linearGradient>
             <linearGradient id="fill-mobile" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="var(--accent-teal)" stop-opacity="0.24" />
-              <stop offset="100%" stop-color="var(--accent-teal)" stop-opacity="0" />
+              <stop offset="0%" stop-color="var(--mobile)" stop-opacity="0.24" />
+              <stop offset="100%" stop-color="var(--mobile)" stop-opacity="0" />
             </linearGradient>
           </defs>
 
@@ -338,8 +400,8 @@
 
           <path d={desktop.fill} fill="url(#fill-desktop)" />
           <path d={mobile.fill} fill="url(#fill-mobile)" />
-          <path class="line" d={desktop.line} stroke="var(--accent-blue)" />
-          <path class="line" d={mobile.line} stroke="var(--accent-teal)" />
+          <path class="line" d={desktop.line} stroke="var(--desktop)" />
+          <path class="line" d={mobile.line} stroke="var(--mobile)" />
 
           {#each xTicks as i (i)}
             <text
@@ -352,167 +414,160 @@
           {/each}
 
           {#if hover !== null}
-            {@const d = shown[hover]!}
+            {const d = $derived(shown[hover ?? 0]!)}
             <line class="crosshair" x1={x(hover)} x2={x(hover)} y1={PAD_TOP} y2={y(0)} />
-            <circle class="dot" cx={x(hover)} cy={y(d.desktop)} r="4" fill="var(--accent-blue)" />
-            <circle class="dot" cx={x(hover)} cy={y(d.mobile)} r="4" fill="var(--accent-teal)" />
+            <circle class="dot" cx={x(hover)} cy={y(d.desktop)} r="4" fill="var(--desktop)" />
+            <circle class="dot" cx={x(hover)} cy={y(d.mobile)} r="4" fill="var(--mobile)" />
           {/if}
         </svg>
 
         {#if hover !== null}
-          {@const d = shown[hover]!}
+          {const d = $derived(shown[hover ?? 0]!)}
           <div
-            class="tooltip"
-            class:tooltip--left={x(hover) > W - 180}
-            style="left: {x(hover)}px; top: {PAD_TOP}px"
+            class="readout"
+            class:readout--left={x(hover) > W - 180}
+            style:left="{x(hover)}px"
+            style:top="{PAD_TOP}px"
+            aria-hidden="true"
           >
-            <span class="tooltip__date">{dateFormat.format(d.date)}</span>
-            <span class="tooltip__row">
-              <i style="background: var(--accent-blue)"></i>Desktop<b>{d.desktop}</b>
-            </span>
-            <span class="tooltip__row">
-              <i style="background: var(--accent-teal)"></i>Mobile<b>{d.mobile}</b>
-            </span>
+            <span class="muted">{dateFormat.format(d.date)}</span>
+            <span class="readout__row"><i class="swatch desktop"></i>Desktop<b>{d.desktop}</b></span
+            >
+            <span class="readout__row"><i class="swatch mobile"></i>Mobile<b>{d.mobile}</b></span>
           </div>
         {/if}
       </div>
       <div class="legend">
-        <span><i style="background: var(--accent-blue)"></i>Desktop</span>
-        <span><i style="background: var(--accent-teal)"></i>Mobile</span>
+        <span><i class="swatch desktop"></i>Desktop</span>
+        <span><i class="swatch mobile"></i>Mobile</span>
       </div>
     </section>
 
-    <section class="panel">
-      <div class="panel__head">
-        <h2>Outline</h2>
+    <section class="card">
+      <h2>Outline</h2>
+      <div class="table-wrap">
+        <table>
+          <caption class="sr-only">Document outline</caption>
+          <thead>
+            <tr>
+              {#each columns as column (column.key)}
+                <th
+                  class:num={column.numeric}
+                  aria-sort={sort?.key === column.key
+                    ? sort.direction === "asc"
+                      ? "ascending"
+                      : "descending"
+                    : undefined}
+                >
+                  <Button
+                    onclick={() => toggleSort(column.key, column.numeric)}
+                  >
+                    {column.label}
+                    {#if sort?.key !== column.key}
+                      <ArrowUpDownIcon aria-hidden="true" class="sort__idle" />
+                    {:else if sort.direction === "asc"}
+                      <ArrowUpIcon aria-hidden="true" />
+                    {:else}
+                      <ArrowDownIcon aria-hidden="true" />
+                    {/if}
+                  </Button>
+                </th>
+              {/each}
+            </tr>
+          </thead>
+          <tbody>
+            {#each sortedRows as row (row.id)}
+              <tr>
+                <td>{row.header}</td>
+                <td><span class="badge">{row.type}</span></td>
+                <td
+                  ><span class="badge" data-done={row.status === "Done" || undefined}
+                    >{row.status}</span
+                  ></td
+                >
+                <td class="num">{row.target}</td>
+                <td class="num">{row.limit}</td>
+                <td class:muted={row.reviewer === "Assign reviewer"}>{row.reviewer}</td>
+              </tr>
+            {/each}
+          </tbody>
+        </table>
       </div>
-      <Table ariaLabel="Document outline">
-        {#snippet header()}
-          <TableHeaderCell label="Header" sort={sorter} column="header" />
-          <TableHeaderCell label="Section type" sort={sorter} column="type" />
-          <TableHeaderCell label="Status" sort={sorter} column="status" />
-          <TableHeaderCell label="Target" numeric sort={sorter} column="target" />
-          <TableHeaderCell label="Limit" numeric sort={sorter} column="limit" />
-          <TableHeaderCell label="Reviewer" sort={sorter} column="reviewer" />
-        {/snippet}
-        {#each sorter.sort(rows) as row (row.id)}
-          <tr>
-            <td>{row.header}</td>
-            <td><Chip size="sm">{row.type}</Chip></td>
-            <td>
-              <Chip size="sm" tone={row.status === "Done" ? "success" : "muted"}>{row.status}</Chip>
-            </td>
-            <td class="num">{row.target}</td>
-            <td class="num">{row.limit}</td>
-            <td>{row.reviewer}</td>
-          </tr>
-        {/each}
-      </Table>
     </section>
   </main>
+
+  <ToastRegion toaster={toast}>
+    <Toast>
+      <ToastTitle />
+    </Toast>
+  </ToastRegion>
 </div>
 
 <style>
-  /* The sidebar is the app background; the main panel is inset on it. */
   .app {
+    --desktop: var(--ui-primary);
+    --mobile: var(--ui-muted-foreground);
     display: flex;
     min-height: 100%;
-    background: var(--bg-sidebar);
+    background: var(--ui-muted);
+    color: var(--ui-foreground);
   }
 
   .sidebar {
     display: flex;
     flex-direction: column;
-    gap: 16px;
     flex-shrink: 0;
+    gap: calc(var(--ui-spacing) * 4);
     width: 208px;
-    padding: 14px 8px 10px 12px;
+    padding: calc(var(--ui-spacing) * 3.5) calc(var(--ui-spacing) * 2) calc(var(--ui-spacing) * 2.5)
+      calc(var(--ui-spacing) * 3);
   }
 
   .brand {
     display: flex;
     align-items: center;
-    gap: 8px;
-    padding: 0 8px;
-    font-weight: var(--font-weight-semibold);
+    gap: calc(var(--ui-spacing) * 2);
+    padding: 0 calc(var(--ui-spacing) * 2);
+    font-weight: 600;
   }
 
   nav {
     display: grid;
-    gap: 1px;
     flex: 1;
     align-content: start;
-  }
-
-  .nav {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    min-height: 28px;
-    padding: 0 10px;
-    border: 0;
-    border-radius: 8px;
-    background: transparent;
-    color: var(--text-muted);
-    font: inherit;
-    font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-medium);
-    text-align: left;
-    cursor: pointer;
-  }
-
-  .nav:hover {
-    background: var(--bg-surface-hover);
-    color: var(--text-primary);
-  }
-
-  .nav.active {
-    background: var(--bg-control);
-    color: var(--text-primary);
+    gap: 1px;
   }
 
   .user {
     display: flex;
     align-items: center;
-    gap: 8px;
-    padding: 8px;
-    border-top: var(--border-width) solid var(--border-hairline);
-  }
-
-  .avatar {
-    display: grid;
-    place-items: center;
-    width: 28px;
-    height: 28px;
-    border-radius: 9999px;
-    background: var(--bg-control);
-    font-size: var(--font-size-2xs);
-    font-weight: var(--font-weight-semibold);
+    gap: calc(var(--ui-spacing) * 2);
+    padding: calc(var(--ui-spacing) * 2);
+    border-top: 1px solid var(--ui-border);
   }
 
   .who {
     display: grid;
     min-width: 0;
-    font-size: var(--font-size-xs);
+    font-size: 0.75rem;
     line-height: 1.3;
   }
 
   .who small {
-    color: var(--text-muted);
+    color: var(--ui-muted-foreground);
   }
 
   .main {
-    display: grid;
+    display: flex;
     flex: 1;
-    gap: 16px;
-    align-content: start;
+    flex-direction: column;
+    gap: calc(var(--ui-spacing) * 4);
     min-width: 0;
-    margin: 8px 8px 8px 0;
-    padding: 16px 24px 32px;
-    border: var(--border-width) solid var(--border-shell);
-    border-radius: var(--radius-lg);
-    background: var(--bg-primary);
-    box-shadow: var(--shadow-control);
+    margin: calc(var(--ui-spacing) * 2) calc(var(--ui-spacing) * 2) calc(var(--ui-spacing) * 2) 0;
+    padding: calc(var(--ui-spacing) * 4) calc(var(--ui-spacing) * 6) calc(var(--ui-spacing) * 8);
+    border: 1px solid var(--ui-border);
+    border-radius: calc(var(--ui-radius) * 2);
+    background: var(--ui-background);
   }
 
   .top {
@@ -523,43 +578,86 @@
 
   h1 {
     margin: 0;
-    font-size: var(--font-size-lg);
-    font-weight: var(--font-weight-semibold);
-  }
-
-  .metrics {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-    gap: 12px;
-  }
-
-  .panel {
-    display: grid;
-    gap: 12px;
-    padding: 16px;
-    border-radius: var(--radius-lg);
-    background: var(--bg-surface);
-    box-shadow: var(--shadow-card);
-  }
-
-  .panel__head {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 8px 16px;
+    font-size: 1.125rem;
+    font-weight: 600;
   }
 
   h2 {
     margin: 0;
-    font-size: var(--font-size-md);
-    font-weight: var(--font-weight-semibold);
+    font-size: 1rem;
+    font-weight: 600;
   }
 
-  .panel__head p {
+  .muted {
+    color: var(--ui-muted-foreground);
+    font-size: 0.75rem;
+  }
+
+  .card {
+    display: grid;
+    gap: calc(var(--ui-spacing) * 3);
+    padding: calc(var(--ui-spacing) * 4);
+    border: 1px solid var(--ui-border);
+    border-radius: calc(var(--ui-radius) * 2);
+  }
+
+  .card__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: calc(var(--ui-spacing) * 2) calc(var(--ui-spacing) * 4);
+  }
+
+  .card__head p {
     margin: 2px 0 0;
-    color: var(--text-muted);
-    font-size: var(--font-size-xs);
+  }
+
+  .metrics {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: calc(var(--ui-spacing) * 3);
+  }
+
+  .metric {
+    gap: calc(var(--ui-spacing) * 1);
+  }
+
+  .metric__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .metric__value {
+    font-size: 1.5rem;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .metric__note {
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+
+  .change {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 0 calc(var(--ui-spacing) * 1.5);
+    border: 1px solid var(--ui-border);
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+
+  .change[data-down] {
+    color: var(--ui-destructive);
+  }
+
+  .change :global(svg) {
+    width: 12px;
+    height: 12px;
   }
 
   .chart {
@@ -574,11 +672,11 @@
   }
 
   .grid {
-    stroke: var(--border-hairline);
+    stroke: var(--ui-border);
   }
 
   .tick {
-    fill: var(--text-muted);
+    fill: var(--ui-muted-foreground);
     font-size: 11px;
     font-variant-numeric: tabular-nums;
   }
@@ -591,65 +689,53 @@
   }
 
   .crosshair {
-    stroke: var(--text-muted);
+    stroke: var(--ui-muted-foreground);
     stroke-opacity: 0.5;
     stroke-dasharray: 3 3;
   }
 
-  /* A ring in the panel color keeps the marker legible where lines cross. */
+  /* A ring in the card color keeps the marker legible where lines cross. */
   .dot {
-    stroke: var(--bg-surface);
+    stroke: var(--ui-background);
     stroke-width: 2;
   }
 
-  .tooltip {
+  .readout {
     position: absolute;
     display: grid;
     gap: 4px;
     min-width: 140px;
     margin-left: 12px;
-    padding: 8px 10px;
-    border-radius: 8px;
-    background: var(--bg-primary);
-    box-shadow: var(--shadow-card), var(--shadow-md);
-    font-size: var(--font-size-xs);
+    padding: calc(var(--ui-spacing) * 2) calc(var(--ui-spacing) * 2.5);
+    border: 1px solid var(--ui-border);
+    border-radius: var(--ui-radius);
+    background: var(--ui-background);
+    box-shadow: var(--ui-shadow);
+    font-size: 0.75rem;
     pointer-events: none;
   }
 
-  .tooltip--left {
+  .readout--left {
     transform: translateX(calc(-100% - 24px));
   }
 
-  .tooltip__date {
-    color: var(--text-muted);
-    font-weight: var(--font-weight-medium);
-  }
-
-  .tooltip__row {
+  .readout__row {
     display: flex;
     align-items: center;
     gap: 6px;
-    color: var(--text-secondary);
   }
 
-  .tooltip__row i {
-    width: 8px;
-    height: 8px;
-    border-radius: 2px;
-  }
-
-  .tooltip__row b {
+  .readout__row b {
     margin-left: auto;
-    color: var(--text-primary);
-    font-weight: var(--font-weight-medium);
+    font-weight: 500;
     font-variant-numeric: tabular-nums;
   }
 
   .legend {
     display: flex;
-    gap: 16px;
-    color: var(--text-muted);
-    font-size: var(--font-size-xs);
+    gap: calc(var(--ui-spacing) * 4);
+    color: var(--ui-muted-foreground);
+    font-size: 0.75rem;
   }
 
   .legend span {
@@ -658,20 +744,89 @@
     gap: 6px;
   }
 
-  .legend i {
+  .swatch {
     width: 8px;
     height: 8px;
     border-radius: 2px;
   }
 
+  .swatch.desktop {
+    background: var(--desktop);
+  }
+
+  .swatch.mobile {
+    background: var(--mobile);
+  }
+
+  .table-wrap {
+    overflow-x: auto;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+  }
+
+  th,
+  td {
+    height: calc(var(--ui-spacing) * 10);
+    padding: 0 calc(var(--ui-spacing) * 3);
+    border-bottom: 1px solid var(--ui-border);
+    text-align: start;
+    white-space: nowrap;
+  }
+
+  th {
+    color: var(--ui-muted-foreground);
+    font-weight: 500;
+  }
+
+  tbody tr:last-child td {
+    border-bottom: 0;
+  }
+
+  tbody tr:hover {
+    background: var(--ui-muted);
+  }
+
   .num {
-    text-align: right;
+    text-align: end;
     font-variant-numeric: tabular-nums;
+  }
+
+  .badge {
+    display: inline-flex;
+    padding: 0 calc(var(--ui-spacing) * 1.5);
+    border: 1px solid var(--ui-border);
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    line-height: 1.25rem;
+  }
+
+  .badge[data-done] {
+    border-color: var(--ui-primary);
+    background: var(--ui-primary);
+    color: var(--ui-primary-foreground);
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
   }
 
   @container (max-width: 700px) {
     .sidebar {
       display: none;
+    }
+
+    .main {
+      margin-left: calc(var(--ui-spacing) * 2);
     }
   }
 </style>
