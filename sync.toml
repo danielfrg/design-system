@@ -29,3 +29,9 @@ path = "../bookmarks/extension"
 dest = "src/design-system"
 theme = "cadence"
 custom = ["theme-toggle"]
+
+[apps.homelab-console]
+path = "../homelab-console"
+dest = "frontend/src/design-system"
+theme = "cadence"
+custom = ["table", "theme-toggle", "status-badge"]

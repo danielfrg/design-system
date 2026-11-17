@@ -80,6 +80,22 @@ export const customPages: CustomPage[] = [
       },
     ],
   },
+  {
+    id: "custom-status-badge",
+    label: "Status Badge",
+    description:
+      "The theme's badge with a tone (success, warning, danger, info) and an optional leading dot, for states like Healthy or Degraded.",
+    folder: "public/v1/custom/status-badge",
+    demos: [
+      {
+        file: "demo",
+        heading: "Overview",
+        intro:
+          "The theme has no success, warning or info colors, so the badge defines `--status-success`, `--status-warning` and `--status-info`. Override them to change a tone.",
+        caption: "One badge per tone, and one without the dot.",
+      },
+    ],
+  },
 ];
 
 const modules = import.meta.glob<Component>("./custom/*/*.svelte", { import: "default" });
