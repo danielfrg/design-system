@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { MinusIcon, MoveHorizontalIcon, PlusIcon } from "@lucide/svelte"
-  import { Field, FieldLabel } from "@ui-sdk/svelte/field"
+  import { MinusIcon, MoveHorizontalIcon, PlusIcon } from "@lucide/svelte";
+  import { Field, FieldLabel } from "@ui-sdk/svelte/field";
   import {
     NumberInput,
     NumberInputControl,
@@ -9,10 +9,10 @@
     NumberInputIncrement,
     NumberInputScrubArea,
     NumberInputScrubAreaCursor,
-  } from "@ui-sdk/svelte/number-input"
-  import { useLog } from "../../../shared/svelte/log"
+  } from "@ui-sdk/svelte/number-input";
+  import { useLog } from "../../../shared/svelte/log";
 
-  const log = useLog()
+  const log = useLog();
 </script>
 
 <Field>

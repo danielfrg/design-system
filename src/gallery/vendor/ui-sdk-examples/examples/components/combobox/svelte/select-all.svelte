@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { CheckIcon, MinusIcon, XIcon } from "@lucide/svelte"
+  import { CheckIcon, MinusIcon, XIcon } from "@lucide/svelte";
   import {
     Combobox,
     ComboboxChip,
@@ -16,7 +16,7 @@
     ComboboxList,
     ComboboxSelectAll,
     ComboboxValue,
-  } from "@ui-sdk/svelte/combobox"
+  } from "@ui-sdk/svelte/combobox";
 
   const timezones = [
     {
@@ -47,7 +47,7 @@
         { value: "Australia/Sydney", label: "Sydney" },
       ],
     },
-  ]
+  ];
 </script>
 
 <Combobox multiple defaultValue={["Europe/Paris"]}>
@@ -86,9 +86,7 @@
           </ComboboxGroupLabel>
           <ComboboxSelectAll>
             {#snippet children(state)}
-              {state.checked
-                ? `Clear ${group.label}`
-                : `Select all in ${group.label}`}
+              {state.checked ? `Clear ${group.label}` : `Select all in ${group.label}`}
             {/snippet}
           </ComboboxSelectAll>
           {#each group.items as zone (zone.value)}

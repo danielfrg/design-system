@@ -1,14 +1,14 @@
 <script lang="ts">
-  import { ChevronDownIcon } from "@lucide/svelte"
+  import { ChevronDownIcon } from "@lucide/svelte";
   import {
     Accordion,
     AccordionHeader,
     AccordionItem,
     AccordionPanel,
     AccordionTrigger,
-  } from "@ui-sdk/svelte/accordion"
-  import { Field, FieldLabel } from "@ui-sdk/svelte/field"
-  import { Textarea } from "@ui-sdk/svelte/textarea"
+  } from "@ui-sdk/svelte/accordion";
+  import { Field, FieldLabel } from "@ui-sdk/svelte/field";
+  import { Textarea } from "@ui-sdk/svelte/textarea";
 </script>
 
 <Accordion defaultValue={["reply"]}>

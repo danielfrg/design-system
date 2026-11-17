@@ -9,14 +9,10 @@
     CalendarWeekday,
     CalendarWeekdays,
     CalendarWeeks,
-  } from "@ui-sdk/svelte/calendar"
-  import { ChevronLeftIcon, ChevronRightIcon } from "@lucide/svelte"
+  } from "@ui-sdk/svelte/calendar";
+  import { ChevronLeftIcon, ChevronRightIcon } from "@lucide/svelte";
 
-  const unavailable = [
-    "2026-10-08",
-    { from: "2026-10-20", to: "2026-10-23" },
-    { weekday: [0, 6] },
-  ]
+  const unavailable = ["2026-10-08", { from: "2026-10-20", to: "2026-10-23" }, { weekday: [0, 6] }];
 </script>
 
 <Calendar {unavailable}>

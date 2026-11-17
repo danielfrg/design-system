@@ -9,8 +9,8 @@
     CalendarWeekday,
     CalendarWeekdays,
     CalendarWeeks,
-  } from "@ui-sdk/svelte/calendar"
-  import { ChevronLeftIcon, ChevronRightIcon } from "@lucide/svelte"
+  } from "@ui-sdk/svelte/calendar";
+  import { ChevronLeftIcon, ChevronRightIcon } from "@lucide/svelte";
 </script>
 
 <Calendar fixedWeeks showOutsideDays={false} defaultMonth="2026-02">

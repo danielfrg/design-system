@@ -1,11 +1,5 @@
 <script lang="ts">
-  import {
-    Tabs,
-    TabsIndicator,
-    TabsList,
-    TabsPanel,
-    TabsTab,
-  } from "@ui-sdk/svelte/tabs"
+  import { Tabs, TabsIndicator, TabsList, TabsPanel, TabsTab } from "@ui-sdk/svelte/tabs";
 </script>
 
 <Tabs defaultValue="overview">

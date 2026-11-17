@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { ChevronDownIcon } from "@lucide/svelte"
+  import { ChevronDownIcon } from "@lucide/svelte";
   import {
     Timeline,
     TimelineConnector,
@@ -8,12 +8,8 @@
     TimelineMarker,
     TimelineTime,
     TimelineTitle,
-  } from "@ui-sdk/svelte/timeline"
-  import {
-    Collapsible,
-    CollapsiblePanel,
-    CollapsibleTrigger,
-  } from "@ui-sdk/svelte/collapsible"
+  } from "@ui-sdk/svelte/timeline";
+  import { Collapsible, CollapsiblePanel, CollapsibleTrigger } from "@ui-sdk/svelte/collapsible";
 
   const releases = [
     {
@@ -41,12 +37,9 @@
       dateTime: "2026-08-26",
       time: "August 26",
       description: "Dark mode follows your system.",
-      changes: [
-        "Dark mode follows the system setting.",
-        "Avatars are sharper.",
-      ],
+      changes: ["Dark mode follows the system setting.", "Avatars are sharper."],
     },
-  ]
+  ];
 </script>
 
 <Timeline aria-label="Changelog">

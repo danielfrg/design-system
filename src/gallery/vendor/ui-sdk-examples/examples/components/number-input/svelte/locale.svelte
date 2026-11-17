@@ -1,13 +1,13 @@
 <script lang="ts">
-  import { MinusIcon, PlusIcon } from "@lucide/svelte"
-  import { Field, FieldDescription, FieldLabel } from "@ui-sdk/svelte/field"
+  import { MinusIcon, PlusIcon } from "@lucide/svelte";
+  import { Field, FieldDescription, FieldLabel } from "@ui-sdk/svelte/field";
   import {
     NumberInput,
     NumberInputControl,
     NumberInputDecrement,
     NumberInputGroup,
     NumberInputIncrement,
-  } from "@ui-sdk/svelte/number-input"
+  } from "@ui-sdk/svelte/number-input";
 
   const fields = [
     {
@@ -25,12 +25,12 @@
       format: { style: "currency", currency: "INR", maximumFractionDigits: 0 },
     },
   ] satisfies {
-    label: string
-    locale: string
-    defaultValue: number
-    step: number
-    format: Intl.NumberFormatOptions
-  }[]
+    label: string;
+    locale: string;
+    defaultValue: number;
+    step: number;
+    format: Intl.NumberFormatOptions;
+  }[];
 </script>
 
 <div data-slot="stack">

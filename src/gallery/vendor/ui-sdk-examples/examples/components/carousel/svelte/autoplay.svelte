@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { ChevronLeftIcon, ChevronRightIcon } from "@lucide/svelte"
+  import { ChevronLeftIcon, ChevronRightIcon } from "@lucide/svelte";
   import {
     Carousel,
     CarouselContent,
@@ -8,10 +8,10 @@
     CarouselPlayToggle,
     CarouselPrevious,
     CarouselViewport,
-  } from "@ui-sdk/svelte/carousel"
-  import { useLog } from "../../../shared/svelte/log"
+  } from "@ui-sdk/svelte/carousel";
+  import { useLog } from "../../../shared/svelte/log";
 
-  const log = useLog()
+  const log = useLog();
 
   const photos = [
     { name: "Dunes" },
@@ -20,7 +20,7 @@
     { name: "Canyon" },
     { name: "Meadow" },
     { name: "Harbor" },
-  ]
+  ];
 </script>
 
 <Carousel

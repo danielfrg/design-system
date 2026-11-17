@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { ChevronRightIcon } from "@lucide/svelte"
-  import { Switch, SwitchThumb } from "@ui-sdk/svelte/switch"
+  import { ChevronRightIcon } from "@lucide/svelte";
+  import { Switch, SwitchThumb } from "@ui-sdk/svelte/switch";
   import {
     Tree,
     TreeGroup,
@@ -8,7 +8,7 @@
     TreeItemIndicator,
     TreeItemLabel,
     type TreeItemData,
-  } from "@ui-sdk/svelte/tree"
+  } from "@ui-sdk/svelte/tree";
 
   const items: TreeItemData[] = [
     {
@@ -27,9 +27,9 @@
       children: [{ value: "starter", label: "Starter" }],
     },
     { value: "custom", label: "Custom" },
-  ]
+  ];
 
-  let focusable = $state(true)
+  let focusable = $state(true);
 </script>
 
 {#snippet treeItems(nodes: TreeItemData[])}
@@ -61,12 +61,7 @@
       Focusable when disabled
     </label>
   </div>
-  <Tree
-    aria-label="Plans"
-    {items}
-    defaultExpanded={["plans"]}
-    focusableWhenDisabled={focusable}
-  >
+  <Tree aria-label="Plans" {items} defaultExpanded={["plans"]} focusableWhenDisabled={focusable}>
     {@render treeItems(items)}
   </Tree>
 </div>

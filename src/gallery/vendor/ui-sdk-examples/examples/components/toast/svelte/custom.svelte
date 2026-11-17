@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { onDestroy } from "svelte"
-  import { XIcon } from "@lucide/svelte"
+  import { onDestroy } from "svelte";
+  import { XIcon } from "@lucide/svelte";
   import {
     Toast,
     ToastAction,
@@ -9,14 +9,14 @@
     ToastRegion,
     ToastTitle,
     createToaster,
-  } from "@ui-sdk/svelte/toast"
-  import { useLog } from "../../../shared/svelte/log"
+  } from "@ui-sdk/svelte/toast";
+  import { useLog } from "../../../shared/svelte/log";
 
-  const log = useLog()
-  const toast = createToaster()
+  const log = useLog();
+  const toast = createToaster();
   onDestroy(() => {
-    toast.dismiss()
-  })
+    toast.dismiss();
+  });
 </script>
 
 <button
@@ -37,18 +37,11 @@
   {#snippet children(item)}
     <Toast>
       {#snippet render({ props, state, children })}
-        <li
-          {...props}
-          inert={state.leaving ||
-            (!state.expanded && state.index > 0) ||
-            undefined}
-        >
+        <li {...props} inert={state.leaving || (!state.expanded && state.index > 0) || undefined}>
           {@render children?.(state)}
         </li>
       {/snippet}
-      <span data-slot="media"
-        >{(item.data as { initials: string }).initials}</span
-      >
+      <span data-slot="media">{(item.data as { initials: string }).initials}</span>
       <div data-slot="stack">
         <ToastTitle />
         <ToastDescription />

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { ChevronRightIcon } from "@lucide/svelte"
+  import { ChevronRightIcon } from "@lucide/svelte";
   import {
     Tree,
     TreeItem,
@@ -7,7 +7,7 @@
     TreeItemLabel,
     visibleTreeRows,
     type TreeItemData,
-  } from "@ui-sdk/svelte/tree"
+  } from "@ui-sdk/svelte/tree";
 
   const items: TreeItemData[] = Array.from({ length: 100 }, (_, folder) => ({
     value: `folder-${folder + 1}`,
@@ -16,32 +16,30 @@
       value: `folder-${folder + 1}/file-${file + 1}`,
       label: `File ${file + 1}.txt`,
     })),
-  }))
+  }));
 
-  const row = 32
-  const height = 288
+  const row = 32;
+  const height = 288;
 
-  let scroller: HTMLDivElement | undefined = $state()
-  let scrollTop = $state(0)
-  let expanded = $state(["folder-1"])
-  const rows = $derived(visibleTreeRows(items, expanded))
-  const start = $derived(Math.max(0, Math.floor(scrollTop / row) - 4))
-  const end = $derived(
-    Math.min(rows.length, Math.ceil((scrollTop + height) / row) + 4)
-  )
+  let scroller: HTMLDivElement | undefined = $state();
+  let scrollTop = $state(0);
+  let expanded = $state(["folder-1"]);
+  const rows = $derived(visibleTreeRows(items, expanded));
+  const start = $derived(Math.max(0, Math.floor(scrollTop / row) - 4));
+  const end = $derived(Math.min(rows.length, Math.ceil((scrollTop + height) / row) + 4));
 
   function onHighlight(_value: string, { index }: { index: number }) {
-    const el = scroller
+    const el = scroller;
     if (!el) {
-      return
+      return;
     }
-    const top = index * row
+    const top = index * row;
     if (top < el.scrollTop) {
-      el.scrollTop = top
+      el.scrollTop = top;
     } else if (top + row > el.scrollTop + el.clientHeight - 10) {
-      el.scrollTop = top + row - el.clientHeight + 10
+      el.scrollTop = top + row - el.clientHeight + 10;
     }
-    scrollTop = el.scrollTop
+    scrollTop = el.scrollTop;
   }
 </script>
 

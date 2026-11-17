@@ -1,24 +1,22 @@
 <script lang="ts">
-  import { MinusIcon, PlusIcon } from "@lucide/svelte"
-  import { Field, FieldLabel } from "@ui-sdk/svelte/field"
+  import { MinusIcon, PlusIcon } from "@lucide/svelte";
+  import { Field, FieldLabel } from "@ui-sdk/svelte/field";
   import {
     NumberInput,
     NumberInputControl,
     NumberInputDecrement,
     NumberInputGroup,
     NumberInputIncrement,
-  } from "@ui-sdk/svelte/number-input"
-  import { useLog } from "../../../shared/svelte/log"
+  } from "@ui-sdk/svelte/number-input";
+  import { useLog } from "../../../shared/svelte/log";
 
-  const log = useLog()
-  const form = $props.id()
+  const log = useLog();
+  const form = $props.id();
 
   function onsubmit(event: SubmitEvent & { currentTarget: HTMLFormElement }) {
-    event.preventDefault()
-    const data = [...new FormData(event.currentTarget)].map(
-      ([name, value]) => `${name}=${value}`
-    )
-    log(`Submitted ${data.join(", ")}`)
+    event.preventDefault();
+    const data = [...new FormData(event.currentTarget)].map(([name, value]) => `${name}=${value}`);
+    log(`Submitted ${data.join(", ")}`);
   }
 </script>
 

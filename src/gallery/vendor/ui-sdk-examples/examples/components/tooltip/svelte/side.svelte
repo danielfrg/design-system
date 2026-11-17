@@ -1,16 +1,12 @@
 <script lang="ts">
-  import {
-    Tooltip,
-    TooltipContent,
-    TooltipTrigger,
-  } from "@ui-sdk/svelte/tooltip"
+  import { Tooltip, TooltipContent, TooltipTrigger } from "@ui-sdk/svelte/tooltip";
 
   const sides = [
     { side: "top", label: "Top" },
     { side: "left", label: "Left" },
     { side: "right", label: "Right" },
     { side: "bottom", label: "Bottom" },
-  ] as const
+  ] as const;
 </script>
 
 <div data-slot="grid">

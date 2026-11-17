@@ -1,8 +1,6 @@
 @scope ([data-example]) {
   /* The formatting toolbar spans the notes field below it, like an editor's. */
-  :scope[data-example="toolbar/controller"]
-    [data-slot="stack"]
-    > [data-slot="toolbar"] {
+  :scope[data-example="toolbar/controller"] [data-slot="stack"] > [data-slot="toolbar"] {
     width: 100%;
   }
 
@@ -132,11 +130,7 @@
         flex: none;
       }
 
-      &
-        :is(
-          [data-slot="number-input-decrement"],
-          [data-slot="number-input-increment"]
-        ) {
+      & :is([data-slot="number-input-decrement"], [data-slot="number-input-increment"]) {
         min-width: 26px;
         height: 26px;
         border-radius: calc(var(--radius-row) - 2px);
@@ -144,10 +138,7 @@
     }
   }
 
-  :is(
-    [data-slot="toolbar-group"],
-    [data-slot="toolbar"] [data-slot="toggle-group"]
-  ) {
+  :is([data-slot="toolbar-group"], [data-slot="toolbar"] [data-slot="toggle-group"]) {
     display: flex;
     align-items: center;
     gap: 2px;

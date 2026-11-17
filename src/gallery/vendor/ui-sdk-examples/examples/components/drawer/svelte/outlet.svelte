@@ -8,24 +8,22 @@
     DrawerOutlet,
     DrawerTitle,
     DrawerTrigger,
-  } from "@ui-sdk/svelte/drawer"
-  import { Field, FieldLabel } from "@ui-sdk/svelte/field"
-  import { Textarea } from "@ui-sdk/svelte/textarea"
-  import { Input } from "@ui-sdk/svelte/input"
+  } from "@ui-sdk/svelte/drawer";
+  import { Field, FieldLabel } from "@ui-sdk/svelte/field";
+  import { Textarea } from "@ui-sdk/svelte/textarea";
+  import { Input } from "@ui-sdk/svelte/input";
 
   const messages = [
     { from: "Inès", text: "The proofs are back from the printer." },
     { from: "Kofi", text: "Lunch on Thursday?" },
     { from: "Wren", text: "Pushed the fix for the release build." },
     { from: "Tomasz", text: "Can you review the launch checklist?" },
-  ]
+  ];
 </script>
 
 <Drawer>
   <div>
-    <DrawerOutlet
-      keyframes={{ scale: [1, 0.94], borderRadius: ["0px", "24px"] }}
-    >
+    <DrawerOutlet keyframes={{ scale: [1, 0.94], borderRadius: ["0px", "24px"] }}>
       <div data-slot="row">
         <span>Inbox</span>
         <DrawerTrigger data-variant="solid">Compose</DrawerTrigger>

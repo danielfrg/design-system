@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Field, FieldLabel } from "@ui-sdk/svelte/field"
+  import { Field, FieldLabel } from "@ui-sdk/svelte/field";
   import {
     Slider,
     SliderControl,
@@ -7,7 +7,7 @@
     SliderThumb,
     SliderTrack,
     SliderValue,
-  } from "@ui-sdk/svelte/slider"
+  } from "@ui-sdk/svelte/slider";
 </script>
 
 {#snippet ticks(count: number)}
@@ -20,13 +20,7 @@
 
 <div data-slot="stack">
   <Field>
-    <Slider
-      defaultValue={2010}
-      min={1990}
-      max={2030}
-      step={5}
-      format={{ useGrouping: false }}
-    >
+    <Slider defaultValue={2010} min={1990} max={2030} step={5} format={{ useGrouping: false }}>
       <div data-slot="row">
         <FieldLabel>Year</FieldLabel>
         <SliderValue />

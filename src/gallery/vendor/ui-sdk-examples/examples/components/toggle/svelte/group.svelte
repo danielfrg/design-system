@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { BoldIcon, ItalicIcon, UnderlineIcon } from "@lucide/svelte"
-  import { Toggle, ToggleGroup, ToggleIcon } from "@ui-sdk/svelte/toggle"
+  import { BoldIcon, ItalicIcon, UnderlineIcon } from "@lucide/svelte";
+  import { Toggle, ToggleGroup, ToggleIcon } from "@ui-sdk/svelte/toggle";
 </script>
 
 <ToggleGroup multiple aria-label="Text formatting">

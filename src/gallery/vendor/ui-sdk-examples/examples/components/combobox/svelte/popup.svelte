@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { CheckIcon, ChevronDownIcon, SearchIcon } from "@lucide/svelte"
+  import { CheckIcon, ChevronDownIcon, SearchIcon } from "@lucide/svelte";
   import {
     Combobox,
     ComboboxContent,
@@ -10,7 +10,7 @@
     ComboboxList,
     ComboboxTrigger,
     ComboboxValue,
-  } from "@ui-sdk/svelte/combobox"
+  } from "@ui-sdk/svelte/combobox";
 
   const countries = [
     { value: "ar", label: "Argentina" },
@@ -30,13 +30,13 @@
     { value: "es", label: "Spain" },
     { value: "se", label: "Sweden" },
     { value: "ch", label: "Switzerland" },
-  ]
+  ];
 
   const countryLabel = (value: string) =>
-    countries.find((country) => country.value === value)?.label ?? value
+    countries.find((country) => country.value === value)?.label ?? value;
 
-  let button: HTMLButtonElement | undefined = $state()
-  let query = $state("")
+  let button: HTMLButtonElement | undefined = $state();
+  let query = $state("");
 </script>
 
 <Combobox
@@ -63,11 +63,7 @@
   <ComboboxContent anchor={button}>
     <div data-slot="row">
       <SearchIcon aria-hidden="true" />
-      <ComboboxInput
-        autofocus
-        aria-label="Search countries"
-        placeholder="Search…"
-      />
+      <ComboboxInput autofocus aria-label="Search countries" placeholder="Search…" />
     </div>
     <ComboboxEmpty>No countries found.</ComboboxEmpty>
     <ComboboxList>

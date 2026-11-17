@@ -1,19 +1,13 @@
 <script lang="ts">
-  import { onDestroy } from "svelte"
-  import {
-    Toast,
-    ToastAction,
-    ToastRegion,
-    ToastTitle,
-    createToaster,
-  } from "@ui-sdk/svelte/toast"
-  import { useLog } from "../../../shared/svelte/log"
+  import { onDestroy } from "svelte";
+  import { Toast, ToastAction, ToastRegion, ToastTitle, createToaster } from "@ui-sdk/svelte/toast";
+  import { useLog } from "../../../shared/svelte/log";
 
-  const log = useLog()
-  const toast = createToaster({ duration: 10000 })
+  const log = useLog();
+  const toast = createToaster({ duration: 10000 });
   onDestroy(() => {
-    toast.dismiss()
-  })
+    toast.dismiss();
+  });
 </script>
 
 <button

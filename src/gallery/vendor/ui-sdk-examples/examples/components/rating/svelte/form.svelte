@@ -1,14 +1,14 @@
 <script lang="ts">
-  import { StarIcon } from "@lucide/svelte"
-  import { Field, FieldLabel } from "@ui-sdk/svelte/field"
-  import { Rating, RatingItem } from "@ui-sdk/svelte/rating"
-  import { useLog } from "../../../shared/svelte/log"
+  import { StarIcon } from "@lucide/svelte";
+  import { Field, FieldLabel } from "@ui-sdk/svelte/field";
+  import { Rating, RatingItem } from "@ui-sdk/svelte/rating";
+  import { useLog } from "../../../shared/svelte/log";
 
-  const log = useLog()
+  const log = useLog();
 
   function onsubmit(event: SubmitEvent & { currentTarget: HTMLFormElement }) {
-    event.preventDefault()
-    log(`Submitted stay=${new FormData(event.currentTarget).get("stay")}`)
+    event.preventDefault();
+    log(`Submitted stay=${new FormData(event.currentTarget).get("stay")}`);
   }
 </script>
 

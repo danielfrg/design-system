@@ -1,17 +1,13 @@
 <script lang="ts">
-  import { CheckIcon, MinusIcon } from "@lucide/svelte"
-  import {
-    Checkbox,
-    CheckboxGroup,
-    CheckboxIndicator,
-  } from "@ui-sdk/svelte/checkbox"
+  import { CheckIcon, MinusIcon } from "@lucide/svelte";
+  import { Checkbox, CheckboxGroup, CheckboxIndicator } from "@ui-sdk/svelte/checkbox";
 
   const toppings = [
     { value: "cheese", label: "Cheese" },
     { value: "mushrooms", label: "Mushrooms" },
     { value: "olives", label: "Olives" },
     { value: "peppers", label: "Peppers" },
-  ]
+  ];
 </script>
 
 <div data-slot="stack">

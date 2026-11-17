@@ -1,10 +1,6 @@
 <script lang="ts">
-  import { Field, FieldLabel } from "@ui-sdk/svelte/field"
-  import {
-    OTPInput,
-    OTPInputGroup,
-    OTPInputSlot,
-  } from "@ui-sdk/svelte/otp-input"
+  import { Field, FieldLabel } from "@ui-sdk/svelte/field";
+  import { OTPInput, OTPInputGroup, OTPInputSlot } from "@ui-sdk/svelte/otp-input";
 </script>
 
 <Field>

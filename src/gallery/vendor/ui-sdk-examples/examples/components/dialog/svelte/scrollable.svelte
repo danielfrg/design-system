@@ -7,7 +7,7 @@
     DialogDescription,
     DialogTitle,
     DialogTrigger,
-  } from "@ui-sdk/svelte/dialog"
+  } from "@ui-sdk/svelte/dialog";
 
   const paragraphs = [
     "These terms govern your use of the service. By creating an account, you agree to them and to the privacy policy that explains how we handle your data.",
@@ -16,7 +16,7 @@
     "You can stop using the service at any time. We'll keep your data for 30 days after you close your account, so you can export it, and then delete it.",
     "The service is provided as is. To the extent the law allows, we aren't liable for indirect damages, lost profits or lost data.",
     "If you have questions about these terms, write to us. We read every message and reply within two working days.",
-  ]
+  ];
 </script>
 
 <Dialog>

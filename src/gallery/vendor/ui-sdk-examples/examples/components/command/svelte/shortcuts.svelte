@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { CreditCardIcon, SettingsIcon, UserIcon } from "@lucide/svelte"
+  import { CreditCardIcon, SettingsIcon, UserIcon } from "@lucide/svelte";
   import {
     Command,
     CommandGroup,
@@ -9,8 +9,8 @@
     CommandItemIcon,
     CommandList,
     CommandShortcut,
-  } from "@ui-sdk/svelte/command"
-  import { useLog } from "../../../shared/svelte/log"
+  } from "@ui-sdk/svelte/command";
+  import { useLog } from "../../../shared/svelte/log";
 
   const settings = [
     { value: "profile", label: "Profile", icon: UserIcon, shortcut: "mod+p" },
@@ -26,9 +26,9 @@
       icon: SettingsIcon,
       shortcut: "mod+s",
     },
-  ]
+  ];
 
-  const log = useLog()
+  const log = useLog();
 </script>
 
 <div data-slot="stack">

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { EllipsisIcon } from "@lucide/svelte"
+  import { EllipsisIcon } from "@lucide/svelte";
   import {
     createMenuController,
     Menu,
@@ -10,26 +10,26 @@
     MenuItem,
     MenuSeparator,
     MenuTrigger,
-  } from "@ui-sdk/svelte/menu"
-  import { useLog } from "../../../shared/svelte/log"
+  } from "@ui-sdk/svelte/menu";
+  import { useLog } from "../../../shared/svelte/log";
 
-  type File = { name: string; size: string }
+  type File = { name: string; size: string };
 
   const files: File[] = [
     { name: "Roadmap.pdf", size: "2.4 MB" },
     { name: "Budget.xlsx", size: "860 KB" },
     { name: "Team photo.jpg", size: "5.1 MB" },
-  ]
+  ];
 
-  const menu = createMenuController<File>()
-  const log = useLog()
+  const menu = createMenuController<File>();
+  const log = useLog();
 
   async function openFirst(event: MouseEvent) {
     const result = await menu.open({
       payload: files[0],
       anchor: event.currentTarget as HTMLElement,
-    })
-    log(`Closed with ${result.reason}`)
+    });
+    log(`Closed with ${result.reason}`);
   }
 </script>
 
@@ -54,10 +54,7 @@
       </li>
     {/each}
   </ul>
-  <Menu
-    controller={menu}
-    onAction={(action) => log(`${action} ${menu.getPayload()?.name}`)}
-  >
+  <Menu controller={menu} onAction={(action) => log(`${action} ${menu.getPayload()?.name}`)}>
     <MenuContent align="end">
       {#snippet children(state: MenuContentState<File>)}
         <MenuGroup>

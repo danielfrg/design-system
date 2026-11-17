@@ -15,7 +15,9 @@ const plain = (text) =>
 const folders = { "time-input": "date-input" };
 
 const index = {};
-for (const page of readdirSync(docs).filter((f) => f.endsWith(".md")).sort()) {
+for (const page of readdirSync(docs)
+  .filter((f) => f.endsWith(".md"))
+  .sort()) {
   const name = page.slice(0, -3);
   const dir = folders[name] ?? name;
   if (!existsSync(`${examples}/${dir}`)) continue;

@@ -7,7 +7,7 @@
     AutocompleteItem,
     AutocompleteLabel,
     AutocompleteList,
-  } from "@ui-sdk/svelte/autocomplete"
+  } from "@ui-sdk/svelte/autocomplete";
 
   const tags = [
     {
@@ -20,7 +20,7 @@
     { value: "performance", label: "performance", keywords: ["speed", "slow"] },
     { value: "security", label: "security", keywords: ["vulnerability"] },
     { value: "refactor", label: "refactor", keywords: ["cleanup"] },
-  ]
+  ];
 </script>
 
 <Autocomplete filter="startsWith">
@@ -32,11 +32,7 @@
     <AutocompleteEmpty>No tags found.</AutocompleteEmpty>
     <AutocompleteList>
       {#each tags as tag (tag.value)}
-        <AutocompleteItem
-          value={tag.value}
-          label={tag.label}
-          keywords={tag.keywords}
-        >
+        <AutocompleteItem value={tag.value} label={tag.label} keywords={tag.keywords}>
           {tag.label}
           <span data-slot="hint">{tag.keywords[0]}</span>
         </AutocompleteItem>

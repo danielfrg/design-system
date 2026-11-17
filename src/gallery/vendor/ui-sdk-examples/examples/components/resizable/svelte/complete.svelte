@@ -1,12 +1,8 @@
 <script lang="ts">
-  import {
-    Resizable,
-    ResizableHandle,
-    ResizablePanel,
-  } from "@ui-sdk/svelte/resizable"
-  import { useLog } from "../../../shared/svelte/log"
+  import { Resizable, ResizableHandle, ResizablePanel } from "@ui-sdk/svelte/resizable";
+  import { useLog } from "../../../shared/svelte/log";
 
-  const log = useLog()
+  const log = useLog();
 </script>
 
 <Resizable

@@ -1,14 +1,8 @@
 <script lang="ts">
-  import { ChevronRightIcon } from "@lucide/svelte"
-  import {
-    Tree,
-    TreeGroup,
-    TreeItem,
-    TreeItemIndicator,
-    TreeItemLabel,
-  } from "@ui-sdk/svelte/tree"
+  import { ChevronRightIcon } from "@lucide/svelte";
+  import { Tree, TreeGroup, TreeItem, TreeItemIndicator, TreeItemLabel } from "@ui-sdk/svelte/tree";
 
-  type Node = { value: string; label: string; children?: Node[] }
+  type Node = { value: string; label: string; children?: Node[] };
 
   const folders: Node[] = [
     {
@@ -28,7 +22,7 @@
       ],
     },
     { value: "downloads", label: "التنزيلات" },
-  ]
+  ];
 </script>
 
 {#snippet items(nodes: Node[])}

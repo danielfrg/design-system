@@ -1,13 +1,13 @@
 <script lang="ts">
-  import { FieldDescription, FieldLegend, FieldSet } from "@ui-sdk/svelte/field"
-  import { Radio, RadioGroup, RadioIndicator } from "@ui-sdk/svelte/radio"
+  import { FieldDescription, FieldLegend, FieldSet } from "@ui-sdk/svelte/field";
+  import { Radio, RadioGroup, RadioIndicator } from "@ui-sdk/svelte/radio";
 
   const periods = [
     { value: "monthly", label: "Monthly", price: "$12 per month" },
     { value: "yearly", label: "Yearly", price: "$120 per year" },
-  ]
+  ];
 
-  const id = $props.id()
+  const id = $props.id();
 </script>
 
 <FieldSet>

@@ -1,12 +1,12 @@
 <script lang="ts">
-  import { MinusIcon, PlusIcon } from "@lucide/svelte"
+  import { MinusIcon, PlusIcon } from "@lucide/svelte";
   import {
     NumberInput,
     NumberInputControl,
     NumberInputDecrement,
     NumberInputGroup,
     NumberInputIncrement,
-  } from "@ui-sdk/svelte/number-input"
+  } from "@ui-sdk/svelte/number-input";
 </script>
 
 <NumberInput defaultValue={1} min={0}>

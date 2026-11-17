@@ -1,13 +1,9 @@
 <script lang="ts">
-  import { CheckIcon, CopyIcon } from "@lucide/svelte"
-  import {
-    Tooltip,
-    TooltipContent,
-    TooltipTrigger,
-  } from "@ui-sdk/svelte/tooltip"
+  import { CheckIcon, CopyIcon } from "@lucide/svelte";
+  import { Tooltip, TooltipContent, TooltipTrigger } from "@ui-sdk/svelte/tooltip";
 
-  const command = "npm install @ui-sdk/svelte"
-  let copied = $state(false)
+  const command = "npm install @ui-sdk/svelte";
+  let copied = $state(false);
 </script>
 
 <div data-slot="row">
@@ -16,15 +12,15 @@
     closeOnPress={false}
     onOpenChangeComplete={(open) => {
       if (!open) {
-        copied = false
+        copied = false;
       }
     }}
   >
     <TooltipTrigger
       aria-label={copied ? "Copied" : "Copy"}
       onclick={() => {
-        navigator.clipboard?.writeText(command).catch(() => {})
-        copied = true
+        navigator.clipboard?.writeText(command).catch(() => {});
+        copied = true;
       }}
     >
       {#if copied}

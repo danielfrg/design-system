@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Field, FieldLabel } from "@ui-sdk/svelte/field"
+  import { Field, FieldLabel } from "@ui-sdk/svelte/field";
   import {
     Slider,
     SliderControl,
@@ -7,7 +7,7 @@
     SliderThumb,
     SliderTrack,
     SliderValue,
-  } from "@ui-sdk/svelte/slider"
+  } from "@ui-sdk/svelte/slider";
 </script>
 
 <Field>

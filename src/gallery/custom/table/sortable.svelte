@@ -37,6 +37,8 @@
     </TableBody>
   </Table>
   <p data-slot="hint" role="status">
-    {sort ? `Sorted by ${sort.key}, ${sort.direction === "asc" ? "ascending" : "descending"}` : "Not sorted"}
+    {sort
+      ? `Sorted by ${sort.key}, ${sort.direction === "asc" ? "ascending" : "descending"}`
+      : "Not sorted"}
   </p>
 </div>

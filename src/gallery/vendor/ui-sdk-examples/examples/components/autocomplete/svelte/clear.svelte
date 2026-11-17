@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { ChevronDownIcon, XIcon } from "@lucide/svelte"
+  import { ChevronDownIcon, XIcon } from "@lucide/svelte";
   import {
     Autocomplete,
     AutocompleteClear,
@@ -10,7 +10,7 @@
     AutocompleteLabel,
     AutocompleteList,
     AutocompleteTrigger,
-  } from "@ui-sdk/svelte/autocomplete"
+  } from "@ui-sdk/svelte/autocomplete";
 
   const fruits = [
     "Apple",
@@ -28,7 +28,7 @@
     "Pear",
     "Pineapple",
     "Strawberry",
-  ]
+  ];
 </script>
 
 <Autocomplete defaultValue="Mango">

@@ -72,7 +72,6 @@
       <div class="sidebar__brand">
         <span class="sidebar__title">design-system</span>
         <span class="sidebar__subtitle">ui-sdk component gallery</span>
-        <a class="sidebar__plain" href="./plain/">Plain HTML primitives →</a>
       </div>
       <div class="control control--block" data-example="gallery/filter">
         <Input

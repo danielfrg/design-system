@@ -1,10 +1,10 @@
 <script lang="ts">
-  import { XIcon } from "@lucide/svelte"
-  import { Field, FieldDescription, FieldLabel } from "@ui-sdk/svelte/field"
-  import { Input, InputClear, InputGroup } from "@ui-sdk/svelte/input"
-  import { useLog } from "../../../shared/svelte/log"
+  import { XIcon } from "@lucide/svelte";
+  import { Field, FieldDescription, FieldLabel } from "@ui-sdk/svelte/field";
+  import { Input, InputClear, InputGroup } from "@ui-sdk/svelte/input";
+  import { useLog } from "../../../shared/svelte/log";
 
-  const log = useLog()
+  const log = useLog();
 </script>
 
 <Field name="website">

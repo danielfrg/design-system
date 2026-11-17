@@ -1,17 +1,12 @@
 <script lang="ts">
-  import {
-    Tooltip,
-    TooltipArrow,
-    TooltipContent,
-    TooltipTrigger,
-  } from "@ui-sdk/svelte/tooltip"
+  import { Tooltip, TooltipArrow, TooltipContent, TooltipTrigger } from "@ui-sdk/svelte/tooltip";
 
   const sides = [
     { side: "right", label: "يمين" },
     { side: "top", label: "أعلى" },
     { side: "bottom", label: "أسفل" },
     { side: "left", label: "يسار" },
-  ] as const
+  ] as const;
 </script>
 
 <div dir="rtl" data-slot="row">

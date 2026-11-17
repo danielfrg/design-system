@@ -1,12 +1,12 @@
 <script lang="ts">
-  import { CheckIcon, ChevronDownIcon } from "@lucide/svelte"
+  import { CheckIcon, ChevronDownIcon } from "@lucide/svelte";
   import {
     Command,
     CommandEmpty,
     CommandInput,
     CommandItem,
     CommandList,
-  } from "@ui-sdk/svelte/command"
+  } from "@ui-sdk/svelte/command";
   import {
     Select,
     SelectContent,
@@ -15,7 +15,7 @@
     SelectLabel,
     SelectTrigger,
     SelectValue,
-  } from "@ui-sdk/svelte/select"
+  } from "@ui-sdk/svelte/select";
 
   const commands = [
     { label: "Home" },
@@ -32,15 +32,15 @@
     { label: "Search emoji", keywords: ["smiley", "face"] },
     { label: "Keyboard shortcuts", keywords: ["hotkeys"] },
     { label: "Settings", keywords: ["preferences"] },
-  ]
+  ];
 
   const modes = [
     { value: "fuzzy", label: "Fuzzy" },
     { value: "contains", label: "Contains" },
     { value: "startsWith", label: "Starts with" },
     { value: "words", label: "Words" },
-  ]
-  type Mode = "fuzzy" | "contains" | "startsWith" | "words"
+  ];
+  type Mode = "fuzzy" | "contains" | "startsWith" | "words";
 
   function words(item: { label: string }, query: string) {
     return query
@@ -50,20 +50,16 @@
         item.label
           .toLowerCase()
           .split(" ")
-          .some((part) => part.startsWith(word))
-      )
+          .some((part) => part.startsWith(word)),
+      );
   }
 
-  let mode = $state<Mode>("fuzzy")
+  let mode = $state<Mode>("fuzzy");
 </script>
 
 <div data-slot="stack">
   <div data-slot="controls">
-    <Select
-      items={modes}
-      value={mode}
-      onValueChange={(next) => next && (mode = next as Mode)}
-    >
+    <Select items={modes} value={mode} onValueChange={(next) => next && (mode = next as Mode)}>
       <SelectLabel>Filter</SelectLabel>
       <SelectTrigger>
         <SelectValue />
@@ -82,10 +78,7 @@
     </Select>
   </div>
   <Command filter={mode === "words" ? words : mode}>
-    <CommandInput
-      aria-label="Search commands"
-      placeholder="Try “nf”, “zo in” or “smiley”"
-    />
+    <CommandInput aria-label="Search commands" placeholder="Try “nf”, “zo in” or “smiley”" />
     <CommandEmpty>No results found.</CommandEmpty>
     <CommandList>
       {#each commands as command (command.label)}

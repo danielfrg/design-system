@@ -1,10 +1,6 @@
 <script lang="ts">
-  import { Pipette } from "@lucide/svelte"
-  import {
-    formatColor,
-    parseColor,
-    type ColorFormat,
-  } from "@ui-sdk/svelte/color"
+  import { Pipette } from "@lucide/svelte";
+  import { formatColor, parseColor, type ColorFormat } from "@ui-sdk/svelte/color";
   import {
     ColorPicker,
     ColorPickerArea,
@@ -16,14 +12,14 @@
     ColorPickerSwatch,
     ColorPickerSwatches,
     ColorPickerSwatchItem,
-  } from "@ui-sdk/svelte/color-picker"
+  } from "@ui-sdk/svelte/color-picker";
 
   const formats: { label: string; value: ColorFormat }[] = [
     { label: "Hex", value: "hex" },
     { label: "RGB", value: "srgb" },
     { label: "HSL", value: "hsl" },
     { label: "OKLCH", value: "oklch" },
-  ]
+  ];
 
   const presets = [
     "#ef4444",
@@ -34,14 +30,14 @@
     "#6366f1",
     "#a855f7",
     "#ec4899",
-  ]
+  ];
 
-  let format = $state<ColorFormat>("hex")
-  let value = $state("#0ea5e9")
+  let format = $state<ColorFormat>("hex");
+  let value = $state("#0ea5e9");
 
   function changeFormat(next: ColorFormat) {
-    format = next
-    value = formatColor(parseColor(value)!, next)
+    format = next;
+    value = formatColor(parseColor(value)!, next);
   }
 </script>
 
@@ -67,8 +63,7 @@
     <select
       aria-label="Format"
       value={format}
-      onchange={(event) =>
-        changeFormat(event.currentTarget.value as ColorFormat)}
+      onchange={(event) => changeFormat(event.currentTarget.value as ColorFormat)}
     >
       {#each formats as option (option.value)}
         <option value={option.value}>{option.label}</option>

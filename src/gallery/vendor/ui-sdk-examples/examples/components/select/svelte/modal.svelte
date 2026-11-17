@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { CheckIcon, ChevronDownIcon } from "@lucide/svelte"
-  import { Field, FieldLabel } from "@ui-sdk/svelte/field"
+  import { CheckIcon, ChevronDownIcon } from "@lucide/svelte";
+  import { Field, FieldLabel } from "@ui-sdk/svelte/field";
   import {
     Select,
     SelectContent,
@@ -8,24 +8,24 @@
     SelectItemIndicator,
     SelectTrigger,
     SelectValue,
-  } from "@ui-sdk/svelte/select"
-  import { useLog } from "../../../shared/svelte/log"
+  } from "@ui-sdk/svelte/select";
+  import { useLog } from "../../../shared/svelte/log";
 
   const statuses = [
     { value: "backlog", label: "Backlog" },
     { value: "todo", label: "Todo" },
     { value: "in-progress", label: "In Progress" },
     { value: "done", label: "Done" },
-  ]
+  ];
 
   const modes = [
     { value: "pointer", label: "Pointer" },
     { value: true, label: "Modal" },
     { value: false, label: "Non-modal" },
-  ] as const
+  ] as const;
 
-  let modal = $state<boolean | "pointer">("pointer")
-  const log = useLog()
+  let modal = $state<boolean | "pointer">("pointer");
+  const log = useLog();
 </script>
 
 <div data-slot="stack">
@@ -59,7 +59,5 @@
       </SelectContent>
     </Select>
   </Field>
-  <button type="button" onclick={() => log("Pressed Save Draft")}
-    >Save Draft</button
-  >
+  <button type="button" onclick={() => log("Pressed Save Draft")}>Save Draft</button>
 </div>

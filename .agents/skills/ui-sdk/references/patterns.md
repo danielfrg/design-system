@@ -9,19 +9,19 @@ A set of choices in two dimensions, like emoji, colors or dates, is a `grid` of 
 For a grid whose rows and columns are in state. Keys find cells by id, not by index. Past an edge, return `from.key` so the arrow is handled and the page doesn't scroll.
 
 ```ts
-type CellProps = { value: string; row: string; column: string }
-const cellKey = (row: string, column: string) => `${row}\u001f${column}`
+type CellProps = { value: string; row: string; column: string };
+const cellKey = (row: string, column: string) => `${row}\u001f${column}`;
 
 const roving = createRovingFocus<State, CellProps>(context, {
   slot: "cell",
   key: "focused",
   move: (event, { from, rtl }) => {
-    const { rows, columns } = store.get()
-    const row = rows.findIndex((r) => r.id === from.props.row)
-    const column = columns.findIndex((c) => c.id === from.props.column)
-    const corner = event.ctrlKey || event.metaKey
-    const lastRow = rows.length - 1
-    const lastColumn = columns.length - 1
+    const { rows, columns } = store.get();
+    const row = rows.findIndex((r) => r.id === from.props.row);
+    const column = columns.findIndex((c) => c.id === from.props.column);
+    const corner = event.ctrlKey || event.metaKey;
+    const lastRow = rows.length - 1;
+    const lastColumn = columns.length - 1;
     const to = (
       {
         ArrowRight: [row, column + (rtl ? -1 : 1)],
@@ -31,13 +31,11 @@ const roving = createRovingFocus<State, CellProps>(context, {
         Home: corner ? [0, 0] : [row, 0],
         End: corner ? [lastRow, lastColumn] : [row, lastColumn],
       } as Record<string, [number, number]>
-    )[event.key]
-    if (!to) return undefined
-    return rows[to[0]] && columns[to[1]]
-      ? cellKey(rows[to[0]].id, columns[to[1]].id)
-      : from.key
+    )[event.key];
+    if (!to) return undefined;
+    return rows[to[0]] && columns[to[1]] ? cellKey(rows[to[0]].id, columns[to[1]].id) : from.key;
   },
-})
+});
 ```
 
 For a grid that flows items into rows, like an emoji or swatch grid, work from the index in `items` and a `columns` count instead. Down from a column the short last row lacks should land on its last item.
@@ -45,13 +43,13 @@ For a grid that flows items into rows, like an emoji or swatch grid, work from t
 Shift is never swallowed, so a grid that selects rows extends from what `roving.keydown` returns:
 
 ```ts
-const moved = roving.keydown(event, el)
+const moved = roving.keydown(event, el);
 if (moved?.shift && rowOf(moved.key) !== rowOf(moved.from)) {
   selection.extend(rowOf(moved.key), {
     from: rowOf(moved.from),
     reason: "list-navigation",
     event,
-  })
+  });
 }
 ```
 
@@ -64,15 +62,15 @@ With `remember: false`, the stop stays on the `preferred` item even while focus 
 `sync` sees only options. When derived state depends on both, like lists split by an option (`items`) and a value that may be controlled, recompute in a store subscription that compares references. That covers every way either input changes:
 
 ```ts
-let derivedFrom = { items: store.get().items, value: store.get().value }
+let derivedFrom = { items: store.get().items, value: store.get().value };
 context.onDestroy(
   store.subscribe(() => {
-    const { items, value } = store.get()
-    if (items === derivedFrom.items && value === derivedFrom.value) return
-    derivedFrom = { items, value }
-    store.set(split(items, value))
-  })
-)
+    const { items, value } = store.get();
+    if (items === derivedFrom.items && value === derivedFrom.value) return;
+    derivedFrom = { items, value };
+    store.set(split(items, value));
+  }),
+);
 ```
 
 Storing the derived arrays, rather than computing them in a slot's `state`, is the safe choice: whether a part compares arrays by value isn't documented.
@@ -82,32 +80,29 @@ Storing the derived arrays, rather than computing them in a slot's `state`, is t
 `createSelection` infers its reasons from an `on<Key>Change` option. Internal state has none, so spell out the generics, and write with `store.set`:
 
 ```ts
-type SelectionReason = "item-press" | "list-navigation" | "select-all"
-const selection = createSelection<Options, State, "selected", SelectionReason>(
-  context,
-  {
-    key: "selected",
-    set: (selected) => (store.set({ selected }), true),
-    order: () => store.get().ids,
-    multiple: () => true,
-    selectable: (id) => !itemById(id)?.disabled,
-  }
-)
+type SelectionReason = "item-press" | "list-navigation" | "select-all";
+const selection = createSelection<Options, State, "selected", SelectionReason>(context, {
+  key: "selected",
+  set: (selected) => (store.set({ selected }), true),
+  order: () => store.get().ids,
+  multiple: () => true,
+  selectable: (id) => !itemById(id)?.disabled,
+});
 ```
 
 Clicks map to it like this. `press` gets the click, so read its modifiers:
 
 ```ts
-const mouse = event as MouseEvent | undefined
+const mouse = event as MouseEvent | undefined;
 if (mouse?.shiftKey)
   selection.extend(id, {
     from: store.get().focused,
     reason: "item-press",
     event: mouse,
-  })
+  });
 else if (mouse?.ctrlKey || mouse?.metaKey)
-  selection.toggle(id, { reason: "item-press", event: mouse })
-else selection.choose(id, { reason: "item-press", event: mouse })
+  selection.toggle(id, { reason: "item-press", event: mouse });
+else selection.choose(id, { reason: "item-press", event: mouse });
 ```
 
 `selects` on an array key takes an array of values: `selects({ selected: ({ key }) => [key] })`. On a scalar key, a value or a pair: `selects({ focused: ({ key }) => [key, null] })`.
@@ -118,17 +113,17 @@ else selection.choose(id, { reason: "item-press", event: mouse })
 
 ```ts
 if (isTypeaheadKey(event) && (event.key !== " " || typeahead.active())) {
-  const items = roving.items()
+  const items = roving.items();
   const index = typeahead(
     event.key,
     items.map((item) => labelOf(item.el)),
-    items.findIndex((item) => item.el === el)
-  )
+    items.findIndex((item) => item.el === el),
+  );
   if (index !== -1) {
-    event.preventDefault()
-    roving.focus(items[index].key)
+    event.preventDefault();
+    roving.focus(items[index].key);
   }
-  return
+  return;
 }
 ```
 
@@ -141,7 +136,7 @@ const listbox = createListbox(context, {
   key: "highlighted",
   focus: "virtual",
   query: () => context.store.get().query,
-})
+});
 ```
 
 ```ts
@@ -185,27 +180,24 @@ option: slot<{ value: string }>({
 ```ts
 const recovery = createFocusRecovery<{ value: string; list: string }>({
   fallback: (lost) => {
-    const { items } = store.get()
-    const list = store.get()[lost.props.list]
-    const at = items.findIndex((item) => item.id === lost.key)
+    const { items } = store.get();
+    const list = store.get()[lost.props.list];
+    const at = items.findIndex((item) => item.id === lost.key);
     const next =
       items.slice(at + 1).find((item) => list.includes(item.id)) ??
       items
         .slice(0, Math.max(at, 0))
         .reverse()
-        .find((item) => list.includes(item.id))
+        .find((item) => list.includes(item.id));
     // `slotOf` maps a list to its option slot. Return nothing to let focus go.
-    return next ? context.element(slotOf(lost.props.list), next.id) : undefined
+    return next ? context.element(slotOf(lost.props.list), next.id) : undefined;
   },
-})
+});
 // Bind it next to the roving group in the item slot:
 bind: (el, part) => {
-  const cleanups = [
-    part.api.roving.bind(el, part),
-    part.api.recovery.bind(el, part),
-  ]
-  return () => cleanups.forEach((cleanup) => cleanup())
-}
+  const cleanups = [part.api.roving.bind(el, part), part.api.recovery.bind(el, part)];
+  return () => cleanups.forEach((cleanup) => cleanup());
+};
 ```
 
 ## Two groups of the same kind
@@ -222,9 +214,9 @@ slots: (slot) => {
         tabindex: part.api.blocks[side].roving.tabIndex(state, part),
       }),
       // …
-    })
-  return { available: option("available"), chosen: option("chosen") /* … */ }
-}
+    });
+  return { available: option("available"), chosen: option("chosen") /* … */ };
+};
 ```
 
 ## Focus into a field from a grid
@@ -237,8 +229,7 @@ Declare them in the callback's type, with a one-line comment naming which aren't
 
 ```ts
 // "select-all" isn't in the shared vocabulary.
-export type DataGridValueChangeReason =
-  "item-press" | "list-navigation" | "select-all"
+export type DataGridValueChangeReason = "item-press" | "list-navigation" | "select-all";
 ```
 
 ## Stepper

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Field, FieldControl, FieldLabel } from "@ui-sdk/svelte/field"
+  import { Field, FieldControl, FieldLabel } from "@ui-sdk/svelte/field";
   import {
     Popover,
     PopoverClose,
@@ -7,19 +7,19 @@
     PopoverDescription,
     PopoverTitle,
     PopoverTrigger,
-  } from "@ui-sdk/svelte/popover"
-  import { useLog } from "../../../shared/svelte/log"
+  } from "@ui-sdk/svelte/popover";
+  import { useLog } from "../../../shared/svelte/log";
 
-  const log = useLog()
-  let open = $state(false)
-  let note = $state("")
-  let asking = $state(false)
-  let field: HTMLTextAreaElement | undefined = $state()
+  const log = useLog();
+  let open = $state(false);
+  let note = $state("");
+  let asking = $state(false);
+  let field: HTMLTextAreaElement | undefined = $state();
 
   function close() {
-    open = false
-    note = ""
-    asking = false
+    open = false;
+    note = "";
+    asking = false;
   }
 </script>
 
@@ -27,8 +27,8 @@
   bind:open={() => open, (next) => (next ? (open = true) : close())}
   dismissible={note === ""}
   onDismissAttempt={(details) => {
-    log(`Kept open (${details.reason})`)
-    asking = true
+    log(`Kept open (${details.reason})`);
+    asking = true;
   }}
 >
   <PopoverTrigger>Add Note</PopoverTrigger>
@@ -37,15 +37,10 @@
     <PopoverDescription>Only your team can see it.</PopoverDescription>
     <Field>
       <FieldLabel>Note</FieldLabel>
-      <FieldControl
-        value={note}
-        oninput={(event) => (note = event.currentTarget.value)}
-      >
+      <FieldControl value={note} oninput={(event) => (note = event.currentTarget.value)}>
         {#snippet render({ props })}
-          <textarea
-            bind:this={field}
-            {...props}
-            placeholder="Call the printer about the proofs."></textarea>
+          <textarea bind:this={field} {...props} placeholder="Call the printer about the proofs."
+          ></textarea>
         {/snippet}
       </FieldControl>
     </Field>
@@ -57,8 +52,8 @@
             type="button"
             data-size="sm"
             onclick={() => {
-              asking = false
-              field?.focus()
+              asking = false;
+              field?.focus();
             }}
           >
             Keep Editing
@@ -68,8 +63,8 @@
             data-size="sm"
             data-variant="solid"
             onclick={() => {
-              log("Discarded the note")
-              close()
+              log("Discarded the note");
+              close();
             }}
           >
             Discard
@@ -83,8 +78,8 @@
           type="button"
           data-variant="solid"
           onclick={() => {
-            log(note ? "Saved the note" : "Nothing to save")
-            close()
+            log(note ? "Saved the note" : "Nothing to save");
+            close();
           }}
         >
           Save

@@ -34,7 +34,11 @@
   </div>
 
   <!-- Both stay mounted so switching tabs keeps the demo's state. -->
-  <div class={framed ? "view__frame" : "view__body"} data-example="examples/{filename}" hidden={tab !== "preview"}>
+  <div
+    class={framed ? "view__frame" : "view__body"}
+    data-example="examples/{filename}"
+    hidden={tab !== "preview"}
+  >
     <Preview />
   </div>
   <div hidden={tab !== "code"}>

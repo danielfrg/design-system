@@ -1,22 +1,18 @@
 <script lang="ts">
-  import { CheckIcon, MinusIcon } from "@lucide/svelte"
-  import {
-    Checkbox,
-    CheckboxGroup,
-    CheckboxIndicator,
-  } from "@ui-sdk/svelte/checkbox"
+  import { CheckIcon, MinusIcon } from "@lucide/svelte";
+  import { Checkbox, CheckboxGroup, CheckboxIndicator } from "@ui-sdk/svelte/checkbox";
 
   const backups = [
     { value: "photos", label: "Photos" },
     { value: "documents", label: "Documents" },
     { value: "messages", label: "Messages" },
-  ]
+  ];
 
   const folders = [
     { value: "desktop", label: "Desktop", disabled: true },
     { value: "projects", label: "Projects", disabled: false },
     { value: "downloads", label: "Downloads", disabled: false },
-  ]
+  ];
 </script>
 
 <div data-slot="stack">

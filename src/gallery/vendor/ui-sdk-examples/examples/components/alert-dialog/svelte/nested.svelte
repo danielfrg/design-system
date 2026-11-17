@@ -7,9 +7,9 @@
     AlertDialogDescription,
     AlertDialogTitle,
     AlertDialogTrigger,
-  } from "@ui-sdk/svelte/alert-dialog"
+  } from "@ui-sdk/svelte/alert-dialog";
 
-  let open = $state(false)
+  let open = $state(false);
 </script>
 
 <AlertDialog bind:open>
@@ -19,8 +19,7 @@
     <div data-slot="stack">
       <AlertDialogTitle>Delete this workspace?</AlertDialogTitle>
       <AlertDialogDescription>
-        All 12 projects and their deployments will be deleted for everyone on
-        your team.
+        All 12 projects and their deployments will be deleted for everyone on your team.
       </AlertDialogDescription>
     </div>
     <div data-slot="row">
@@ -28,7 +27,7 @@
       <AlertDialog
         onOpenChange={(nested, details) => {
           if (!nested && details.returnValue === "confirm") {
-            open = false
+            open = false;
           }
         }}
       >

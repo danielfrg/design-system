@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { ChevronLeftIcon, ChevronRightIcon } from "@lucide/svelte"
+  import { ChevronLeftIcon, ChevronRightIcon } from "@lucide/svelte";
   import {
     Carousel,
     CarouselContent,
@@ -8,11 +8,11 @@
     CarouselPrevious,
     CarouselViewport,
     createCarouselController,
-  } from "@ui-sdk/svelte/carousel"
+  } from "@ui-sdk/svelte/carousel";
 
-  const slides = [1, 2, 3, 4, 5]
+  const slides = [1, 2, 3, 4, 5];
 
-  const carousel = createCarouselController()
+  const carousel = createCarouselController();
 </script>
 
 <div data-slot="stack">
@@ -23,9 +23,7 @@
     <CarouselNext controller={carousel} aria-label="Next slide">
       <ChevronRightIcon />
     </CarouselNext>
-    <button type="button" onclick={() => carousel.setPage(5)}
-      >Show the Last Slide</button
-    >
+    <button type="button" onclick={() => carousel.setPage(5)}>Show the Last Slide</button>
   </div>
   <Carousel aria-label="Featured" controller={carousel} drag={false}>
     <CarouselViewport>

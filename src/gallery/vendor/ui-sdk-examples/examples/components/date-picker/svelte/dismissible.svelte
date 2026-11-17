@@ -13,15 +13,11 @@
     DatePickerInput,
     DatePickerTrigger,
     type DatePickerValue,
-  } from "@ui-sdk/svelte/date-picker"
-  import {
-    CalendarIcon,
-    ChevronLeftIcon,
-    ChevronRightIcon,
-  } from "@lucide/svelte"
+  } from "@ui-sdk/svelte/date-picker";
+  import { CalendarIcon, ChevronLeftIcon, ChevronRightIcon } from "@lucide/svelte";
 
-  let value = $state<DatePickerValue>(null)
-  let asking = $state(false)
+  let value = $state<DatePickerValue>(null);
+  let asking = $state(false);
 </script>
 
 <DatePicker
@@ -64,9 +60,7 @@
       </CalendarWeeks>
     </CalendarGrid>
     {#if asking}
-      <p data-slot="hint" role="alert">
-        Pick a check-out date to finish your stay.
-      </p>
+      <p data-slot="hint" role="alert">Pick a check-out date to finish your stay.</p>
     {/if}
   </DatePickerContent>
 </DatePicker>

@@ -1,26 +1,15 @@
 <script lang="ts">
-  import {
-    ClipboardIcon,
-    CopyIcon,
-    RedoIcon,
-    ScissorsIcon,
-    UndoIcon,
-  } from "@lucide/svelte"
-  import {
-    Toolbar,
-    ToolbarButton,
-    ToolbarGroup,
-    ToolbarSeparator,
-  } from "@ui-sdk/svelte/toolbar"
-  import { useLog } from "../../../shared/svelte/log"
+  import { ClipboardIcon, CopyIcon, RedoIcon, ScissorsIcon, UndoIcon } from "@lucide/svelte";
+  import { Toolbar, ToolbarButton, ToolbarGroup, ToolbarSeparator } from "@ui-sdk/svelte/toolbar";
+  import { useLog } from "../../../shared/svelte/log";
 
   const clipboard = [
     { label: "Cut", icon: ScissorsIcon },
     { label: "Copy", icon: CopyIcon },
     { label: "Paste", icon: ClipboardIcon },
-  ]
+  ];
 
-  const log = useLog()
+  const log = useLog();
 </script>
 
 <Toolbar aria-label="Edit">

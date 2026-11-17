@@ -7,7 +7,7 @@
     DrawerDescription,
     DrawerTitle,
     DrawerTrigger,
-  } from "@ui-sdk/svelte/drawer"
+  } from "@ui-sdk/svelte/drawer";
 
   const paragraphs = [
     "The drawer rises from any edge, rests on snap points and follows your finger with the same spring as a system sheet.",
@@ -18,7 +18,7 @@
     "Drawers opened from inside each other stack, and the one beneath steps back while the new one rises.",
     "The on-screen keyboard pushes the drawer up, and the focused field scrolls into view inside it, never the page.",
     "With reduced motion, drawers fade in and out instead of sliding.",
-  ]
+  ];
 </script>
 
 <Drawer>

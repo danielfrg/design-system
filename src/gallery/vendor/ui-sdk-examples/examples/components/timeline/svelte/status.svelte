@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { CheckIcon } from "@lucide/svelte"
+  import { CheckIcon } from "@lucide/svelte";
   import {
     Timeline,
     TimelineConnector,
@@ -10,15 +10,15 @@
     TimelineTitle,
     createTimelineController,
     type TimelineStatus,
-  } from "@ui-sdk/svelte/timeline"
+  } from "@ui-sdk/svelte/timeline";
 
   const steps: {
-    value: string
-    title: string
-    dateTime: string
-    time: string
-    description: string
-    status: TimelineStatus
+    value: string;
+    title: string;
+    dateTime: string;
+    time: string;
+    description: string;
+    status: TimelineStatus;
   }[] = [
     {
       value: "placed",
@@ -52,16 +52,14 @@
       description: "Expected by Thursday.",
       status: "upcoming",
     },
-  ]
+  ];
 
-  const controller = createTimelineController()
+  const controller = createTimelineController();
 </script>
 
 <div data-slot="stack">
   <div data-slot="controls">
-    <button type="button" onclick={() => controller.focus("shipped")}>
-      Go to Current Step
-    </button>
+    <button type="button" onclick={() => controller.focus("shipped")}> Go to Current Step </button>
   </div>
   <Timeline aria-label="Order status" {controller}>
     {#each steps as step (step.value)}

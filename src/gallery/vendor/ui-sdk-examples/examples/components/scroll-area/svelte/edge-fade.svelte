@@ -5,7 +5,7 @@
     ScrollAreaScrollbar,
     ScrollAreaThumb,
     ScrollAreaViewport,
-  } from "@ui-sdk/svelte/scroll-area"
+  } from "@ui-sdk/svelte/scroll-area";
 
   const notes = [
     {
@@ -48,7 +48,7 @@
       date: "Aug 5",
       text: "Comboboxes can load their options while you type.",
     },
-  ]
+  ];
 </script>
 
 <ScrollArea>

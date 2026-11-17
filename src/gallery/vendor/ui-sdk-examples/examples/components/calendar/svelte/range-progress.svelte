@@ -9,18 +9,17 @@
     CalendarWeekday,
     CalendarWeekdays,
     CalendarWeeks,
-  } from "@ui-sdk/svelte/calendar"
-  import { ChevronLeftIcon, ChevronRightIcon } from "@lucide/svelte"
-  import { useLog } from "../../../shared/svelte/log"
+  } from "@ui-sdk/svelte/calendar";
+  import { ChevronLeftIcon, ChevronRightIcon } from "@lucide/svelte";
+  import { useLog } from "../../../shared/svelte/log";
 
-  const log = useLog()
+  const log = useLog();
 </script>
 
 <div>
   <Calendar
     mode="range"
-    onAnchorChange={(anchor) =>
-      log(anchor ? `Started on ${anchor}` : "Range finished")}
+    onAnchorChange={(anchor) => log(anchor ? `Started on ${anchor}` : "Range finished")}
     onFocusedChange={(focused) => log(`Focus on ${focused}`)}
   >
     <div data-slot="row">

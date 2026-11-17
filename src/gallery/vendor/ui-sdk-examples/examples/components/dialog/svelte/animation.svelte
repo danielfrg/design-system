@@ -7,16 +7,13 @@
     DialogDescription,
     DialogTitle,
     DialogTrigger,
-  } from "@ui-sdk/svelte/dialog"
-  import { useLog } from "../../../shared/svelte/log"
+  } from "@ui-sdk/svelte/dialog";
+  import { useLog } from "../../../shared/svelte/log";
 
-  const log = useLog()
+  const log = useLog();
 </script>
 
-<Dialog
-  onOpenChangeComplete={(open) =>
-    log(open ? "Finished opening" : "Finished closing")}
->
+<Dialog onOpenChangeComplete={(open) => log(open ? "Finished opening" : "Finished closing")}>
   <DialogTrigger>Slide In</DialogTrigger>
   <DialogBackdrop />
   <DialogContent keepMounted>

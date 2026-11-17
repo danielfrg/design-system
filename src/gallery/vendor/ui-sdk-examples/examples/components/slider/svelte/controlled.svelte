@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Field, FieldLabel } from "@ui-sdk/svelte/field"
+  import { Field, FieldLabel } from "@ui-sdk/svelte/field";
   import {
     Slider,
     SliderControl,
@@ -7,11 +7,11 @@
     SliderThumb,
     SliderTrack,
     SliderValue,
-  } from "@ui-sdk/svelte/slider"
-  import { useLog } from "../../../shared/svelte/log"
+  } from "@ui-sdk/svelte/slider";
+  import { useLog } from "../../../shared/svelte/log";
 
-  const log = useLog()
-  let value = $state([0.3, 0.7])
+  const log = useLog();
+  let value = $state([0.3, 0.7]);
 </script>
 
 <div data-slot="stack">
@@ -21,8 +21,7 @@
   <Field>
     <Slider
       bind:value
-      onValueChange={(next, details) =>
-        log(`${[next].flat().join(" – ")} (${details.reason})`)}
+      onValueChange={(next, details) => log(`${[next].flat().join(" – ")} (${details.reason})`)}
       min={0}
       max={1}
       step={0.1}

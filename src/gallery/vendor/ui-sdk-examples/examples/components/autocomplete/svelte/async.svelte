@@ -8,8 +8,8 @@
     AutocompleteLabel,
     AutocompleteList,
     AutocompleteStatus,
-  } from "@ui-sdk/svelte/autocomplete"
-  import { useAsyncOptions } from "@ui-sdk/svelte/async-options"
+  } from "@ui-sdk/svelte/autocomplete";
+  import { useAsyncOptions } from "@ui-sdk/svelte/async-options";
 
   function searchCities(query: string, { signal }: { signal: AbortSignal }) {
     const cities = [
@@ -33,20 +33,20 @@
       "Rome",
       "Seoul",
       "Tokyo",
-    ]
+    ];
     return new Promise<string[]>((resolve, reject) => {
       const timer = setTimeout(() => {
-        const needle = query.trim().toLowerCase()
-        resolve(cities.filter((city) => city.toLowerCase().startsWith(needle)))
-      }, 300)
+        const needle = query.trim().toLowerCase();
+        resolve(cities.filter((city) => city.toLowerCase().startsWith(needle)));
+      }, 300);
       signal.addEventListener("abort", () => {
-        clearTimeout(timer)
-        reject(new DOMException("Aborted", "AbortError"))
-      })
-    })
+        clearTimeout(timer);
+        reject(new DOMException("Aborted", "AbortError"));
+      });
+    });
   }
 
-  const results = useAsyncOptions(searchCities, { debounce: 200 })
+  const results = useAsyncOptions(searchCities, { debounce: 200 });
 </script>
 
 <Autocomplete

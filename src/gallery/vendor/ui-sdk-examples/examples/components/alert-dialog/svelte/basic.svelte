@@ -7,7 +7,7 @@
     AlertDialogDescription,
     AlertDialogTitle,
     AlertDialogTrigger,
-  } from "@ui-sdk/svelte/alert-dialog"
+  } from "@ui-sdk/svelte/alert-dialog";
 </script>
 
 <AlertDialog>
@@ -17,15 +17,13 @@
     <div data-slot="stack">
       <AlertDialogTitle>Delete this project?</AlertDialogTitle>
       <AlertDialogDescription>
-        This permanently deletes the project, its files and its deployment
-        history for everyone on your team.
+        This permanently deletes the project, its files and its deployment history for everyone on
+        your team.
       </AlertDialogDescription>
     </div>
     <div data-slot="row">
       <AlertDialogClose>Cancel</AlertDialogClose>
-      <AlertDialogClose data-variant="solid" value="confirm"
-        >Delete</AlertDialogClose
-      >
+      <AlertDialogClose data-variant="solid" value="confirm">Delete</AlertDialogClose>
     </div>
   </AlertDialogContent>
 </AlertDialog>

@@ -48,8 +48,7 @@
     }
 
     &:is([data-highlighted], [data-destructive]) > svg:first-child,
-    &:is([data-highlighted], [data-destructive])
-      > [data-slot="menu-item-icon"] {
+    &:is([data-highlighted], [data-destructive]) > [data-slot="menu-item-icon"] {
       color: inherit;
     }
 
@@ -200,8 +199,7 @@
   [data-slot="menu-content"][data-presentation="sheet"] {
     max-height: none;
     border-radius: var(--radius-popup) var(--radius-popup) 0 0;
-    padding: var(--space-6) var(--space-2)
-      max(env(safe-area-inset-bottom), var(--space-3));
+    padding: var(--space-6) var(--space-2) max(env(safe-area-inset-bottom), var(--space-3));
 
     &::before {
       position: absolute;

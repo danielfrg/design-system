@@ -1,11 +1,7 @@
 <script lang="ts">
-  import { CheckIcon, MinusIcon } from "@lucide/svelte"
-  import {
-    Checkbox,
-    CheckboxGroup,
-    CheckboxIndicator,
-  } from "@ui-sdk/svelte/checkbox"
-  import { useLog } from "../../../shared/svelte/log"
+  import { CheckIcon, MinusIcon } from "@lucide/svelte";
+  import { Checkbox, CheckboxGroup, CheckboxIndicator } from "@ui-sdk/svelte/checkbox";
+  import { useLog } from "../../../shared/svelte/log";
 
   const people = [
     {
@@ -32,10 +28,10 @@
       email: "wren@example.com",
       role: "Editor",
     },
-  ]
+  ];
 
-  const log = useLog()
-  let selected = $state(["hollis"])
+  const log = useLog();
+  let selected = $state(["hollis"]);
 </script>
 
 <CheckboxGroup

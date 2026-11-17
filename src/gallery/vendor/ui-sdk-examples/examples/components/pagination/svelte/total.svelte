@@ -1,9 +1,5 @@
 <script lang="ts">
-  import {
-    ChevronLeftIcon,
-    ChevronRightIcon,
-    EllipsisIcon,
-  } from "@lucide/svelte"
+  import { ChevronLeftIcon, ChevronRightIcon, EllipsisIcon } from "@lucide/svelte";
   import {
     Pagination,
     PaginationEllipsis,
@@ -12,18 +8,18 @@
     PaginationList,
     PaginationNext,
     PaginationPrevious,
-  } from "@ui-sdk/svelte/pagination"
-  import { useLog } from "../../../shared/svelte/log"
+  } from "@ui-sdk/svelte/pagination";
+  import { useLog } from "../../../shared/svelte/log";
 
-  const log = useLog()
-  let page = $state(2)
-  let pageSize = $state(20)
-  const total = 95
+  const log = useLog();
+  let page = $state(2);
+  let pageSize = $state(20);
+  const total = 95;
 
   function onchange(event: Event & { currentTarget: HTMLSelectElement }) {
-    pageSize = Number(event.currentTarget.value)
-    page = 1
-    log(`${event.currentTarget.value} rows per page`)
+    pageSize = Number(event.currentTarget.value);
+    page = 1;
+    log(`${event.currentTarget.value} rows per page`);
   }
 </script>
 

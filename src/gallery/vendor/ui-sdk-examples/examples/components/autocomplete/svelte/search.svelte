@@ -6,34 +6,17 @@
     AutocompleteInput,
     AutocompleteItem,
     AutocompleteList,
-  } from "@ui-sdk/svelte/autocomplete"
-  import { useLog } from "../../../shared/svelte/log"
+  } from "@ui-sdk/svelte/autocomplete";
+  import { useLog } from "../../../shared/svelte/log";
 
-  const recent = [
-    "react hooks",
-    "tailwind grid",
-    "web components",
-    "vue v-model",
-  ]
+  const recent = ["react hooks", "tailwind grid", "web components", "vue v-model"];
 
-  const log = useLog()
+  const log = useLog();
 </script>
 
-<form
-  role="search"
-  data-slot="stack"
-  onsubmit={(event) => event.preventDefault()}
->
-  <Autocomplete
-    submitOnSelect
-    name="q"
-    onSubmit={(value) => log(`Searched “${value}”`)}
-  >
-    <AutocompleteInput
-      type="search"
-      aria-label="Search"
-      placeholder="Search…"
-    />
+<form role="search" data-slot="stack" onsubmit={(event) => event.preventDefault()}>
+  <Autocomplete submitOnSelect name="q" onSubmit={(value) => log(`Searched “${value}”`)}>
+    <AutocompleteInput type="search" aria-label="Search" placeholder="Search…" />
     <AutocompleteContent>
       <AutocompleteEmpty>No results.</AutocompleteEmpty>
       <AutocompleteList>

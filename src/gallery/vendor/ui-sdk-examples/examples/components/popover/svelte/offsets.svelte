@@ -1,12 +1,12 @@
 <script lang="ts">
-  import { CheckIcon, ChevronDownIcon } from "@lucide/svelte"
+  import { CheckIcon, ChevronDownIcon } from "@lucide/svelte";
   import {
     Popover,
     PopoverContent,
     PopoverDescription,
     PopoverTitle,
     PopoverTrigger,
-  } from "@ui-sdk/svelte/popover"
+  } from "@ui-sdk/svelte/popover";
   import {
     Select,
     SelectContent,
@@ -15,20 +15,20 @@
     SelectLabel,
     SelectTrigger,
     SelectValue,
-  } from "@ui-sdk/svelte/select"
+  } from "@ui-sdk/svelte/select";
 
   const choices = {
     sideOffset: { label: "Side offset", values: ["4", "8", "16", "24"] },
     alignOffset: { label: "Align offset", values: ["-16", "0", "16"] },
     collisionPadding: { label: "Collision padding", values: ["8", "24", "48"] },
-  }
-  type Name = keyof typeof choices
+  };
+  type Name = keyof typeof choices;
 
   let offsets = $state<Record<Name, string>>({
     sideOffset: "8",
     alignOffset: "0",
     collisionPadding: "8",
-  })
+  });
 </script>
 
 <div data-slot="stack">
@@ -66,9 +66,7 @@
       collisionPadding={Number(offsets.collisionPadding)}
     >
       <PopoverTitle>Delivery window</PopoverTitle>
-      <PopoverDescription
-        >Arrives Tuesday between 9 AM and noon.</PopoverDescription
-      >
+      <PopoverDescription>Arrives Tuesday between 9 AM and noon.</PopoverDescription>
     </PopoverContent>
   </Popover>
 </div>

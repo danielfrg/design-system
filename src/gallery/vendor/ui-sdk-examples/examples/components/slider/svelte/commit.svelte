@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Field, FieldLabel } from "@ui-sdk/svelte/field"
+  import { Field, FieldLabel } from "@ui-sdk/svelte/field";
   import {
     Slider,
     SliderControl,
@@ -7,16 +7,15 @@
     SliderThumb,
     SliderTrack,
     SliderValue,
-  } from "@ui-sdk/svelte/slider"
-  import { useLog } from "../../../shared/svelte/log"
+  } from "@ui-sdk/svelte/slider";
+  import { useLog } from "../../../shared/svelte/log";
 
-  const log = useLog()
+  const log = useLog();
 </script>
 
 <Field>
   <Slider
-    onValueCommit={(value, details) =>
-      log(`Saved ${value} (${details.reason})`)}
+    onValueCommit={(value, details) => log(`Saved ${value} (${details.reason})`)}
     defaultValue={50}
   >
     <div data-slot="row">

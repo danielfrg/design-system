@@ -13,12 +13,8 @@
     DatePickerHint,
     DatePickerInput,
     DatePickerTrigger,
-  } from "@ui-sdk/svelte/date-picker"
-  import {
-    CalendarIcon,
-    ChevronLeftIcon,
-    ChevronRightIcon,
-  } from "@lucide/svelte"
+  } from "@ui-sdk/svelte/date-picker";
+  import { CalendarIcon, ChevronLeftIcon, ChevronRightIcon } from "@lucide/svelte";
 </script>
 
 <DatePicker

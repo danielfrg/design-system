@@ -7,7 +7,7 @@
     AutocompleteItem,
     AutocompleteLabel,
     AutocompleteList,
-  } from "@ui-sdk/svelte/autocomplete"
+  } from "@ui-sdk/svelte/autocomplete";
 
   const fruits = [
     "Apple",
@@ -25,7 +25,7 @@
     "Pear",
     "Pineapple",
     "Strawberry",
-  ]
+  ];
 </script>
 
 <Autocomplete>

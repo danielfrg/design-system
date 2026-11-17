@@ -11,7 +11,13 @@
     "isolatedModules": true,
     "allowImportingTsExtensions": true,
     "types": ["svelte", "vite/client", "node"],
-    "paths": { "@custom/*": ["./public/v2/custom/*"] }
+    "paths": { "@custom/*": ["./public/v1/custom/*"] }
   },
-  "include": ["src/**/*.ts", "src/**/*.svelte", "public/v2/custom/**/*.ts", "public/v2/custom/**/*.svelte", "vite.config.ts"]
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.svelte",
+    "public/v1/custom/**/*.ts",
+    "public/v1/custom/**/*.svelte",
+    "vite.config.ts"
+  ]
 }

@@ -116,7 +116,11 @@
                 <FieldLabel>Title</FieldLabel>
                 <FieldDescription>Your job title or role</FieldDescription>
               </div>
-              <Input bind:value={jobTitle} placeholder="Software engineer" autocomplete="organization-title" />
+              <Input
+                bind:value={jobTitle}
+                placeholder="Software engineer"
+                autocomplete="organization-title"
+              />
             </Field>
           </div>
           <div class="row">

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { MinusIcon, PlusIcon } from "@lucide/svelte"
+  import { MinusIcon, PlusIcon } from "@lucide/svelte";
   import {
     NavigationMenu,
     NavigationMenuContent,
@@ -8,7 +8,7 @@
     NavigationMenuList,
     NavigationMenuTrigger,
     NavigationMenuViewport,
-  } from "@ui-sdk/svelte/navigation-menu"
+  } from "@ui-sdk/svelte/navigation-menu";
 
   const sections = [
     {
@@ -23,14 +23,12 @@
         {
           title: "Installation",
           href: "#",
-          description:
-            "Add the package for your framework and render your first part.",
+          description: "Add the package for your framework and render your first part.",
         },
         {
           title: "Styling",
           href: "#",
-          description:
-            "Style parts with data attributes, CSS variables and any CSS.",
+          description: "Style parts with data attributes, CSS variables and any CSS.",
         },
       ],
     },
@@ -41,14 +39,12 @@
         {
           title: "Alert Dialog",
           href: "#",
-          description:
-            "Asks for a decision before anything else on the page can be used.",
+          description: "Asks for a decision before anything else on the page can be used.",
         },
         {
           title: "Hover Card",
           href: "#",
-          description:
-            "A preview of what a link points to, for people who pause on it.",
+          description: "A preview of what a link points to, for people who pause on it.",
         },
         {
           title: "Progress",
@@ -62,7 +58,7 @@
         },
       ],
     },
-  ]
+  ];
 </script>
 
 <NavigationMenu aria-label="Main">
@@ -94,9 +90,7 @@
                       {#snippet children(linkState)}
                         <span>{link.title}</span>
                         {#if linkState.current}
-                          <span data-slot="hint" data-show="current"
-                            >You're here</span
-                          >
+                          <span data-slot="hint" data-show="current">You're here</span>
                         {/if}
                       {/snippet}
                     </NavigationMenuLink>

@@ -1,11 +1,7 @@
 <script lang="ts">
-  import { CheckIcon } from "@lucide/svelte"
-  import {
-    Listbox,
-    ListboxItem,
-    ListboxItemIndicator,
-  } from "@ui-sdk/svelte/listbox"
-  import { useLog } from "../../../shared/svelte/log"
+  import { CheckIcon } from "@lucide/svelte";
+  import { Listbox, ListboxItem, ListboxItemIndicator } from "@ui-sdk/svelte/listbox";
+  import { useLog } from "../../../shared/svelte/log";
 
   const toppings = [
     { value: "basil", label: "Basil" },
@@ -14,16 +10,15 @@
     { value: "olive", label: "Olive" },
     { value: "onion", label: "Onion" },
     { value: "pepper", label: "Pepper" },
-  ]
+  ];
 
-  const log = useLog()
+  const log = useLog();
 </script>
 
 <Listbox
   multiple
   defaultValue={["cheese", "onion"]}
-  onValueChange={(value, details) =>
-    log(`${value.join(", ") || "Nothing"} (${details.reason})`)}
+  onValueChange={(value, details) => log(`${value.join(", ") || "Nothing"} (${details.reason})`)}
   aria-label="Toppings"
 >
   {#each toppings as topping (topping.value)}

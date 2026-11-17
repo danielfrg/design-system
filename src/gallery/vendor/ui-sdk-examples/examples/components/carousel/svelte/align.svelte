@@ -1,10 +1,5 @@
 <script lang="ts">
-  import {
-    CheckIcon,
-    ChevronDownIcon,
-    ChevronLeftIcon,
-    ChevronRightIcon,
-  } from "@lucide/svelte"
+  import { CheckIcon, ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon } from "@lucide/svelte";
   import {
     Carousel,
     CarouselContent,
@@ -12,7 +7,7 @@
     CarouselNext,
     CarouselPrevious,
     CarouselViewport,
-  } from "@ui-sdk/svelte/carousel"
+  } from "@ui-sdk/svelte/carousel";
   import {
     Select,
     SelectContent,
@@ -21,9 +16,9 @@
     SelectLabel,
     SelectTrigger,
     SelectValue,
-  } from "@ui-sdk/svelte/select"
+  } from "@ui-sdk/svelte/select";
 
-  type Align = "start" | "center" | "end"
+  type Align = "start" | "center" | "end";
 
   const photos = [
     { name: "Dunes" },
@@ -32,14 +27,14 @@
     { name: "Canyon" },
     { name: "Meadow" },
     { name: "Harbor" },
-  ]
+  ];
   const alignments = [
     { value: "start", label: "Start" },
     { value: "center", label: "Center" },
     { value: "end", label: "End" },
-  ]
+  ];
 
-  let align = $state<Align>("center")
+  let align = $state<Align>("center");
 </script>
 
 <div data-slot="stack">

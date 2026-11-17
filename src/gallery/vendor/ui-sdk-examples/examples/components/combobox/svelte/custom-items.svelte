@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { CheckIcon, ChevronDownIcon } from "@lucide/svelte"
+  import { CheckIcon, ChevronDownIcon } from "@lucide/svelte";
   import {
     Combobox,
     ComboboxContent,
@@ -10,7 +10,7 @@
     ComboboxLabel,
     ComboboxList,
     ComboboxTrigger,
-  } from "@ui-sdk/svelte/combobox"
+  } from "@ui-sdk/svelte/combobox";
 
   const users = [
     { id: 1, name: "Hollis Grant", username: "hollis", role: "Owner" },
@@ -18,7 +18,7 @@
     { id: 3, name: "Kofi Mensah", username: "kofi", role: "Member" },
     { id: 4, name: "Wren Takahashi", username: "wren", role: "Member" },
     { id: 5, name: "Tomasz Wójcik", username: "tomasz", role: "Guest" },
-  ]
+  ];
 </script>
 
 <Combobox>
@@ -35,11 +35,7 @@
     <ComboboxEmpty>No people found.</ComboboxEmpty>
     <ComboboxList>
       {#each users as user (user.id)}
-        <ComboboxItem
-          value={user.username}
-          label={user.name}
-          keywords={[user.username]}
-        >
+        <ComboboxItem value={user.username} label={user.name} keywords={[user.username]}>
           <span data-slot="badge">
             {user.name.slice(0, 1)}
           </span>

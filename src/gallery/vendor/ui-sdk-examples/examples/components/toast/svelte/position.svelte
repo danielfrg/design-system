@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { onDestroy } from "svelte"
-  import { CheckIcon, ChevronDownIcon } from "@lucide/svelte"
+  import { onDestroy } from "svelte";
+  import { CheckIcon, ChevronDownIcon } from "@lucide/svelte";
   import {
     Select,
     SelectContent,
@@ -9,42 +9,38 @@
     SelectLabel,
     SelectTrigger,
     SelectValue,
-  } from "@ui-sdk/svelte/select"
+  } from "@ui-sdk/svelte/select";
   import {
     Toast,
     ToastDescription,
     ToastRegion,
     ToastTitle,
     createToaster,
-  } from "@ui-sdk/svelte/toast"
+  } from "@ui-sdk/svelte/toast";
 
   const sides = [
     { value: "top", label: "Top" },
     { value: "bottom", label: "Bottom" },
-  ]
+  ];
   const aligns = [
     { value: "start", label: "Start" },
     { value: "center", label: "Center" },
     { value: "end", label: "End" },
-  ]
-  type Side = "top" | "bottom"
-  type Align = "start" | "center" | "end"
+  ];
+  type Side = "top" | "bottom";
+  type Align = "start" | "center" | "end";
 
-  const toast = createToaster()
-  let side = $state<Side>("bottom")
-  let align = $state<Align>("end")
+  const toast = createToaster();
+  let side = $state<Side>("bottom");
+  let align = $state<Align>("end");
   onDestroy(() => {
-    toast.dismiss()
-  })
+    toast.dismiss();
+  });
 </script>
 
 <div data-slot="stack">
   <div data-slot="controls">
-    <Select
-      items={sides}
-      value={side}
-      onValueChange={(next) => next && (side = next as Side)}
-    >
+    <Select items={sides} value={side} onValueChange={(next) => next && (side = next as Side)}>
       <SelectLabel>Side</SelectLabel>
       <SelectTrigger>
         <SelectValue />
@@ -61,11 +57,7 @@
         {/each}
       </SelectContent>
     </Select>
-    <Select
-      items={aligns}
-      value={align}
-      onValueChange={(next) => next && (align = next as Align)}
-    >
+    <Select items={aligns} value={align} onValueChange={(next) => next && (align = next as Align)}>
       <SelectLabel>Align</SelectLabel>
       <SelectTrigger>
         <SelectValue />
@@ -83,10 +75,7 @@
       </SelectContent>
     </Select>
   </div>
-  <button
-    onclick={() =>
-      toast("Event created", { description: "Friday, June 12 at 10:00 AM" })}
-  >
+  <button onclick={() => toast("Event created", { description: "Friday, June 12 at 10:00 AM" })}>
     Create Event
   </button>
   <ToastRegion toaster={toast} {side} {align}>

@@ -7,7 +7,7 @@
     MailIcon,
     ShareIcon,
     TrashIcon,
-  } from "@lucide/svelte"
+  } from "@lucide/svelte";
   import {
     Menu,
     MenuContent,
@@ -17,9 +17,9 @@
     MenuSubContent,
     MenuSubTrigger,
     MenuTrigger,
-  } from "@ui-sdk/svelte/menu"
+  } from "@ui-sdk/svelte/menu";
 
-  let action = $state("")
+  let action = $state("");
 </script>
 
 <div dir="rtl" data-slot="stack">
@@ -59,7 +59,5 @@
       </MenuItem>
     </MenuContent>
   </Menu>
-  <output data-slot="output"
-    >{action ? `نُفّذ: ${action}` : "اختر عنصرًا"}</output
-  >
+  <output data-slot="output">{action ? `نُفّذ: ${action}` : "اختر عنصرًا"}</output>
 </div>

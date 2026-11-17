@@ -1,17 +1,11 @@
 <script lang="ts">
-  import {
-    Tooltip,
-    TooltipContent,
-    TooltipTrigger,
-  } from "@ui-sdk/svelte/tooltip"
+  import { Tooltip, TooltipContent, TooltipTrigger } from "@ui-sdk/svelte/tooltip";
 </script>
 
 <Tooltip>
   <TooltipTrigger data-variant="link">
     {#snippet render({ props, state, children })}
-      <a {...props} href="https://example.com/changelog"
-        >{@render children?.(state)}</a
-      >
+      <a {...props} href="https://example.com/changelog">{@render children?.(state)}</a>
     {/snippet}
     Changelog
   </TooltipTrigger>

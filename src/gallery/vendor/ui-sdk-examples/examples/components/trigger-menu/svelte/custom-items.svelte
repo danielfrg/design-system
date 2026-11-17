@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { UsersIcon } from "@lucide/svelte"
-  import { Field, FieldControl, FieldLabel } from "@ui-sdk/svelte/field"
+  import { UsersIcon } from "@lucide/svelte";
+  import { Field, FieldControl, FieldLabel } from "@ui-sdk/svelte/field";
   import {
     TriggerMenu,
     TriggerMenuContent,
@@ -11,7 +11,7 @@
     TriggerMenuItemIcon,
     TriggerMenuList,
     TriggerMenuSeparator,
-  } from "@ui-sdk/svelte/trigger-menu"
+  } from "@ui-sdk/svelte/trigger-menu";
 
   const people = [
     { value: "hollis", label: "Hollis Grant" },
@@ -19,7 +19,7 @@
     { value: "kofi", label: "Kofi Mensah" },
     { value: "wren", label: "Wren Takahashi" },
     { value: "tomasz", label: "Tomasz Wójcik", disabled: true },
-  ]
+  ];
 </script>
 
 <TriggerMenu
@@ -47,15 +47,9 @@
       <TriggerMenuGroup>
         <TriggerMenuGroupLabel>People</TriggerMenuGroupLabel>
         {#each people as person (person.value)}
-          <TriggerMenuItem
-            value={person.value}
-            label={person.label}
-            disabled={person.disabled}
-          >
+          <TriggerMenuItem value={person.value} label={person.label} disabled={person.disabled}>
             {person.label}
-            <span data-slot="hint"
-              >{person.disabled ? "Deactivated" : `@${person.value}`}</span
-            >
+            <span data-slot="hint">{person.disabled ? "Deactivated" : `@${person.value}`}</span>
           </TriggerMenuItem>
         {/each}
       </TriggerMenuGroup>

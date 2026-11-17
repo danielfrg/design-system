@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { CheckIcon, ChevronDownIcon } from "@lucide/svelte"
-  import { useAsyncOptions } from "@ui-sdk/svelte/async-options"
-  import { Field, FieldLabel } from "@ui-sdk/svelte/field"
+  import { CheckIcon, ChevronDownIcon } from "@lucide/svelte";
+  import { useAsyncOptions } from "@ui-sdk/svelte/async-options";
+  import { Field, FieldLabel } from "@ui-sdk/svelte/field";
   import {
     Select,
     SelectContent,
@@ -13,7 +13,7 @@
     SelectStatus,
     SelectTrigger,
     SelectValue,
-  } from "@ui-sdk/svelte/select"
+  } from "@ui-sdk/svelte/select";
 
   const countryList = [
     { value: "ar", label: "Argentina" },
@@ -40,34 +40,27 @@
     { value: "es", label: "Spain" },
     { value: "se", label: "Sweden" },
     { value: "ch", label: "Switzerland" },
-  ]
+  ];
 
-  function searchCountries(
-    query: string,
-    { signal, page }: { signal: AbortSignal; page: number }
-  ) {
-    return new Promise<{ items: typeof countryList; hasMore: boolean }>(
-      (resolve, reject) => {
-        const timer = setTimeout(() => {
-          const needle = query.trim().toLowerCase()
-          const found = countryList.filter((country) =>
-            country.label.toLowerCase().includes(needle)
-          )
-          resolve({
-            items: found.slice(page * 6, page * 6 + 6),
-            hasMore: found.length > page * 6 + 6,
-          })
-        }, 400)
-        signal.addEventListener("abort", () => {
-          clearTimeout(timer)
-          reject(signal.reason)
-        })
-      }
-    )
+  function searchCountries(query: string, { signal, page }: { signal: AbortSignal; page: number }) {
+    return new Promise<{ items: typeof countryList; hasMore: boolean }>((resolve, reject) => {
+      const timer = setTimeout(() => {
+        const needle = query.trim().toLowerCase();
+        const found = countryList.filter((country) => country.label.toLowerCase().includes(needle));
+        resolve({
+          items: found.slice(page * 6, page * 6 + 6),
+          hasMore: found.length > page * 6 + 6,
+        });
+      }, 400);
+      signal.addEventListener("abort", () => {
+        clearTimeout(timer);
+        reject(signal.reason);
+      });
+    });
   }
 
-  let query = $state("")
-  const results = useAsyncOptions(searchCountries, { immediate: true })
+  let query = $state("");
+  const results = useAsyncOptions(searchCountries, { immediate: true });
 </script>
 
 <Field>
@@ -86,10 +79,7 @@
       <ChevronDownIcon />
     </SelectTrigger>
     <SelectContent>
-      <SelectInput
-        aria-label="Search countries"
-        placeholder="Search countries…"
-      />
+      <SelectInput aria-label="Search countries" placeholder="Search countries…" />
       <SelectEmpty>
         {#snippet children(state)}
           {#if state.empty && !state.loading}No countries match “{state.query}”.{/if}
@@ -98,11 +88,7 @@
       <SelectList>
         {#snippet children(state)}
           {#each state.items as { value: string; label: string; disabled?: boolean }[] as item (item.value)}
-            <SelectItem
-              value={item.value}
-              label={item.label}
-              disabled={item.disabled}
-            >
+            <SelectItem value={item.value} label={item.label} disabled={item.disabled}>
               {item.label}
               <SelectItemIndicator>
                 <CheckIcon />

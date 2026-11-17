@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { Field, FieldDescription, FieldLabel } from "@ui-sdk/svelte/field"
-  import { Switch, SwitchThumb } from "@ui-sdk/svelte/switch"
+  import { Field, FieldDescription, FieldLabel } from "@ui-sdk/svelte/field";
+  import { Switch, SwitchThumb } from "@ui-sdk/svelte/switch";
 
   const settings = [
     {
@@ -13,7 +13,7 @@
       description: "Teammates can see when you're online.",
       defaultChecked: true,
     },
-  ]
+  ];
 </script>
 
 <div data-slot="stack">

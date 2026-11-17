@@ -1,11 +1,11 @@
 <script lang="ts">
-  import { Toggle, ToggleGroup } from "@ui-sdk/svelte/toggle"
+  import { Toggle, ToggleGroup } from "@ui-sdk/svelte/toggle";
 
   const views = [
     { value: "list", label: "قائمة" },
     { value: "grid", label: "شبكة" },
     { value: "cards", label: "بطاقات" },
-  ]
+  ];
 </script>
 
 <div dir="rtl">

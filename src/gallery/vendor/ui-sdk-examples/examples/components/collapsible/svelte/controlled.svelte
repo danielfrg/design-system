@@ -1,19 +1,19 @@
 <script lang="ts">
-  import { ChevronDownIcon } from "@lucide/svelte"
+  import { ChevronDownIcon } from "@lucide/svelte";
   import {
     Collapsible,
     CollapsiblePanel,
     CollapsibleTrigger,
     createCollapsibleController,
-  } from "@ui-sdk/svelte/collapsible"
-  import { useLog } from "../../../shared/svelte/log"
+  } from "@ui-sdk/svelte/collapsible";
+  import { useLog } from "../../../shared/svelte/log";
 
-  const recoveryCodes = ["7KQ2-M9XD", "P4TR-8HZC", "W3NB-6JUE", "C5YF-2LSA"]
+  const recoveryCodes = ["7KQ2-M9XD", "P4TR-8HZC", "W3NB-6JUE", "C5YF-2LSA"];
 
-  const log = useLog()
-  const collapsible = createCollapsibleController()
+  const log = useLog();
+  const collapsible = createCollapsibleController();
 
-  let open = $state(false)
+  let open = $state(false);
 </script>
 
 <div data-slot="stack">
@@ -24,8 +24,7 @@
     data-variant="card"
     bind:open
     controller={collapsible}
-    onOpenChange={(next, details) =>
-      log(`${next ? "Opened" : "Closed"} (${details.reason})`)}
+    onOpenChange={(next, details) => log(`${next ? "Opened" : "Closed"} (${details.reason})`)}
   >
     <CollapsibleTrigger>
       <span data-slot="stack">

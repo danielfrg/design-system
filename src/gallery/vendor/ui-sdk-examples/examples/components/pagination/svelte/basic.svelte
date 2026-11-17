@@ -1,9 +1,5 @@
 <script lang="ts">
-  import {
-    ChevronLeftIcon,
-    ChevronRightIcon,
-    EllipsisIcon,
-  } from "@lucide/svelte"
+  import { ChevronLeftIcon, ChevronRightIcon, EllipsisIcon } from "@lucide/svelte";
   import {
     Pagination,
     PaginationEllipsis,
@@ -12,10 +8,10 @@
     PaginationList,
     PaginationNext,
     PaginationPrevious,
-  } from "@ui-sdk/svelte/pagination"
-  import { useLog } from "../../../shared/svelte/log"
+  } from "@ui-sdk/svelte/pagination";
+  import { useLog } from "../../../shared/svelte/log";
 
-  const log = useLog()
+  const log = useLog();
 </script>
 
 <Pagination

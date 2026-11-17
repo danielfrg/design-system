@@ -4,14 +4,12 @@
     HoverCardArrow,
     HoverCardContent,
     HoverCardTrigger,
-  } from "@ui-sdk/svelte/hover-card"
+  } from "@ui-sdk/svelte/hover-card";
 </script>
 
 <div dir="rtl">
   <HoverCard>
-    <HoverCardTrigger href="https://example.com/people/hollis"
-      >هوليس غرانت</HoverCardTrigger
-    >
+    <HoverCardTrigger href="https://example.com/people/hollis">هوليس غرانت</HoverCardTrigger>
     <HoverCardContent align="start" sideOffset={10}>
       <HoverCardArrow />
       <p>هوليس غرانت</p>

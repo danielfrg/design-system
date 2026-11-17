@@ -1,27 +1,21 @@
 <script lang="ts">
-  import { LoaderCircleIcon } from "@lucide/svelte"
-  import {
-    Command,
-    CommandInput,
-    CommandItem,
-    CommandList,
-  } from "@ui-sdk/svelte/command"
-  import { useLog } from "../../../shared/svelte/log"
+  import { LoaderCircleIcon } from "@lucide/svelte";
+  import { Command, CommandInput, CommandItem, CommandList } from "@ui-sdk/svelte/command";
+  import { useLog } from "../../../shared/svelte/log";
 
-  const wait = (ms: number) =>
-    new Promise<void>((resolve) => setTimeout(resolve, ms))
+  const wait = (ms: number) => new Promise<void>((resolve) => setTimeout(resolve, ms));
 
-  const log = useLog()
+  const log = useLog();
 
   async function deploy() {
-    await wait(1200)
-    log("Deployed to production")
+    await wait(1200);
+    log("Deployed to production");
   }
 
   async function sync() {
-    await wait(600)
-    log("Couldn't sync: offline")
-    throw new Error("Offline")
+    await wait(600);
+    log("Couldn't sync: offline");
+    throw new Error("Offline");
   }
 </script>
 
@@ -32,10 +26,7 @@
       <CommandItem value="deploy" onSelect={deploy}>
         {#snippet children(state)}
           Deploy to production
-          {#if state.pending}<LoaderCircleIcon
-              data-slot="spinner"
-              aria-hidden="true"
-            />{/if}
+          {#if state.pending}<LoaderCircleIcon data-slot="spinner" aria-hidden="true" />{/if}
         {/snippet}
       </CommandItem>
       <CommandItem value="sync" onSelect={sync}>

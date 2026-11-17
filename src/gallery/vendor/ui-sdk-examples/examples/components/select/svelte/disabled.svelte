@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { CheckIcon, ChevronDownIcon } from "@lucide/svelte"
-  import { Field, FieldLabel } from "@ui-sdk/svelte/field"
+  import { CheckIcon, ChevronDownIcon } from "@lucide/svelte";
+  import { Field, FieldLabel } from "@ui-sdk/svelte/field";
   import {
     Select,
     SelectContent,
@@ -8,7 +8,7 @@
     SelectItemIndicator,
     SelectTrigger,
     SelectValue,
-  } from "@ui-sdk/svelte/select"
+  } from "@ui-sdk/svelte/select";
 
   const countries = [
     { value: "ca", label: "Canada" },
@@ -17,13 +17,13 @@
     { value: "de", label: "Germany" },
     { value: "jp", label: "Japan" },
     { value: "es", label: "Spain" },
-  ]
+  ];
 
   const fields = [
     { label: "Billing country", disabled: true },
     { label: "Shipping from", readOnly: true },
     { label: "Shipping to" },
-  ]
+  ];
 </script>
 
 <div data-slot="stack">

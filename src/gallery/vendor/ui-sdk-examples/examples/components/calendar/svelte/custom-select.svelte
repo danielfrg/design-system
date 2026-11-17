@@ -7,7 +7,7 @@
     CalendarWeekday,
     CalendarWeekdays,
     CalendarWeeks,
-  } from "@ui-sdk/svelte/calendar"
+  } from "@ui-sdk/svelte/calendar";
   import {
     Select,
     SelectContent,
@@ -15,8 +15,8 @@
     SelectItemIndicator,
     SelectTrigger,
     SelectValue,
-  } from "@ui-sdk/svelte/select"
-  import { CheckIcon, ChevronDownIcon } from "@lucide/svelte"
+  } from "@ui-sdk/svelte/select";
+  import { CheckIcon, ChevronDownIcon } from "@lucide/svelte";
 
   const months = [
     "January",
@@ -34,22 +34,17 @@
   ].map((label, index) => ({
     value: String(index + 1).padStart(2, "0"),
     label,
-  }))
+  }));
   const years = ["2024", "2025", "2026", "2027", "2028"].map((year) => ({
     value: year,
     label: year,
-  }))
+  }));
 
-  let month = $state("2026-10")
-  const [year, monthOfYear] = $derived(month.split("-"))
+  let month = $state("2026-10");
+  const [year, monthOfYear] = $derived(month.split("-"));
 </script>
 
-<Calendar
-  bind:month
-  defaultValue="2026-10-16"
-  min="2024-01-01"
-  max="2028-12-31"
->
+<Calendar bind:month defaultValue="2026-10-16" min="2024-01-01" max="2028-12-31">
   <div data-slot="row">
     <CalendarHeading />
     <Select

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { XIcon } from "@lucide/svelte"
+  import { XIcon } from "@lucide/svelte";
   import {
     Dialog,
     DialogBackdrop,
@@ -8,9 +8,9 @@
     DialogDescription,
     DialogTitle,
     DialogTrigger,
-  } from "@ui-sdk/svelte/dialog"
-  import { Field, FieldLabel } from "@ui-sdk/svelte/field"
-  import { Input } from "@ui-sdk/svelte/input"
+  } from "@ui-sdk/svelte/dialog";
+  import { Field, FieldLabel } from "@ui-sdk/svelte/field";
+  import { Input } from "@ui-sdk/svelte/input";
 </script>
 
 <Dialog>
@@ -19,9 +19,7 @@
   <DialogContent>
     <div data-slot="stack">
       <DialogTitle>Share link</DialogTitle>
-      <DialogDescription
-        >Anyone who has this link will be able to view this.</DialogDescription
-      >
+      <DialogDescription>Anyone who has this link will be able to view this.</DialogDescription>
     </div>
     <Field>
       <FieldLabel>Link</FieldLabel>

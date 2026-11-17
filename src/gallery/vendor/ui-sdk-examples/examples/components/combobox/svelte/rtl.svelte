@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { CheckIcon, ChevronDownIcon } from "@lucide/svelte"
+  import { CheckIcon, ChevronDownIcon } from "@lucide/svelte";
   import {
     Combobox,
     ComboboxContent,
@@ -10,7 +10,7 @@
     ComboboxLabel,
     ComboboxList,
     ComboboxTrigger,
-  } from "@ui-sdk/svelte/combobox"
+  } from "@ui-sdk/svelte/combobox";
 
   const cities = [
     { value: "cairo", label: "القاهرة" },
@@ -19,7 +19,7 @@
     { value: "beirut", label: "بيروت" },
     { value: "amman", label: "عمّان" },
     { value: "rabat", label: "الرباط" },
-  ]
+  ];
 </script>
 
 <div dir="rtl">

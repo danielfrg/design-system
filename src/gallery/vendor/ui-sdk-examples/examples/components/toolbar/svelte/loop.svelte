@@ -1,8 +1,8 @@
 <script lang="ts">
-  import { Toolbar, ToolbarButton } from "@ui-sdk/svelte/toolbar"
-  import { useLog } from "../../../shared/svelte/log"
+  import { Toolbar, ToolbarButton } from "@ui-sdk/svelte/toolbar";
+  import { useLog } from "../../../shared/svelte/log";
 
-  const log = useLog()
+  const log = useLog();
 </script>
 
 <Toolbar loop={false} aria-label="Pages">

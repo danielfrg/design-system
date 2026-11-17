@@ -1,11 +1,5 @@
 <script lang="ts">
-  import {
-    Meter,
-    MeterIndicator,
-    MeterLabel,
-    MeterTrack,
-    MeterValue,
-  } from "@ui-sdk/svelte/meter"
+  import { Meter, MeterIndicator, MeterLabel, MeterTrack, MeterValue } from "@ui-sdk/svelte/meter";
 
   const meters = [
     {
@@ -28,12 +22,12 @@
     },
     { label: "Auslastung", value: 40, locale: "de-DE" },
   ] satisfies {
-    label: string
-    value: number
-    max?: number
-    format?: Intl.NumberFormatOptions | ((value: number) => string)
-    locale?: string
-  }[]
+    label: string;
+    value: number;
+    max?: number;
+    format?: Intl.NumberFormatOptions | ((value: number) => string);
+    locale?: string;
+  }[];
 </script>
 
 <div data-slot="stack">

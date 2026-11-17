@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { CheckIcon, ChevronDownIcon, MinusIcon } from "@lucide/svelte"
-  import { Field, FieldLabel } from "@ui-sdk/svelte/field"
+  import { CheckIcon, ChevronDownIcon, MinusIcon } from "@lucide/svelte";
+  import { Field, FieldLabel } from "@ui-sdk/svelte/field";
   import {
     Select,
     SelectContent,
@@ -10,7 +10,7 @@
     SelectSeparator,
     SelectTrigger,
     SelectValue,
-  } from "@ui-sdk/svelte/select"
+  } from "@ui-sdk/svelte/select";
 
   const regions = [
     { value: "us-east", label: "US East" },
@@ -18,7 +18,7 @@
     { value: "europe", label: "Europe" },
     { value: "asia-pacific", label: "Asia Pacific" },
     { value: "south-america", label: "South America" },
-  ]
+  ];
 </script>
 
 <Field>

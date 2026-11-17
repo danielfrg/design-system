@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Field, FieldControl, FieldLabel } from "@ui-sdk/svelte/field"
+  import { Field, FieldControl, FieldLabel } from "@ui-sdk/svelte/field";
   import {
     type TriggerMenuDataItem,
     TriggerMenu,
@@ -8,8 +8,8 @@
     TriggerMenuItem,
     TriggerMenuList,
     createTriggerMenuController,
-  } from "@ui-sdk/svelte/trigger-menu"
-  import { useLog } from "../../../shared/svelte/log"
+  } from "@ui-sdk/svelte/trigger-menu";
+  import { useLog } from "../../../shared/svelte/log";
 
   const people = [
     { value: "hollis", label: "Hollis Grant" },
@@ -17,23 +17,21 @@
     { value: "kofi", label: "Kofi Mensah" },
     { value: "wren", label: "Wren Takahashi" },
     { value: "tomasz", label: "Tomasz Wójcik" },
-  ]
+  ];
 
-  const log = useLog()
-  const menu = createTriggerMenuController()
+  const log = useLog();
+  const menu = createTriggerMenuController();
 
   async function mention() {
-    const closed = await menu.open({ trigger: "@" })
-    log(`Closed (${closed.reason})`)
+    const closed = await menu.open({ trigger: "@" });
+    log(`Closed (${closed.reason})`);
   }
 </script>
 
 <div data-slot="stack">
   <div data-slot="controls">
-    <button
-      type="button"
-      onmousedown={(event) => event.preventDefault()}
-      onclick={mention}>Mention</button
+    <button type="button" onmousedown={(event) => event.preventDefault()} onclick={mention}
+      >Mention</button
     >
     <button
       type="button"
@@ -43,7 +41,7 @@
           new Date().toLocaleDateString("en-US", {
             month: "long",
             day: "numeric",
-          })
+          }),
         )}
     >
       Insert Date

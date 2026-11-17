@@ -8,7 +8,7 @@
     DrawerHandle,
     DrawerTitle,
     DrawerTrigger,
-  } from "@ui-sdk/svelte/drawer"
+  } from "@ui-sdk/svelte/drawer";
 
   const places = [
     { name: "Blue Bottle Coffee", detail: "Coffee · 0.2 mi" },
@@ -16,9 +16,9 @@
     { name: "Dolores Park", detail: "Park · 0.5 mi" },
     { name: "Mission Dolores", detail: "Landmark · 0.6 mi" },
     { name: "Ritual Coffee Roasters", detail: "Coffee · 0.7 mi" },
-  ]
+  ];
 
-  let destination = $state(places[0].name)
+  let destination = $state(places[0].name);
 </script>
 
 <div data-slot="stack">

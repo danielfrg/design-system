@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { ChevronRightIcon } from "@lucide/svelte"
+  import { ChevronRightIcon } from "@lucide/svelte";
   import {
     Waterfall,
     WaterfallAxis,
@@ -12,7 +12,7 @@
     WaterfallTick,
     type WaterfallAxisState,
     type WaterfallData,
-  } from "@ui-sdk/svelte/waterfall"
+  } from "@ui-sdk/svelte/waterfall";
 
   const trace: WaterfallData = [
     {
@@ -27,29 +27,25 @@
         { value: "html", label: "stream html", start: 760, duration: 420 },
       ],
     },
-  ]
+  ];
 
-  const spans = [trace[0], ...trace[0].children!]
-  const full: [number, number] = [0, 1200]
+  const spans = [trace[0], ...trace[0].children!];
+  const full: [number, number] = [0, 1200];
 
   function zoomed([start, end]: [number, number], factor: number) {
-    const center = (start + end) / 2
-    const half = Math.min(((end - start) * factor) / 2, full[1] / 2)
-    const from = Math.min(Math.max(full[0], center - half), full[1] - half * 2)
-    return [from, from + half * 2] as [number, number]
+    const center = (start + end) / 2;
+    const half = Math.min(((end - start) * factor) / 2, full[1] / 2);
+    const from = Math.min(Math.max(full[0], center - half), full[1] - half * 2);
+    return [from, from + half * 2] as [number, number];
   }
 
-  let range = $state(full)
+  let range = $state(full);
 </script>
 
 <div data-slot="stack">
   <div data-slot="controls">
-    <button type="button" onclick={() => (range = zoomed(range, 0.5))}>
-      Zoom In
-    </button>
-    <button type="button" onclick={() => (range = zoomed(range, 2))}>
-      Zoom Out
-    </button>
+    <button type="button" onclick={() => (range = zoomed(range, 0.5))}> Zoom In </button>
+    <button type="button" onclick={() => (range = zoomed(range, 2))}> Zoom Out </button>
     <button type="button" onclick={() => (range = full)}>Reset</button>
   </div>
   <Waterfall

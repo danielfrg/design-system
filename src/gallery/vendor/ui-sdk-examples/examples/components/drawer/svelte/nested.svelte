@@ -7,9 +7,9 @@
     DrawerDescription,
     DrawerTitle,
     DrawerTrigger,
-  } from "@ui-sdk/svelte/drawer"
-  import { Field, FieldLabel } from "@ui-sdk/svelte/field"
-  import { Input } from "@ui-sdk/svelte/input"
+  } from "@ui-sdk/svelte/drawer";
+  import { Field, FieldLabel } from "@ui-sdk/svelte/field";
+  import { Input } from "@ui-sdk/svelte/input";
 </script>
 
 <Drawer>

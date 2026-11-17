@@ -6,10 +6,10 @@
     PopoverDescription,
     PopoverTitle,
     PopoverTrigger,
-  } from "@ui-sdk/svelte/popover"
-  import { useLog } from "../../../shared/svelte/log"
+  } from "@ui-sdk/svelte/popover";
+  import { useLog } from "../../../shared/svelte/log";
 
-  const log = useLog()
+  const log = useLog();
 </script>
 
 <Popover openOnHover delay={200} closeDelay={150}>

@@ -1,12 +1,12 @@
 <script lang="ts">
-  import { Field, FieldLabel } from "@ui-sdk/svelte/field"
-  import { Radio, RadioGroup, RadioIndicator } from "@ui-sdk/svelte/radio"
+  import { Field, FieldLabel } from "@ui-sdk/svelte/field";
+  import { Radio, RadioGroup, RadioIndicator } from "@ui-sdk/svelte/radio";
 
   const speeds = [
     { value: "standard", label: "عادي" },
     { value: "express", label: "سريع" },
     { value: "overnight", label: "خلال ليلة" },
-  ]
+  ];
 </script>
 
 <div dir="rtl">

@@ -1,15 +1,15 @@
 <script lang="ts">
-  import { EyeIcon, EyeOffIcon } from "@lucide/svelte"
-  import { Field, FieldLabel } from "@ui-sdk/svelte/field"
+  import { EyeIcon, EyeOffIcon } from "@lucide/svelte";
+  import { Field, FieldLabel } from "@ui-sdk/svelte/field";
   import {
     PasswordInput,
     PasswordInputControl,
     PasswordInputToggle,
-  } from "@ui-sdk/svelte/password-input"
-  import { useLog } from "../../../shared/svelte/log"
+  } from "@ui-sdk/svelte/password-input";
+  import { useLog } from "../../../shared/svelte/log";
 
-  const log = useLog()
-  let visible = $state(false)
+  const log = useLog();
+  let visible = $state(false);
 </script>
 
 <Field name="password">

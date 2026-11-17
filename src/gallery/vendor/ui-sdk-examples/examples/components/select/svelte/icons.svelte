@@ -5,8 +5,8 @@
     TextAlignCenterIcon,
     TextAlignEndIcon,
     TextAlignStartIcon,
-  } from "@lucide/svelte"
-  import { Field, FieldLabel } from "@ui-sdk/svelte/field"
+  } from "@lucide/svelte";
+  import { Field, FieldLabel } from "@ui-sdk/svelte/field";
   import {
     Select,
     SelectContent,
@@ -16,7 +16,7 @@
     SelectTrigger,
     SelectValue,
     SelectValueIcon,
-  } from "@ui-sdk/svelte/select"
+  } from "@ui-sdk/svelte/select";
 </script>
 
 <Field>

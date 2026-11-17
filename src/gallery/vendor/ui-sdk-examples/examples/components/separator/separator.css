@@ -15,9 +15,7 @@
     }
   }
 
-  [data-slot="row"]:has(
-    > [data-slot="separator"][data-orientation="horizontal"]
-  ) {
+  [data-slot="row"]:has(> [data-slot="separator"][data-orientation="horizontal"]) {
     flex-wrap: nowrap;
     gap: var(--space-3);
     width: 20rem;
@@ -30,9 +28,7 @@
     }
   }
 
-  [data-slot="row"]:has(
-    > [data-slot="separator"][data-orientation="vertical"]
-  ) {
+  [data-slot="row"]:has(> [data-slot="separator"][data-orientation="vertical"]) {
     flex-wrap: nowrap;
     align-items: stretch;
     gap: var(--space-4);

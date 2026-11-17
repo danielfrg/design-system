@@ -1,10 +1,6 @@
 <script lang="ts">
-  import { ChevronDownIcon } from "@lucide/svelte"
-  import {
-    Collapsible,
-    CollapsiblePanel,
-    CollapsibleTrigger,
-  } from "@ui-sdk/svelte/collapsible"
+  import { ChevronDownIcon } from "@lucide/svelte";
+  import { Collapsible, CollapsiblePanel, CollapsibleTrigger } from "@ui-sdk/svelte/collapsible";
 </script>
 
 <Collapsible data-variant="card">

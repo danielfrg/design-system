@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { ChevronDownIcon, ChevronRightIcon } from "@lucide/svelte"
+  import { ChevronDownIcon, ChevronRightIcon } from "@lucide/svelte";
   import {
     NavigationMenu,
     NavigationMenuContent,
@@ -8,7 +8,7 @@
     NavigationMenuList,
     NavigationMenuTrigger,
     NavigationMenuViewport,
-  } from "@ui-sdk/svelte/navigation-menu"
+  } from "@ui-sdk/svelte/navigation-menu";
 
   const gettingStarted = [
     {
@@ -19,16 +19,14 @@
     {
       title: "Installation",
       href: "#",
-      description:
-        "Add the package for your framework and render your first part.",
+      description: "Add the package for your framework and render your first part.",
     },
     {
       title: "Styling",
       href: "#",
-      description:
-        "Style parts with data attributes, CSS variables and any CSS.",
+      description: "Style parts with data attributes, CSS variables and any CSS.",
     },
-  ]
+  ];
 
   const groups = [
     {
@@ -49,7 +47,7 @@
         { title: "Checkbox", href: "#" },
       ],
     },
-  ]
+  ];
 </script>
 
 <NavigationMenu aria-label="Main">

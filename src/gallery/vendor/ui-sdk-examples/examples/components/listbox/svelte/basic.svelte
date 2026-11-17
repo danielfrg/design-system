@@ -1,11 +1,7 @@
 <script lang="ts">
-  import { CheckIcon } from "@lucide/svelte"
-  import { Field, FieldDescription, FieldLabel } from "@ui-sdk/svelte/field"
-  import {
-    Listbox,
-    ListboxItem,
-    ListboxItemIndicator,
-  } from "@ui-sdk/svelte/listbox"
+  import { CheckIcon } from "@lucide/svelte";
+  import { Field, FieldDescription, FieldLabel } from "@ui-sdk/svelte/field";
+  import { Listbox, ListboxItem, ListboxItemIndicator } from "@ui-sdk/svelte/listbox";
 
   const topics = [
     { value: "comments", label: "Comments" },
@@ -13,7 +9,7 @@
     { value: "reactions", label: "Reactions" },
     { value: "sign-ins", label: "New sign-ins" },
     { value: "billing", label: "Billing" },
-  ]
+  ];
 </script>
 
 <Field>
@@ -28,7 +24,5 @@
       </ListboxItem>
     {/each}
   </Listbox>
-  <FieldDescription
-    >Hold Shift to select a range, or Ctrl or ⌘ to add one.</FieldDescription
-  >
+  <FieldDescription>Hold Shift to select a range, or Ctrl or ⌘ to add one.</FieldDescription>
 </Field>

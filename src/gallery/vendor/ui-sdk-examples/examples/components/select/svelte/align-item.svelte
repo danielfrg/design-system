@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { CheckIcon, ChevronDownIcon } from "@lucide/svelte"
-  import { Checkbox, CheckboxIndicator } from "@ui-sdk/svelte/checkbox"
-  import { Field, FieldLabel } from "@ui-sdk/svelte/field"
+  import { CheckIcon, ChevronDownIcon } from "@lucide/svelte";
+  import { Checkbox, CheckboxIndicator } from "@ui-sdk/svelte/checkbox";
+  import { Field, FieldLabel } from "@ui-sdk/svelte/field";
   import {
     Select,
     SelectContent,
@@ -9,7 +9,7 @@
     SelectItemIndicator,
     SelectTrigger,
     SelectValue,
-  } from "@ui-sdk/svelte/select"
+  } from "@ui-sdk/svelte/select";
 
   const priorities = [
     { value: "urgent", label: "Urgent" },
@@ -17,18 +17,15 @@
     { value: "medium", label: "Medium" },
     { value: "low", label: "Low" },
     { value: "none", label: "No priority" },
-  ]
+  ];
 
-  let aligned = $state(true)
+  let aligned = $state(true);
 </script>
 
 <div data-slot="stack">
   <div data-slot="controls">
     <label data-slot="label">
-      <Checkbox
-        checked={aligned}
-        onCheckedChange={(next) => (aligned = next === true)}
-      >
+      <Checkbox checked={aligned} onCheckedChange={(next) => (aligned = next === true)}>
         <CheckboxIndicator>
           <CheckIcon />
         </CheckboxIndicator>

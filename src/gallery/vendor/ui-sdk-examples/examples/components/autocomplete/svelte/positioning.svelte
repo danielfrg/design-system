@@ -7,18 +7,11 @@
     AutocompleteItem,
     AutocompleteLabel,
     AutocompleteList,
-  } from "@ui-sdk/svelte/autocomplete"
+  } from "@ui-sdk/svelte/autocomplete";
 
-  const fruits = [
-    "Apple",
-    "Apricot",
-    "Avocado",
-    "Banana",
-    "Blackberry",
-    "Blueberry",
-  ]
+  const fruits = ["Apple", "Apricot", "Avocado", "Banana", "Blackberry", "Blueberry"];
 
-  let box: HTMLDivElement | undefined = $state()
+  let box: HTMLDivElement | undefined = $state();
 </script>
 
 <div bind:this={box} data-slot="card">

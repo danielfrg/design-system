@@ -1,8 +1,8 @@
 <script lang="ts">
-  import { CheckIcon } from "@lucide/svelte"
-  import { Checkbox, CheckboxIndicator } from "@ui-sdk/svelte/checkbox"
-  import { Field, FieldDescription, FieldLabel } from "@ui-sdk/svelte/field"
-  import { Input } from "@ui-sdk/svelte/input"
+  import { CheckIcon } from "@lucide/svelte";
+  import { Checkbox, CheckboxIndicator } from "@ui-sdk/svelte/checkbox";
+  import { Field, FieldDescription, FieldLabel } from "@ui-sdk/svelte/field";
+  import { Input } from "@ui-sdk/svelte/input";
 </script>
 
 <div data-slot="stack" dir="rtl">

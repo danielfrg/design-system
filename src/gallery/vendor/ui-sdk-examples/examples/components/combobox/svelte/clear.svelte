@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { CheckIcon, ChevronDownIcon, XIcon } from "@lucide/svelte"
+  import { CheckIcon, ChevronDownIcon, XIcon } from "@lucide/svelte";
   import {
     Combobox,
     ComboboxClear,
@@ -11,8 +11,8 @@
     ComboboxLabel,
     ComboboxList,
     ComboboxTrigger,
-  } from "@ui-sdk/svelte/combobox"
-  import { useLog } from "../../../shared/svelte/log"
+  } from "@ui-sdk/svelte/combobox";
+  import { useLog } from "../../../shared/svelte/log";
 
   const frameworks = [
     { value: "next", label: "Next.js" },
@@ -22,13 +22,13 @@
     { value: "astro", label: "Astro" },
     { value: "solidstart", label: "SolidStart" },
     { value: "qwik", label: "Qwik City" },
-  ]
+  ];
 
   const frameworkLabel = (value: string) =>
-    frameworks.find((framework) => framework.value === value)?.label ?? value
+    frameworks.find((framework) => framework.value === value)?.label ?? value;
 
-  const log = useLog()
-  let value = $state<string | null>("sveltekit")
+  const log = useLog();
+  let value = $state<string | null>("sveltekit");
 </script>
 
 <Combobox

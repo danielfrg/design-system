@@ -7,12 +7,8 @@
     ColorPickerSlider,
     ColorPickerSliderThumb,
     ColorPickerSwatch,
-  } from "@ui-sdk/svelte/color-picker"
-  import {
-    Popover,
-    PopoverContent,
-    PopoverTrigger,
-  } from "@ui-sdk/svelte/popover"
+  } from "@ui-sdk/svelte/color-picker";
+  import { Popover, PopoverContent, PopoverTrigger } from "@ui-sdk/svelte/popover";
 </script>
 
 <ColorPicker aria-label="Background" defaultValue="#22c55e">

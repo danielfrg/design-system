@@ -7,7 +7,7 @@
     SettingsIcon,
     SmileIcon,
     UserIcon,
-  } from "@lucide/svelte"
+  } from "@lucide/svelte";
   import {
     Command,
     CommandEmpty,
@@ -17,7 +17,7 @@
     CommandItem,
     CommandItemIcon,
     CommandList,
-  } from "@ui-sdk/svelte/command"
+  } from "@ui-sdk/svelte/command";
   import {
     Dialog,
     DialogBackdrop,
@@ -25,8 +25,8 @@
     DialogShortcut,
     DialogTitle,
     DialogTrigger,
-  } from "@ui-sdk/svelte/dialog"
-  import { useLog } from "../../../shared/svelte/log"
+  } from "@ui-sdk/svelte/dialog";
+  import { useLog } from "../../../shared/svelte/log";
 
   const commands = [
     { value: "calendar", label: "Calendar", icon: CalendarIcon },
@@ -40,14 +40,14 @@
     { value: "profile", label: "Profile", icon: UserIcon },
     { value: "billing", label: "Billing", icon: CreditCardIcon },
     { value: "settings", label: "Settings", icon: SettingsIcon },
-  ]
+  ];
 
-  const log = useLog()
-  let open = $state(false)
+  const log = useLog();
+  let open = $state(false);
 
   function onAction(value: string) {
-    log(`Ran ${value}`)
-    open = false
+    log(`Ran ${value}`);
+    open = false;
   }
 </script>
 
@@ -63,10 +63,7 @@
       <Command {onAction}>
         <div data-slot="row">
           <SearchIcon aria-hidden="true" />
-          <CommandInput
-            aria-label="Search commands"
-            placeholder="Type a command or search…"
-          />
+          <CommandInput aria-label="Search commands" placeholder="Type a command or search…" />
         </div>
         <CommandEmpty>No results found.</CommandEmpty>
         <CommandList>

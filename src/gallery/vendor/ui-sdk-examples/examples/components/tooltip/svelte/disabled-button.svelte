@@ -1,16 +1,12 @@
 <script lang="ts">
-  import { Field, FieldLabel } from "@ui-sdk/svelte/field"
-  import { Input } from "@ui-sdk/svelte/input"
-  import {
-    Tooltip,
-    TooltipContent,
-    TooltipTrigger,
-  } from "@ui-sdk/svelte/tooltip"
-  import { useLog } from "../../../shared/svelte/log"
+  import { Field, FieldLabel } from "@ui-sdk/svelte/field";
+  import { Input } from "@ui-sdk/svelte/input";
+  import { Tooltip, TooltipContent, TooltipTrigger } from "@ui-sdk/svelte/tooltip";
+  import { useLog } from "../../../shared/svelte/log";
 
-  const log = useLog()
-  let title = $state("")
-  const blocked = $derived(!title.trim())
+  const log = useLog();
+  let title = $state("");
+  const blocked = $derived(!title.trim());
 </script>
 
 <div data-slot="stack">
@@ -24,7 +20,7 @@
       aria-disabled={blocked || undefined}
       onclick={() => {
         if (!blocked) {
-          log(`Published “${title.trim()}”`)
+          log(`Published “${title.trim()}”`);
         }
       }}
     >

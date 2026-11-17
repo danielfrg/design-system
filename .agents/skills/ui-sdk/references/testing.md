@@ -17,8 +17,8 @@ npm i -D vitest jsdom @testing-library/react @testing-library/dom @testing-libra
 `vitest.config.ts`:
 
 ```ts
-import { defineConfig, mergeConfig } from "vitest/config"
-import viteConfig from "./vite.config.ts"
+import { defineConfig, mergeConfig } from "vitest/config";
+import viteConfig from "./vite.config.ts";
 
 export default mergeConfig(
   viteConfig,
@@ -28,24 +28,24 @@ export default mergeConfig(
       setupFiles: ["./src/test/setup.ts"],
       css: false,
     },
-  })
-)
+  }),
+);
 ```
 
 `src/test/setup.ts` holds the [jsdom stubs](#jsdom), strict mode and cleanup:
 
 ```ts
-import { cleanup } from "@testing-library/react"
-import { afterEach } from "vitest"
+import { cleanup } from "@testing-library/react";
+import { afterEach } from "vitest";
 
 declare global {
-  var __UI_SDK_STRICT__: boolean | undefined
+  var __UI_SDK_STRICT__: boolean | undefined;
 }
-globalThis.__UI_SDK_STRICT__ = true
+globalThis.__UI_SDK_STRICT__ = true;
 
 // The jsdom stubs below go here.
 
-afterEach(cleanup)
+afterEach(cleanup);
 ```
 
 ## Which tool for what
@@ -61,9 +61,9 @@ afterEach(cleanup)
 `checkPattern(element, pattern)` checks roles, names, states, references between parts and the keyboard interactions of a WAI-ARIA pattern, and throws one error that lists every problem:
 
 ```ts
-import { checkPattern } from "@ui-sdk/core/testing"
+import { checkPattern } from "@ui-sdk/core/testing";
 
-await checkPattern(screen.getByRole("tablist").parentElement!, "tabs")
+await checkPattern(screen.getByRole("tablist").parentElement!, "tabs");
 ```
 
 Patterns: `listbox`, `menu`, `menubar`, `tabs`, `radio-group`, `toolbar`, `tree`, `dialog`, `alertdialog`, `disclosure`, `accordion`, `combobox`, `slider`, `switch`, `checkbox`. Open a menu or dialog before checking it. A menu check activates an item, so use safe actions in tests.
@@ -71,36 +71,32 @@ Patterns: `listbox`, `menu`, `menubar`, `tabs`, `radio-group`, `toolbar`, `tree`
 ## Test a primitive
 
 ```ts
-import { checkDirection, checkServer, mount } from "@ui-sdk/core/testing"
-import { expect, test } from "vitest"
-import { stepper } from "./stepper"
+import { checkDirection, checkServer, mount } from "@ui-sdk/core/testing";
+import { expect, test } from "vitest";
+import { stepper } from "./stepper";
 
 test("arrows move between steps and Enter opens one", async () => {
-  const view = mount(
-    stepper,
-    {},
-    `<root><step value="a">A</step><step value="b">B</step></root>`
-  )
+  const view = mount(stepper, {}, `<root><step value="a">A</step><step value="b">B</step></root>`);
   try {
-    await view.keys("Tab", "ArrowRight", "Enter")
-    expect(view.state.value).toBe("b")
+    await view.keys("Tab", "ArrowRight", "Enter");
+    expect(view.state.value).toBe("b");
     expect(view.changes.at(-1)).toMatchObject({
       key: "value",
       source: "keyboard",
-    })
+    });
   } finally {
-    view.unmount()
+    view.unmount();
   }
-})
+});
 
 test("renders on the server and works in both directions", async () => {
-  checkServer(stepper, {}, `<root><step value="a">A</step></root>`)
+  checkServer(stepper, {}, `<root><step value="a">A</step></root>`);
   await checkDirection(
     stepper,
     {},
-    `<root><step value="a">A</step><step value="b">B</step></root>`
-  )
-})
+    `<root><step value="a">A</step><step value="b">B</step></root>`,
+  );
+});
 ```
 
 - In `mount`'s markup, tags named after slots become parts and their attributes become part props. `root` is the first element; `view.part("step", "b")` finds another.
@@ -120,24 +116,24 @@ For a composite widget, test both arrow directions, that exactly one item is tab
 Framework renderers don't fill jsdom's gaps. Before anything opens, add these to the test setup:
 
 ```ts
-HTMLElement.prototype.showPopover = function () {}
-HTMLElement.prototype.hidePopover = function () {}
-Element.prototype.getAnimations = () => []
-Element.prototype.scrollIntoView = function () {}
-Element.prototype.checkVisibility = () => true
-Element.prototype.getClientRects = () => [] as unknown as DOMRectList
-document.elementFromPoint = () => null
-document.elementsFromPoint = () => []
+HTMLElement.prototype.showPopover = function () {};
+HTMLElement.prototype.hidePopover = function () {};
+Element.prototype.getAnimations = () => [];
+Element.prototype.scrollIntoView = function () {};
+Element.prototype.checkVisibility = () => true;
+Element.prototype.getClientRects = () => [] as unknown as DOMRectList;
+document.elementFromPoint = () => null;
+document.elementsFromPoint = () => [];
 globalThis.ResizeObserver ??= class {
   observe() {}
   unobserve() {}
   disconnect() {}
-}
+};
 document.head.append(
   Object.assign(document.createElement("style"), {
     textContent: "[popover] { display: block !important }",
-  })
-)
+  }),
+);
 ```
 
 Assign these rather than using `??=`: jsdom has some of them without the parts that matter. Web components in jsdom also need `ElementInternals`: jsdom's `attachInternals` lacks `setFormValue`, `setValidity`, `checkValidity`, `reportValidity` and `states`, so wrap `HTMLElement.prototype.attachInternals` and add them (no-ops, `() => true` for the checks, a `Set` for `states`). jsdom also never calls `formResetCallback`, and its `FormData` leaves custom elements out, so check form reset and submitted values in a real browser. Stub `URL.createObjectURL` for file previews. File Input's native input has `pointer-events: none`, so upload with `userEvent.setup({ pointerEventsCheck: 0 })`. Some parts render a status region of their own, like `SliderValue`'s `<output>`, so name yours and query by name: `getByRole("status", { name: "Total" })`. `mount` already does the popover and animation stubs, and it keeps a part that isn't present as a detached node, so `view.part()` still returns it: check `isConnected` to tell whether it's on the page. Some state arrives a tick after mounting; wait with `await new Promise((r) => setTimeout(r, 0))` (inside `act` in React).
@@ -147,20 +143,17 @@ Assign these rather than using `??=`: jsdom has some of them without the parts t
 `registerTools` calls `document.modelContext.registerTool` once per tool and expects a Promise back. A mock:
 
 ```ts
-const tools = new Map<string, { execute: (input: object) => unknown }>()
+const tools = new Map<string, { execute: (input: object) => unknown }>();
 Object.assign(document, {
   modelContext: {
-    registerTool: async (tool: {
-      name: string
-      execute: (input: object) => unknown
-    }) => {
-      tools.set(tool.name, tool)
+    registerTool: async (tool: { name: string; execute: (input: object) => unknown }) => {
+      tools.set(tool.name, tool);
     },
   },
-})
-const unregister = registerTools(agent, { allow: () => true })
-expect(await tools.get("snapshot")!.execute({})).toBeInstanceOf(Array)
-unregister()
+});
+const unregister = registerTools(agent, { allow: () => true });
+expect(await tools.get("snapshot")!.execute({})).toBeInstanceOf(Array);
+unregister();
 ```
 
 ## A real browser

@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { Field, FieldLabel } from "@ui-sdk/svelte/field"
-  import { Input } from "@ui-sdk/svelte/input"
+  import { Field, FieldLabel } from "@ui-sdk/svelte/field";
+  import { Input } from "@ui-sdk/svelte/input";
   import {
     Popover,
     PopoverClose,
@@ -8,7 +8,7 @@
     PopoverDescription,
     PopoverTitle,
     PopoverTrigger,
-  } from "@ui-sdk/svelte/popover"
+  } from "@ui-sdk/svelte/popover";
 </script>
 
 <Popover>

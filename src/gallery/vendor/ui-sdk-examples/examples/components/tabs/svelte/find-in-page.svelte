@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Tabs, TabsList, TabsPanel, TabsTab } from "@ui-sdk/svelte/tabs"
+  import { Tabs, TabsList, TabsPanel, TabsTab } from "@ui-sdk/svelte/tabs";
 
   const policies = [
     {
@@ -17,7 +17,7 @@
       label: "Warranty",
       text: "Every product has a two-year warranty. Batteries are covered for one year from delivery.",
     },
-  ]
+  ];
 </script>
 
 <Tabs defaultValue="shipping" hiddenUntilFound>

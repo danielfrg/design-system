@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { CheckIcon, ChevronDownIcon } from "@lucide/svelte"
-  import { Field, FieldLabel } from "@ui-sdk/svelte/field"
+  import { CheckIcon, ChevronDownIcon } from "@lucide/svelte";
+  import { Field, FieldLabel } from "@ui-sdk/svelte/field";
   import {
     Select,
     SelectContent,
@@ -11,12 +11,12 @@
     SelectTrigger,
     SelectValue,
     type ListData,
-  } from "@ui-sdk/svelte/select"
+  } from "@ui-sdk/svelte/select";
 
   const sizeGroups = [
     { type: "group", label: "Common", items: ["Small", "Medium", "Large"] },
     { type: "group", label: "Extended", items: ["Extra small", "Extra large"] },
-  ] satisfies ListData
+  ] satisfies ListData;
 </script>
 
 <Field>

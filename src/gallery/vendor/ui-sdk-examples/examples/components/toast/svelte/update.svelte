@@ -1,42 +1,37 @@
 <script lang="ts">
-  import { onDestroy } from "svelte"
-  import { CircleCheckIcon, LoaderCircleIcon } from "@lucide/svelte"
-  import {
-    Toast,
-    ToastRegion,
-    ToastTitle,
-    createToaster,
-  } from "@ui-sdk/svelte/toast"
-  import { useLog } from "../../../shared/svelte/log"
+  import { onDestroy } from "svelte";
+  import { CircleCheckIcon, LoaderCircleIcon } from "@lucide/svelte";
+  import { Toast, ToastRegion, ToastTitle, createToaster } from "@ui-sdk/svelte/toast";
+  import { useLog } from "../../../shared/svelte/log";
 
-  const log = useLog()
-  const toast = createToaster()
-  let timer: ReturnType<typeof setInterval> | undefined
+  const log = useLog();
+  const toast = createToaster();
+  let timer: ReturnType<typeof setInterval> | undefined;
   onDestroy(() => {
-    clearInterval(timer)
-    toast.dismiss()
-  })
+    clearInterval(timer);
+    toast.dismiss();
+  });
 
   function upload() {
-    clearInterval(timer)
-    const id = toast.loading("Uploading report.pdf… 0%", { id: "upload" })
-    let progress = 0
+    clearInterval(timer);
+    const id = toast.loading("Uploading report.pdf… 0%", { id: "upload" });
+    let progress = 0;
     timer = setInterval(() => {
-      progress += 20
-      const done = progress >= 100
+      progress += 20;
+      const done = progress >= 100;
       const open = toast.update(
         id,
         done
           ? { title: "Report uploaded", type: "success" }
-          : { title: `Uploading report.pdf… ${progress}%` }
-      )
+          : { title: `Uploading report.pdf… ${progress}%` },
+      );
       if (!open) {
-        log("Upload canceled")
+        log("Upload canceled");
       }
       if (done || !open) {
-        clearInterval(timer)
+        clearInterval(timer);
       }
-    }, 700)
+    }, 700);
   }
 </script>
 

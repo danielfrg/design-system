@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { onDestroy } from "svelte"
+  import { onDestroy } from "svelte";
   import {
     Toast,
     ToastAction,
@@ -7,22 +7,19 @@
     ToastRegion,
     ToastTitle,
     createToaster,
-  } from "@ui-sdk/svelte/toast"
+  } from "@ui-sdk/svelte/toast";
 
-  const toast = createToaster()
-  let attempts = 0
+  const toast = createToaster();
+  let attempts = 0;
   onDestroy(() => {
-    toast.dismiss()
-  })
+    toast.dismiss();
+  });
 
   function save() {
-    const succeeds = ++attempts % 2 === 1
+    const succeeds = ++attempts % 2 === 1;
     return new Promise<void>((resolve, reject) =>
-      setTimeout(
-        () => (succeeds ? resolve() : reject(new Error("Network error"))),
-        1500
-      )
-    )
+      setTimeout(() => (succeeds ? resolve() : reject(new Error("Network error"))), 1500),
+    );
   }
 
   function saveChanges() {
@@ -34,7 +31,7 @@
         description: "Check your connection and try again.",
         action: { label: "Retry", onAction: saveChanges },
       },
-    })
+    });
   }
 </script>
 

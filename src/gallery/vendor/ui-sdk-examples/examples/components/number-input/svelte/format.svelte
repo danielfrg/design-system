@@ -1,13 +1,13 @@
 <script lang="ts">
-  import { MinusIcon, PlusIcon } from "@lucide/svelte"
-  import { Field, FieldLabel } from "@ui-sdk/svelte/field"
+  import { MinusIcon, PlusIcon } from "@lucide/svelte";
+  import { Field, FieldLabel } from "@ui-sdk/svelte/field";
   import {
     NumberInput,
     NumberInputControl,
     NumberInputDecrement,
     NumberInputGroup,
     NumberInputIncrement,
-  } from "@ui-sdk/svelte/number-input"
+  } from "@ui-sdk/svelte/number-input";
 
   const fields = [
     {
@@ -29,11 +29,11 @@
       format: { style: "unit", unit: "kilogram" },
     },
   ] satisfies {
-    label: string
-    defaultValue: number
-    step: number
-    format: Intl.NumberFormatOptions
-  }[]
+    label: string;
+    defaultValue: number;
+    step: number;
+    format: Intl.NumberFormatOptions;
+  }[];
 </script>
 
 <div data-slot="stack">

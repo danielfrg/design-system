@@ -8,7 +8,7 @@
     SettingsIcon,
     TrashIcon,
     UndoIcon,
-  } from "@lucide/svelte"
+  } from "@lucide/svelte";
   import {
     Menu,
     MenuContent,
@@ -16,8 +16,8 @@
     MenuItemIcon,
     MenuSeparator,
     MenuTrigger,
-  } from "@ui-sdk/svelte/menu"
-  import { Menubar } from "@ui-sdk/svelte/menubar"
+  } from "@ui-sdk/svelte/menu";
+  import { Menubar } from "@ui-sdk/svelte/menubar";
 </script>
 
 <Menubar>

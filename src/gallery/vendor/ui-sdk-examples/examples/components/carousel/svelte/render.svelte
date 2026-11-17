@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { ChevronLeftIcon, ChevronRightIcon } from "@lucide/svelte"
+  import { ChevronLeftIcon, ChevronRightIcon } from "@lucide/svelte";
   import {
     Carousel,
     CarouselContent,
@@ -7,7 +7,7 @@
     CarouselNext,
     CarouselPrevious,
     CarouselViewport,
-  } from "@ui-sdk/svelte/carousel"
+  } from "@ui-sdk/svelte/carousel";
 
   const photos = [
     { name: "Dunes" },
@@ -16,19 +16,19 @@
     { name: "Canyon" },
     { name: "Meadow" },
     { name: "Harbor" },
-  ]
+  ];
 
-  let nextFocused = false
+  let nextFocused = false;
   const rememberFocus = () => {
     nextFocused =
       typeof document !== "undefined" &&
-      document.activeElement?.getAttribute("data-slot") === "carousel-next"
-  }
+      document.activeElement?.getAttribute("data-slot") === "carousel-next";
+  };
   const focusIf = (link: HTMLElement) => {
     if (nextFocused) {
-      link.focus()
+      link.focus();
     }
-  }
+  };
 </script>
 
 <Carousel aria-label="Photos" onPageChange={rememberFocus}>
@@ -40,9 +40,7 @@
             <div data-slot="tile">
               {photo.name}
               <span data-slot="hint">
-                {state.index + 1} / {photos.length}{state.active
-                  ? " · showing"
-                  : ""}
+                {state.index + 1} / {photos.length}{state.active ? " · showing" : ""}
               </span>
             </div>
           {/snippet}

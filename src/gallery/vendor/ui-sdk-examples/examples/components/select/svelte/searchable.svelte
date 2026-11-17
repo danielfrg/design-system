@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { CheckIcon, ChevronDownIcon } from "@lucide/svelte"
-  import { Field, FieldLabel } from "@ui-sdk/svelte/field"
+  import { CheckIcon, ChevronDownIcon } from "@lucide/svelte";
+  import { Field, FieldLabel } from "@ui-sdk/svelte/field";
   import {
     Select,
     SelectContent,
@@ -14,7 +14,7 @@
     SelectList,
     SelectTrigger,
     SelectValue,
-  } from "@ui-sdk/svelte/select"
+  } from "@ui-sdk/svelte/select";
 
   const countries = [
     { value: "ar", label: "Argentina", code: "+54" },
@@ -41,7 +41,7 @@
     { value: "es", label: "Spain", code: "+34" },
     { value: "se", label: "Sweden", code: "+46" },
     { value: "ch", label: "Switzerland", code: "+41" },
-  ]
+  ];
 
   const popularCountries = [
     {
@@ -49,7 +49,7 @@
       label: "Popular",
       items: [countries[5], countries[11], countries[16]],
     },
-  ]
+  ];
 </script>
 
 <Field>
@@ -69,10 +69,7 @@
       <ChevronDownIcon />
     </SelectTrigger>
     <SelectContent>
-      <SelectInput
-        aria-label="Search countries"
-        placeholder="Search countries…"
-      />
+      <SelectInput aria-label="Search countries" placeholder="Search countries…" />
       <SelectEmpty>No countries found.</SelectEmpty>
       <SelectList>
         {#snippet children(state)}

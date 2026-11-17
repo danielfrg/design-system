@@ -6,7 +6,7 @@
     ScrollAreaScrollbar,
     ScrollAreaThumb,
     ScrollAreaViewport,
-  } from "@ui-sdk/svelte/scroll-area"
+  } from "@ui-sdk/svelte/scroll-area";
 
   const releases = [
     {
@@ -105,7 +105,7 @@
       size: "3.8 MB",
       node: "18+",
     },
-  ]
+  ];
 </script>
 
 <ScrollArea type="auto">

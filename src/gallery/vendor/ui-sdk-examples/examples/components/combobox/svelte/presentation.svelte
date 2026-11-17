@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { CheckIcon, ChevronDownIcon } from "@lucide/svelte"
+  import { CheckIcon, ChevronDownIcon } from "@lucide/svelte";
   import {
     Combobox,
     ComboboxContent,
@@ -10,7 +10,7 @@
     ComboboxLabel,
     ComboboxList,
     ComboboxTrigger,
-  } from "@ui-sdk/svelte/combobox"
+  } from "@ui-sdk/svelte/combobox";
 
   const frameworks = [
     { value: "next", label: "Next.js" },
@@ -20,7 +20,7 @@
     { value: "astro", label: "Astro" },
     { value: "solidstart", label: "SolidStart" },
     { value: "qwik", label: "Qwik City" },
-  ]
+  ];
 </script>
 
 <Combobox presentation="sheet">

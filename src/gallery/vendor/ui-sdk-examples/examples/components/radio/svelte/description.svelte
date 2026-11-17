@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { Field, FieldDescription, FieldLabel } from "@ui-sdk/svelte/field"
-  import { Radio, RadioGroup, RadioIndicator } from "@ui-sdk/svelte/radio"
+  import { Field, FieldDescription, FieldLabel } from "@ui-sdk/svelte/field";
+  import { Radio, RadioGroup, RadioIndicator } from "@ui-sdk/svelte/radio";
 
   const frequencies = [
     {
@@ -18,7 +18,7 @@
       label: "Weekly digest",
       description: "A summary every Monday.",
     },
-  ]
+  ];
 </script>
 
 <Field>

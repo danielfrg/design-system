@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { ExternalLinkIcon } from "@lucide/svelte"
-  import { Listbox, ListboxItem } from "@ui-sdk/svelte/listbox"
+  import { ExternalLinkIcon } from "@lucide/svelte";
+  import { Listbox, ListboxItem } from "@ui-sdk/svelte/listbox";
 
   const frameworks = [
     { value: "next", label: "Next.js" },
@@ -8,7 +8,7 @@
     { value: "astro", label: "Astro" },
     { value: "nuxt", label: "Nuxt" },
     { value: "sveltekit", label: "SvelteKit" },
-  ]
+  ];
 </script>
 
 <Listbox defaultValue="next" activation="manual" aria-label="Framework docs">

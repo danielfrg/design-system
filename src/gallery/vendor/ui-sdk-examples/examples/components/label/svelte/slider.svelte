@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Label } from "@ui-sdk/svelte/label"
+  import { Label } from "@ui-sdk/svelte/label";
   import {
     Slider,
     SliderControl,
@@ -7,7 +7,7 @@
     SliderThumb,
     SliderTrack,
     SliderValue,
-  } from "@ui-sdk/svelte/slider"
+  } from "@ui-sdk/svelte/slider";
 </script>
 
 <Slider id="volume" defaultValue={75}>

@@ -9,8 +9,8 @@
     CalendarWeekday,
     CalendarWeekdays,
     CalendarWeeks,
-  } from "@ui-sdk/svelte/calendar"
-  import { ChevronLeftIcon, ChevronRightIcon } from "@lucide/svelte"
+  } from "@ui-sdk/svelte/calendar";
+  import { ChevronLeftIcon, ChevronRightIcon } from "@lucide/svelte";
 </script>
 
 <Calendar defaultValue="2026-10-16" min="2026-10-05" max="2026-11-20">

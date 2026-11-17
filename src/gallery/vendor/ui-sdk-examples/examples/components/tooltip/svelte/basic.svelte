@@ -1,10 +1,6 @@
 <script lang="ts">
-  import { BookmarkIcon } from "@lucide/svelte"
-  import {
-    Tooltip,
-    TooltipContent,
-    TooltipTrigger,
-  } from "@ui-sdk/svelte/tooltip"
+  import { BookmarkIcon } from "@lucide/svelte";
+  import { Tooltip, TooltipContent, TooltipTrigger } from "@ui-sdk/svelte/tooltip";
 </script>
 
 <Tooltip defaultOpen>

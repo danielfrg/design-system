@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { ChevronDownIcon } from "@lucide/svelte"
+  import { ChevronDownIcon } from "@lucide/svelte";
   import {
     NavigationMenu,
     NavigationMenuContent,
@@ -8,8 +8,8 @@
     NavigationMenuList,
     NavigationMenuTrigger,
     NavigationMenuViewport,
-  } from "@ui-sdk/svelte/navigation-menu"
-  import { useLog } from "../../../shared/svelte/log"
+  } from "@ui-sdk/svelte/navigation-menu";
+  import { useLog } from "../../../shared/svelte/log";
 
   const gettingStarted = [
     {
@@ -20,29 +20,25 @@
     {
       title: "Installation",
       href: "#",
-      description:
-        "Add the package for your framework and render your first part.",
+      description: "Add the package for your framework and render your first part.",
     },
     {
       title: "Styling",
       href: "#",
-      description:
-        "Style parts with data attributes, CSS variables and any CSS.",
+      description: "Style parts with data attributes, CSS variables and any CSS.",
     },
-  ]
+  ];
 
   const components = [
     {
       title: "Alert Dialog",
       href: "#",
-      description:
-        "Asks for a decision before anything else on the page can be used.",
+      description: "Asks for a decision before anything else on the page can be used.",
     },
     {
       title: "Hover Card",
       href: "#",
-      description:
-        "A preview of what a link points to, for people who pause on it.",
+      description: "A preview of what a link points to, for people who pause on it.",
     },
     {
       title: "Progress",
@@ -57,25 +53,22 @@
     {
       title: "Tabs",
       href: "#",
-      description:
-        "Shows one panel of content at a time, picked from a list of tabs.",
+      description: "Shows one panel of content at a time, picked from a list of tabs.",
     },
     {
       title: "Tooltip",
       href: "#",
-      description:
-        "A short label for a control, shown on hover or keyboard focus.",
+      description: "A short label for a control, shown on hover or keyboard focus.",
     },
-  ]
+  ];
 
-  const log = useLog()
+  const log = useLog();
 </script>
 
 <NavigationMenu
   aria-label="Main"
   onValueChange={(value) => log(value ? `Showing ${value}` : "Closing")}
-  onOpenChangeComplete={(open) =>
-    log(open ? "Finished opening" : "Finished closing")}
+  onOpenChangeComplete={(open) => log(open ? "Finished opening" : "Finished closing")}
 >
   <NavigationMenuList>
     <NavigationMenuItem value="guides">

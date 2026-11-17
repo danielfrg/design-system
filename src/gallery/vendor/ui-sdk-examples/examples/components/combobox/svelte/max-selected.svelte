@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { CheckIcon, XIcon } from "@lucide/svelte"
+  import { CheckIcon, XIcon } from "@lucide/svelte";
   import {
     Combobox,
     ComboboxChip,
@@ -12,7 +12,7 @@
     ComboboxLabel,
     ComboboxList,
     ComboboxValue,
-  } from "@ui-sdk/svelte/combobox"
+  } from "@ui-sdk/svelte/combobox";
 
   const labels = [
     "Bug",
@@ -22,7 +22,7 @@
     "Performance",
     "Security",
     "Testing",
-  ]
+  ];
 </script>
 
 <Combobox multiple maxSelected={3} defaultValue={["Bug", "Design"]}>

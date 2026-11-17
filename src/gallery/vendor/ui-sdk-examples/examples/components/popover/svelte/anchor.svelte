@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { CheckIcon, SlidersHorizontalIcon } from "@lucide/svelte"
-  import { Checkbox, CheckboxIndicator } from "@ui-sdk/svelte/checkbox"
+  import { CheckIcon, SlidersHorizontalIcon } from "@lucide/svelte";
+  import { Checkbox, CheckboxIndicator } from "@ui-sdk/svelte/checkbox";
   import {
     Popover,
     PopoverClose,
@@ -8,24 +8,19 @@
     PopoverDescription,
     PopoverTitle,
     PopoverTrigger,
-  } from "@ui-sdk/svelte/popover"
+  } from "@ui-sdk/svelte/popover";
 
   const types = [
     { label: "Documents", checked: true },
     { label: "Images", checked: false },
     { label: "Shared with me", checked: true },
-  ]
+  ];
 
-  let anchor: HTMLInputElement | undefined = $state()
+  let anchor: HTMLInputElement | undefined = $state();
 </script>
 
 <div data-slot="row">
-  <input
-    bind:this={anchor}
-    type="search"
-    placeholder="Search files…"
-    aria-label="Search files"
-  />
+  <input bind:this={anchor} type="search" placeholder="Search files…" aria-label="Search files" />
   <Popover>
     <PopoverTrigger aria-label="Search filters">
       <SlidersHorizontalIcon aria-hidden="true" />

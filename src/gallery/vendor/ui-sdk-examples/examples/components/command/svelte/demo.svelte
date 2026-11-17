@@ -7,7 +7,7 @@
     SettingsIcon,
     SmileIcon,
     UserIcon,
-  } from "@lucide/svelte"
+  } from "@lucide/svelte";
   import {
     Command,
     CommandEmpty,
@@ -19,7 +19,7 @@
     CommandList,
     CommandSeparator,
     CommandShortcut,
-  } from "@ui-sdk/svelte/command"
+  } from "@ui-sdk/svelte/command";
 
   const suggestions = [
     { value: "calendar", label: "Calendar", icon: CalendarIcon },
@@ -30,7 +30,7 @@
       icon: CalculatorIcon,
       disabled: true,
     },
-  ]
+  ];
 
   const settings = [
     { value: "profile", label: "Profile", icon: UserIcon, shortcut: "mod+p" },
@@ -46,16 +46,13 @@
       icon: SettingsIcon,
       shortcut: "mod+s",
     },
-  ]
+  ];
 </script>
 
 <Command>
   <div data-slot="row">
     <SearchIcon aria-hidden="true" />
-    <CommandInput
-      aria-label="Search commands"
-      placeholder="Type a command or search…"
-    />
+    <CommandInput aria-label="Search commands" placeholder="Type a command or search…" />
   </div>
   <CommandEmpty>No results found.</CommandEmpty>
   <CommandList>

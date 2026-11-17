@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { ChevronRightIcon } from "@lucide/svelte"
+  import { ChevronRightIcon } from "@lucide/svelte";
   import {
     createWaterfallController,
     visibleWaterfallRows,
@@ -12,8 +12,8 @@
     WaterfallRow,
     WaterfallRowHeader,
     type WaterfallData,
-  } from "@ui-sdk/svelte/waterfall"
-  import { useLog } from "../../../shared/svelte/log"
+  } from "@ui-sdk/svelte/waterfall";
+  import { useLog } from "../../../shared/svelte/log";
 
   const trace: WaterfallData = [
     {
@@ -61,21 +61,19 @@
         { value: "email", label: "email.enqueue", start: 880, duration: 30 },
       ],
     },
-  ]
+  ];
 
-  const log = useLog()
-  const spans = createWaterfallController()
-  let expanded = $state(["checkout"])
-  let value: string | null = $state(null)
-  const rows = $derived(visibleWaterfallRows(trace, expanded))
+  const log = useLog();
+  const spans = createWaterfallController();
+  let expanded = $state(["checkout"]);
+  let value: string | null = $state(null);
+  const rows = $derived(visibleWaterfallRows(trace, expanded));
 </script>
 
 <div data-slot="stack">
   <div data-slot="controls">
     <button type="button" onclick={() => spans.expandAll()}>Expand All</button>
-    <button type="button" onclick={() => spans.collapseAll()}>
-      Collapse All
-    </button>
+    <button type="button" onclick={() => spans.collapseAll()}> Collapse All </button>
   </div>
   <Waterfall
     aria-label="Checkout trace"

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { ChevronRightIcon } from "@lucide/svelte"
+  import { ChevronRightIcon } from "@lucide/svelte";
   import {
     Menu,
     MenuContent,
@@ -9,16 +9,15 @@
     MenuSubContent,
     MenuSubTrigger,
     MenuTrigger,
-  } from "@ui-sdk/svelte/menu"
-  import { useLog } from "../../../shared/svelte/log"
+  } from "@ui-sdk/svelte/menu";
+  import { useLog } from "../../../shared/svelte/log";
 
-  const log = useLog()
+  const log = useLog();
 </script>
 
 <Menu
   onOpenChange={(open) => log(open ? "Opening" : "Closing")}
-  onOpenChangeComplete={(open) =>
-    log(open ? "Finished opening" : "Finished closing")}
+  onOpenChangeComplete={(open) => log(open ? "Finished opening" : "Finished closing")}
 >
   <MenuTrigger>Animated</MenuTrigger>
   <MenuContent keepMounted>

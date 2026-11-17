@@ -23,8 +23,15 @@
   {@const loaded = loadDemo(entry.dir, demo.file)}
   <section class="section">
     {#if demo.heading !== "Overview"}<h3 class="section__title">{demo.heading}</h3>{/if}
-    {#if demo.intro && demo.intro !== description}<p class="section__text">{@render text(demo.intro)}</p>{/if}
-    <DemoPreview name="{entry.dir}/{demo.file}" file={demo.file} component={loaded.component} source={loaded.source} />
+    {#if demo.intro && demo.intro !== description}<p class="section__text">
+        {@render text(demo.intro)}
+      </p>{/if}
+    <DemoPreview
+      name="{entry.dir}/{demo.file}"
+      file={demo.file}
+      component={loaded.component}
+      source={loaded.source}
+    />
     {#if demo.caption}<p class="section__caption">{@render text(demo.caption)}</p>{/if}
   </section>
 {/each}

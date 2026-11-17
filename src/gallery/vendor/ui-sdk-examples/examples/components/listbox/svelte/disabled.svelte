@@ -1,10 +1,6 @@
 <script lang="ts">
-  import { CheckIcon } from "@lucide/svelte"
-  import {
-    Listbox,
-    ListboxItem,
-    ListboxItemIndicator,
-  } from "@ui-sdk/svelte/listbox"
+  import { CheckIcon } from "@lucide/svelte";
+  import { Listbox, ListboxItem, ListboxItemIndicator } from "@ui-sdk/svelte/listbox";
 
   const toppings = [
     { value: "basil", label: "Basil" },
@@ -13,9 +9,9 @@
     { value: "olive", label: "Olive" },
     { value: "onion", label: "Onion" },
     { value: "pepper", label: "Pepper" },
-  ]
+  ];
 
-  let disabled = $state(false)
+  let disabled = $state(false);
 </script>
 
 <div data-slot="stack">

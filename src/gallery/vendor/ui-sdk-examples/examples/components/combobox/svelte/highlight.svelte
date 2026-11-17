@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { CheckIcon, ChevronDownIcon } from "@lucide/svelte"
+  import { CheckIcon, ChevronDownIcon } from "@lucide/svelte";
   import {
     Combobox,
     ComboboxContent,
@@ -11,7 +11,7 @@
     ComboboxLabel,
     ComboboxList,
     ComboboxTrigger,
-  } from "@ui-sdk/svelte/combobox"
+  } from "@ui-sdk/svelte/combobox";
 
   const countries = [
     { value: "ar", label: "Argentina", keywords: ["república argentina"] },
@@ -35,7 +35,7 @@
       label: "Switzerland",
       keywords: ["schweiz", "suisse", "svizzera"],
     },
-  ]
+  ];
 </script>
 
 <Combobox>
@@ -52,11 +52,7 @@
     <ComboboxEmpty>No countries found.</ComboboxEmpty>
     <ComboboxList>
       {#each countries as country (country.value)}
-        <ComboboxItem
-          value={country.value}
-          label={country.label}
-          keywords={country.keywords}
-        >
+        <ComboboxItem value={country.value} label={country.label} keywords={country.keywords}>
           <ComboboxItemText>
             {#snippet render({ props, state })}
               <span {...props}>

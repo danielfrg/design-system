@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { CheckIcon, ChevronDownIcon, XIcon } from "@lucide/svelte"
-  import { Field, FieldLabel } from "@ui-sdk/svelte/field"
+  import { CheckIcon, ChevronDownIcon, XIcon } from "@lucide/svelte";
+  import { Field, FieldLabel } from "@ui-sdk/svelte/field";
   import {
     Select,
     SelectClear,
@@ -9,8 +9,8 @@
     SelectItemIndicator,
     SelectTrigger,
     SelectValue,
-  } from "@ui-sdk/svelte/select"
-  import { useLog } from "../../../shared/svelte/log"
+  } from "@ui-sdk/svelte/select";
+  import { useLog } from "../../../shared/svelte/log";
 
   const people = [
     { value: "hollis", label: "Hollis Grant" },
@@ -18,9 +18,9 @@
     { value: "kofi", label: "Kofi Mensah" },
     { value: "wren", label: "Wren Takahashi" },
     { value: "tomasz", label: "Tomasz Wójcik" },
-  ]
+  ];
 
-  const log = useLog()
+  const log = useLog();
 </script>
 
 <Field>
@@ -28,8 +28,7 @@
   <Select
     defaultValue="ines"
     placeholder="Unassigned"
-    onValueChange={(value, details) =>
-      log(`value: ${JSON.stringify(value)} (${details.reason})`)}
+    onValueChange={(value, details) => log(`value: ${JSON.stringify(value)} (${details.reason})`)}
   >
     <div data-slot="row">
       <SelectTrigger>

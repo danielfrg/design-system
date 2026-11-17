@@ -19,16 +19,12 @@
   }
 
   /* Slides are the same width with or without Previous and Next beside them. */
-  [data-slot="carousel"]:not(
-    :has(> [data-slot="row"] > [data-slot="carousel-viewport"])
-  ) {
+  [data-slot="carousel"]:not(:has(> [data-slot="row"] > [data-slot="carousel-viewport"])) {
     width: calc(24rem - 2 * (var(--size) + var(--space-2)));
   }
 
   /* Rows under side buttons line up with the slides. */
-  [data-slot="carousel"]:has(
-      > [data-slot="row"] > [data-slot="carousel-viewport"]
-    )
+  [data-slot="carousel"]:has(> [data-slot="row"] > [data-slot="carousel-viewport"])
     > [data-slot="row"]:not(:has(> [data-slot="carousel-viewport"])) {
     padding-inline: calc(var(--size) + var(--space-2));
   }
@@ -47,9 +43,7 @@
 
   :scope
     [data-slot="stack"]:has(
-      > [data-slot="carousel"]
-        > [data-slot="row"]
-        > [data-slot="carousel-viewport"]
+      > [data-slot="carousel"] > [data-slot="row"] > [data-slot="carousel-viewport"]
     ) {
     width: 24rem;
   }

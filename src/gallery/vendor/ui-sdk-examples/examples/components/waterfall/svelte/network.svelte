@@ -10,7 +10,7 @@
     WaterfallRow,
     WaterfallRowHeader,
     type WaterfallData,
-  } from "@ui-sdk/svelte/waterfall"
+  } from "@ui-sdk/svelte/waterfall";
 
   const requests: WaterfallData = [
     { value: "document", label: "/", start: 0, duration: 182 },
@@ -19,7 +19,7 @@
     { value: "font", label: "inter.woff2", start: 300, duration: 220 },
     { value: "user", label: "api/user", start: 610, duration: 240 },
     { value: "avatar", label: "avatar.png", start: 860, duration: 150 },
-  ]
+  ];
 
   const sizes: Record<string, string> = {
     document: "14 kB",
@@ -28,7 +28,7 @@
     font: "48 kB",
     user: "1 kB",
     avatar: "36 kB",
-  }
+  };
 </script>
 
 <Waterfall

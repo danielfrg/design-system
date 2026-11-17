@@ -241,8 +241,7 @@
       width: auto;
       height: auto;
       max-height: 85dvh;
-      padding: var(--space-2) var(--space-2)
-        max(env(safe-area-inset-bottom), var(--space-3));
+      padding: var(--space-2) var(--space-2) max(env(safe-area-inset-bottom), var(--space-3));
       scroll-padding-top: 48px;
 
       & > [data-slot$="-header"] {
@@ -308,8 +307,7 @@
       box-shadow: inset 0 0 0 1px var(--ink);
     }
 
-    [data-highlighted]:is([data-selected], [data-checked], [data-indeterminate])
-      > & {
+    [data-highlighted]:is([data-selected], [data-checked], [data-indeterminate]) > & {
       box-shadow: inset 0 0 0 1px var(--ink);
     }
 

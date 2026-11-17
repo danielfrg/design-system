@@ -44,9 +44,7 @@
   }
 
   [data-slot="navigation-menu-trigger"],
-  [data-slot="navigation-menu-link"]:not(
-    [data-slot="navigation-menu-content"] *
-  ) {
+  [data-slot="navigation-menu-link"]:not([data-slot="navigation-menu-content"] *) {
     display: inline-flex;
     align-items: center;
     gap: 6px;
@@ -102,21 +100,15 @@
     }
   }
 
-  [data-slot="navigation-menu-trigger"][data-open]:not(
-      [data-orientation="vertical"] *
-    )
-    > svg {
+  [data-slot="navigation-menu-trigger"][data-open]:not([data-orientation="vertical"] *) > svg {
     rotate: 180deg;
   }
 
-  [data-slot="navigation-menu-trigger"]:not([data-disabled])
-    [data-show="disabled"],
+  [data-slot="navigation-menu-trigger"]:not([data-disabled]) [data-show="disabled"],
   [data-slot="navigation-menu-link"]:not([data-current]) [data-show="current"],
   [data-slot="navigation-menu-content"][data-motion] [data-hide="motion"],
-  [data-slot="navigation-menu-content"]:not([data-motion="from-end"])
-    [data-show="from-end"],
-  [data-slot="navigation-menu-content"]:not([data-motion="from-start"])
-    [data-show="from-start"] {
+  [data-slot="navigation-menu-content"]:not([data-motion="from-end"]) [data-show="from-end"],
+  [data-slot="navigation-menu-content"]:not([data-motion="from-start"]) [data-show="from-start"] {
     display: none;
   }
 
@@ -291,11 +283,7 @@
       transition: rotate var(--duration);
     }
 
-    &
-      :is(
-        [data-slot="navigation-menu-viewport"],
-        [data-slot="navigation-menu-content"]
-      ) {
+    & :is([data-slot="navigation-menu-viewport"], [data-slot="navigation-menu-content"]) {
       transition: opacity var(--duration);
 
       &:is([data-starting-style], [data-ending-style]) {

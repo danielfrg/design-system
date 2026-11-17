@@ -5,13 +5,13 @@
     PopoverDescription,
     PopoverTitle,
     PopoverTrigger,
-  } from "@ui-sdk/svelte/popover"
+  } from "@ui-sdk/svelte/popover";
 
   const aligns = [
     { value: "start", label: "Start" },
     { value: "center", label: "Center" },
     { value: "end", label: "End" },
-  ] as const
+  ] as const;
 </script>
 
 <div data-slot="row">
@@ -20,9 +20,7 @@
       <PopoverTrigger>{align.label}</PopoverTrigger>
       <PopoverContent align={align.value} sideOffset={8}>
         <PopoverTitle>Delivery window</PopoverTitle>
-        <PopoverDescription
-          >Arrives Tuesday between 9 AM and noon.</PopoverDescription
-        >
+        <PopoverDescription>Arrives Tuesday between 9 AM and noon.</PopoverDescription>
       </PopoverContent>
     </Popover>
   {/each}

@@ -96,11 +96,6 @@ body {
     font-size: var(--text-xs);
   }
 
-  .sidebar__plain {
-    margin-top: 6px;
-    font-size: var(--text-xs);
-  }
-
   .sidebar__nav {
     display: flex;
     flex-direction: column;

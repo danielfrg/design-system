@@ -1,10 +1,5 @@
 <script lang="ts">
-  import {
-    CheckIcon,
-    ChevronsUpDownIcon,
-    ZoomInIcon,
-    ZoomOutIcon,
-  } from "@lucide/svelte"
+  import { CheckIcon, ChevronsUpDownIcon, ZoomInIcon, ZoomOutIcon } from "@lucide/svelte";
   import {
     Select,
     SelectContent,
@@ -12,19 +7,19 @@
     SelectItemIndicator,
     SelectTrigger,
     SelectValue,
-  } from "@ui-sdk/svelte/select"
-  import { Toolbar, ToolbarButton } from "@ui-sdk/svelte/toolbar"
-  import { useLog } from "../../../shared/svelte/log"
+  } from "@ui-sdk/svelte/select";
+  import { Toolbar, ToolbarButton } from "@ui-sdk/svelte/toolbar";
+  import { useLog } from "../../../shared/svelte/log";
 
-  const zooms = ["50%", "75%", "100%", "150%", "200%"]
+  const zooms = ["50%", "75%", "100%", "150%", "200%"];
 
-  const log = useLog()
-  let zoom = $state("100%")
-  const index = $derived(zooms.indexOf(zoom))
+  const log = useLog();
+  let zoom = $state("100%");
+  const index = $derived(zooms.indexOf(zoom));
 
   function change(value: string) {
-    zoom = value
-    log(`Zoom ${value}`)
+    zoom = value;
+    log(`Zoom ${value}`);
   }
 </script>
 

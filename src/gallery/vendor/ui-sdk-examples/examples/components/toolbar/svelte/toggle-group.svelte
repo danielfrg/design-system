@@ -5,23 +5,23 @@
     AlignRightIcon,
     ListIcon,
     ListOrderedIcon,
-  } from "@lucide/svelte"
-  import { Toggle, ToggleGroup, ToggleIcon } from "@ui-sdk/svelte/toggle"
-  import { Toolbar, ToolbarSeparator } from "@ui-sdk/svelte/toolbar"
-  import { useLog } from "../../../shared/svelte/log"
+  } from "@lucide/svelte";
+  import { Toggle, ToggleGroup, ToggleIcon } from "@ui-sdk/svelte/toggle";
+  import { Toolbar, ToolbarSeparator } from "@ui-sdk/svelte/toolbar";
+  import { useLog } from "../../../shared/svelte/log";
 
   const alignments = [
     { value: "left", label: "Align left", icon: AlignLeftIcon },
     { value: "center", label: "Align center", icon: AlignCenterIcon },
     { value: "right", label: "Align right", icon: AlignRightIcon },
-  ]
+  ];
 
   const lists = [
     { value: "bulleted", label: "Bulleted list", icon: ListIcon },
     { value: "numbered", label: "Numbered list", icon: ListOrderedIcon },
-  ]
+  ];
 
-  const log = useLog()
+  const log = useLog();
 </script>
 
 <Toolbar aria-label="Paragraph">
@@ -42,8 +42,7 @@
   <ToolbarSeparator />
   <ToggleGroup
     aria-label="List"
-    onValueChange={([value]) =>
-      log(lists.find((list) => list.value === value)?.label ?? "No list")}
+    onValueChange={([value]) => log(lists.find((list) => list.value === value)?.label ?? "No list")}
   >
     {#each lists as { value, label, icon: Icon } (value)}
       <Toggle {value} aria-label={label}>

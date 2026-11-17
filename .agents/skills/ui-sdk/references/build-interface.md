@@ -112,7 +112,7 @@ Use the default prop to start (`defaultValue`, `defaultOpen`, `defaultChecked`, 
 A settings form in React:
 
 ```tsx
-"use client"
+"use client";
 
 import {
   AlertDialog,
@@ -120,17 +120,17 @@ import {
   AlertDialogContent,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@ui-sdk/react/alert-dialog"
-import { Field, FieldLabel } from "@ui-sdk/react/field"
-import { Input } from "@ui-sdk/react/input"
+} from "@ui-sdk/react/alert-dialog";
+import { Field, FieldLabel } from "@ui-sdk/react/field";
+import { Input } from "@ui-sdk/react/input";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@ui-sdk/react/select"
-import { Switch, SwitchThumb } from "@ui-sdk/react/switch"
+} from "@ui-sdk/react/select";
+import { Switch, SwitchThumb } from "@ui-sdk/react/switch";
 
 function ProjectSettings() {
   return (
@@ -174,10 +174,10 @@ function ProjectSettings() {
         </AlertDialogContent>
       </AlertDialog>
     </>
-  )
+  );
 }
 
-export { ProjectSettings }
+export { ProjectSettings };
 ```
 
 Check each part name against the component pages; they're the source of truth.

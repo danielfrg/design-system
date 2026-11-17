@@ -1,12 +1,12 @@
 <script lang="ts">
-  import { ChevronDownIcon } from "@lucide/svelte"
+  import { ChevronDownIcon } from "@lucide/svelte";
   import {
     Accordion,
     AccordionHeader,
     AccordionItem,
     AccordionPanel,
     AccordionTrigger,
-  } from "@ui-sdk/svelte/accordion"
+  } from "@ui-sdk/svelte/accordion";
 
   const items = [
     {
@@ -25,7 +25,7 @@
       label: "Does it animate on first paint?",
       content: "No. Panels open on the server or on mount show at once.",
     },
-  ]
+  ];
 </script>
 
 <Accordion defaultValue={["one"]}>

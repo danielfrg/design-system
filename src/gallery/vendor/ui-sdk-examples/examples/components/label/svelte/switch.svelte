@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { Label } from "@ui-sdk/svelte/label"
-  import { Switch, SwitchThumb } from "@ui-sdk/svelte/switch"
+  import { Label } from "@ui-sdk/svelte/label";
+  import { Switch, SwitchThumb } from "@ui-sdk/svelte/switch";
 </script>
 
 <div data-slot="row">

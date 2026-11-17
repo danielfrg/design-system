@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { ChevronRightIcon } from "@lucide/svelte"
+  import { ChevronRightIcon } from "@lucide/svelte";
   import {
     createTreeController,
     Tree,
@@ -8,7 +8,7 @@
     TreeItemIndicator,
     TreeItemLabel,
     type TreeItemData,
-  } from "@ui-sdk/svelte/tree"
+  } from "@ui-sdk/svelte/tree";
 
   const sections: TreeItemData[] = [
     {
@@ -34,9 +34,9 @@
         { value: "billing", label: "Billing" },
       ],
     },
-  ]
+  ];
 
-  const settings = createTreeController()
+  const settings = createTreeController();
 </script>
 
 {#snippet items(nodes: TreeItemData[])}
@@ -61,17 +61,13 @@
 
 <div data-slot="stack">
   <div data-slot="controls">
-    <button type="button" onclick={() => settings.expandAll()}
-      >Expand All</button
-    >
-    <button type="button" onclick={() => settings.collapseAll()}
-      >Collapse All</button
-    >
+    <button type="button" onclick={() => settings.expandAll()}>Expand All</button>
+    <button type="button" onclick={() => settings.collapseAll()}>Collapse All</button>
     <button
       type="button"
       onclick={() => {
-        settings.setValue("two-factor")
-        settings.reveal("two-factor")
+        settings.setValue("two-factor");
+        settings.reveal("two-factor");
       }}
     >
       Find Two-Factor

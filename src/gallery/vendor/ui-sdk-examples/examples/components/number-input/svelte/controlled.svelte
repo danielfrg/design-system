@@ -1,17 +1,17 @@
 <script lang="ts">
-  import { MinusIcon, PlusIcon } from "@lucide/svelte"
-  import { Field, FieldLabel } from "@ui-sdk/svelte/field"
+  import { MinusIcon, PlusIcon } from "@lucide/svelte";
+  import { Field, FieldLabel } from "@ui-sdk/svelte/field";
   import {
     NumberInput,
     NumberInputControl,
     NumberInputDecrement,
     NumberInputGroup,
     NumberInputIncrement,
-  } from "@ui-sdk/svelte/number-input"
-  import { useLog } from "../../../shared/svelte/log"
+  } from "@ui-sdk/svelte/number-input";
+  import { useLog } from "../../../shared/svelte/log";
 
-  const log = useLog()
-  let value = $state<number | null>(4)
+  const log = useLog();
+  let value = $state<number | null>(4);
 </script>
 
 <div data-slot="stack">
@@ -23,10 +23,8 @@
     <FieldLabel>Servings</FieldLabel>
     <NumberInput
       bind:value
-      onValueChange={(next, details) =>
-        log(`Value ${next ?? "empty"} (${details.reason})`)}
-      onValueCommit={(next, details) =>
-        log(`Committed ${next ?? "empty"} (${details.reason})`)}
+      onValueChange={(next, details) => log(`Value ${next ?? "empty"} (${details.reason})`)}
+      onValueCommit={(next, details) => log(`Committed ${next ?? "empty"} (${details.reason})`)}
       min={1}
       max={12}
     >

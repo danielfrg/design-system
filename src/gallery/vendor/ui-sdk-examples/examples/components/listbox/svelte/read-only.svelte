@@ -1,10 +1,6 @@
 <script lang="ts">
-  import { CheckIcon } from "@lucide/svelte"
-  import {
-    Listbox,
-    ListboxItem,
-    ListboxItemIndicator,
-  } from "@ui-sdk/svelte/listbox"
+  import { CheckIcon } from "@lucide/svelte";
+  import { Listbox, ListboxItem, ListboxItemIndicator } from "@ui-sdk/svelte/listbox";
 
   const frameworks = [
     { value: "next", label: "Next.js" },
@@ -12,7 +8,7 @@
     { value: "astro", label: "Astro" },
     { value: "nuxt", label: "Nuxt" },
     { value: "sveltekit", label: "SvelteKit" },
-  ]
+  ];
 </script>
 
 <Listbox readOnly defaultValue="nuxt" aria-label="Framework">

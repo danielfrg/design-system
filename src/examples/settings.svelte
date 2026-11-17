@@ -64,7 +64,12 @@
     </div>
     <InputGroup class="search">
       <SearchIcon aria-hidden="true" />
-      <Input type="search" bind:value={query} placeholder="Search settings…" aria-label="Search settings" />
+      <Input
+        type="search"
+        bind:value={query}
+        placeholder="Search settings…"
+        aria-label="Search settings"
+      />
     </InputGroup>
     <nav class="nav" aria-label="Settings">
       {#each groups as group (group)}
@@ -121,7 +126,10 @@
           </Field>
         </div>
       {:else if active === "appearance"}
-        {@render heading("Appearance", "Follow your system or pick a theme, and choose how dense lists are.")}
+        {@render heading(
+          "Appearance",
+          "Follow your system or pick a theme, and choose how dense lists are.",
+        )}
         <div class="card">
           <div class="row">
             <span id="theme-title" class="row__label">Theme</span>
@@ -157,7 +165,9 @@
     </div>
 
     <footer class="save-bar">
-      <Button data-variant="solid" onclick={() => toast.success("Settings saved")}>Save changes</Button>
+      <Button data-variant="solid" onclick={() => toast.success("Settings saved")}
+        >Save changes</Button
+      >
     </footer>
   </div>
 </div>

@@ -1,18 +1,12 @@
 <script lang="ts">
-  import {
-    Tabs,
-    TabsIndicator,
-    TabsList,
-    TabsPanel,
-    TabsTab,
-  } from "@ui-sdk/svelte/tabs"
+  import { Tabs, TabsIndicator, TabsList, TabsPanel, TabsTab } from "@ui-sdk/svelte/tabs";
 
   const orientations = [
     { value: "horizontal", label: "Horizontal" },
     { value: "vertical", label: "Vertical" },
-  ] as const
+  ] as const;
 
-  let orientation = $state<"horizontal" | "vertical">("horizontal")
+  let orientation = $state<"horizontal" | "vertical">("horizontal");
 </script>
 
 <div>
@@ -35,14 +29,8 @@
       <TabsTab value="audiobooks">Audiobooks</TabsTab>
       <TabsIndicator />
     </TabsList>
-    <TabsPanel value="music"
-      >312 songs in 24 albums, synced to this device.</TabsPanel
-    >
-    <TabsPanel value="podcasts"
-      >8 shows you follow, with 3 new episodes.</TabsPanel
-    >
-    <TabsPanel value="audiobooks"
-      >2 books in progress, 6 hours left in total.</TabsPanel
-    >
+    <TabsPanel value="music">312 songs in 24 albums, synced to this device.</TabsPanel>
+    <TabsPanel value="podcasts">8 shows you follow, with 3 new episodes.</TabsPanel>
+    <TabsPanel value="audiobooks">2 books in progress, 6 hours left in total.</TabsPanel>
   </Tabs>
 </div>

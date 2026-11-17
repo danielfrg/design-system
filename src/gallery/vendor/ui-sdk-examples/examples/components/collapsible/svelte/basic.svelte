@@ -1,16 +1,12 @@
 <script lang="ts">
-  import { ChevronDownIcon } from "@lucide/svelte"
-  import {
-    Collapsible,
-    CollapsiblePanel,
-    CollapsibleTrigger,
-  } from "@ui-sdk/svelte/collapsible"
+  import { ChevronDownIcon } from "@lucide/svelte";
+  import { Collapsible, CollapsiblePanel, CollapsibleTrigger } from "@ui-sdk/svelte/collapsible";
 
   const items = [
     { name: "Linen shirt", price: "$48.00" },
     { name: "Canvas tote", price: "$18.00" },
     { name: "Wool socks", price: "$18.00" },
-  ]
+  ];
 </script>
 
 <Collapsible data-variant="card">

@@ -1,18 +1,18 @@
 <script lang="ts">
-  import { ChevronDownIcon } from "@lucide/svelte"
+  import { ChevronDownIcon } from "@lucide/svelte";
   import {
     Accordion,
     AccordionHeader,
     AccordionItem,
     AccordionPanel,
     AccordionTrigger,
-  } from "@ui-sdk/svelte/accordion"
+  } from "@ui-sdk/svelte/accordion";
 
   const sections: {
-    value: string
-    label: string
-    content?: string
-    topics?: { value: string; label: string; content: string }[]
+    value: string;
+    label: string;
+    content?: string;
+    topics?: { value: string; label: string; content: string }[];
   }[] = [
     {
       value: "profile",
@@ -51,7 +51,7 @@
         },
       ],
     },
-  ]
+  ];
 </script>
 
 <Accordion defaultValue={["notifications"]}>

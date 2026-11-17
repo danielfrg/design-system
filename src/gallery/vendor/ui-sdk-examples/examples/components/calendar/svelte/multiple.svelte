@@ -9,18 +9,14 @@
     CalendarWeekday,
     CalendarWeekdays,
     CalendarWeeks,
-  } from "@ui-sdk/svelte/calendar"
-  import { ChevronLeftIcon, ChevronRightIcon } from "@lucide/svelte"
+  } from "@ui-sdk/svelte/calendar";
+  import { ChevronLeftIcon, ChevronRightIcon } from "@lucide/svelte";
 
-  let dates = $state<string[]>(["2026-10-07", "2026-10-16", "2026-10-26"])
+  let dates = $state<string[]>(["2026-10-07", "2026-10-16", "2026-10-26"]);
 </script>
 
 <div>
-  <Calendar
-    mode="multiple"
-    value={dates}
-    onValueChange={(value) => (dates = value as string[])}
-  >
+  <Calendar mode="multiple" value={dates} onValueChange={(value) => (dates = value as string[])}>
     <div data-slot="row">
       <CalendarPrevious data-variant="ghost">
         <ChevronLeftIcon aria-hidden="true" />

@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { XIcon } from "@lucide/svelte"
-  import { Field, FieldDescription, FieldLabel } from "@ui-sdk/svelte/field"
-  import { Input, InputClear, InputGroup } from "@ui-sdk/svelte/input"
+  import { XIcon } from "@lucide/svelte";
+  import { Field, FieldDescription, FieldLabel } from "@ui-sdk/svelte/field";
+  import { Input, InputClear, InputGroup } from "@ui-sdk/svelte/input";
 </script>
 
 <div data-slot="stack" dir="rtl">

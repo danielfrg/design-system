@@ -1,10 +1,10 @@
 <script lang="ts">
-  import { Field, FieldLabel } from "@ui-sdk/svelte/field"
+  import { Field, FieldLabel } from "@ui-sdk/svelte/field";
   import {
     SegmentedControl,
     SegmentedControlIndicator,
     SegmentedControlItem,
-  } from "@ui-sdk/svelte/segmented-control"
+  } from "@ui-sdk/svelte/segmented-control";
 </script>
 
 <Field>

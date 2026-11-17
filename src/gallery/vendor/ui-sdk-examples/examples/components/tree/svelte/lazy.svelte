@@ -1,9 +1,5 @@
 <script lang="ts">
-  import {
-    ChevronRightIcon,
-    LoaderCircleIcon,
-    RotateCwIcon,
-  } from "@lucide/svelte"
+  import { ChevronRightIcon, LoaderCircleIcon, RotateCwIcon } from "@lucide/svelte";
   import {
     Tree,
     TreeGroup,
@@ -11,42 +7,36 @@
     TreeItemIndicator,
     TreeItemLabel,
     type TreeAnnouncement,
-  } from "@ui-sdk/svelte/tree"
+  } from "@ui-sdk/svelte/tree";
 
-  type Node = { value: string; label: string; branch?: boolean }
+  type Node = { value: string; label: string; branch?: boolean };
 
   const top: Node[] = [
     { value: "users", label: "users", branch: true },
     { value: "orders", label: "orders", branch: true },
     { value: "archive", label: "archive", branch: true },
-  ]
+  ];
 
-  let archiveAsked = false
+  let archiveAsked = false;
   async function fetchChildren(value: string, signal: AbortSignal) {
     await new Promise((resolve, reject) => {
-      const timer = setTimeout(resolve, 800)
-      signal.addEventListener(
-        "abort",
-        () => (clearTimeout(timer), reject(signal.reason))
-      )
-    })
+      const timer = setTimeout(resolve, 800);
+      signal.addEventListener("abort", () => (clearTimeout(timer), reject(signal.reason)));
+    });
     if (value === "archive" && !archiveAsked) {
-      archiveAsked = true
-      throw new Error("Network error")
+      archiveAsked = true;
+      throw new Error("Network error");
     }
     return Array.from({ length: 3 }, (_, index) => ({
       value: `${value}/${index + 1}`,
       label: `${value.slice(0, -1)}_${index + 1}.json`,
-    }))
+    }));
   }
 
-  let loaded: Record<string, Node[]> = $state({})
+  let loaded: Record<string, Node[]> = $state({});
 
-  async function loadChildren(
-    value: string,
-    { signal }: { signal: AbortSignal }
-  ) {
-    loaded[value] = await fetchChildren(value, signal)
+  async function loadChildren(value: string, { signal }: { signal: AbortSignal }) {
+    loaded[value] = await fetchChildren(value, signal);
   }
 
   const announcement = ({ type, label }: TreeAnnouncement) =>
@@ -55,7 +45,7 @@
       collapsed: "Collapsed",
       loading: `Loading ${label}`,
       "load-failed": `${label} didn't load. Try again.`,
-    })[type]
+    })[type];
 </script>
 
 {#snippet items(nodes: Node[])}

@@ -1,12 +1,12 @@
 <script lang="ts">
-  import { Pipette } from "@lucide/svelte"
+  import { Pipette } from "@lucide/svelte";
   import {
     ColorPicker,
     ColorPickerChannelInput,
     ColorPickerEyeDropper,
     ColorPickerSwatches,
     ColorPickerSwatchItem,
-  } from "@ui-sdk/svelte/color-picker"
+  } from "@ui-sdk/svelte/color-picker";
 
   const presets = [
     "#ef4444",
@@ -17,15 +17,10 @@
     "#6366f1",
     "#a855f7",
     "#ec4899",
-  ]
+  ];
 </script>
 
-<ColorPicker
-  aria-label="Label color"
-  space="srgb"
-  format="hex"
-  defaultValue="#0ea5e9"
->
+<ColorPicker aria-label="Label color" space="srgb" format="hex" defaultValue="#0ea5e9">
   <ColorPickerSwatches aria-label="Presets">
     {#each presets as preset (preset)}
       <ColorPickerSwatchItem value={preset} />

@@ -1,25 +1,20 @@
 <script lang="ts">
-  import { ChevronDownIcon } from "@lucide/svelte"
-  import {
-    Collapsible,
-    CollapsiblePanel,
-    CollapsibleTrigger,
-  } from "@ui-sdk/svelte/collapsible"
-  import { useLog } from "../../../shared/svelte/log"
+  import { ChevronDownIcon } from "@lucide/svelte";
+  import { Collapsible, CollapsiblePanel, CollapsibleTrigger } from "@ui-sdk/svelte/collapsible";
+  import { useLog } from "../../../shared/svelte/log";
 
   const notes = [
     "Search now matches file contents, not only names.",
     "Shared links remember the folder they were opened from.",
     "Uploads resume after the connection drops.",
-  ]
+  ];
 
-  const log = useLog()
+  const log = useLog();
 </script>
 
 <Collapsible
   data-variant="card"
-  onOpenChangeComplete={(open) =>
-    log(open ? "Finished opening" : "Finished closing")}
+  onOpenChangeComplete={(open) => log(open ? "Finished opening" : "Finished closing")}
 >
   <CollapsibleTrigger>
     <span data-slot="stack">

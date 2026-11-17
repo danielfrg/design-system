@@ -6,7 +6,7 @@
     PencilIcon,
     ReplyIcon,
     StarIcon,
-  } from "@lucide/svelte"
+  } from "@lucide/svelte";
   import {
     Autocomplete,
     AutocompleteContent,
@@ -15,7 +15,7 @@
     AutocompleteItem,
     AutocompleteItemIcon,
     AutocompleteList,
-  } from "@ui-sdk/svelte/autocomplete"
+  } from "@ui-sdk/svelte/autocomplete";
 
   const mailSearches = [
     { value: "Starred", icon: StarIcon },
@@ -24,15 +24,11 @@
     { value: "Attachments", icon: FileIcon },
     { value: "Archived", icon: ArchiveIcon },
     { value: "Scheduled", icon: ClockIcon },
-  ]
+  ];
 </script>
 
 <Autocomplete>
-  <AutocompleteInput
-    type="search"
-    aria-label="Search mail"
-    placeholder="Search mail…"
-  />
+  <AutocompleteInput type="search" aria-label="Search mail" placeholder="Search mail…" />
   <AutocompleteContent>
     <AutocompleteEmpty>No searches found.</AutocompleteEmpty>
     <AutocompleteList>

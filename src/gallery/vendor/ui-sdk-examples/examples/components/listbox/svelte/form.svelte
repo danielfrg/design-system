@@ -1,11 +1,7 @@
 <script lang="ts">
-  import { CheckIcon } from "@lucide/svelte"
-  import {
-    Listbox,
-    ListboxItem,
-    ListboxItemIndicator,
-  } from "@ui-sdk/svelte/listbox"
-  import { useLog } from "../../../shared/svelte/log"
+  import { CheckIcon } from "@lucide/svelte";
+  import { Listbox, ListboxItem, ListboxItemIndicator } from "@ui-sdk/svelte/listbox";
+  import { useLog } from "../../../shared/svelte/log";
 
   const toppings = [
     { value: "basil", label: "Basil" },
@@ -14,9 +10,9 @@
     { value: "olive", label: "Olive" },
     { value: "onion", label: "Onion" },
     { value: "pepper", label: "Pepper" },
-  ]
+  ];
 
-  const log = useLog()
+  const log = useLog();
 </script>
 
 <div data-slot="stack">
@@ -41,10 +37,8 @@
     id="pizza-order"
     data-slot="row"
     onsubmit={(event) => {
-      event.preventDefault()
-      log(
-        `Ordered ${new FormData(event.currentTarget).getAll("toppings").join(", ")}`
-      )
+      event.preventDefault();
+      log(`Ordered ${new FormData(event.currentTarget).getAll("toppings").join(", ")}`);
     }}
   >
     <button type="reset">Reset</button>

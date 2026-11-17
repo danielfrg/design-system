@@ -1,17 +1,17 @@
 <script lang="ts">
-  import { DateInput } from "@ui-sdk/svelte/date-input"
-  import { Field, FieldError, FieldLabel } from "@ui-sdk/svelte/field"
-  import { TimeInput } from "@ui-sdk/svelte/time-input"
-  import { useLog } from "../../../shared/svelte/log"
+  import { DateInput } from "@ui-sdk/svelte/date-input";
+  import { Field, FieldError, FieldLabel } from "@ui-sdk/svelte/field";
+  import { TimeInput } from "@ui-sdk/svelte/time-input";
+  import { useLog } from "../../../shared/svelte/log";
 
-  const log = useLog()
+  const log = useLog();
 
   function onsubmit(event: SubmitEvent) {
-    event.preventDefault()
+    event.preventDefault();
     const data = [...new FormData(event.currentTarget as HTMLFormElement)].map(
-      ([name, value]) => `${name}=${value}`
-    )
-    log(`Submitted ${data.join(", ")}`)
+      ([name, value]) => `${name}=${value}`,
+    );
+    log(`Submitted ${data.join(", ")}`);
   }
 </script>
 

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Tabs, TabsList, TabsPanel, TabsTab } from "@ui-sdk/svelte/tabs"
+  import { Tabs, TabsList, TabsPanel, TabsTab } from "@ui-sdk/svelte/tabs";
 
   const folders = [
     {
@@ -20,7 +20,7 @@
       count: 0,
       content: "Nothing archived yet. Archived mail stays searchable.",
     },
-  ]
+  ];
 </script>
 
 <Tabs defaultValue="inbox">

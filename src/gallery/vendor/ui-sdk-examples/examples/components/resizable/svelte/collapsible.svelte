@@ -1,19 +1,10 @@
 <script lang="ts">
-  import { FolderIcon, SearchIcon, SettingsIcon } from "@lucide/svelte"
-  import {
-    Resizable,
-    ResizableHandle,
-    ResizablePanel,
-  } from "@ui-sdk/svelte/resizable"
+  import { FolderIcon, SearchIcon, SettingsIcon } from "@lucide/svelte";
+  import { Resizable, ResizableHandle, ResizablePanel } from "@ui-sdk/svelte/resizable";
 </script>
 
 <Resizable>
-  <ResizablePanel
-    defaultSize={30}
-    minSize={25}
-    collapsible
-    collapsedSize="48px"
-  >
+  <ResizablePanel defaultSize={30} minSize={25} collapsible collapsedSize="48px">
     <ul>
       <li data-slot="row">
         <FolderIcon aria-hidden="true" />

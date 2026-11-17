@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { CheckIcon, ChevronDownIcon } from "@lucide/svelte"
+  import { CheckIcon, ChevronDownIcon } from "@lucide/svelte";
   import {
     Combobox,
     ComboboxContent,
@@ -13,7 +13,7 @@
     ComboboxList,
     ComboboxSeparator,
     ComboboxTrigger,
-  } from "@ui-sdk/svelte/combobox"
+  } from "@ui-sdk/svelte/combobox";
 
   const timezones = [
     {
@@ -44,7 +44,7 @@
         { value: "Australia/Sydney", label: "Sydney" },
       ],
     },
-  ]
+  ];
 </script>
 
 <Combobox>

@@ -1,17 +1,13 @@
 <script lang="ts">
-  import { MinusIcon, PlusIcon } from "@lucide/svelte"
+  import { MinusIcon, PlusIcon } from "@lucide/svelte";
   import {
     NumberInput,
     NumberInputControl,
     NumberInputDecrement,
     NumberInputGroup,
     NumberInputIncrement,
-  } from "@ui-sdk/svelte/number-input"
-  import {
-    Toolbar,
-    ToolbarInput,
-    ToolbarSeparator,
-  } from "@ui-sdk/svelte/toolbar"
+  } from "@ui-sdk/svelte/number-input";
+  import { Toolbar, ToolbarInput, ToolbarSeparator } from "@ui-sdk/svelte/toolbar";
 </script>
 
 <Toolbar aria-label="Text">

@@ -14,7 +14,7 @@ export function currentTheme(): Theme {
 export function setTheme(theme: Theme) {
   document.documentElement.setAttribute("data-theme", theme);
   for (const link of document.querySelectorAll<HTMLLinkElement>("link[data-theme-file]")) {
-    link.href = `v2/${theme}/${link.dataset.themeFile}.css`;
+    link.href = `v1/${theme}/${link.dataset.themeFile}.css`;
   }
   try {
     localStorage.setItem("gallery-theme", theme);

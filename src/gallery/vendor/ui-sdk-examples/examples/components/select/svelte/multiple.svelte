@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { CheckIcon, ChevronDownIcon } from "@lucide/svelte"
-  import { Field, FieldLabel } from "@ui-sdk/svelte/field"
+  import { CheckIcon, ChevronDownIcon } from "@lucide/svelte";
+  import { Field, FieldLabel } from "@ui-sdk/svelte/field";
   import {
     Select,
     SelectContent,
@@ -8,8 +8,8 @@
     SelectItemIndicator,
     SelectTrigger,
     SelectValue,
-  } from "@ui-sdk/svelte/select"
-  import { useLog } from "../../../shared/svelte/log"
+  } from "@ui-sdk/svelte/select";
+  import { useLog } from "../../../shared/svelte/log";
 
   const languages = [
     { value: "en", label: "English" },
@@ -18,9 +18,9 @@
     { value: "ja", label: "Japanese" },
     { value: "pt", label: "Portuguese" },
     { value: "es", label: "Spanish" },
-  ]
+  ];
 
-  const log = useLog()
+  const log = useLog();
 </script>
 
 <Field>

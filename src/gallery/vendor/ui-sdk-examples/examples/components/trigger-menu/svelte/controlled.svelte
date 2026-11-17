@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { Field, FieldControl, FieldLabel } from "@ui-sdk/svelte/field"
-  import { TriggerMenu, TriggerMenuInput } from "@ui-sdk/svelte/trigger-menu"
-  import { useLog } from "../../../shared/svelte/log"
+  import { Field, FieldControl, FieldLabel } from "@ui-sdk/svelte/field";
+  import { TriggerMenu, TriggerMenuInput } from "@ui-sdk/svelte/trigger-menu";
+  import { useLog } from "../../../shared/svelte/log";
 
   const people = [
     { value: "hollis", label: "Hollis Grant" },
@@ -9,7 +9,7 @@
     { value: "kofi", label: "Kofi Mensah" },
     { value: "wren", label: "Wren Takahashi" },
     { value: "tomasz", label: "Tomasz Wójcik" },
-  ]
+  ];
 
   const commands = [
     {
@@ -24,10 +24,10 @@
         },
       ],
     },
-  ]
+  ];
 
-  const log = useLog()
-  let open = $state(false)
+  const log = useLog();
+  let open = $state(false);
 </script>
 
 <TriggerMenu
@@ -36,13 +36,10 @@
     { char: "/", boundary: "start", items: commands },
   ]}
   bind:open
-  onOpenChange={(next, details) =>
-    log(`${next ? "Opening" : "Closing"} (${details.reason})`)}
+  onOpenChange={(next, details) => log(`${next ? "Opening" : "Closing"} (${details.reason})`)}
   onOpenChangeComplete={(next) => log(next ? "Open" : "Closed")}
   onQueryChange={(query, details) =>
-    log(
-      `Query “${query}”${details.argument ? ` for ${details.argument}` : ""}`
-    )}
+    log(`Query “${query}”${details.argument ? ` for ${details.argument}` : ""}`)}
   shortcut="ctrl+j"
 >
   <Field>

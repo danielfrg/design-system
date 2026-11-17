@@ -7,9 +7,9 @@
     AlertDialogDescription,
     AlertDialogTitle,
     AlertDialogTrigger,
-  } from "@ui-sdk/svelte/alert-dialog"
+  } from "@ui-sdk/svelte/alert-dialog";
 
-  let open = $state(false)
+  let open = $state(false);
 </script>
 
 <div data-slot="stack">
@@ -25,9 +25,7 @@
       </div>
       <div data-slot="row">
         <AlertDialogClose>Keep Editing</AlertDialogClose>
-        <AlertDialogClose data-variant="solid" value="confirm"
-          >Discard</AlertDialogClose
-        >
+        <AlertDialogClose data-variant="solid" value="confirm">Discard</AlertDialogClose>
       </div>
     </AlertDialogContent>
   </AlertDialog>

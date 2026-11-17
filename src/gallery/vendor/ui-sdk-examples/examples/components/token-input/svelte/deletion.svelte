@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { CheckIcon, ChevronDownIcon, FileIcon } from "@lucide/svelte"
-  import { Field, FieldLabel } from "@ui-sdk/svelte/field"
+  import { CheckIcon, ChevronDownIcon, FileIcon } from "@lucide/svelte";
+  import { Field, FieldLabel } from "@ui-sdk/svelte/field";
   import {
     Select,
     SelectContent,
@@ -9,28 +9,28 @@
     SelectLabel,
     SelectTrigger,
     SelectValue,
-  } from "@ui-sdk/svelte/select"
+  } from "@ui-sdk/svelte/select";
   import {
     TokenInput,
     TokenInputEditor,
     TokenInputToken,
     type TokenDeletion,
     type TokenInputValue,
-  } from "@ui-sdk/svelte/token-input"
+  } from "@ui-sdk/svelte/token-input";
   import {
     type TriggerMenuDataItem,
     TriggerMenu,
     TriggerMenuContent,
     TriggerMenuItem,
     TriggerMenuList,
-  } from "@ui-sdk/svelte/trigger-menu"
-  import { useLog } from "../../../shared/svelte/log"
+  } from "@ui-sdk/svelte/trigger-menu";
+  import { useLog } from "../../../shared/svelte/log";
 
   const modes = [
     { value: "whole", label: "Whole" },
     { value: "select", label: "Select" },
     { value: "revert", label: "Revert" },
-  ]
+  ];
 
   const files = [
     { value: "src/app.tsx", label: "app.tsx", keywords: ["src"] },
@@ -38,7 +38,7 @@
     { value: "src/styles.css", label: "styles.css", keywords: ["src"] },
     { value: "README.md", label: "README.md" },
     { value: "package.json", label: "package.json" },
-  ]
+  ];
 
   const draft: TokenInputValue = [
     "Explain ",
@@ -49,10 +49,10 @@
       data: { trigger: "@" },
     },
     " in two sentences.",
-  ]
+  ];
 
-  const log = useLog()
-  let deletion = $state<TokenDeletion>("whole")
+  const log = useLog();
+  let deletion = $state<TokenDeletion>("whole");
 </script>
 
 <div data-slot="stack">
@@ -86,7 +86,7 @@
       defaultValue={draft}
       onValueChange={(value, details) => {
         for (const token of details.removed) {
-          log(`Removed ${token.label} (${deletion})`)
+          log(`Removed ${token.label} (${deletion})`);
         }
       }}
     >

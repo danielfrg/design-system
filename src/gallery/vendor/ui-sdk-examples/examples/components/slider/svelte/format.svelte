@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Field, FieldLabel } from "@ui-sdk/svelte/field"
+  import { Field, FieldLabel } from "@ui-sdk/svelte/field";
   import {
     Slider,
     SliderControl,
@@ -7,7 +7,7 @@
     SliderThumb,
     SliderTrack,
     SliderValue,
-  } from "@ui-sdk/svelte/slider"
+  } from "@ui-sdk/svelte/slider";
 
   const sliders = [
     {
@@ -36,8 +36,7 @@
       defaultValue: 90,
       max: 600,
       step: 15,
-      format: (seconds: number) =>
-        `${Math.floor(seconds / 60)} min ${seconds % 60} s`,
+      format: (seconds: number) => `${Math.floor(seconds / 60)} min ${seconds % 60} s`,
     },
     {
       label: "Preis",
@@ -48,13 +47,13 @@
       locale: "de-DE",
     },
   ] satisfies {
-    label: string
-    defaultValue: number
-    max: number
-    step: number
-    format: Intl.NumberFormatOptions | ((value: number) => string)
-    locale?: string
-  }[]
+    label: string;
+    defaultValue: number;
+    max: number;
+    step: number;
+    format: Intl.NumberFormatOptions | ((value: number) => string);
+    locale?: string;
+  }[];
 </script>
 
 <div data-slot="stack">

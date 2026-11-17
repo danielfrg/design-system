@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { CheckIcon, ChevronDownIcon } from "@lucide/svelte"
+  import { CheckIcon, ChevronDownIcon } from "@lucide/svelte";
   import {
     Combobox,
     ComboboxContent,
@@ -11,8 +11,8 @@
     ComboboxList,
     ComboboxStatus,
     ComboboxTrigger,
-  } from "@ui-sdk/svelte/combobox"
-  import { useAsyncOptions } from "@ui-sdk/svelte/async-options"
+  } from "@ui-sdk/svelte/combobox";
+  import { useAsyncOptions } from "@ui-sdk/svelte/async-options";
 
   const movieTitles = [
     "The Shawshank Redemption",
@@ -37,37 +37,37 @@
     "Casablanca",
     "Amélie",
     "Arrival",
-  ]
+  ];
 
   function searchMoviePages(
     query: string,
-    { signal, page }: { signal: AbortSignal; page: number }
+    { signal, page }: { signal: AbortSignal; page: number },
   ) {
     return new Promise<{
-      items: { value: string; label: string }[]
-      hasMore: boolean
+      items: { value: string; label: string }[];
+      hasMore: boolean;
     }>((resolve, reject) => {
       const timer = setTimeout(() => {
-        const needle = query.trim().toLowerCase()
+        const needle = query.trim().toLowerCase();
         const found = movieTitles
           .filter((title) => title.toLowerCase().includes(needle))
           .map((title) => ({
             value: title.toLowerCase().replace(/\W+/g, "-"),
             label: title,
-          }))
+          }));
         resolve({
           items: found.slice(page * 5, page * 5 + 5),
           hasMore: found.length > page * 5 + 5,
-        })
-      }, 500)
+        });
+      }, 500);
       signal.addEventListener("abort", () => {
-        clearTimeout(timer)
-        reject(signal.reason)
-      })
-    })
+        clearTimeout(timer);
+        reject(signal.reason);
+      });
+    });
   }
 
-  const movies = useAsyncOptions(searchMoviePages, { immediate: true })
+  const movies = useAsyncOptions(searchMoviePages, { immediate: true });
 </script>
 
 <Combobox
@@ -95,11 +95,7 @@
     <ComboboxList>
       {#snippet children(state)}
         {#each state.items as { value: string; label: string; disabled?: boolean }[] as item (item.value)}
-          <ComboboxItem
-            value={item.value}
-            label={item.label}
-            disabled={item.disabled}
-          >
+          <ComboboxItem value={item.value} label={item.label} disabled={item.disabled}>
             {item.label}
             <ComboboxItemIndicator>
               <CheckIcon aria-hidden="true" />

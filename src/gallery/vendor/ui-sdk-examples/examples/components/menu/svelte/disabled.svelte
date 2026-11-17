@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { CheckIcon, ChevronRightIcon } from "@lucide/svelte"
+  import { CheckIcon, ChevronRightIcon } from "@lucide/svelte";
   import {
     Menu,
     MenuCheckboxItem,
@@ -14,10 +14,10 @@
     MenuSubContent,
     MenuSubTrigger,
     MenuTrigger,
-  } from "@ui-sdk/svelte/menu"
-  import { useLog } from "../../../shared/svelte/log"
+  } from "@ui-sdk/svelte/menu";
+  import { useLog } from "../../../shared/svelte/log";
 
-  const log = useLog()
+  const log = useLog();
 </script>
 
 <div data-slot="row">

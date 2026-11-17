@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { Field, FieldDescription, FieldLabel } from "@ui-sdk/svelte/field"
-  import { Textarea } from "@ui-sdk/svelte/textarea"
+  import { Field, FieldDescription, FieldLabel } from "@ui-sdk/svelte/field";
+  import { Textarea } from "@ui-sdk/svelte/textarea";
 </script>
 
 <Field name="feedback">

@@ -7,24 +7,22 @@
     AlertDialogDescription,
     AlertDialogTitle,
     createConfirm,
-  } from "@ui-sdk/svelte/alert-dialog"
-  import type { DialogContentState } from "@ui-sdk/svelte/dialog"
+  } from "@ui-sdk/svelte/alert-dialog";
+  import type { DialogContentState } from "@ui-sdk/svelte/dialog";
 
-  const confirm = createConfirm<{ name: string }>()
-  let projects = $state(["Acme", "Globex", "Initech"])
-  let reset: HTMLButtonElement
+  const confirm = createConfirm<{ name: string }>();
+  let projects = $state(["Acme", "Globex", "Initech"]);
+  let reset: HTMLButtonElement;
 
   async function remove(name: string, button: HTMLButtonElement) {
     if (!(await confirm({ name }))) {
-      return
+      return;
     }
-    const row = button.closest("li")
-    const next = (
-      row?.nextElementSibling ?? row?.previousElementSibling
-    )?.querySelector("button")
-    const target = next ?? reset
-    target?.focus()
-    projects = projects.filter((project) => project !== name)
+    const row = button.closest("li");
+    const next = (row?.nextElementSibling ?? row?.previousElementSibling)?.querySelector("button");
+    const target = next ?? reset;
+    target?.focus();
+    projects = projects.filter((project) => project !== name);
   }
 </script>
 
@@ -67,9 +65,7 @@
         </div>
         <div data-slot="row">
           <AlertDialogClose>Cancel</AlertDialogClose>
-          <AlertDialogClose data-variant="solid" value="confirm"
-            >Delete</AlertDialogClose
-          >
+          <AlertDialogClose data-variant="solid" value="confirm">Delete</AlertDialogClose>
         </div>
       {/snippet}
     </AlertDialogContent>

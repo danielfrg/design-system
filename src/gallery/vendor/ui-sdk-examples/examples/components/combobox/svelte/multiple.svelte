@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { CheckIcon, ChevronDownIcon, XIcon } from "@lucide/svelte"
+  import { CheckIcon, ChevronDownIcon, XIcon } from "@lucide/svelte";
   import {
     Combobox,
     ComboboxChip,
@@ -14,7 +14,7 @@
     ComboboxList,
     ComboboxTrigger,
     ComboboxValue,
-  } from "@ui-sdk/svelte/combobox"
+  } from "@ui-sdk/svelte/combobox";
 
   const frameworks = [
     { value: "next", label: "Next.js" },
@@ -24,17 +24,13 @@
     { value: "astro", label: "Astro" },
     { value: "solidstart", label: "SolidStart" },
     { value: "qwik", label: "Qwik City" },
-  ]
+  ];
 
   const frameworkLabel = (value: string) =>
-    frameworks.find((framework) => framework.value === value)?.label ?? value
+    frameworks.find((framework) => framework.value === value)?.label ?? value;
 </script>
 
-<Combobox
-  multiple
-  defaultValue={["next", "astro"]}
-  itemToLabel={frameworkLabel}
->
+<Combobox multiple defaultValue={["next", "astro"]} itemToLabel={frameworkLabel}>
   <div data-slot="stack">
     <ComboboxLabel>Frameworks</ComboboxLabel>
     <div data-slot="row">
@@ -44,9 +40,7 @@
             {#each state.value as string[] as value, index (value)}
               <ComboboxChip {value}>
                 {state.labels[index]}
-                <ComboboxChipRemove
-                  aria-label={`Remove ${state.labels[index]}`}
-                >
+                <ComboboxChipRemove aria-label={`Remove ${state.labels[index]}`}>
                   <XIcon aria-hidden="true" />
                 </ComboboxChipRemove>
               </ComboboxChip>

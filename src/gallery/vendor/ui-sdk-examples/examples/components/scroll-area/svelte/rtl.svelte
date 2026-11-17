@@ -5,9 +5,9 @@
     ScrollAreaScrollbar,
     ScrollAreaThumb,
     ScrollAreaViewport,
-  } from "@ui-sdk/svelte/scroll-area"
+  } from "@ui-sdk/svelte/scroll-area";
 
-  const tags = Array.from({ length: 40 }, (_, index) => `وسم ${index + 1}`)
+  const tags = Array.from({ length: 40 }, (_, index) => `وسم ${index + 1}`);
 </script>
 
 <div dir="rtl">

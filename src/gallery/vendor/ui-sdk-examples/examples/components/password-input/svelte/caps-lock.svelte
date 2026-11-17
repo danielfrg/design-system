@@ -1,11 +1,11 @@
 <script lang="ts">
-  import { EyeIcon, EyeOffIcon, LockIcon } from "@lucide/svelte"
-  import { Field, FieldLabel } from "@ui-sdk/svelte/field"
+  import { EyeIcon, EyeOffIcon, LockIcon } from "@lucide/svelte";
+  import { Field, FieldLabel } from "@ui-sdk/svelte/field";
   import {
     PasswordInput,
     PasswordInputControl,
     PasswordInputToggle,
-  } from "@ui-sdk/svelte/password-input"
+  } from "@ui-sdk/svelte/password-input";
 </script>
 
 <Field name="password">

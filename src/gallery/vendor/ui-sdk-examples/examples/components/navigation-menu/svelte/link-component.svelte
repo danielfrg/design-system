@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { ChevronDownIcon } from "@lucide/svelte"
+  import { ChevronDownIcon } from "@lucide/svelte";
   import {
     NavigationMenu,
     NavigationMenuContent,
@@ -8,8 +8,8 @@
     NavigationMenuList,
     NavigationMenuTrigger,
     NavigationMenuViewport,
-  } from "@ui-sdk/svelte/navigation-menu"
-  import { useLog } from "../../../shared/svelte/log"
+  } from "@ui-sdk/svelte/navigation-menu";
+  import { useLog } from "../../../shared/svelte/log";
 
   const gettingStarted = [
     {
@@ -20,24 +20,22 @@
     {
       title: "Installation",
       href: "#installation",
-      description:
-        "Add the package for your framework and render your first part.",
+      description: "Add the package for your framework and render your first part.",
     },
     {
       title: "Styling",
       href: "#styling",
-      description:
-        "Style parts with data attributes, CSS variables and any CSS.",
+      description: "Style parts with data attributes, CSS variables and any CSS.",
     },
-  ]
+  ];
 
-  const log = useLog()
-  let route = $state("#introduction")
+  const log = useLog();
+  let route = $state("#introduction");
 
   function navigate(event: MouseEvent, href: string) {
-    event.preventDefault()
-    route = href
-    log(`Navigated to ${href}`)
+    event.preventDefault();
+    route = href;
+    log(`Navigated to ${href}`);
   }
 </script>
 

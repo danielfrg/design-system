@@ -70,10 +70,7 @@
     width: 4rem;
   }
 
-  :is(
-    [data-slot="waterfall-header-row"] > :first-child,
-    [data-slot="waterfall-row-header"]
-  ) {
+  :is([data-slot="waterfall-header-row"] > :first-child, [data-slot="waterfall-row-header"]) {
     display: flex;
     flex: 0 1 11rem;
     align-items: center;
@@ -88,8 +85,7 @@
 
     &:not([data-branch]) {
       padding-inline-start: calc(
-        (var(--waterfall-level) - 1) * var(--space-4) + var(--size-icon) +
-          var(--space-1)
+        (var(--waterfall-level) - 1) * var(--space-4) + var(--size-icon) + var(--space-1)
       );
     }
   }
@@ -134,10 +130,7 @@
   }
 
   /* The bar column and the axis above it share a width, so ticks line up with bars. */
-  :is(
-    [data-slot="waterfall-header-row"] > :last-child,
-    [data-slot="waterfall-bar"]
-  ) {
+  :is([data-slot="waterfall-header-row"] > :last-child, [data-slot="waterfall-bar"]) {
     position: relative;
     flex: 1 1 10rem;
     align-self: stretch;
@@ -154,8 +147,7 @@
     background: color-mix(in oklab, var(--accent) 55%, transparent);
   }
 
-  [data-slot="waterfall-row"][data-selected]
-    [data-slot="waterfall-bar"]::before {
+  [data-slot="waterfall-row"][data-selected] [data-slot="waterfall-bar"]::before {
     background: var(--accent);
   }
 

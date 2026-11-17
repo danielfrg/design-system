@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { ListAnnouncement } from "@ui-sdk/core/autocomplete"
+  import type { ListAnnouncement } from "@ui-sdk/core/autocomplete";
   import {
     Autocomplete,
     AutocompleteContent,
@@ -10,42 +10,21 @@
     AutocompleteItem,
     AutocompleteItemText,
     AutocompleteList,
-  } from "@ui-sdk/svelte/autocomplete"
+  } from "@ui-sdk/svelte/autocomplete";
 
-  const recent = [
-    "react hooks",
-    "tailwind grid",
-    "web components",
-    "vue v-model",
-  ]
-  const topics = [
-    ...recent,
-    "react server components",
-    "tailwind colors",
-    "vue router",
-  ]
-  const recentSearches = [
-    { type: "group" as const, label: "Recent searches", items: recent },
-  ]
+  const recent = ["react hooks", "tailwind grid", "web components", "vue v-model"];
+  const topics = [...recent, "react server components", "tailwind colors", "vue router"];
+  const recentSearches = [{ type: "group" as const, label: "Recent searches", items: recent }];
 
   function announcement(change: ListAnnouncement) {
     return change.type === "results"
       ? `${change.count} ${change.count === 1 ? "topic" : "topics"}`
-      : null
+      : null;
   }
 </script>
 
-<Autocomplete
-  items={topics}
-  emptyItems={recentSearches}
-  openOnFocus
-  {announcement}
->
-  <AutocompleteInput
-    type="search"
-    aria-label="Search docs"
-    placeholder="Search docs…"
-  />
+<Autocomplete items={topics} emptyItems={recentSearches} openOnFocus {announcement}>
+  <AutocompleteInput type="search" aria-label="Search docs" placeholder="Search docs…" />
   <AutocompleteContent>
     <AutocompleteEmpty>No topics found.</AutocompleteEmpty>
     <AutocompleteList>

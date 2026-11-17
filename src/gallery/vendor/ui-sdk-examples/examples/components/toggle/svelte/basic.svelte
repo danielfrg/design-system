@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { StarIcon } from "@lucide/svelte"
-  import { Toggle, ToggleIcon } from "@ui-sdk/svelte/toggle"
+  import { StarIcon } from "@lucide/svelte";
+  import { Toggle, ToggleIcon } from "@ui-sdk/svelte/toggle";
 </script>
 
 <div data-slot="card">

@@ -7,7 +7,7 @@
     AutocompleteItem,
     AutocompleteLabel,
     AutocompleteList,
-  } from "@ui-sdk/svelte/autocomplete"
+  } from "@ui-sdk/svelte/autocomplete";
 
   const pages = [
     { title: "Installation", section: "Get Started", href: "#installation" },
@@ -16,7 +16,7 @@
     { title: "Styling", section: "Guides", href: "#styling" },
     { title: "API Reference", section: "Reference", href: "#api-reference" },
     { title: "Accessibility", section: "Reference", href: "#accessibility" },
-  ]
+  ];
 </script>
 
 <Autocomplete>

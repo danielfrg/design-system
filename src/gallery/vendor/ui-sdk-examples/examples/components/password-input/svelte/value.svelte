@@ -1,13 +1,13 @@
 <script lang="ts">
-  import { EyeIcon, EyeOffIcon } from "@lucide/svelte"
-  import { Field, FieldLabel } from "@ui-sdk/svelte/field"
+  import { EyeIcon, EyeOffIcon } from "@lucide/svelte";
+  import { Field, FieldLabel } from "@ui-sdk/svelte/field";
   import {
     PasswordInput,
     PasswordInputControl,
     PasswordInputToggle,
-  } from "@ui-sdk/svelte/password-input"
+  } from "@ui-sdk/svelte/password-input";
 
-  let value = $state("")
+  let value = $state("");
 
   const score = $derived(
     [
@@ -15,8 +15,8 @@
       value.length >= 12,
       /[a-z]/.test(value) && /[A-Z]/.test(value),
       /\d/.test(value) && /[^a-zA-Z\d]/.test(value),
-    ].filter(Boolean).length
-  )
+    ].filter(Boolean).length,
+  );
 </script>
 
 <Field name="new-password">

@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { ChevronRightIcon } from "@lucide/svelte"
-  import { Button } from "@ui-sdk/svelte/button"
+  import { ChevronRightIcon } from "@lucide/svelte";
+  import { Button } from "@ui-sdk/svelte/button";
 </script>
 
 <div data-slot="row" dir="rtl">

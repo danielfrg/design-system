@@ -16,16 +16,16 @@
 
 /* Destructive options too: the red tint and text carry it, without a red outline. */
 :is(
-  [data-slot="menu-item"],
-  [data-slot="menu-checkbox-item"],
-  [data-slot="menu-radio-item"],
-  [data-slot="listbox-item"],
-  [data-slot="select-item"],
-  [data-slot="combobox-item"],
-  [data-slot="autocomplete-item"],
-  [data-slot="command-item"],
-  [data-slot="trigger-menu-item"]
-)[data-destructive][data-highlighted] {
+    [data-slot="menu-item"],
+    [data-slot="menu-checkbox-item"],
+    [data-slot="menu-radio-item"],
+    [data-slot="listbox-item"],
+    [data-slot="select-item"],
+    [data-slot="combobox-item"],
+    [data-slot="autocomplete-item"],
+    [data-slot="command-item"],
+    [data-slot="trigger-menu-item"]
+  )[data-destructive][data-highlighted] {
   box-shadow: none;
 }
 
@@ -36,11 +36,11 @@
 
 /* Solid buttons are a plain blue fill, without the outline other buttons have. */
 [data-variant="solid"]:is([data-slot="button"], [data-slot$="-trigger"], [data-slot$="-close"]),
-[data-variant="solid"]:is([data-slot="button"], [data-slot$="-trigger"], [data-slot$="-close"]):active:not(
-    :disabled,
-    [data-disabled],
-    [aria-disabled="true"]
-  ) {
+[data-variant="solid"]:is(
+    [data-slot="button"],
+    [data-slot$="-trigger"],
+    [data-slot$="-close"]
+  ):active:not(:disabled, [data-disabled], [aria-disabled="true"]) {
   box-shadow: var(--shadow-drop);
 }
 

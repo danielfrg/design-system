@@ -4,8 +4,8 @@
 //   node scripts/sync.mjs --check [app...]   change nothing; exit 1 if an app has drifted
 //
 // Each app gets, under its `dest` folder:
-//   theme/{tokens,components}.css     from public/v2/<theme>
-//   custom/<name>/...                 from public/v2/custom/<name>
+//   theme/{tokens,components}.css     from public/v1/<theme>
+//   custom/<name>/...                 from public/v1/custom/<name>
 // The whole `dest` folder belongs to the sync: anything else in it counts as drift.
 import { existsSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
 import { dirname, join, relative, resolve } from "node:path";
@@ -42,8 +42,9 @@ function expected(app) {
       out.set(join(destDir, name), readFileSync(join(srcDir, name)));
     }
   };
-  add(join(root, "public/v2", app.theme), "theme", ["tokens.css", "components.css"]);
-  for (const name of app.custom ?? []) add(join(root, "public/v2/custom", name), join("custom", name));
+  add(join(root, "public/v1", app.theme), "theme", ["tokens.css", "components.css"]);
+  for (const name of app.custom ?? [])
+    add(join(root, "public/v1/custom", name), join("custom", name));
   return out;
 }
 
@@ -59,7 +60,9 @@ for (const [name, app] of apps) {
   const want = expected(app);
   const have = new Set(files(dest));
 
-  const changed = [...want].filter(([p, data]) => !have.has(p) || !readFileSync(join(dest, p)).equals(data));
+  const changed = [...want].filter(
+    ([p, data]) => !have.has(p) || !readFileSync(join(dest, p)).equals(data),
+  );
   const extra = [...have].filter((p) => !want.has(p));
 
   if (check) {

@@ -7,8 +7,8 @@
     TimelineMarker,
     TimelineTime,
     TimelineTitle,
-  } from "@ui-sdk/svelte/timeline"
-  import { useLog } from "../../../shared/svelte/log"
+  } from "@ui-sdk/svelte/timeline";
+  import { useLog } from "../../../shared/svelte/log";
 
   const updates = [
     {
@@ -74,30 +74,26 @@
       time: "Nov 4",
       text: "Started the mobile layout.",
     },
-  ]
+  ];
 
-  const pageSize = 3
-  const log = useLog()
-  let count = $state(pageSize)
-  let busy = $state(false)
+  const pageSize = 3;
+  const log = useLog();
+  let count = $state(pageSize);
+  let busy = $state(false);
 
   function loadMore() {
-    busy = true
+    busy = true;
     setTimeout(() => {
-      count += pageSize
-      busy = false
-      log(`Loaded ${pageSize} more updates`)
-    }, 600)
+      count += pageSize;
+      busy = false;
+      log(`Loaded ${pageSize} more updates`);
+    }, 600);
   }
 </script>
 
 <div data-slot="stack">
   <div data-slot="controls">
-    <button
-      type="button"
-      disabled={busy || count >= updates.length}
-      onclick={loadMore}
-    >
+    <button type="button" disabled={busy || count >= updates.length} onclick={loadMore}>
       {busy ? "Loading…" : "Load More"}
     </button>
   </div>

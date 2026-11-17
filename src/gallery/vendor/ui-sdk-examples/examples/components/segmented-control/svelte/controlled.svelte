@@ -4,19 +4,17 @@
     SegmentedControl,
     SegmentedControlIndicator,
     SegmentedControlItem,
-  } from "@ui-sdk/svelte/segmented-control"
-  import { useLog } from "../../../shared/svelte/log"
+  } from "@ui-sdk/svelte/segmented-control";
+  import { useLog } from "../../../shared/svelte/log";
 
-  const log = useLog()
-  const range = createSegmentedControlController()
-  let value = $state<string | null>("week")
+  const log = useLog();
+  const range = createSegmentedControlController();
+  let value = $state<string | null>("week");
 </script>
 
 <div>
   <div data-slot="controls">
-    <button type="button" onclick={() => range.setValue("month")}
-      >Show Month</button
-    >
+    <button type="button" onclick={() => range.setValue("month")}>Show Month</button>
   </div>
   <SegmentedControl
     aria-label="Range"

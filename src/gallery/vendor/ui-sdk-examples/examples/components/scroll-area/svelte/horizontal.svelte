@@ -5,7 +5,7 @@
     ScrollAreaScrollbar,
     ScrollAreaThumb,
     ScrollAreaViewport,
-  } from "@ui-sdk/svelte/scroll-area"
+  } from "@ui-sdk/svelte/scroll-area";
 
   const swatches = [
     { name: "Sand", color: "#e6d8bf" },
@@ -16,7 +16,7 @@
     { name: "Fog", color: "#c9d1d6" },
     { name: "Slate", color: "#5b6b78" },
     { name: "Ink", color: "#2b2f36" },
-  ]
+  ];
 </script>
 
 <ScrollArea type="auto">

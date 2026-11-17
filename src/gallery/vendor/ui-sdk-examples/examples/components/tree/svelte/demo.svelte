@@ -1,19 +1,8 @@
 <script lang="ts">
-  import {
-    ChevronRightIcon,
-    FileIcon,
-    FolderIcon,
-    FolderOpenIcon,
-  } from "@lucide/svelte"
-  import {
-    Tree,
-    TreeGroup,
-    TreeItem,
-    TreeItemIndicator,
-    TreeItemLabel,
-  } from "@ui-sdk/svelte/tree"
+  import { ChevronRightIcon, FileIcon, FolderIcon, FolderOpenIcon } from "@lucide/svelte";
+  import { Tree, TreeGroup, TreeItem, TreeItemIndicator, TreeItemLabel } from "@ui-sdk/svelte/tree";
 
-  type Node = { value: string; label: string; children?: Node[] }
+  type Node = { value: string; label: string; children?: Node[] };
 
   const files: Node[] = [
     {
@@ -40,7 +29,7 @@
     { value: "components.json", label: "components.json" },
     { value: "package.json", label: "package.json" },
     { value: "README.md", label: "README.md" },
-  ]
+  ];
 </script>
 
 {#snippet items(nodes: Node[])}

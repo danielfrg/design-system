@@ -11,7 +11,7 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&amp;family=Geist+Mono:wght@400;500&amp;display=swap"
     />
-    <!-- The design system's theme, from public/v2/<theme>: the saved choice, before first paint. -->
+    <!-- The design system's theme, from public/v1/<theme>: the saved choice, before first paint. -->
     <script>
       (function () {
         var themes = ["ui-sdk", "cadence"];
@@ -24,7 +24,7 @@
         ["tokens", "components"].forEach(function (file) {
           var link = document.createElement("link");
           link.rel = "stylesheet";
-          link.href = "v2/" + theme + "/" + file + ".css";
+          link.href = "v1/" + theme + "/" + file + ".css";
           link.setAttribute("data-theme-file", file);
           document.head.appendChild(link);
         });

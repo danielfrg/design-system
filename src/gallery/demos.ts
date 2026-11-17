@@ -9,13 +9,19 @@ export interface Demo {
 }
 
 const root = "./vendor/ui-sdk-examples/examples/components";
-const modules = import.meta.glob<Component>("./vendor/ui-sdk-examples/examples/components/*/svelte/*.svelte", {
-  import: "default",
-});
-const sources = import.meta.glob<string>("./vendor/ui-sdk-examples/examples/components/*/svelte/*.svelte", {
-  query: "?raw",
-  import: "default",
-});
+const modules = import.meta.glob<Component>(
+  "./vendor/ui-sdk-examples/examples/components/*/svelte/*.svelte",
+  {
+    import: "default",
+  },
+);
+const sources = import.meta.glob<string>(
+  "./vendor/ui-sdk-examples/examples/components/*/svelte/*.svelte",
+  {
+    query: "?raw",
+    import: "default",
+  },
+);
 
 export const demos = index as Record<string, { dir: string; demos: Demo[] }>;
 

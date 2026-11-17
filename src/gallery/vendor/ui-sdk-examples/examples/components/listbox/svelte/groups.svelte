@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { CheckIcon } from "@lucide/svelte"
+  import { CheckIcon } from "@lucide/svelte";
   import {
     Listbox,
     ListboxGroup,
@@ -7,7 +7,7 @@
     ListboxItem,
     ListboxItemIndicator,
     ListboxSeparator,
-  } from "@ui-sdk/svelte/listbox"
+  } from "@ui-sdk/svelte/listbox";
 
   const produce = [
     {
@@ -26,7 +26,7 @@
         { value: "spinach", label: "Spinach" },
       ],
     },
-  ]
+  ];
 </script>
 
 <Listbox multiple defaultValue={["banana"]} aria-label="Produce">

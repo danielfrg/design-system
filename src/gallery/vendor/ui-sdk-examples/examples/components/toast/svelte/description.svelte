@@ -5,9 +5,9 @@
     ToastRegion,
     ToastTitle,
     createToaster,
-  } from "@ui-sdk/svelte/toast"
+  } from "@ui-sdk/svelte/toast";
 
-  const toast = createToaster()
+  const toast = createToaster();
 </script>
 
 <button

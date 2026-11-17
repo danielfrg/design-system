@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { ChevronRightIcon } from "@lucide/svelte"
+  import { ChevronRightIcon } from "@lucide/svelte";
   import {
     Tree,
     TreeGroup,
@@ -8,8 +8,8 @@
     TreeItemIndicator,
     TreeItemLabel,
     type TreeItemData,
-  } from "@ui-sdk/svelte/tree"
-  import { useLog } from "../../../shared/svelte/log"
+  } from "@ui-sdk/svelte/tree";
+  import { useLog } from "../../../shared/svelte/log";
 
   const items: TreeItemData[] = [
     {
@@ -36,9 +36,9 @@
         },
       ],
     },
-  ]
+  ];
 
-  const log = useLog()
+  const log = useLog();
 </script>
 
 {#snippet treeItems(nodes: TreeItemData[])}
@@ -69,8 +69,7 @@
   mode="none"
   checkStrategy="trunk"
   defaultChecked={["react", "postgres"]}
-  onCheckedChange={(checked) =>
-    log(`Checked ${checked.join(", ") || "nothing"}`)}
+  onCheckedChange={(checked) => log(`Checked ${checked.join(", ") || "nothing"}`)}
   defaultExpanded={["frontend", "backend", "databases"]}
 >
   {@render treeItems(items)}

@@ -14,13 +14,8 @@
     DatePickerHint,
     DatePickerInput,
     DatePickerTrigger,
-  } from "@ui-sdk/svelte/date-picker"
-  import {
-    CalendarIcon,
-    ChevronLeftIcon,
-    ChevronRightIcon,
-    XIcon,
-  } from "@lucide/svelte"
+  } from "@ui-sdk/svelte/date-picker";
+  import { CalendarIcon, ChevronLeftIcon, ChevronRightIcon, XIcon } from "@lucide/svelte";
 </script>
 
 <DatePicker defaultValue="2026-10-16">

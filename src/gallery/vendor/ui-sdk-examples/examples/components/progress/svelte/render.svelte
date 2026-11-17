@@ -5,7 +5,7 @@
     ProgressLabel,
     ProgressTrack,
     ProgressValue,
-  } from "@ui-sdk/svelte/progress"
+  } from "@ui-sdk/svelte/progress";
 </script>
 
 <Progress value={18}>
@@ -22,9 +22,7 @@
           {#snippet render({ props, state })}
             <div
               {...props}
-              data-variant={(state.percent ?? 0) < 20
-                ? "destructive"
-                : undefined}
+              data-variant={(state.percent ?? 0) < 20 ? "destructive" : undefined}
             ></div>
           {/snippet}
         </ProgressIndicator>

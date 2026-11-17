@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { ChevronLeftIcon, ChevronRightIcon } from "@lucide/svelte"
+  import { ChevronLeftIcon, ChevronRightIcon } from "@lucide/svelte";
   import {
     Carousel,
     CarouselContent,
@@ -9,9 +9,9 @@
     CarouselNext,
     CarouselPrevious,
     CarouselViewport,
-  } from "@ui-sdk/svelte/carousel"
+  } from "@ui-sdk/svelte/carousel";
 
-  const products = [1, 2, 3, 4, 5, 6, 7, 8]
+  const products = [1, 2, 3, 4, 5, 6, 7, 8];
 </script>
 
 <Carousel aria-label="Products" slidesPerPage={3}>
@@ -36,10 +36,7 @@
     <CarouselIndicatorGroup aria-label="Choose a page">
       {#snippet children(state)}
         {#each { length: state.pageCount ?? 3 }, index (index)}
-          <CarouselIndicator
-            page={index + 1}
-            aria-label={`Page ${index + 1}`}
-          />
+          <CarouselIndicator page={index + 1} aria-label={`Page ${index + 1}`} />
         {/each}
       {/snippet}
     </CarouselIndicatorGroup>

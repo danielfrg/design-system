@@ -6,59 +6,276 @@ export interface ComponentPage {
 
 // One entry per @ui-sdk/svelte component. Its demos are the ui-sdk docs examples (demos.json).
 export const componentPages: ComponentPage[] = [
-  { id: "accordion", label: "Accordion", description: "Show and hide sections of content from their headings." },
-  { id: "alert-dialog", label: "Alert Dialog", description: "Ask someone to confirm an action before you continue." },
-  { id: "autocomplete", label: "Autocomplete", description: "Suggest text while someone types, without limiting what they can enter." },
-  { id: "avatar", label: "Avatar", description: "Show an image with a fallback while it loads or if it fails." },
-  { id: "button", label: "Button", description: "Run an action, show that it's working, and keep it reachable when disabled." },
-  { id: "calendar", label: "Calendar", description: "Choose one date, several dates, or a range from a month grid." },
-  { id: "carousel", label: "Carousel", description: "Page through slides with native scrolling, keyboard controls, and optional rotation." },
-  { id: "checkbox", label: "Checkbox", description: "Choose one or more options, individually or as a group." },
-  { id: "collapsible", label: "Collapsible", description: "Show and hide a panel, preserve its contents, and animate its height." },
-  { id: "color-picker", label: "Color Picker", description: "Choose a color by dragging across an area and along sliders, typing any CSS color, or picking a preset." },
-  { id: "combobox", label: "Combobox", description: "Search a list of options and choose one or several values." },
-  { id: "command", label: "Command", description: "Search commands, run actions, and open pages of more choices." },
-  { id: "date-input", label: "Date Input", description: "Type a date one part at a time, in the order your user's language writes it." },
-  { id: "date-picker", label: "Date Picker", description: "Type a date or choose one from a calendar, with support for ranges and forms." },
+  {
+    id: "accordion",
+    label: "Accordion",
+    description: "Show and hide sections of content from their headings.",
+  },
+  {
+    id: "alert-dialog",
+    label: "Alert Dialog",
+    description: "Ask someone to confirm an action before you continue.",
+  },
+  {
+    id: "autocomplete",
+    label: "Autocomplete",
+    description: "Suggest text while someone types, without limiting what they can enter.",
+  },
+  {
+    id: "avatar",
+    label: "Avatar",
+    description: "Show an image with a fallback while it loads or if it fails.",
+  },
+  {
+    id: "button",
+    label: "Button",
+    description: "Run an action, show that it's working, and keep it reachable when disabled.",
+  },
+  {
+    id: "calendar",
+    label: "Calendar",
+    description: "Choose one date, several dates, or a range from a month grid.",
+  },
+  {
+    id: "carousel",
+    label: "Carousel",
+    description:
+      "Page through slides with native scrolling, keyboard controls, and optional rotation.",
+  },
+  {
+    id: "checkbox",
+    label: "Checkbox",
+    description: "Choose one or more options, individually or as a group.",
+  },
+  {
+    id: "collapsible",
+    label: "Collapsible",
+    description: "Show and hide a panel, preserve its contents, and animate its height.",
+  },
+  {
+    id: "color-picker",
+    label: "Color Picker",
+    description:
+      "Choose a color by dragging across an area and along sliders, typing any CSS color, or picking a preset.",
+  },
+  {
+    id: "combobox",
+    label: "Combobox",
+    description: "Search a list of options and choose one or several values.",
+  },
+  {
+    id: "command",
+    label: "Command",
+    description: "Search commands, run actions, and open pages of more choices.",
+  },
+  {
+    id: "date-input",
+    label: "Date Input",
+    description: "Type a date one part at a time, in the order your user's language writes it.",
+  },
+  {
+    id: "date-picker",
+    label: "Date Picker",
+    description: "Type a date or choose one from a calendar, with support for ranges and forms.",
+  },
   { id: "dialog", label: "Dialog", description: "Open a focused task over the page." },
-  { id: "drawer", label: "Drawer", description: "A sheet you can open, drag, and resize from an edge of the screen." },
-  { id: "field", label: "Field", description: "Connect a form control to its label, description, and validation errors." },
-  { id: "file-input", label: "File Input", description: "Choose, drop, or paste files, validate them, and submit them with a form." },
-  { id: "hover-card", label: "Hover Card", description: "Preview a link on hover or keyboard focus while keeping its normal navigation." },
-  { id: "image-cropper", label: "Image Cropper", description: "Choose the part of an image to keep by moving and resizing a selection, or by panning and zooming the image under it." },
-  { id: "input", label: "Input", description: "Enter text, add a clear button, and connect the value to your form or state." },
-  { id: "label", label: "Label", description: "Name any control with a label, and let a press on the label reach it." },
-  { id: "listbox", label: "Listbox", description: "Choose one or several options from an always-visible list." },
-  { id: "menu", label: "Menu", description: "Choose actions and settings from a button or a context menu." },
-  { id: "menubar", label: "Menubar", description: "Move between an application's menus with one tab stop." },
-  { id: "meter", label: "Meter", description: "Show a measurement within a known range, such as storage used or an account quota." },
-  { id: "navigation-menu", label: "Navigation Menu", description: "Groups site links into panels that open from a row of triggers." },
-  { id: "number-input", label: "Number Input", description: "Enter numbers, step through values, and format them for a locale." },
-  { id: "otp-input", label: "OTP Input", description: "Enter a one-time code with support for pasting, autofill, and native form validation." },
-  { id: "pagination", label: "Pagination", description: "Navigate pages with buttons, links, or your router." },
-  { id: "password-input", label: "Password Input", description: "Enter a password, show or hide it, and use it in a native form." },
+  {
+    id: "drawer",
+    label: "Drawer",
+    description: "A sheet you can open, drag, and resize from an edge of the screen.",
+  },
+  {
+    id: "field",
+    label: "Field",
+    description: "Connect a form control to its label, description, and validation errors.",
+  },
+  {
+    id: "file-input",
+    label: "File Input",
+    description: "Choose, drop, or paste files, validate them, and submit them with a form.",
+  },
+  {
+    id: "hover-card",
+    label: "Hover Card",
+    description: "Preview a link on hover or keyboard focus while keeping its normal navigation.",
+  },
+  {
+    id: "image-cropper",
+    label: "Image Cropper",
+    description:
+      "Choose the part of an image to keep by moving and resizing a selection, or by panning and zooming the image under it.",
+  },
+  {
+    id: "input",
+    label: "Input",
+    description: "Enter text, add a clear button, and connect the value to your form or state.",
+  },
+  {
+    id: "label",
+    label: "Label",
+    description: "Name any control with a label, and let a press on the label reach it.",
+  },
+  {
+    id: "listbox",
+    label: "Listbox",
+    description: "Choose one or several options from an always-visible list.",
+  },
+  {
+    id: "menu",
+    label: "Menu",
+    description: "Choose actions and settings from a button or a context menu.",
+  },
+  {
+    id: "menubar",
+    label: "Menubar",
+    description: "Move between an application's menus with one tab stop.",
+  },
+  {
+    id: "meter",
+    label: "Meter",
+    description:
+      "Show a measurement within a known range, such as storage used or an account quota.",
+  },
+  {
+    id: "navigation-menu",
+    label: "Navigation Menu",
+    description: "Groups site links into panels that open from a row of triggers.",
+  },
+  {
+    id: "number-input",
+    label: "Number Input",
+    description: "Enter numbers, step through values, and format them for a locale.",
+  },
+  {
+    id: "otp-input",
+    label: "OTP Input",
+    description:
+      "Enter a one-time code with support for pasting, autofill, and native form validation.",
+  },
+  {
+    id: "pagination",
+    label: "Pagination",
+    description: "Navigate pages with buttons, links, or your router.",
+  },
+  {
+    id: "password-input",
+    label: "Password Input",
+    description: "Enter a password, show or hide it, and use it in a native form.",
+  },
   { id: "popover", label: "Popover", description: "Edit or explore something beside its trigger." },
-  { id: "preferences", label: "Preferences", description: "Apply user preferences to data attributes so your styles can follow them." },
-  { id: "progress", label: "Progress", description: "Show a task's progress, or an indeterminate state while its progress is unknown." },
-  { id: "radio", label: "Radio", description: "Choose one option, move the selection with arrow keys, and submit it with a form." },
-  { id: "rating", label: "Rating", description: "Pick a score from a row of stars, whole or half, with a preview as the pointer moves over them." },
-  { id: "resizable", label: "Resizable", description: "Resize, collapse, and save panel layouts with pointer and keyboard controls." },
-  { id: "scroll-area", label: "Scroll Area", description: "Add styled scrollbars, edge indicators, and follow-to-end behavior to native scrolling." },
-  { id: "segmented-control", label: "Segmented Control", description: "Pick one of a few options from a row of buttons, with an indicator that slides to the choice." },
+  {
+    id: "preferences",
+    label: "Preferences",
+    description: "Apply user preferences to data attributes so your styles can follow them.",
+  },
+  {
+    id: "progress",
+    label: "Progress",
+    description: "Show a task's progress, or an indeterminate state while its progress is unknown.",
+  },
+  {
+    id: "radio",
+    label: "Radio",
+    description:
+      "Choose one option, move the selection with arrow keys, and submit it with a form.",
+  },
+  {
+    id: "rating",
+    label: "Rating",
+    description:
+      "Pick a score from a row of stars, whole or half, with a preview as the pointer moves over them.",
+  },
+  {
+    id: "resizable",
+    label: "Resizable",
+    description: "Resize, collapse, and save panel layouts with pointer and keyboard controls.",
+  },
+  {
+    id: "scroll-area",
+    label: "Scroll Area",
+    description:
+      "Add styled scrollbars, edge indicators, and follow-to-end behavior to native scrolling.",
+  },
+  {
+    id: "segmented-control",
+    label: "Segmented Control",
+    description:
+      "Pick one of a few options from a row of buttons, with an indicator that slides to the choice.",
+  },
   { id: "select", label: "Select", description: "Choose one value or several from a popup list." },
-  { id: "separator", label: "Separator", description: "Divide groups of content with a horizontal or vertical line." },
-  { id: "slider", label: "Slider", description: "Adjust a number or a range with draggable thumbs and keyboard controls." },
+  {
+    id: "separator",
+    label: "Separator",
+    description: "Divide groups of content with a horizontal or vertical line.",
+  },
+  {
+    id: "slider",
+    label: "Slider",
+    description: "Adjust a number or a range with draggable thumbs and keyboard controls.",
+  },
   { id: "switch", label: "Switch", description: "Turn a setting on or off." },
-  { id: "tabs", label: "Tabs", description: "Switch between related panels with one tab selected at a time." },
-  { id: "textarea", label: "Textarea", description: "Enter multiple lines of text, grow the field as you type, and connect it to a form." },
-  { id: "time-input", label: "Time Input", description: "Type a time one part at a time, on the clock your user's language uses." },
-  { id: "timeline", label: "Timeline", description: "Show dated events in order, like an activity feed, a changelog or an order's progress." },
-  { id: "toast", label: "Toast", description: "Show notifications with actions, timed dismissal, and screen reader announcements." },
-  { id: "toggle", label: "Toggle", description: "Keep a button pressed, or group toggles with a shared value and arrow-key navigation." },
-  { id: "token-input", label: "Token Input", description: "Mix editable text with tokens for files, people, tags, and other references." },
-  { id: "toolbar", label: "Toolbar", description: "Give buttons, toggles, menus and fields one tab stop with arrow-key navigation." },
-  { id: "tooltip", label: "Tooltip", description: "Name a control or add a short hint on hover and keyboard focus." },
-  { id: "tree", label: "Tree", description: "Browse a hierarchy of files, pages, or choices with expandable branches." },
-  { id: "trigger-menu", label: "Trigger Menu", description: "Opens suggestions at the caret when you type a trigger such as @, /, or #." },
-  { id: "waterfall", label: "Waterfall", description: "Show a trace or a page's requests as bars on a shared time axis." },
+  {
+    id: "tabs",
+    label: "Tabs",
+    description: "Switch between related panels with one tab selected at a time.",
+  },
+  {
+    id: "textarea",
+    label: "Textarea",
+    description:
+      "Enter multiple lines of text, grow the field as you type, and connect it to a form.",
+  },
+  {
+    id: "time-input",
+    label: "Time Input",
+    description: "Type a time one part at a time, on the clock your user's language uses.",
+  },
+  {
+    id: "timeline",
+    label: "Timeline",
+    description:
+      "Show dated events in order, like an activity feed, a changelog or an order's progress.",
+  },
+  {
+    id: "toast",
+    label: "Toast",
+    description:
+      "Show notifications with actions, timed dismissal, and screen reader announcements.",
+  },
+  {
+    id: "toggle",
+    label: "Toggle",
+    description:
+      "Keep a button pressed, or group toggles with a shared value and arrow-key navigation.",
+  },
+  {
+    id: "token-input",
+    label: "Token Input",
+    description: "Mix editable text with tokens for files, people, tags, and other references.",
+  },
+  {
+    id: "toolbar",
+    label: "Toolbar",
+    description: "Give buttons, toggles, menus and fields one tab stop with arrow-key navigation.",
+  },
+  {
+    id: "tooltip",
+    label: "Tooltip",
+    description: "Name a control or add a short hint on hover and keyboard focus.",
+  },
+  {
+    id: "tree",
+    label: "Tree",
+    description: "Browse a hierarchy of files, pages, or choices with expandable branches.",
+  },
+  {
+    id: "trigger-menu",
+    label: "Trigger Menu",
+    description: "Opens suggestions at the caret when you type a trigger such as @, /, or #.",
+  },
+  {
+    id: "waterfall",
+    label: "Waterfall",
+    description: "Show a trace or a page's requests as bars on a shared time axis.",
+  },
 ];

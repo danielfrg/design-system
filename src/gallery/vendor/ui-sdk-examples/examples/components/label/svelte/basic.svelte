@@ -1,12 +1,12 @@
 <script lang="ts">
-  import { Label } from "@ui-sdk/svelte/label"
-  import { Radio, RadioGroup, RadioIndicator } from "@ui-sdk/svelte/radio"
+  import { Label } from "@ui-sdk/svelte/label";
+  import { Radio, RadioGroup, RadioIndicator } from "@ui-sdk/svelte/radio";
 
   const speeds = [
     { value: "standard", label: "Standard" },
     { value: "express", label: "Express" },
     { value: "overnight", label: "Overnight" },
-  ]
+  ];
 </script>
 
 <div data-slot="stack">

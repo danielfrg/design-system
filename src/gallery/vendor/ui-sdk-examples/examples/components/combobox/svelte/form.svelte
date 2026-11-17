@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { CheckIcon, ChevronDownIcon, XIcon } from "@lucide/svelte"
+  import { CheckIcon, ChevronDownIcon, XIcon } from "@lucide/svelte";
   import {
     Combobox,
     ComboboxChip,
@@ -13,14 +13,9 @@
     ComboboxList,
     ComboboxTrigger,
     ComboboxValue,
-  } from "@ui-sdk/svelte/combobox"
-  import {
-    Field,
-    FieldDescription,
-    FieldError,
-    FieldLabel,
-  } from "@ui-sdk/svelte/field"
-  import { useLog } from "../../../shared/svelte/log"
+  } from "@ui-sdk/svelte/combobox";
+  import { Field, FieldDescription, FieldError, FieldLabel } from "@ui-sdk/svelte/field";
+  import { useLog } from "../../../shared/svelte/log";
 
   const countries = [
     { value: "ar", label: "Argentina" },
@@ -40,21 +35,21 @@
     { value: "es", label: "Spain" },
     { value: "se", label: "Sweden" },
     { value: "ch", label: "Switzerland" },
-  ]
+  ];
 
   const countryLabel = (value: string) =>
-    countries.find((country) => country.value === value)?.label ?? value
+    countries.find((country) => country.value === value)?.label ?? value;
 
-  const interests = ["Design", "Engineering", "Marketing", "Research", "Sales"]
+  const interests = ["Design", "Engineering", "Marketing", "Research", "Sales"];
 
-  const log = useLog()
+  const log = useLog();
 
   function submit(event: SubmitEvent) {
-    event.preventDefault()
-    const entries = [
-      ...new FormData(event.currentTarget as HTMLFormElement),
-    ].map(([name, value]) => `${name}=${value}`)
-    log(`Submitted ${entries.join("&")}`)
+    event.preventDefault();
+    const entries = [...new FormData(event.currentTarget as HTMLFormElement)].map(
+      ([name, value]) => `${name}=${value}`,
+    );
+    log(`Submitted ${entries.join("&")}`);
   }
 </script>
 

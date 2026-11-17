@@ -1,12 +1,12 @@
 <script lang="ts">
-  import { ChevronDownIcon } from "@lucide/svelte"
+  import { ChevronDownIcon } from "@lucide/svelte";
   import {
     Accordion,
     AccordionHeader,
     AccordionItem,
     AccordionPanel,
     AccordionTrigger,
-  } from "@ui-sdk/svelte/accordion"
+  } from "@ui-sdk/svelte/accordion";
 
   const items = [
     {
@@ -17,15 +17,14 @@
     {
       value: "privacy",
       label: "Privacy and security",
-      content:
-        "Turn on two-factor authentication and review signed-in devices.",
+      content: "Turn on two-factor authentication and review signed-in devices.",
     },
     {
       value: "billing",
       label: "Billing and subscription",
       content: "Update your payment method and download past invoices.",
     },
-  ]
+  ];
 </script>
 
 <Accordion multiple defaultValue={["notifications"]}>

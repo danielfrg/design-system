@@ -11,8 +11,8 @@
     CommandShortcut,
     type CommandData,
     type CommandDataItem,
-  } from "@ui-sdk/svelte/command"
-  import { useLog } from "../../../shared/svelte/log"
+  } from "@ui-sdk/svelte/command";
+  import { useLog } from "../../../shared/svelte/log";
 
   const commands: CommandData = [
     {
@@ -45,9 +45,9 @@
         { value: "sign-out", label: "Sign out", shortcut: "mod+shift+q" },
       ],
     },
-  ]
+  ];
 
-  const log = useLog()
+  const log = useLog();
 </script>
 
 {#snippet commandList(items: CommandData)}
@@ -62,9 +62,7 @@
         </CommandGroup>
       {/if}
     {:else}
-      {@render commandItem(
-        typeof entry === "string" ? { value: entry, label: entry } : entry
-      )}
+      {@render commandItem(typeof entry === "string" ? { value: entry, label: entry } : entry)}
     {/if}
   {/each}
 {/snippet}

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { PlusIcon } from "@lucide/svelte"
+  import { PlusIcon } from "@lucide/svelte";
   import {
     Dialog,
     DialogBackdrop,
@@ -9,9 +9,9 @@
     DialogShortcut,
     DialogTitle,
     DialogTrigger,
-  } from "@ui-sdk/svelte/dialog"
-  import { Field, FieldLabel } from "@ui-sdk/svelte/field"
-  import { Input } from "@ui-sdk/svelte/input"
+  } from "@ui-sdk/svelte/dialog";
+  import { Field, FieldLabel } from "@ui-sdk/svelte/field";
+  import { Input } from "@ui-sdk/svelte/input";
 </script>
 
 <Dialog>
@@ -33,18 +33,11 @@
       </Field>
       <Field>
         <FieldLabel>Email</FieldLabel>
-        <Input
-          name="email"
-          type="email"
-          required
-          placeholder="kofi@example.com"
-        />
+        <Input name="email" type="email" required placeholder="kofi@example.com" />
       </Field>
       <div data-slot="row">
         <DialogClose>Cancel</DialogClose>
-        <button data-variant="solid" type="submit" value="save"
-          >Save Contact</button
-        >
+        <button data-variant="solid" type="submit" value="save">Save Contact</button>
       </div>
     </form>
   </DialogContent>

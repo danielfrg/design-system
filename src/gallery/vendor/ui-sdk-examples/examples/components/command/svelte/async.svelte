@@ -6,8 +6,8 @@
     CommandItem,
     CommandList,
     CommandStatus,
-  } from "@ui-sdk/svelte/command"
-  import { useAsyncOptions } from "@ui-sdk/svelte/async-options"
+  } from "@ui-sdk/svelte/command";
+  import { useAsyncOptions } from "@ui-sdk/svelte/async-options";
 
   function searchIssues(query: string, { signal }: { signal: AbortSignal }) {
     const issues = [
@@ -19,32 +19,30 @@
       "Crash on upload",
       "Export to CSV",
       "Keyboard shortcuts help",
-    ]
-    return new Promise<{ value: string; label: string }[]>(
-      (resolve, reject) => {
-        const timer = setTimeout(() => {
-          const needle = query.trim().toLowerCase()
-          resolve(
-            issues
-              .filter((issue) => issue.toLowerCase().includes(needle))
-              .map((issue) => ({
-                value: issue.toLowerCase().replaceAll(" ", "-"),
-                label: issue,
-              }))
-          )
-        }, 400)
-        signal.addEventListener("abort", () => {
-          clearTimeout(timer)
-          reject(new DOMException("Aborted", "AbortError"))
-        })
-      }
-    )
+    ];
+    return new Promise<{ value: string; label: string }[]>((resolve, reject) => {
+      const timer = setTimeout(() => {
+        const needle = query.trim().toLowerCase();
+        resolve(
+          issues
+            .filter((issue) => issue.toLowerCase().includes(needle))
+            .map((issue) => ({
+              value: issue.toLowerCase().replaceAll(" ", "-"),
+              label: issue,
+            })),
+        );
+      }, 400);
+      signal.addEventListener("abort", () => {
+        clearTimeout(timer);
+        reject(new DOMException("Aborted", "AbortError"));
+      });
+    });
   }
 
   const issues = useAsyncOptions(searchIssues, {
     debounce: 250,
     immediate: true,
-  })
+  });
 </script>
 
 <Command
@@ -56,9 +54,7 @@
   <CommandInput aria-label="Search issues" placeholder="Search issues…" />
   <CommandStatus>
     {#snippet children(state)}
-      {state.loading
-        ? "Searching…"
-        : `${state.count} ${state.count === 1 ? "issue" : "issues"}`}
+      {state.loading ? "Searching…" : `${state.count} ${state.count === 1 ? "issue" : "issues"}`}
     {/snippet}
   </CommandStatus>
   <CommandEmpty>

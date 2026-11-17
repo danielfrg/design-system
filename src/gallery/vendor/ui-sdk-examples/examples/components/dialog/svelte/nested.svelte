@@ -7,9 +7,9 @@
     DialogDescription,
     DialogTitle,
     DialogTrigger,
-  } from "@ui-sdk/svelte/dialog"
-  import { Field, FieldLabel } from "@ui-sdk/svelte/field"
-  import { Input } from "@ui-sdk/svelte/input"
+  } from "@ui-sdk/svelte/dialog";
+  import { Field, FieldLabel } from "@ui-sdk/svelte/field";
+  import { Input } from "@ui-sdk/svelte/input";
 </script>
 
 <Dialog>

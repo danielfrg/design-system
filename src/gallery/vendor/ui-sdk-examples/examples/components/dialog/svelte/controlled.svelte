@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { CheckIcon } from "@lucide/svelte"
-  import { Checkbox, CheckboxIndicator } from "@ui-sdk/svelte/checkbox"
+  import { CheckIcon } from "@lucide/svelte";
+  import { Checkbox, CheckboxIndicator } from "@ui-sdk/svelte/checkbox";
   import {
     Dialog,
     DialogBackdrop,
@@ -9,26 +9,23 @@
     DialogDescription,
     DialogTitle,
     DialogTrigger,
-  } from "@ui-sdk/svelte/dialog"
-  import { useLog } from "../../../shared/svelte/log"
+  } from "@ui-sdk/svelte/dialog";
+  import { useLog } from "../../../shared/svelte/log";
 
   const topics = [
     { label: "Product updates", checked: true },
     { label: "Security alerts", checked: true },
     { label: "Weekly digest", checked: false },
-  ]
+  ];
 
-  const log = useLog()
-  let open = $state(false)
+  const log = useLog();
+  let open = $state(false);
 </script>
 
 <div data-slot="stack">
   <div data-slot="controls">
     <label data-slot="label">
-      <Checkbox
-        checked={open}
-        onCheckedChange={(next) => (open = next === true)}
-      >
+      <Checkbox checked={open} onCheckedChange={(next) => (open = next === true)}>
         <CheckboxIndicator>
           <CheckIcon aria-hidden="true" />
         </CheckboxIndicator>
@@ -38,10 +35,8 @@
   </div>
   <Dialog
     bind:open
-    onOpenChange={(next, details) =>
-      log(`${next ? "Opened" : "Closed"} (${details.reason})`)}
-    onOpenChangeComplete={(next) =>
-      log(next ? "Finished opening" : "Finished closing")}
+    onOpenChange={(next, details) => log(`${next ? "Opened" : "Closed"} (${details.reason})`)}
+    onOpenChangeComplete={(next) => log(next ? "Finished opening" : "Finished closing")}
   >
     <DialogTrigger>Notification Settings</DialogTrigger>
     <DialogBackdrop />

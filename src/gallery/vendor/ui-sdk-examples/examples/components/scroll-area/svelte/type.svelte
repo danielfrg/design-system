@@ -6,14 +6,11 @@
     ScrollAreaThumb,
     ScrollAreaViewport,
     type ScrollAreaType,
-  } from "@ui-sdk/svelte/scroll-area"
+  } from "@ui-sdk/svelte/scroll-area";
 
-  const types: ScrollAreaType[] = ["hover", "scroll", "auto", "always"]
+  const types: ScrollAreaType[] = ["hover", "scroll", "auto", "always"];
 
-  const tags = Array.from(
-    { length: 20 },
-    (_, index) => `v1.2.0-beta.${50 - index}`
-  )
+  const tags = Array.from({ length: 20 }, (_, index) => `v1.2.0-beta.${50 - index}`);
 </script>
 
 <div data-slot="grid">

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { MinusIcon, PlusIcon } from "@lucide/svelte"
+  import { MinusIcon, PlusIcon } from "@lucide/svelte";
   import {
     Drawer,
     DrawerBackdrop,
@@ -8,10 +8,10 @@
     DrawerDescription,
     DrawerTitle,
     DrawerTrigger,
-  } from "@ui-sdk/svelte/drawer"
-  const goal = { initial: 350, min: 200, max: 400, step: 10 }
+  } from "@ui-sdk/svelte/drawer";
+  const goal = { initial: 350, min: 200, max: 400, step: 10 };
 
-  let calories = $state(goal.initial)
+  let calories = $state(goal.initial);
 </script>
 
 <Drawer>

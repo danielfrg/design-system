@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Field, FieldLabel } from "@ui-sdk/svelte/field"
+  import { Field, FieldLabel } from "@ui-sdk/svelte/field";
   import {
     Slider,
     SliderControl,
@@ -7,11 +7,11 @@
     SliderThumb,
     SliderTrack,
     SliderValue,
-  } from "@ui-sdk/svelte/slider"
-  import { useLog } from "../../../shared/svelte/log"
+  } from "@ui-sdk/svelte/slider";
+  import { useLog } from "../../../shared/svelte/log";
 
-  const log = useLog()
-  const form = $props.id()
+  const log = useLog();
+  const form = $props.id();
 </script>
 
 <div data-slot="stack">
@@ -19,11 +19,11 @@
     id={form}
     data-slot="stack"
     onsubmit={(event) => {
-      event.preventDefault()
+      event.preventDefault();
       const data = [...new FormData(event.currentTarget)].map(
-        ([name, value]) => `${name}=${value}`
-      )
-      log(`Submitted ${data.join(", ")}`)
+        ([name, value]) => `${name}=${value}`,
+      );
+      log(`Submitted ${data.join(", ")}`);
     }}
   >
     <Field>

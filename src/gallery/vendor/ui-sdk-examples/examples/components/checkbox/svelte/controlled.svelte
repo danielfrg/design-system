@@ -1,16 +1,16 @@
 <script lang="ts">
-  import { CheckIcon } from "@lucide/svelte"
+  import { CheckIcon } from "@lucide/svelte";
   import {
     Checkbox,
     CheckboxIndicator,
     createCheckboxController,
     type CheckedState,
-  } from "@ui-sdk/svelte/checkbox"
-  import { useLog } from "../../../shared/svelte/log"
+  } from "@ui-sdk/svelte/checkbox";
+  import { useLog } from "../../../shared/svelte/log";
 
-  const log = useLog()
-  const updates = createCheckboxController()
-  let checked = $state<CheckedState>(false)
+  const log = useLog();
+  const updates = createCheckboxController();
+  let checked = $state<CheckedState>(false);
 </script>
 
 <div data-slot="stack">
@@ -23,7 +23,7 @@
       controller={updates}
       onCheckedChange={(next, details) =>
         log(
-          `${next === "indeterminate" ? "Mixed" : next ? "Checked" : "Unchecked"} (${details.reason})`
+          `${next === "indeterminate" ? "Mixed" : next ? "Checked" : "Unchecked"} (${details.reason})`,
         )}
     >
       <CheckboxIndicator>

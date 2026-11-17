@@ -1,12 +1,5 @@
 <script lang="ts">
-  import {
-    CodeIcon,
-    DownloadIcon,
-    LinkIcon,
-    MailIcon,
-    ReplyIcon,
-    ShareIcon,
-  } from "@lucide/svelte"
+  import { CodeIcon, DownloadIcon, LinkIcon, MailIcon, ReplyIcon, ShareIcon } from "@lucide/svelte";
   import {
     Menu,
     MenuContent,
@@ -14,10 +7,10 @@
     MenuItemIcon,
     MenuSeparator,
     MenuTrigger,
-  } from "@ui-sdk/svelte/menu"
-  import { useLog } from "../../../shared/svelte/log"
+  } from "@ui-sdk/svelte/menu";
+  import { useLog } from "../../../shared/svelte/log";
 
-  const log = useLog()
+  const log = useLog();
 </script>
 
 <Menu onAction={(value) => log(`Chose ${value}`)}>

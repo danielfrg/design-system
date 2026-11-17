@@ -24,9 +24,9 @@ Read https://ui-sdk.dev/web.md first: the web components docs in one file, for a
 Each component's page, like `node_modules/@ui-sdk/web/docs/components/input.md`, shows its tags and markup. `node_modules/@ui-sdk/web/custom-elements.json` lists every tag each entry defines, with its attributes and their types, properties, the controller's methods on `.api`, events, parts and data attributes. Search it for a tag, like `"tagName": "ui-input-group"`, before probing. To confirm what an entry defines, probe it:
 
 ```ts
-import "@ui-sdk/web/input"
+import "@ui-sdk/web/input";
 for (const tag of ["ui-input", "ui-input-group", "ui-input-clear"])
-  console.log(tag, !!customElements.get(tag))
+  console.log(tag, !!customElements.get(tag));
 ```
 
 Parts that keep native behavior need the native element inside them. The console says which: `<ui-input> needs its native element inside it for "root"`. For example:
@@ -52,7 +52,7 @@ createParts(clearableInput, {
       input: () => el.querySelector<UiInputElement>("ui-input")?.api,
     }),
   },
-})
+});
 ```
 
 - Our elements expose their controller as `.api` and may not take a `controller` property, unlike their React components. If your primitive drives one of ours through a controller, take the controller as an option (a function, read when needed), so React can pass its own and web components can pass `.api`.
@@ -73,6 +73,6 @@ const event = new KeyboardEvent("keydown", {
   key: "Escape",
   bubbles: true,
   cancelable: true,
-})
-field.dispatchEvent(event)
+});
+field.dispatchEvent(event);
 ```

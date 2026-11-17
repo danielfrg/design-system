@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { Field, FieldLabel } from "@ui-sdk/svelte/field"
-  import { Input } from "@ui-sdk/svelte/input"
+  import { Field, FieldLabel } from "@ui-sdk/svelte/field";
+  import { Input } from "@ui-sdk/svelte/input";
   import {
     Popover,
     PopoverClose,
@@ -8,11 +8,11 @@
     PopoverDescription,
     PopoverTitle,
     PopoverTrigger,
-  } from "@ui-sdk/svelte/popover"
-  import { useLog } from "../../../shared/svelte/log"
+  } from "@ui-sdk/svelte/popover";
+  import { useLog } from "../../../shared/svelte/log";
 
-  const log = useLog()
-  let open = $state(false)
+  const log = useLog();
+  let open = $state(false);
 </script>
 
 <Popover bind:open>
@@ -23,9 +23,9 @@
     <form
       data-slot="stack"
       onsubmit={(event) => {
-        event.preventDefault()
-        log(`Saved ${new FormData(event.currentTarget).get("name")}`)
-        open = false
+        event.preventDefault();
+        log(`Saved ${new FormData(event.currentTarget).get("name")}`);
+        open = false;
       }}
     >
       <Field>

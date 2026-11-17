@@ -1,11 +1,11 @@
 <script lang="ts">
-  import { Listbox, ListboxItem } from "@ui-sdk/svelte/listbox"
+  import { Listbox, ListboxItem } from "@ui-sdk/svelte/listbox";
 
   const views = [
     { value: "day", label: "יום" },
     { value: "week", label: "שבוע" },
     { value: "month", label: "חודש" },
-  ]
+  ];
 </script>
 
 <div dir="rtl">

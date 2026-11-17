@@ -7,8 +7,8 @@
     AutocompleteItem,
     AutocompleteLabel,
     AutocompleteList,
-  } from "@ui-sdk/svelte/autocomplete"
-  import { useLog } from "../../../shared/svelte/log"
+  } from "@ui-sdk/svelte/autocomplete";
+  import { useLog } from "../../../shared/svelte/log";
 
   const fruits = [
     "Apple",
@@ -26,21 +26,18 @@
     "Pear",
     "Pineapple",
     "Strawberry",
-  ]
+  ];
 
-  const log = useLog()
+  const log = useLog();
 
-  let value = $state("")
-  let open = $state(false)
+  let value = $state("");
+  let open = $state(false);
 
-  function changeValue(
-    next: string,
-    details: { reason: string; cancel: () => void }
-  ) {
+  function changeValue(next: string, details: { reason: string; cancel: () => void }) {
     if (next.length > 12) {
-      return details.cancel()
+      return details.cancel();
     }
-    log(`text: ${details.reason}`)
+    log(`text: ${details.reason}`);
   }
 </script>
 
@@ -50,12 +47,9 @@
     bind:open
     debug
     onValueChange={changeValue}
-    onOpenChange={(next, details) =>
-      log(`${next ? "opened" : "closed"}: ${details.reason}`)}
-    onOpenChangeComplete={(next) =>
-      log(`${next ? "opened" : "closed"} and settled`)}
-    onHighlight={(highlighted) =>
-      highlighted && log(`highlighted ${highlighted}`)}
+    onOpenChange={(next, details) => log(`${next ? "opened" : "closed"}: ${details.reason}`)}
+    onOpenChangeComplete={(next) => log(`${next ? "opened" : "closed"} and settled`)}
+    onHighlight={(highlighted) => highlighted && log(`highlighted ${highlighted}`)}
   >
     <AutocompleteLabel>Fruit (12 characters at most)</AutocompleteLabel>
     <AutocompleteInput />

@@ -1,12 +1,12 @@
 <script lang="ts">
-  import { ChevronDownIcon } from "@lucide/svelte"
+  import { ChevronDownIcon } from "@lucide/svelte";
   import {
     Accordion,
     AccordionHeader,
     AccordionItem,
     AccordionPanel,
     AccordionTrigger,
-  } from "@ui-sdk/svelte/accordion"
+  } from "@ui-sdk/svelte/accordion";
 
   const items = [
     {
@@ -24,7 +24,7 @@
       label: "When do you deliver?",
       content: "Every weekday morning before 10.",
     },
-  ]
+  ];
 </script>
 
 <Accordion hiddenUntilFound>

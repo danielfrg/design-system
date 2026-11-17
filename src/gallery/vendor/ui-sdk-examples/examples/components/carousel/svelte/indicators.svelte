@@ -6,7 +6,7 @@
     CarouselIndicatorGroup,
     CarouselItem,
     CarouselViewport,
-  } from "@ui-sdk/svelte/carousel"
+  } from "@ui-sdk/svelte/carousel";
 
   const photos = [
     { name: "Dunes" },
@@ -15,7 +15,7 @@
     { name: "Canyon" },
     { name: "Meadow" },
     { name: "Harbor" },
-  ]
+  ];
 </script>
 
 <Carousel aria-label="Photos">

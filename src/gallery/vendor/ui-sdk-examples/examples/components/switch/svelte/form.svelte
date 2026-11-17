@@ -1,19 +1,19 @@
 <script lang="ts">
-  import { FieldLegend, FieldSet } from "@ui-sdk/svelte/field"
-  import { Switch, SwitchThumb } from "@ui-sdk/svelte/switch"
-  import { useLog } from "../../../shared/svelte/log"
+  import { FieldLegend, FieldSet } from "@ui-sdk/svelte/field";
+  import { Switch, SwitchThumb } from "@ui-sdk/svelte/switch";
+  import { useLog } from "../../../shared/svelte/log";
 
-  const log = useLog()
+  const log = useLog();
 </script>
 
 <form
   data-slot="stack"
   onsubmit={(event) => {
-    event.preventDefault()
+    event.preventDefault();
     const entries = [...new FormData(event.currentTarget)].map(
-      ([name, value]) => `${name}=${value}`
-    )
-    log(entries.length ? `Submitted ${entries.join("&")}` : "Submitted nothing")
+      ([name, value]) => `${name}=${value}`,
+    );
+    log(entries.length ? `Submitted ${entries.join("&")}` : "Submitted nothing");
   }}
 >
   <FieldSet>

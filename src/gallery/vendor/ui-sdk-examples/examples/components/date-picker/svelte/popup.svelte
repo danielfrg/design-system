@@ -13,17 +13,13 @@
     DatePickerHint,
     DatePickerInput,
     DatePickerTrigger,
-  } from "@ui-sdk/svelte/date-picker"
-  import {
-    CalendarIcon,
-    ChevronLeftIcon,
-    ChevronRightIcon,
-  } from "@lucide/svelte"
-  import { useLog } from "../../../shared/svelte/log"
+  } from "@ui-sdk/svelte/date-picker";
+  import { CalendarIcon, ChevronLeftIcon, ChevronRightIcon } from "@lucide/svelte";
+  import { useLog } from "../../../shared/svelte/log";
 
-  const log = useLog()
-  let anchor: HTMLElement | undefined = $state()
-  let container: HTMLElement | undefined = $state()
+  const log = useLog();
+  let anchor: HTMLElement | undefined = $state();
+  let container: HTMLElement | undefined = $state();
 </script>
 
 <div data-slot="stack">
@@ -31,11 +27,9 @@
     defaultOpen={false}
     presentation="auto"
     {container}
-    onOpenChange={(open, details) =>
-      log(`${open ? "Opened" : "Closed"} (${details.reason})`)}
+    onOpenChange={(open, details) => log(`${open ? "Opened" : "Closed"} (${details.reason})`)}
     onOpenChangeComplete={(open) => open || log("Finished closing")}
-    onMonthChange={(month, details) =>
-      log(`Showing ${month} (${details.reason})`)}
+    onMonthChange={(month, details) => log(`Showing ${month} (${details.reason})`)}
   >
     <div data-slot="row" bind:this={anchor}>
       <DatePickerInput aria-label="Due date" />
@@ -44,12 +38,7 @@
       </DatePickerTrigger>
     </div>
     <DatePickerHint />
-    <DatePickerContent
-      {anchor}
-      sideOffset={6}
-      collisionPadding={16}
-      keepMounted
-    >
+    <DatePickerContent {anchor} sideOffset={6} collisionPadding={16} keepMounted>
       <div data-slot="row">
         <CalendarPrevious data-variant="ghost">
           <ChevronLeftIcon aria-hidden="true" />

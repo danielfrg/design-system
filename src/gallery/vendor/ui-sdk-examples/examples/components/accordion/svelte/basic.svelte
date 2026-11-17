@@ -1,12 +1,12 @@
 <script lang="ts">
-  import { ChevronDownIcon } from "@lucide/svelte"
+  import { ChevronDownIcon } from "@lucide/svelte";
   import {
     Accordion,
     AccordionHeader,
     AccordionItem,
     AccordionPanel,
     AccordionTrigger,
-  } from "@ui-sdk/svelte/accordion"
+  } from "@ui-sdk/svelte/accordion";
 
   const items = [
     {
@@ -31,7 +31,7 @@
         "Write to us by email or chat, or call us. We answer within 24 hours on business days.",
       ],
     },
-  ]
+  ];
 </script>
 
 <Accordion defaultValue={["shipping"]}>

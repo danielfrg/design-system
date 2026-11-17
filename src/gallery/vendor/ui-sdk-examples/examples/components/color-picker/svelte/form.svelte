@@ -6,15 +6,15 @@
     ColorPickerSlider,
     ColorPickerSliderThumb,
     ColorPickerSwatch,
-  } from "@ui-sdk/svelte/color-picker"
-  import { Field, FieldLabel } from "@ui-sdk/svelte/field"
-  import { useLog } from "../../../shared/svelte/log"
+  } from "@ui-sdk/svelte/color-picker";
+  import { Field, FieldLabel } from "@ui-sdk/svelte/field";
+  import { useLog } from "../../../shared/svelte/log";
 
-  const log = useLog()
+  const log = useLog();
 
   function onsubmit(event: SubmitEvent & { currentTarget: HTMLFormElement }) {
-    event.preventDefault()
-    log(`Submitted brand=${new FormData(event.currentTarget).get("brand")}`)
+    event.preventDefault();
+    log(`Submitted brand=${new FormData(event.currentTarget).get("brand")}`);
   }
 </script>
 

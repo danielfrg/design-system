@@ -11,7 +11,11 @@ export interface Example {
 }
 
 const modules = import.meta.glob<Component>("./*.svelte", { eager: true, import: "default" });
-const sources = import.meta.glob<string>("./*.svelte", { eager: true, query: "?raw", import: "default" });
+const sources = import.meta.glob<string>("./*.svelte", {
+  eager: true,
+  query: "?raw",
+  import: "default",
+});
 
 const meta: Omit<Example, "component" | "source">[] = [
   {

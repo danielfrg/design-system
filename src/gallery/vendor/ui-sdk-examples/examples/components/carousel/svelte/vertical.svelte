@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { ChevronDownIcon, ChevronUpIcon } from "@lucide/svelte"
+  import { ChevronDownIcon, ChevronUpIcon } from "@lucide/svelte";
   import {
     Carousel,
     CarouselContent,
@@ -7,9 +7,9 @@
     CarouselNext,
     CarouselPrevious,
     CarouselViewport,
-  } from "@ui-sdk/svelte/carousel"
+  } from "@ui-sdk/svelte/carousel";
 
-  const slides = [1, 2, 3, 4, 5]
+  const slides = [1, 2, 3, 4, 5];
 </script>
 
 <Carousel aria-label="Featured" orientation="vertical">

@@ -1,14 +1,14 @@
 <script lang="ts">
-  import { ChevronDownIcon } from "@lucide/svelte"
-  import type { ChangeDetails } from "@ui-sdk/core"
-  import { createAccordionController } from "@ui-sdk/core/accordion"
+  import { ChevronDownIcon } from "@lucide/svelte";
+  import type { ChangeDetails } from "@ui-sdk/core";
+  import { createAccordionController } from "@ui-sdk/core/accordion";
   import {
     Accordion,
     AccordionHeader,
     AccordionItem,
     AccordionPanel,
     AccordionTrigger,
-  } from "@ui-sdk/svelte/accordion"
+  } from "@ui-sdk/svelte/accordion";
 
   const items = [
     {
@@ -26,35 +26,28 @@
       label: "Sessions",
       content: "Devices signed in to your account in the last 30 days.",
     },
-  ]
+  ];
 
-  const accordion = createAccordionController()
+  const accordion = createAccordionController();
 
-  let value = $state(["account"])
+  let value = $state(["account"]);
 
   function confirmClose(item: string, open: boolean, details: ChangeDetails) {
-    if (
-      !open &&
-      item === "security" &&
-      !window.confirm("Close the security settings?")
-    ) {
-      details.cancel()
+    if (!open && item === "security" && !window.confirm("Close the security settings?")) {
+      details.cancel();
     }
   }
 </script>
 
 <div>
   <div data-slot="controls">
-    <button type="button" onclick={() => accordion.open("security")}
-      >Review security</button
-    >
+    <button type="button" onclick={() => accordion.open("security")}>Review security</button>
   </div>
   <Accordion bind:value multiple controller={accordion}>
     {#each items as item (item.value)}
       <AccordionItem
         value={item.value}
-        onOpenChange={(open, details) =>
-          confirmClose(item.value, open, details)}
+        onOpenChange={(open, details) => confirmClose(item.value, open, details)}
       >
         <AccordionHeader>
           <AccordionTrigger>

@@ -182,7 +182,11 @@
       <span class="crumbs">
         Acme <ChevronRightIcon aria-hidden="true" /> <strong>Issues</strong>
       </span>
-      <Button data-variant="ghost" aria-label="Notifications" onclick={() => toast("No new notifications")}>
+      <Button
+        data-variant="ghost"
+        aria-label="Notifications"
+        onclick={() => toast("No new notifications")}
+      >
         <BellIcon aria-hidden="true" />
       </Button>
     </header>
@@ -234,7 +238,11 @@
               <ul class="rows">
                 {#each group.rows as issue (issue.id)}
                   <li>
-                    <Button class="issue" data-variant="ghost" onclick={() => toast(`Open ${issue.id}`)}>
+                    <Button
+                      class="issue"
+                      data-variant="ghost"
+                      onclick={() => toast(`Open ${issue.id}`)}
+                    >
                       <span class="issue__id">{issue.id}</span>
                       <span class="status" data-status={issue.status}
                         ><Icon aria-hidden="true" /></span

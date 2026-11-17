@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { ChevronRightIcon, LoaderCircleIcon } from "@lucide/svelte"
+  import { ChevronRightIcon, LoaderCircleIcon } from "@lucide/svelte";
   import {
     Tree,
     TreeGroup,
@@ -8,8 +8,8 @@
     TreeItemLabel,
     treeFromPaths,
     type TreeItemData,
-  } from "@ui-sdk/svelte/tree"
-  import { useLog } from "../../../shared/svelte/log"
+  } from "@ui-sdk/svelte/tree";
+  import { useLog } from "../../../shared/svelte/log";
 
   const paths = [
     "src/index.ts",
@@ -20,19 +20,19 @@
     "tests/",
     "package.json",
     "tsconfig.json",
-  ]
+  ];
 
-  const items = treeFromPaths(paths)
-  const files = new Set(paths.filter((path) => !path.endsWith("/")))
+  const items = treeFromPaths(paths);
+  const files = new Set(paths.filter((path) => !path.endsWith("/")));
 
-  const log = useLog()
+  const log = useLog();
 
   async function onAction(value: string) {
     if (!files.has(value)) {
-      return
+      return;
     }
-    await new Promise((resolve) => setTimeout(resolve, 600))
-    log(`Opened ${value}`)
+    await new Promise((resolve) => setTimeout(resolve, 600));
+    log(`Opened ${value}`);
   }
 </script>
 

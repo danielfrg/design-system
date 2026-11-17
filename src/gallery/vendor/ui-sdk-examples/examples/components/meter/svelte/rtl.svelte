@@ -1,11 +1,5 @@
 <script lang="ts">
-  import {
-    Meter,
-    MeterIndicator,
-    MeterLabel,
-    MeterTrack,
-    MeterValue,
-  } from "@ui-sdk/svelte/meter"
+  import { Meter, MeterIndicator, MeterLabel, MeterTrack, MeterValue } from "@ui-sdk/svelte/meter";
 </script>
 
 <div dir="rtl">

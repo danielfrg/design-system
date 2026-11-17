@@ -1,12 +1,12 @@
 <script lang="ts">
-  import { Field, FieldLabel } from "@ui-sdk/svelte/field"
-  import { Radio, RadioGroup, RadioIndicator } from "@ui-sdk/svelte/radio"
+  import { Field, FieldLabel } from "@ui-sdk/svelte/field";
+  import { Radio, RadioGroup, RadioIndicator } from "@ui-sdk/svelte/radio";
 
   const themes = [
     { value: "light", label: "Light" },
     { value: "dark", label: "Dark" },
     { value: "system", label: "System" },
-  ]
+  ];
 </script>
 
 <Field>

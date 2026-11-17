@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { CheckIcon, ChevronDownIcon } from "@lucide/svelte"
-  import { Field, FieldLabel } from "@ui-sdk/svelte/field"
+  import { CheckIcon, ChevronDownIcon } from "@lucide/svelte";
+  import { Field, FieldLabel } from "@ui-sdk/svelte/field";
   import {
     Select,
     SelectContent,
@@ -8,7 +8,7 @@
     SelectItemIndicator,
     SelectTrigger,
     SelectValue,
-  } from "@ui-sdk/svelte/select"
+  } from "@ui-sdk/svelte/select";
 
   const statuses = [
     { value: "backlog", label: "Backlog" },
@@ -16,7 +16,7 @@
     { value: "in-progress", label: "In Progress" },
     { value: "in-review", label: "In Review" },
     { value: "done", label: "Done" },
-  ]
+  ];
 </script>
 
 <Field>

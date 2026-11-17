@@ -1,12 +1,6 @@
 <script lang="ts">
-  import {
-    ClockIcon,
-    ReplyIcon,
-    SearchIcon,
-    ShareIcon,
-    TrashIcon,
-  } from "@lucide/svelte"
-  import { Field, FieldControl, FieldLabel } from "@ui-sdk/svelte/field"
+  import { ClockIcon, ReplyIcon, SearchIcon, ShareIcon, TrashIcon } from "@lucide/svelte";
+  import { Field, FieldControl, FieldLabel } from "@ui-sdk/svelte/field";
   import {
     TriggerMenu,
     TriggerMenuContent,
@@ -14,7 +8,7 @@
     TriggerMenuItem,
     TriggerMenuItemIcon,
     TriggerMenuList,
-  } from "@ui-sdk/svelte/trigger-menu"
+  } from "@ui-sdk/svelte/trigger-menu";
 
   const commands = [
     { value: "reply", icon: ReplyIcon, mirror: true },
@@ -22,7 +16,7 @@
     { value: "search", icon: SearchIcon },
     { value: "share", icon: ShareIcon },
     { value: "clear", icon: TrashIcon },
-  ]
+  ];
 </script>
 
 <TriggerMenu triggers={[{ char: "/", boundary: "start", type: "command" }]}>

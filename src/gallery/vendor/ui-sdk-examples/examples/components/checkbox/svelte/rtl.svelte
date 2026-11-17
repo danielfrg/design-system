@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { CheckIcon } from "@lucide/svelte"
-  import { Checkbox, CheckboxIndicator } from "@ui-sdk/svelte/checkbox"
+  import { CheckIcon } from "@lucide/svelte";
+  import { Checkbox, CheckboxIndicator } from "@ui-sdk/svelte/checkbox";
 </script>
 
 <div data-slot="stack" dir="rtl">

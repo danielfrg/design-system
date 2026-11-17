@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { CopyIcon, EllipsisIcon, PencilIcon } from "@lucide/svelte"
+  import { CopyIcon, EllipsisIcon, PencilIcon } from "@lucide/svelte";
   import {
     createDialogController,
     Dialog,
@@ -8,12 +8,12 @@
     DialogContent,
     DialogDescription,
     DialogTitle,
-  } from "@ui-sdk/svelte/dialog"
-  import { Field, FieldLabel } from "@ui-sdk/svelte/field"
-  import { Input } from "@ui-sdk/svelte/input"
-  import { Menu, MenuContent, MenuItem, MenuTrigger } from "@ui-sdk/svelte/menu"
+  } from "@ui-sdk/svelte/dialog";
+  import { Field, FieldLabel } from "@ui-sdk/svelte/field";
+  import { Input } from "@ui-sdk/svelte/input";
+  import { Menu, MenuContent, MenuItem, MenuTrigger } from "@ui-sdk/svelte/menu";
 
-  const rename = createDialogController()
+  const rename = createDialogController();
 </script>
 
 <Menu>

@@ -1,22 +1,18 @@
 <script lang="ts">
-  import { BoldIcon, ItalicIcon, LinkIcon } from "@lucide/svelte"
-  import { useShortcut } from "@ui-sdk/svelte/shortcuts"
-  import {
-    createToolbarController,
-    Toolbar,
-    ToolbarButton,
-  } from "@ui-sdk/svelte/toolbar"
-  import { useLog } from "../../../shared/svelte/log"
+  import { BoldIcon, ItalicIcon, LinkIcon } from "@lucide/svelte";
+  import { useShortcut } from "@ui-sdk/svelte/shortcuts";
+  import { createToolbarController, Toolbar, ToolbarButton } from "@ui-sdk/svelte/toolbar";
+  import { useLog } from "../../../shared/svelte/log";
 
   const actions = [
     { label: "Bold", icon: BoldIcon },
     { label: "Italic", icon: ItalicIcon },
     { label: "Insert link", icon: LinkIcon },
-  ]
+  ];
 
-  const log = useLog()
-  const toolbar = createToolbarController()
-  useShortcut("alt+f10", () => toolbar.focus(), { allowInInput: true })
+  const log = useLog();
+  const toolbar = createToolbarController();
+  useShortcut("alt+f10", () => toolbar.focus(), { allowInInput: true });
 </script>
 
 <div data-slot="stack">
@@ -30,6 +26,5 @@
       </ToolbarButton>
     {/each}
   </Toolbar>
-  <textarea aria-label="Notes" placeholder="Type, then press Alt+F10"
-  ></textarea>
+  <textarea aria-label="Notes" placeholder="Type, then press Alt+F10"></textarea>
 </div>

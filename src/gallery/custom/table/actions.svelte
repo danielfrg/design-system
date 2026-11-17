@@ -1,14 +1,7 @@
 <script lang="ts">
   import { EllipsisIcon } from "@lucide/svelte";
   import { Menu, MenuContent, MenuItem, MenuSeparator, MenuTrigger } from "@ui-sdk/svelte/menu";
-  import {
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
-  } from "@custom/table";
+  import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@custom/table";
   import { invoices, money } from "./invoices";
 
   let message = $state("Choose an action from a row's menu.");

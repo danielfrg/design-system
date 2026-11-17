@@ -8,10 +8,10 @@
     MenuRadioItem,
     MenuSeparator,
     MenuTrigger,
-  } from "@ui-sdk/svelte/menu"
-  import { useLog } from "../../../shared/svelte/log"
+  } from "@ui-sdk/svelte/menu";
+  import { useLog } from "../../../shared/svelte/log";
 
-  const log = useLog()
+  const log = useLog();
 </script>
 
 <Menu>
@@ -31,10 +31,7 @@
       {/each}
     </MenuRadioGroup>
     <MenuSeparator />
-    <MenuRadioGroup
-      defaultValue="comfortable"
-      onValueChange={(value) => log(`${value} density`)}
-    >
+    <MenuRadioGroup defaultValue="comfortable" onValueChange={(value) => log(`${value} density`)}>
       <MenuGroupLabel>Density</MenuGroupLabel>
       {#each ["Compact", "Comfortable"] as option (option)}
         <MenuRadioItem value={option.toLowerCase()}>

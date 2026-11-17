@@ -6,43 +6,30 @@
     ScrollAreaScrollbar,
     ScrollAreaThumb,
     ScrollAreaViewport,
-  } from "@ui-sdk/svelte/scroll-area"
-  import { useLog } from "../../../shared/svelte/log"
+  } from "@ui-sdk/svelte/scroll-area";
+  import { useLog } from "../../../shared/svelte/log";
 
-  const tags = Array.from(
-    { length: 50 },
-    (_, index) => `v1.2.0-beta.${50 - index}`
-  )
+  const tags = Array.from({ length: 50 }, (_, index) => `v1.2.0-beta.${50 - index}`);
 
-  const log = useLog()
-  const controller = createScrollAreaController()
-  let edge: string | null = "start"
+  const log = useLog();
+  const controller = createScrollAreaController();
+  let edge: string | null = "start";
 
   function read() {
-    const next = controller.isAtEnd()
-      ? "end"
-      : controller.isAtStart()
-        ? "start"
-        : null
+    const next = controller.isAtEnd() ? "end" : controller.isAtStart() ? "start" : null;
     if (next && next !== edge) {
-      log(`At the ${next}`)
+      log(`At the ${next}`);
     }
-    edge = next
+    edge = next;
   }
 </script>
 
 <div data-slot="stack">
   <div data-slot="controls">
-    <button
-      type="button"
-      onclick={() => controller.scrollToStart({ behavior: "smooth" })}
-    >
+    <button type="button" onclick={() => controller.scrollToStart({ behavior: "smooth" })}>
       Back to Top
     </button>
-    <button
-      type="button"
-      onclick={() => controller.scrollToEnd({ behavior: "instant" })}
-    >
+    <button type="button" onclick={() => controller.scrollToEnd({ behavior: "instant" })}>
       Jump to the End
     </button>
   </div>

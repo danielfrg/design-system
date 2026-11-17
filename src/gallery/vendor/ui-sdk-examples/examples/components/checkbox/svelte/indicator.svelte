@@ -1,12 +1,12 @@
 <script lang="ts">
-  import { CheckIcon } from "@lucide/svelte"
-  import { Checkbox, CheckboxIndicator } from "@ui-sdk/svelte/checkbox"
+  import { CheckIcon } from "@lucide/svelte";
+  import { Checkbox, CheckboxIndicator } from "@ui-sdk/svelte/checkbox";
 
   const tasks = [
     { label: "Write the release notes", done: false },
     { label: "Update the changelog", done: true },
     { label: "Tag the release", done: false },
-  ]
+  ];
 </script>
 
 <div data-slot="stack">

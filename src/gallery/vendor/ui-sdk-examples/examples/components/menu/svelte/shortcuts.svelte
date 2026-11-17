@@ -1,14 +1,8 @@
 <script lang="ts">
-  import {
-    Menu,
-    MenuContent,
-    MenuItem,
-    MenuSeparator,
-    MenuTrigger,
-  } from "@ui-sdk/svelte/menu"
-  import { useLog } from "../../../shared/svelte/log"
+  import { Menu, MenuContent, MenuItem, MenuSeparator, MenuTrigger } from "@ui-sdk/svelte/menu";
+  import { useLog } from "../../../shared/svelte/log";
 
-  const log = useLog()
+  const log = useLog();
 </script>
 
 <Menu onAction={(value) => log(`Chose ${value}`)}>

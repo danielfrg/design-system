@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { ChevronRightIcon } from "@lucide/svelte"
+  import { ChevronRightIcon } from "@lucide/svelte";
   import {
     Tree,
     TreeGroup,
@@ -7,7 +7,7 @@
     TreeItemIndicator,
     TreeItemLabel,
     type TreeItemData,
-  } from "@ui-sdk/svelte/tree"
+  } from "@ui-sdk/svelte/tree";
 
   const pages: TreeItemData[] = [
     {
@@ -28,16 +28,16 @@
       ],
     },
     { value: "changelog", label: "Changelog", href: "#changelog" },
-  ]
+  ];
 
   const links = new Set(
     pages
       .flatMap((page) => [page, ...(page.children ?? [])])
       .filter((page) => page.href)
-      .map((page) => page.value)
-  )
+      .map((page) => page.value),
+  );
 
-  let current = $state("tree")
+  let current = $state("tree");
 </script>
 
 {#snippet treeItems(nodes: TreeItemData[])}
@@ -70,10 +70,10 @@
   {current}
   onAction={(value, { event }) => {
     if (!links.has(value)) {
-      return
+      return;
     }
-    event?.preventDefault()
-    current = value
+    event?.preventDefault();
+    current = value;
   }}
 >
   {@render treeItems(pages)}

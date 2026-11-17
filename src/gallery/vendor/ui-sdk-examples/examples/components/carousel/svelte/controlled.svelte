@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { ChevronLeftIcon, ChevronRightIcon } from "@lucide/svelte"
+  import { ChevronLeftIcon, ChevronRightIcon } from "@lucide/svelte";
   import {
     Carousel,
     CarouselContent,
@@ -7,14 +7,14 @@
     CarouselNext,
     CarouselPrevious,
     CarouselViewport,
-  } from "@ui-sdk/svelte/carousel"
-  import { useLog } from "../../../shared/svelte/log"
+  } from "@ui-sdk/svelte/carousel";
+  import { useLog } from "../../../shared/svelte/log";
 
-  const log = useLog()
+  const log = useLog();
 
-  const slides = [1, 2, 3, 4, 5]
+  const slides = [1, 2, 3, 4, 5];
 
-  let page = $state(1)
+  let page = $state(1);
 </script>
 
 <Carousel

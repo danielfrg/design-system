@@ -7,7 +7,7 @@
     PopoverShortcut,
     PopoverTitle,
     PopoverTrigger,
-  } from "@ui-sdk/svelte/popover"
+  } from "@ui-sdk/svelte/popover";
 </script>
 
 <Popover>

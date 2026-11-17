@@ -5,16 +5,14 @@
     MenuContextTrigger,
     MenuItem,
     MenuSeparator,
-  } from "@ui-sdk/svelte/menu"
-  import { useLog } from "../../../shared/svelte/log"
+  } from "@ui-sdk/svelte/menu";
+  import { useLog } from "../../../shared/svelte/log";
 
-  const log = useLog()
+  const log = useLog();
 </script>
 
 <Menu onAction={(value) => log(`Chose ${value}`)}>
-  <MenuContextTrigger tabindex={0}
-    >Right-click or long-press here</MenuContextTrigger
-  >
+  <MenuContextTrigger tabindex={0}>Right-click or long-press here</MenuContextTrigger>
   <MenuContent>
     <MenuItem value="back">Back</MenuItem>
     <MenuItem value="forward" disabled>Forward</MenuItem>

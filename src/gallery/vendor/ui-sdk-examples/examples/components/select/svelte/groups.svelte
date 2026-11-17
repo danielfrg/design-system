@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { CheckIcon, ChevronDownIcon } from "@lucide/svelte"
-  import { Field, FieldLabel } from "@ui-sdk/svelte/field"
+  import { CheckIcon, ChevronDownIcon } from "@lucide/svelte";
+  import { Field, FieldLabel } from "@ui-sdk/svelte/field";
   import {
     Select,
     SelectContent,
@@ -11,7 +11,7 @@
     SelectSeparator,
     SelectTrigger,
     SelectValue,
-  } from "@ui-sdk/svelte/select"
+  } from "@ui-sdk/svelte/select";
 
   const fonts = [
     {
@@ -35,7 +35,7 @@
         { value: "jetbrains-mono", label: "JetBrains Mono" },
       ],
     },
-  ]
+  ];
 </script>
 
 <Field>

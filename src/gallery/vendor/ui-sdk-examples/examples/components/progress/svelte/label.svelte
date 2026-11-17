@@ -5,7 +5,7 @@
     ProgressLabel,
     ProgressTrack,
     ProgressValue,
-  } from "@ui-sdk/svelte/progress"
+  } from "@ui-sdk/svelte/progress";
 </script>
 
 <Progress value={56}>

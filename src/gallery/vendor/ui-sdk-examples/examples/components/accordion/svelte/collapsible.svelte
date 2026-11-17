@@ -1,12 +1,12 @@
 <script lang="ts">
-  import { ChevronDownIcon } from "@lucide/svelte"
+  import { ChevronDownIcon } from "@lucide/svelte";
   import {
     Accordion,
     AccordionHeader,
     AccordionItem,
     AccordionPanel,
     AccordionTrigger,
-  } from "@ui-sdk/svelte/accordion"
+  } from "@ui-sdk/svelte/accordion";
 
   const items = [
     {
@@ -24,7 +24,7 @@
       label: "Budget",
       content: "Approved for two engineers and one designer for six months.",
     },
-  ]
+  ];
 </script>
 
 <Accordion collapsible={false} defaultValue={["overview"]}>

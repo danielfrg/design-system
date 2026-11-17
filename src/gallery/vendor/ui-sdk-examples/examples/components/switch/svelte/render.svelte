@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { MoonIcon, SunIcon } from "@lucide/svelte"
-  import { Switch, SwitchThumb } from "@ui-sdk/svelte/switch"
+  import { MoonIcon, SunIcon } from "@lucide/svelte";
+  import { Switch, SwitchThumb } from "@ui-sdk/svelte/switch";
 </script>
 
 <label data-slot="label">

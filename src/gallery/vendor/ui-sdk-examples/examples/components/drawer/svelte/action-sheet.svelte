@@ -7,17 +7,17 @@
     DrawerContent,
     DrawerDescription,
     DrawerTitle,
-  } from "@ui-sdk/svelte/drawer"
-  import { useLog } from "../../../shared/svelte/log"
+  } from "@ui-sdk/svelte/drawer";
+  import { useLog } from "../../../shared/svelte/log";
 
-  type PhotoAction = "share" | "duplicate" | "delete" | "cancel"
+  type PhotoAction = "share" | "duplicate" | "delete" | "cancel";
 
-  const log = useLog()
-  const photoActions = createDrawerController<undefined, PhotoAction>()
+  const log = useLog();
+  const photoActions = createDrawerController<undefined, PhotoAction>();
 
   async function choose() {
-    const { returnValue = "cancel" } = await photoActions.open()
-    log(returnValue === "cancel" ? "Canceled" : `Chose ${returnValue}`)
+    const { returnValue = "cancel" } = await photoActions.open();
+    log(returnValue === "cancel" ? "Canceled" : `Chose ${returnValue}`);
   }
 </script>
 

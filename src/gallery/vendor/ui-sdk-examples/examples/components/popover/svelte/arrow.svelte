@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { CircleQuestionMarkIcon } from "@lucide/svelte"
+  import { CircleQuestionMarkIcon } from "@lucide/svelte";
   import {
     Popover,
     PopoverArrow,
@@ -7,19 +7,19 @@
     PopoverDescription,
     PopoverTitle,
     PopoverTrigger,
-  } from "@ui-sdk/svelte/popover"
+  } from "@ui-sdk/svelte/popover";
 
   const sides = [
     { value: "top", label: "Top" },
     { value: "right", label: "Right" },
     { value: "bottom", label: "Bottom" },
     { value: "left", label: "Left" },
-  ] as const
-  type Side = (typeof sides)[number]["value"]
+  ] as const;
+  type Side = (typeof sides)[number]["value"];
 
-  let open = $state(false)
-  let side = $state<Side>("bottom")
-  let controls: HTMLDivElement | undefined = $state()
+  let open = $state(false);
+  let side = $state<Side>("bottom");
+  let controls: HTMLDivElement | undefined = $state();
 </script>
 
 <div data-slot="stack">
@@ -38,12 +38,12 @@
   <Popover
     {open}
     onOpenChange={(next, details) => {
-      const target = details.event?.target
-      const inControls = target instanceof Node && controls?.contains(target)
+      const target = details.event?.target;
+      const inControls = target instanceof Node && controls?.contains(target);
       if (inControls && details.reason !== "escape-key") {
-        return details.cancel()
+        return details.cancel();
       }
-      open = next
+      open = next;
     }}
   >
     <PopoverTrigger aria-label="Help">

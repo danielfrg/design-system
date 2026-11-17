@@ -1,19 +1,15 @@
 <script lang="ts">
-  import { FileIcon } from "@lucide/svelte"
-  import {
-    Tooltip,
-    TooltipContent,
-    TooltipTrigger,
-  } from "@ui-sdk/svelte/tooltip"
+  import { FileIcon } from "@lucide/svelte";
+  import { Tooltip, TooltipContent, TooltipTrigger } from "@ui-sdk/svelte/tooltip";
 
   const files = [
     "Quarterly report, final revised version for the board.pdf",
     "Notes.txt",
     "Design review recording, October 2nd.mp4",
     "Budget.xlsx",
-  ]
+  ];
 
-  const names: HTMLSpanElement[] = []
+  const names: HTMLSpanElement[] = [];
 </script>
 
 <ul>
@@ -22,9 +18,9 @@
       <Tooltip
         type="label"
         onOpenChange={(open, details) => {
-          const span = names[index]
+          const span = names[index];
           if (open && span && span.scrollWidth <= span.clientWidth) {
-            details.cancel()
+            details.cancel();
           }
         }}
       >

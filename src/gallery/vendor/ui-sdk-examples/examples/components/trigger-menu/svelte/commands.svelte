@@ -1,11 +1,7 @@
 <script lang="ts">
-  import { Field, FieldControl, FieldLabel } from "@ui-sdk/svelte/field"
-  import {
-    TriggerMenu,
-    TriggerMenuHint,
-    TriggerMenuInput,
-  } from "@ui-sdk/svelte/trigger-menu"
-  import { useLog } from "../../../shared/svelte/log"
+  import { Field, FieldControl, FieldLabel } from "@ui-sdk/svelte/field";
+  import { TriggerMenu, TriggerMenuHint, TriggerMenuInput } from "@ui-sdk/svelte/trigger-menu";
+  import { useLog } from "../../../shared/svelte/log";
 
   const commands = [
     {
@@ -33,26 +29,22 @@
     },
     { value: "away", label: "away", after: "submit" as const },
     { value: "clear", label: "clear" },
-  ]
+  ];
 
-  const log = useLog()
+  const log = useLog();
 </script>
 
 <form
   data-slot="stack"
   onsubmit={(event) => {
-    event.preventDefault()
-    log(`Sent ${new FormData(event.currentTarget).get("message")}`)
+    event.preventDefault();
+    log(`Sent ${new FormData(event.currentTarget).get("message")}`);
   }}
 >
   <TriggerMenu
-    triggers={[
-      { char: "/", boundary: "start", type: "command", items: commands },
-    ]}
+    triggers={[{ char: "/", boundary: "start", type: "command", items: commands }]}
     onSelect={(value, details) =>
-      log(
-        ["Chose", `/${value}`, ...Object.values(details.arguments)].join(" ")
-      )}
+      log(["Chose", `/${value}`, ...Object.values(details.arguments)].join(" "))}
   >
     <Field name="message">
       <FieldLabel>Message</FieldLabel>

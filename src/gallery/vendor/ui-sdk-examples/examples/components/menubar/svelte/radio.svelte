@@ -6,22 +6,22 @@
     MenuRadioGroup,
     MenuRadioItem,
     MenuTrigger,
-  } from "@ui-sdk/svelte/menu"
-  import { Menubar } from "@ui-sdk/svelte/menubar"
+  } from "@ui-sdk/svelte/menu";
+  import { Menubar } from "@ui-sdk/svelte/menubar";
 
   const profiles = [
     { value: "hollis", label: "Hollis" },
     { value: "ines", label: "Inès" },
     { value: "kofi", label: "Kofi" },
-  ]
+  ];
 
   const themes = [
     { value: "light", label: "Light" },
     { value: "dark", label: "Dark" },
     { value: "system", label: "System" },
-  ]
+  ];
 
-  let theme = $state("system")
+  let theme = $state("system");
 </script>
 
 <div data-slot="stack">

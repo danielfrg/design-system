@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { FileIcon, UploadIcon, XIcon } from "@lucide/svelte"
+  import { FileIcon, UploadIcon, XIcon } from "@lucide/svelte";
   import {
     FileInput,
     FileInputDropzone,
@@ -8,7 +8,7 @@
     FileInputList,
     FileInputTrigger,
     formatFileSize,
-  } from "@ui-sdk/svelte/file-input"
+  } from "@ui-sdk/svelte/file-input";
 </script>
 
 <FileInput multiple>

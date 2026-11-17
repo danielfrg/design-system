@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { ChevronRightIcon } from "@lucide/svelte"
+  import { ChevronRightIcon } from "@lucide/svelte";
   import {
     Tree,
     TreeGroup,
@@ -7,7 +7,7 @@
     TreeItemIndicator,
     TreeItemLabel,
     type TreeItemData,
-  } from "@ui-sdk/svelte/tree"
+  } from "@ui-sdk/svelte/tree";
 
   const items: TreeItemData[] = [
     {
@@ -43,7 +43,7 @@
         },
       ],
     },
-  ]
+  ];
 </script>
 
 {#snippet treeItems(nodes: TreeItemData[])}

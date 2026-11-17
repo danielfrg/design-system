@@ -6,14 +6,9 @@
     AutocompleteInput,
     AutocompleteItem,
     AutocompleteList,
-  } from "@ui-sdk/svelte/autocomplete"
-  import {
-    Field,
-    FieldDescription,
-    FieldError,
-    FieldLabel,
-  } from "@ui-sdk/svelte/field"
-  import { useLog } from "../../../shared/svelte/log"
+  } from "@ui-sdk/svelte/autocomplete";
+  import { Field, FieldDescription, FieldError, FieldLabel } from "@ui-sdk/svelte/field";
+  import { useLog } from "../../../shared/svelte/log";
 
   const fruits = [
     "Apple",
@@ -31,16 +26,16 @@
     "Pear",
     "Pineapple",
     "Strawberry",
-  ]
+  ];
 
-  const log = useLog()
+  const log = useLog();
 
   function submit(event: SubmitEvent) {
-    event.preventDefault()
+    event.preventDefault();
     const data = [...new FormData(event.currentTarget as HTMLFormElement)].map(
-      ([name, value]) => `${name}=${value}`
-    )
-    log(`Submitted ${data.join("&")}`)
+      ([name, value]) => `${name}=${value}`,
+    );
+    log(`Submitted ${data.join("&")}`);
   }
 </script>
 

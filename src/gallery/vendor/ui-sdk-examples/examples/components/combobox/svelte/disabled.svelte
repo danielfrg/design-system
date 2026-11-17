@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { CheckIcon, ChevronDownIcon } from "@lucide/svelte"
+  import { CheckIcon, ChevronDownIcon } from "@lucide/svelte";
   import {
     Combobox,
     ComboboxContent,
@@ -10,7 +10,7 @@
     ComboboxLabel,
     ComboboxList,
     ComboboxTrigger,
-  } from "@ui-sdk/svelte/combobox"
+  } from "@ui-sdk/svelte/combobox";
 
   const countries = [
     { value: "ar", label: "Argentina" },
@@ -30,12 +30,12 @@
     { value: "es", label: "Spain" },
     { value: "se", label: "Sweden" },
     { value: "ch", label: "Switzerland" },
-  ]
+  ];
 
   const countryLabel = (value: string) =>
-    countries.find((country) => country.value === value)?.label ?? value
+    countries.find((country) => country.value === value)?.label ?? value;
 
-  const variants = ["disabled", "readOnly", "item"] as const
+  const variants = ["disabled", "readOnly", "item"] as const;
 </script>
 
 <div data-slot="stack">

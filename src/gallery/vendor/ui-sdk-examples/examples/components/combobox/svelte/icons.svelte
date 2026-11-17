@@ -6,7 +6,7 @@
     CircleIcon,
     CircleCheckIcon,
     CircleXIcon,
-  } from "@lucide/svelte"
+  } from "@lucide/svelte";
   import {
     Combobox,
     ComboboxContent,
@@ -20,9 +20,9 @@
     ComboboxList,
     ComboboxTrigger,
     ComboboxValueIcon,
-  } from "@ui-sdk/svelte/combobox"
+  } from "@ui-sdk/svelte/combobox";
 
-  let field: HTMLDivElement | undefined = $state()
+  let field: HTMLDivElement | undefined = $state();
 </script>
 
 <Combobox>

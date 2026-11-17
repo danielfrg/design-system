@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "node scripts/check-tailwind-sync.mjs && node scripts/demo-index.mjs && node scripts/build-design-css.mjs && vite build",
+    "build": "node scripts/demo-index.mjs && node scripts/build-design-css.mjs && vite build",
     "preview": "vite preview",
     "sync": "node scripts/sync.mjs",
     "fmt": "oxfmt",

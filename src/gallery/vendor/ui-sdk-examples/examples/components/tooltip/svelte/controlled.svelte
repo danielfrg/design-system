@@ -1,16 +1,12 @@
 <script lang="ts">
-  import { CheckIcon } from "@lucide/svelte"
-  import { Checkbox, CheckboxIndicator } from "@ui-sdk/svelte/checkbox"
-  import {
-    Tooltip,
-    TooltipContent,
-    TooltipTrigger,
-  } from "@ui-sdk/svelte/tooltip"
-  import { useLog } from "../../../shared/svelte/log"
+  import { CheckIcon } from "@lucide/svelte";
+  import { Checkbox, CheckboxIndicator } from "@ui-sdk/svelte/checkbox";
+  import { Tooltip, TooltipContent, TooltipTrigger } from "@ui-sdk/svelte/tooltip";
+  import { useLog } from "../../../shared/svelte/log";
 
-  const log = useLog()
-  let open = $state(false)
-  let controls: HTMLDivElement | undefined = $state()
+  const log = useLog();
+  let open = $state(false);
+  let controls: HTMLDivElement | undefined = $state();
 </script>
 
 <div data-slot="stack">
@@ -27,12 +23,12 @@
   <Tooltip
     bind:open
     onOpenChange={(next, details) => {
-      const target = details.event?.target
-      const inControls = target instanceof Node && controls?.contains(target)
+      const target = details.event?.target;
+      const inControls = target instanceof Node && controls?.contains(target);
       if (inControls && details.reason !== "escape-key") {
-        return details.cancel()
+        return details.cancel();
       }
-      log(`${next ? "Opened" : "Closed"} (${details.reason})`)
+      log(`${next ? "Opened" : "Closed"} (${details.reason})`);
     }}
   >
     <TooltipTrigger>Export</TooltipTrigger>

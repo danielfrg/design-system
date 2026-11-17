@@ -10,23 +10,21 @@
     CalendarWeekdays,
     CalendarWeeks,
     type CalendarValue,
-  } from "@ui-sdk/svelte/calendar"
-  import { ChevronLeftIcon, ChevronRightIcon } from "@lucide/svelte"
-  import { useLog } from "../../../shared/svelte/log"
+  } from "@ui-sdk/svelte/calendar";
+  import { ChevronLeftIcon, ChevronRightIcon } from "@lucide/svelte";
+  import { useLog } from "../../../shared/svelte/log";
 
-  const log = useLog()
-  let value = $state<CalendarValue>("2026-10-16")
-  let month = $state("2026-10")
+  const log = useLog();
+  let value = $state<CalendarValue>("2026-10-16");
+  let month = $state("2026-10");
 </script>
 
 <div>
   <Calendar
     bind:value
     bind:month
-    onValueChange={(next, details) =>
-      log(`Selected ${String(next)} (${details.reason})`)}
-    onMonthChange={(next, details) =>
-      log(`Showing ${next} (${details.reason})`)}
+    onValueChange={(next, details) => log(`Selected ${String(next)} (${details.reason})`)}
+    onMonthChange={(next, details) => log(`Showing ${next} (${details.reason})`)}
   >
     <div data-slot="row">
       <CalendarPrevious data-variant="ghost">

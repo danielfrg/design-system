@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Field, FieldLabel } from "@ui-sdk/svelte/field"
+  import { Field, FieldLabel } from "@ui-sdk/svelte/field";
   import {
     Slider,
     SliderControl,
@@ -7,10 +7,10 @@
     SliderThumb,
     SliderTrack,
     SliderValue,
-  } from "@ui-sdk/svelte/slider"
+  } from "@ui-sdk/svelte/slider";
 
   const time = (minutes: number) =>
-    `${Math.floor(minutes / 60)}:${String(minutes % 60).padStart(2, "0")}`
+    `${Math.floor(minutes / 60)}:${String(minutes % 60).padStart(2, "0")}`;
 </script>
 
 <Field>

@@ -6,15 +6,13 @@
     FieldLabel,
     FieldLegend,
     FieldSet,
-  } from "@ui-sdk/svelte/field"
-  import { Input } from "@ui-sdk/svelte/input"
+  } from "@ui-sdk/svelte/field";
+  import { Input } from "@ui-sdk/svelte/input";
 </script>
 
 <FieldSet>
   <FieldLegend>Address</FieldLegend>
-  <FieldDescription
-    >We need your address to deliver your order.</FieldDescription
-  >
+  <FieldDescription>We need your address to deliver your order.</FieldDescription>
   <FieldGroup>
     <Field name="street">
       <FieldLabel>Street address</FieldLabel>

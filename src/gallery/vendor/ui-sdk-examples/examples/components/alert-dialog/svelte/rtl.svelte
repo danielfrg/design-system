@@ -7,7 +7,7 @@
     AlertDialogDescription,
     AlertDialogTitle,
     AlertDialogTrigger,
-  } from "@ui-sdk/svelte/alert-dialog"
+  } from "@ui-sdk/svelte/alert-dialog";
 </script>
 
 <div dir="rtl">
@@ -23,9 +23,7 @@
       </div>
       <div data-slot="row">
         <AlertDialogClose>إلغاء</AlertDialogClose>
-        <AlertDialogClose data-variant="solid" value="confirm">
-          متابعة
-        </AlertDialogClose>
+        <AlertDialogClose data-variant="solid" value="confirm">متابعة</AlertDialogClose>
       </div>
     </AlertDialogContent>
   </AlertDialog>

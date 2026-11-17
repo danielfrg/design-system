@@ -7,7 +7,7 @@
     TimelineMarker,
     TimelineTime,
     TimelineTitle,
-  } from "@ui-sdk/svelte/timeline"
+  } from "@ui-sdk/svelte/timeline";
 
   const events = [
     {
@@ -34,7 +34,7 @@
       time: "Yesterday, 5:05 PM",
       description: "Grace and Linus were asked to review.",
     },
-  ]
+  ];
 </script>
 
 <Timeline aria-label="Activity">

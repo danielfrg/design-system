@@ -1,11 +1,11 @@
 <script lang="ts">
-  import { EyeIcon, EyeOffIcon } from "@lucide/svelte"
-  import { Field, FieldDescription, FieldLabel } from "@ui-sdk/svelte/field"
+  import { EyeIcon, EyeOffIcon } from "@lucide/svelte";
+  import { Field, FieldDescription, FieldLabel } from "@ui-sdk/svelte/field";
   import {
     PasswordInput,
     PasswordInputControl,
     PasswordInputToggle,
-  } from "@ui-sdk/svelte/password-input"
+  } from "@ui-sdk/svelte/password-input";
 </script>
 
 <Field name="recovery-key">
@@ -22,7 +22,5 @@
       {/snippet}
     </PasswordInputToggle>
   </PasswordInput>
-  <FieldDescription
-    >Keep it somewhere safe. You can show it, but not change it.</FieldDescription
-  >
+  <FieldDescription>Keep it somewhere safe. You can show it, but not change it.</FieldDescription>
 </Field>

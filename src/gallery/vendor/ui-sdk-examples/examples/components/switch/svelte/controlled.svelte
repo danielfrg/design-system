@@ -1,11 +1,11 @@
 <script lang="ts">
-  import { createSwitchController } from "@ui-sdk/core/switch"
-  import { Switch, SwitchThumb } from "@ui-sdk/svelte/switch"
-  import { useLog } from "../../../shared/svelte/log"
+  import { createSwitchController } from "@ui-sdk/core/switch";
+  import { Switch, SwitchThumb } from "@ui-sdk/svelte/switch";
+  import { useLog } from "../../../shared/svelte/log";
 
-  const log = useLog()
-  const wifi = createSwitchController()
-  let checked = $state(true)
+  const log = useLog();
+  const wifi = createSwitchController();
+  let checked = $state(true);
 </script>
 
 <div data-slot="stack">
@@ -16,8 +16,7 @@
     Wi-Fi
     <Switch
       bind:checked
-      onCheckedChange={(next, details) =>
-        log(`${next ? "On" : "Off"} (${details.reason})`)}
+      onCheckedChange={(next, details) => log(`${next ? "On" : "Off"} (${details.reason})`)}
       controller={wifi}
     >
       <SwitchThumb />

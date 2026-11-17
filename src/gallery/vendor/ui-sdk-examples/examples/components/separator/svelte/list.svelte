@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Separator } from "@ui-sdk/svelte/separator"
+  import { Separator } from "@ui-sdk/svelte/separator";
 </script>
 
 <div data-slot="stack">

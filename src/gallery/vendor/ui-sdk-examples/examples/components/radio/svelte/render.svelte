@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { CheckIcon } from "@lucide/svelte"
-  import { Field, FieldLabel } from "@ui-sdk/svelte/field"
-  import { Radio, RadioGroup } from "@ui-sdk/svelte/radio"
+  import { CheckIcon } from "@lucide/svelte";
+  import { Field, FieldLabel } from "@ui-sdk/svelte/field";
+  import { Radio, RadioGroup } from "@ui-sdk/svelte/radio";
 
   const options = [
     {
@@ -15,9 +15,9 @@
       description: "Only when someone mentions you.",
     },
     { value: "none", label: "Nothing", description: "Turn notifications off." },
-  ]
+  ];
 
-  const id = $props.id()
+  const id = $props.id();
 </script>
 
 <Field>
@@ -37,10 +37,7 @@
                 >{option.description}</span
               >
             </span>
-            <CheckIcon
-              aria-hidden="true"
-              data-checked={state.checked ? "" : undefined}
-            />
+            <CheckIcon aria-hidden="true" data-checked={state.checked ? "" : undefined} />
           </button>
         {/snippet}
       </Radio>

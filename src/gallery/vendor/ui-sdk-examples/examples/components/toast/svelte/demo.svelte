@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { onDestroy } from "svelte"
+  import { onDestroy } from "svelte";
   import {
     Toast,
     ToastAction,
@@ -7,14 +7,14 @@
     ToastRegion,
     ToastTitle,
     createToaster,
-  } from "@ui-sdk/svelte/toast"
-  import { useLog } from "../../../shared/svelte/log"
+  } from "@ui-sdk/svelte/toast";
+  import { useLog } from "../../../shared/svelte/log";
 
-  const log = useLog()
-  const toast = createToaster()
+  const log = useLog();
+  const toast = createToaster();
   onDestroy(() => {
-    toast.dismiss()
-  })
+    toast.dismiss();
+  });
 </script>
 
 <button

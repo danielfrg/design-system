@@ -6,7 +6,7 @@
     SliderThumb,
     SliderTrack,
     SliderValue,
-  } from "@ui-sdk/svelte/slider"
+  } from "@ui-sdk/svelte/slider";
 </script>
 
 <div dir="rtl" data-slot="stack">

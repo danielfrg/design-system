@@ -17,8 +17,7 @@
       box-shadow var(--duration);
 
     &:hover:not([data-disabled], [data-readonly], [data-checked]) {
-      box-shadow: inset 0 0 0 1px
-        color-mix(in oklab, var(--ink) 45%, var(--surface-1));
+      box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--ink) 45%, var(--surface-1));
     }
 
     &[data-checked] {
@@ -97,17 +96,13 @@
     }
   }
 
-  :is([data-slot="label"], [data-slot="field"]):has(
-    [data-slot="switch"][data-disabled]
-  ) {
+  :is([data-slot="label"], [data-slot="field"]):has([data-slot="switch"][data-disabled]) {
     color: var(--line-disabled);
   }
 
   /* A switch row: its label at the start and the switch at the end, in a 20rem column. */
   :scope[data-example^="switch/"]
-    :is([data-slot="label"], [data-slot="field"], [data-slot="row"]):has(
-      > [data-slot="switch"]
-    ) {
+    :is([data-slot="label"], [data-slot="field"], [data-slot="row"]):has(> [data-slot="switch"]) {
     flex-wrap: nowrap;
     justify-content: space-between;
     gap: var(--space-4);
@@ -138,9 +133,7 @@
 
   /* A row with a description keeps the switch in line with the label. */
   :scope[data-example^="switch/"]
-    :is([data-slot="field"], [data-slot="row"]):has(
-      > [data-slot="stack"] + [data-slot="switch"]
-    ) {
+    :is([data-slot="field"], [data-slot="row"]):has(> [data-slot="stack"] + [data-slot="switch"]) {
     align-items: flex-start;
   }
 
@@ -176,8 +169,7 @@
     }
 
     &:hover:not(:has([data-checked])) {
-      box-shadow: 0 0 0 1px
-        color-mix(in oklab, var(--ink) 45%, var(--surface-1));
+      box-shadow: 0 0 0 1px color-mix(in oklab, var(--ink) 45%, var(--surface-1));
     }
   }
 }

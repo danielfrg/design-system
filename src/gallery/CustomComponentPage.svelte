@@ -27,7 +27,12 @@
   <section class="section">
     {#if demo.heading !== "Overview"}<h3 class="section__title">{demo.heading}</h3>{/if}
     {#if demo.intro}<p class="section__text">{@render text(demo.intro)}</p>{/if}
-    <DemoPreview name="{name}/{demo.file}" file={demo.file} component={loaded.component} source={loaded.source} />
+    <DemoPreview
+      name="{name}/{demo.file}"
+      file={demo.file}
+      component={loaded.component}
+      source={loaded.source}
+    />
     {#if demo.caption}<p class="section__caption">{@render text(demo.caption)}</p>{/if}
   </section>
 {/each}

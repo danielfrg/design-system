@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { ArrowLeftIcon, MoonIcon, UsersIcon } from "@lucide/svelte"
+  import { ArrowLeftIcon, MoonIcon, UsersIcon } from "@lucide/svelte";
   import {
     Command,
     CommandEmpty,
@@ -11,26 +11,26 @@
     CommandList,
     CommandPage,
     createCommandController,
-  } from "@ui-sdk/svelte/command"
+  } from "@ui-sdk/svelte/command";
 
   const themes = [
     { value: "light", label: "Light" },
     { value: "dark", label: "Dark" },
     { value: "system", label: "System" },
-  ]
+  ];
 
   const teams = [
     { value: "design", label: "Design" },
     { value: "engineering", label: "Engineering" },
     { value: "marketing", label: "Marketing" },
-  ]
+  ];
 
-  const command = createCommandController()
-  let pages = $state<string[]>([])
+  const command = createCommandController();
+  let pages = $state<string[]>([]);
 
   function onAction(value: string) {
     if (value === "back") {
-      command.pop()
+      command.pop();
     }
   }
 </script>
@@ -43,9 +43,7 @@
   </div>
   <CommandInput
     aria-label="Search commands"
-    placeholder={pages.length
-      ? "Search… (Backspace to go back)"
-      : "What do you need?"}
+    placeholder={pages.length ? "Search… (Backspace to go back)" : "What do you need?"}
   />
   <CommandEmpty>No results found.</CommandEmpty>
   <CommandList>

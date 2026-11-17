@@ -10,7 +10,7 @@
     AutocompleteLabel,
     AutocompleteList,
     AutocompleteSeparator,
-  } from "@ui-sdk/svelte/autocomplete"
+  } from "@ui-sdk/svelte/autocomplete";
 
   const fruitGroups = [
     {
@@ -22,7 +22,7 @@
       items: ["Blackberry", "Blueberry", "Grape", "Strawberry"],
     },
     { label: "Tropical", items: ["Avocado", "Banana", "Mango", "Pineapple"] },
-  ]
+  ];
 </script>
 
 <Autocomplete>

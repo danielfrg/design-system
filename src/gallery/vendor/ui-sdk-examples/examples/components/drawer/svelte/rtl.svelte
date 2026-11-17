@@ -7,9 +7,9 @@
     DrawerDescription,
     DrawerTitle,
     DrawerTrigger,
-  } from "@ui-sdk/svelte/drawer"
+  } from "@ui-sdk/svelte/drawer";
 
-  const links = ["الرئيسية", "الطلبات", "المنتجات", "العملاء", "الإعدادات"]
+  const links = ["الرئيسية", "الطلبات", "المنتجات", "العملاء", "الإعدادات"];
 </script>
 
 <div dir="rtl">

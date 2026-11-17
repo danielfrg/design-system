@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { addDays, endOfMonth, startOfMonth } from "@ui-sdk/core/date"
+  import { addDays, endOfMonth, startOfMonth } from "@ui-sdk/core/date";
   import {
     Calendar,
     CalendarDay,
@@ -11,17 +11,17 @@
     CalendarWeekdays,
     CalendarWeeks,
     createCalendarController,
-  } from "@ui-sdk/svelte/calendar"
-  import { ChevronLeftIcon, ChevronRightIcon } from "@lucide/svelte"
+  } from "@ui-sdk/svelte/calendar";
+  import { ChevronLeftIcon, ChevronRightIcon } from "@lucide/svelte";
 
-  const today = "2026-10-16"
+  const today = "2026-10-16";
   const presets = [
     { label: "Last 7 Days", range: [addDays(today, -6), today] },
     { label: "This Month", range: [startOfMonth(today), endOfMonth(today)] },
     { label: "Next 30 Days", range: [today, addDays(today, 29)] },
-  ] as const
+  ] as const;
 
-  const calendar = createCalendarController()
+  const calendar = createCalendarController();
 </script>
 
 <div data-slot="stack">
@@ -31,8 +31,8 @@
         type="button"
         data-size="sm"
         onclick={() => {
-          calendar.setValue([...preset.range])
-          calendar.focus(preset.range[0])
+          calendar.setValue([...preset.range]);
+          calendar.focus(preset.range[0]);
         }}
       >
         {preset.label}

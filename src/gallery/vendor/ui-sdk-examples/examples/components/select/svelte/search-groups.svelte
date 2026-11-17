@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { CheckIcon, ChevronDownIcon } from "@lucide/svelte"
-  import { Field, FieldLabel } from "@ui-sdk/svelte/field"
+  import { CheckIcon, ChevronDownIcon } from "@lucide/svelte";
+  import { Field, FieldLabel } from "@ui-sdk/svelte/field";
   import {
     Select,
     SelectContent,
@@ -14,7 +14,7 @@
     SelectList,
     SelectTrigger,
     SelectValue,
-  } from "@ui-sdk/svelte/select"
+  } from "@ui-sdk/svelte/select";
 
   const regions = [
     {
@@ -41,7 +41,7 @@
         { value: "sg", label: "Singapore" },
       ],
     },
-  ]
+  ];
 </script>
 
 <Field>
@@ -52,10 +52,7 @@
       <ChevronDownIcon />
     </SelectTrigger>
     <SelectContent>
-      <SelectInput
-        aria-label="Search countries"
-        placeholder="Search countries…"
-      />
+      <SelectInput aria-label="Search countries" placeholder="Search countries…" />
       <SelectEmpty>No countries found.</SelectEmpty>
       <SelectList>
         {#each regions as group (group.label)}

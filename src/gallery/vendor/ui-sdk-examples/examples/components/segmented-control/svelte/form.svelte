@@ -1,18 +1,18 @@
 <script lang="ts">
-  import { Field, FieldDescription, FieldLabel } from "@ui-sdk/svelte/field"
+  import { Field, FieldDescription, FieldLabel } from "@ui-sdk/svelte/field";
   import {
     SegmentedControl,
     SegmentedControlIndicator,
     SegmentedControlItem,
-  } from "@ui-sdk/svelte/segmented-control"
-  import { useLog } from "../../../shared/svelte/log"
+  } from "@ui-sdk/svelte/segmented-control";
+  import { useLog } from "../../../shared/svelte/log";
 
-  const log = useLog()
+  const log = useLog();
 
   function onSubmit(event: SubmitEvent & { currentTarget: HTMLFormElement }) {
-    event.preventDefault()
-    const data = new FormData(event.currentTarget)
-    log(`Saved theme=${data.get("theme")}, density=${data.get("density")}`)
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    log(`Saved theme=${data.get("theme")}, density=${data.get("density")}`);
   }
 </script>
 
@@ -32,9 +32,7 @@
     <SegmentedControl name="density" defaultValue="comfortable">
       <SegmentedControlIndicator />
       <SegmentedControlItem value="compact">Compact</SegmentedControlItem>
-      <SegmentedControlItem value="comfortable"
-        >Comfortable</SegmentedControlItem
-      >
+      <SegmentedControlItem value="comfortable">Comfortable</SegmentedControlItem>
     </SegmentedControl>
   </Field>
   <div data-slot="row">

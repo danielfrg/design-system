@@ -7,7 +7,7 @@
     DrawerDescription,
     DrawerTitle,
     DrawerTrigger,
-  } from "@ui-sdk/svelte/drawer"
+  } from "@ui-sdk/svelte/drawer";
 
   const sides = [
     {
@@ -34,7 +34,7 @@
       title: "Menu",
       description: "Jump to a section of the docs.",
     },
-  ] as const
+  ] as const;
 </script>
 
 <div data-slot="row">

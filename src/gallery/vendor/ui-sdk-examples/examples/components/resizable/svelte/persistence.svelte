@@ -1,9 +1,5 @@
 <script lang="ts">
-  import {
-    Resizable,
-    ResizableHandle,
-    ResizablePanel,
-  } from "@ui-sdk/svelte/resizable"
+  import { Resizable, ResizableHandle, ResizablePanel } from "@ui-sdk/svelte/resizable";
 </script>
 
 <Resizable autoSaveId="docs-persistence">

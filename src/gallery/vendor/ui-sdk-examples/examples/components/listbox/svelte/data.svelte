@@ -1,12 +1,12 @@
 <script lang="ts">
-  import { CheckIcon } from "@lucide/svelte"
+  import { CheckIcon } from "@lucide/svelte";
   import {
     Listbox,
     ListboxItem,
     ListboxItemIndicator,
     type ListData,
-  } from "@ui-sdk/svelte/listbox"
-  import { useLog } from "../../../shared/svelte/log"
+  } from "@ui-sdk/svelte/listbox";
+  import { useLog } from "../../../shared/svelte/log";
 
   const plans = [
     { value: { id: "hobby", price: 0 }, label: "Hobby" },
@@ -17,9 +17,9 @@
       label: "Enterprise",
       disabled: true,
     },
-  ] satisfies ListData<{ id: string; price: number }>
+  ] satisfies ListData<{ id: string; price: number }>;
 
-  const log = useLog()
+  const log = useLog();
 </script>
 
 <Listbox
@@ -28,8 +28,7 @@
   onValueChange={(plan: { id: string; price: number } | null) =>
     log(plan ? `${plan.id}, $${plan.price} a month` : "No plan")}
   itemToValue={(plan: { id: string }) => plan.id}
-  isItemEqualToValue={(plan: { id: string }, selected: { id: string }) =>
-    plan.id === selected.id}
+  isItemEqualToValue={(plan: { id: string }, selected: { id: string }) => plan.id === selected.id}
   aria-label="Plan"
 >
   {#each plans as plan (plan.value.id)}

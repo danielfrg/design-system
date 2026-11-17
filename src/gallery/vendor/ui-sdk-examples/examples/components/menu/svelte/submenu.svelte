@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { ChevronRightIcon } from "@lucide/svelte"
+  import { ChevronRightIcon } from "@lucide/svelte";
   import {
     Menu,
     MenuContent,
@@ -9,10 +9,10 @@
     MenuSubContent,
     MenuSubTrigger,
     MenuTrigger,
-  } from "@ui-sdk/svelte/menu"
-  import { useLog } from "../../../shared/svelte/log"
+  } from "@ui-sdk/svelte/menu";
+  import { useLog } from "../../../shared/svelte/log";
 
-  const log = useLog()
+  const log = useLog();
 </script>
 
 <Menu onAction={(value) => log(`Chose ${value}`)}>
@@ -29,9 +29,7 @@
       <MenuSubContent>
         <MenuItem value="find" shortcut="mod+f">Find…</MenuItem>
         <MenuItem value="find-next" shortcut="mod+g">Find next</MenuItem>
-        <MenuItem value="find-previous" shortcut="mod+shift+g"
-          >Find previous</MenuItem
-        >
+        <MenuItem value="find-previous" shortcut="mod+shift+g">Find previous</MenuItem>
       </MenuSubContent>
     </MenuSub>
     <MenuSub>

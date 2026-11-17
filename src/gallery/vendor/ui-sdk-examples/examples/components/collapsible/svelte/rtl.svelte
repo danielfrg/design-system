@@ -1,17 +1,13 @@
 <script lang="ts">
-  import { ChevronDownIcon } from "@lucide/svelte"
-  import {
-    Collapsible,
-    CollapsiblePanel,
-    CollapsibleTrigger,
-  } from "@ui-sdk/svelte/collapsible"
+  import { ChevronDownIcon } from "@lucide/svelte";
+  import { Collapsible, CollapsiblePanel, CollapsibleTrigger } from "@ui-sdk/svelte/collapsible";
 
   const details = [
     { label: "عنوان الشحن", value: "شارع الملك فهد، الرياض" },
     { label: "المنتجات", value: "قميص كتان × ٢" },
     { label: "التوصيل", value: "عادي، يصل في ٧ مارس" },
     { label: "الإجمالي", value: "٨٤٫٠٠ $" },
-  ]
+  ];
 </script>
 
 <div dir="rtl">

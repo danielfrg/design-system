@@ -1,18 +1,18 @@
 <script lang="ts">
-  import { Field, FieldDescription, FieldLabel } from "@ui-sdk/svelte/field"
-  import { Radio, RadioGroup, RadioIndicator } from "@ui-sdk/svelte/radio"
+  import { Field, FieldDescription, FieldLabel } from "@ui-sdk/svelte/field";
+  import { Radio, RadioGroup, RadioIndicator } from "@ui-sdk/svelte/radio";
 
   const themes = [
     { value: "light", label: "Light" },
     { value: "dark", label: "Dark" },
     { value: "system", label: "System" },
-  ]
+  ];
 
   const backups = [
     { value: "hourly", label: "Hourly", disabled: true },
     { value: "daily", label: "Daily", disabled: false },
     { value: "weekly", label: "Weekly", disabled: false },
-  ]
+  ];
 </script>
 
 <div data-slot="stack">

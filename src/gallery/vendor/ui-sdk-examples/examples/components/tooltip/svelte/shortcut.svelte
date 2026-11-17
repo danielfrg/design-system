@@ -1,24 +1,19 @@
 <script lang="ts">
-  import { SaveIcon } from "@lucide/svelte"
-  import { registerShortcut } from "@ui-sdk/core/shortcuts"
-  import {
-    Tooltip,
-    TooltipContent,
-    TooltipShortcut,
-    TooltipTrigger,
-  } from "@ui-sdk/svelte/tooltip"
-  import { useLog } from "../../../shared/svelte/log"
+  import { SaveIcon } from "@lucide/svelte";
+  import { registerShortcut } from "@ui-sdk/core/shortcuts";
+  import { Tooltip, TooltipContent, TooltipShortcut, TooltipTrigger } from "@ui-sdk/svelte/tooltip";
+  import { useLog } from "../../../shared/svelte/log";
 
-  const log = useLog()
+  const log = useLog();
 
   $effect(() => {
-    const offSave = registerShortcut("mod+s", () => log("Saved"))
-    const offShare = registerShortcut("mod+shift+e", () => log("Shared"))
+    const offSave = registerShortcut("mod+s", () => log("Saved"));
+    const offShare = registerShortcut("mod+shift+e", () => log("Shared"));
     return () => {
-      offSave()
-      offShare()
-    }
-  })
+      offSave();
+      offShare();
+    };
+  });
 </script>
 
 <div data-slot="row">

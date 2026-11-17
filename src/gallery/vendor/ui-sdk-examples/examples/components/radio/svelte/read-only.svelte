@@ -1,12 +1,12 @@
 <script lang="ts">
-  import { Field, FieldDescription, FieldLabel } from "@ui-sdk/svelte/field"
-  import { Radio, RadioGroup, RadioIndicator } from "@ui-sdk/svelte/radio"
+  import { Field, FieldDescription, FieldLabel } from "@ui-sdk/svelte/field";
+  import { Radio, RadioGroup, RadioIndicator } from "@ui-sdk/svelte/radio";
 
   const plans = [
     { value: "free", label: "Free" },
     { value: "pro", label: "Pro" },
     { value: "team", label: "Team" },
-  ]
+  ];
 </script>
 
 <Field>

@@ -1,11 +1,11 @@
 <script lang="ts">
-  import { CheckIcon, EyeIcon, EyeOffIcon, XIcon } from "@lucide/svelte"
-  import { Field, FieldLabel } from "@ui-sdk/svelte/field"
+  import { CheckIcon, EyeIcon, EyeOffIcon, XIcon } from "@lucide/svelte";
+  import { Field, FieldLabel } from "@ui-sdk/svelte/field";
   import {
     PasswordInput,
     PasswordInputControl,
     PasswordInputToggle,
-  } from "@ui-sdk/svelte/password-input"
+  } from "@ui-sdk/svelte/password-input";
 
   const rules = [
     {
@@ -15,12 +15,11 @@
     { label: "A number", test: (password: string) => /\d/.test(password) },
     {
       label: "An uppercase and a lowercase letter",
-      test: (password: string) =>
-        /[a-z]/.test(password) && /[A-Z]/.test(password),
+      test: (password: string) => /[a-z]/.test(password) && /[A-Z]/.test(password),
     },
-  ]
+  ];
 
-  let password = $state("")
+  let password = $state("");
 </script>
 
 <Field name="new-password">

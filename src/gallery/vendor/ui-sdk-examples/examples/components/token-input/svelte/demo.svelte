@@ -1,19 +1,19 @@
 <script lang="ts">
-  import { XIcon } from "@lucide/svelte"
-  import { Field, FieldLabel } from "@ui-sdk/svelte/field"
+  import { XIcon } from "@lucide/svelte";
+  import { Field, FieldLabel } from "@ui-sdk/svelte/field";
   import {
     TokenInput,
     TokenInputEditor,
     TokenInputToken,
     TokenInputTokenRemove,
-  } from "@ui-sdk/svelte/token-input"
+  } from "@ui-sdk/svelte/token-input";
   import {
     type TriggerMenuDataItem,
     TriggerMenu,
     TriggerMenuContent,
     TriggerMenuItem,
     TriggerMenuList,
-  } from "@ui-sdk/svelte/trigger-menu"
+  } from "@ui-sdk/svelte/trigger-menu";
 
   const people = [
     { value: "hollis", label: "Hollis Grant" },
@@ -21,7 +21,7 @@
     { value: "kofi", label: "Kofi Mensah" },
     { value: "wren", label: "Wren Takahashi" },
     { value: "tomasz", label: "Tomasz Wójcik" },
-  ]
+  ];
 </script>
 
 <Field>

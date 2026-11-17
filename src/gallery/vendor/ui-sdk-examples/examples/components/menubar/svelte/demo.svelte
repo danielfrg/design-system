@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { CheckIcon, ChevronRightIcon } from "@lucide/svelte"
+  import { CheckIcon, ChevronRightIcon } from "@lucide/svelte";
   import {
     Menu,
     MenuCheckboxItem,
@@ -14,16 +14,16 @@
     MenuSubContent,
     MenuSubTrigger,
     MenuTrigger,
-  } from "@ui-sdk/svelte/menu"
-  import { Menubar } from "@ui-sdk/svelte/menubar"
-  import { useLog } from "../../../shared/svelte/log"
+  } from "@ui-sdk/svelte/menu";
+  import { Menubar } from "@ui-sdk/svelte/menubar";
+  import { useLog } from "../../../shared/svelte/log";
 
-  const recent = ["Q3 roadmap", "Launch checklist", "Offsite notes"]
-  const formats = ["PDF", "Markdown", "HTML"]
-  const appearances = ["Light", "Dark", "System"]
+  const recent = ["Q3 roadmap", "Launch checklist", "Offsite notes"];
+  const formats = ["PDF", "Markdown", "HTML"];
+  const appearances = ["Light", "Dark", "System"];
 
-  const log = useLog()
-  const chose = (value: string) => log(`Chose ${value}`)
+  const log = useLog();
+  const chose = (value: string) => log(`Chose ${value}`);
 </script>
 
 <Menubar>
@@ -72,8 +72,7 @@
     </MenuContent>
   </Menu>
   <Menu
-    onCheckedChange={(checked, details) =>
-      log(`${details.value} ${checked ? "on" : "off"}`)}
+    onCheckedChange={(checked, details) => log(`${details.value} ${checked ? "on" : "off"}`)}
     onValueChange={(value) => log(`${value} appearance`)}
   >
     <MenuTrigger>View</MenuTrigger>

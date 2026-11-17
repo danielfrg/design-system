@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { CheckIcon, ChevronDownIcon } from "@lucide/svelte"
+  import { CheckIcon, ChevronDownIcon } from "@lucide/svelte";
   import {
     Combobox,
     ComboboxContent,
@@ -10,8 +10,8 @@
     ComboboxLabel,
     ComboboxList,
     ComboboxTrigger,
-  } from "@ui-sdk/svelte/combobox"
-  import { useLog } from "../../../shared/svelte/log"
+  } from "@ui-sdk/svelte/combobox";
+  import { useLog } from "../../../shared/svelte/log";
 
   const frameworks = [
     { value: "next", label: "Next.js" },
@@ -21,15 +21,12 @@
     { value: "astro", label: "Astro" },
     { value: "solidstart", label: "SolidStart" },
     { value: "qwik", label: "Qwik City" },
-  ]
+  ];
 
-  const log = useLog()
+  const log = useLog();
 </script>
 
-<Combobox
-  onOpenChangeComplete={(open) =>
-    log(open ? "Finished opening" : "Finished closing")}
->
+<Combobox onOpenChangeComplete={(open) => log(open ? "Finished opening" : "Finished closing")}>
   <div data-slot="stack">
     <ComboboxLabel>Framework</ComboboxLabel>
     <div data-slot="row">

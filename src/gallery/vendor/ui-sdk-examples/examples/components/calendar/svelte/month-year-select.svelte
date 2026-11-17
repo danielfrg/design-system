@@ -11,8 +11,8 @@
     CalendarWeekdays,
     CalendarWeeks,
     CalendarYearSelect,
-  } from "@ui-sdk/svelte/calendar"
-  import { ChevronLeftIcon, ChevronRightIcon } from "@lucide/svelte"
+  } from "@ui-sdk/svelte/calendar";
+  import { ChevronLeftIcon, ChevronRightIcon } from "@lucide/svelte";
 </script>
 
 <Calendar defaultMonth="1990-06" min="1920-01-01" max="2026-10-16">

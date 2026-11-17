@@ -58,10 +58,7 @@
   }
 
   /* A toggle on its own looks like an outline button, and fills in while pressed. */
-  [data-slot="toggle"]:not(
-    [data-variant="ghost"],
-    [data-slot="toggle-group"] *
-  ) {
+  [data-slot="toggle"]:not([data-variant="ghost"], [data-slot="toggle-group"] *) {
     padding-inline: 14px;
     background: var(--surface-1);
     box-shadow:

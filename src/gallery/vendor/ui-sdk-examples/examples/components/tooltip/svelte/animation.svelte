@@ -1,13 +1,9 @@
 <script lang="ts">
-  import { ArchiveIcon } from "@lucide/svelte"
-  import {
-    Tooltip,
-    TooltipContent,
-    TooltipTrigger,
-  } from "@ui-sdk/svelte/tooltip"
-  import { useLog } from "../../../shared/svelte/log"
+  import { ArchiveIcon } from "@lucide/svelte";
+  import { Tooltip, TooltipContent, TooltipTrigger } from "@ui-sdk/svelte/tooltip";
+  import { useLog } from "../../../shared/svelte/log";
 
-  const log = useLog()
+  const log = useLog();
 </script>
 
 <Tooltip

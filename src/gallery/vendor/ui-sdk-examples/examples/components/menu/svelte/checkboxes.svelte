@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { CheckIcon } from "@lucide/svelte"
+  import { CheckIcon } from "@lucide/svelte";
   import {
     Menu,
     MenuCheckboxItem,
@@ -9,16 +9,13 @@
     MenuItemIndicator,
     MenuSeparator,
     MenuTrigger,
-  } from "@ui-sdk/svelte/menu"
-  import { useLog } from "../../../shared/svelte/log"
+  } from "@ui-sdk/svelte/menu";
+  import { useLog } from "../../../shared/svelte/log";
 
-  const log = useLog()
+  const log = useLog();
 </script>
 
-<Menu
-  onCheckedChange={(checked, details) =>
-    log(`${details.value} ${checked ? "on" : "off"}`)}
->
+<Menu onCheckedChange={(checked, details) => log(`${details.value} ${checked ? "on" : "off"}`)}>
   <MenuTrigger>View</MenuTrigger>
   <MenuContent>
     <MenuGroup>

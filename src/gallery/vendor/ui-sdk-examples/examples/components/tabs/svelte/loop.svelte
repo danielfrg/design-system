@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Tabs, TabsList, TabsPanel, TabsTab } from "@ui-sdk/svelte/tabs"
+  import { Tabs, TabsList, TabsPanel, TabsTab } from "@ui-sdk/svelte/tabs";
 
   const ranges = [
     {
@@ -22,7 +22,7 @@
       label: "Year",
       content: "48,930 visitors this year, up 21% from last year.",
     },
-  ]
+  ];
 </script>
 
 <Tabs defaultValue="day" loop={false}>

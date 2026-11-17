@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { onDestroy } from "svelte"
+  import { onDestroy } from "svelte";
   import {
     Toast,
     ToastAction,
@@ -7,18 +7,18 @@
     ToastRegion,
     ToastTitle,
     createToaster,
-  } from "@ui-sdk/svelte/toast"
-  import { useLog } from "../../../shared/svelte/log"
+  } from "@ui-sdk/svelte/toast";
+  import { useLog } from "../../../shared/svelte/log";
 
   function restore() {
-    return new Promise((resolve) => setTimeout(resolve, 1500))
+    return new Promise((resolve) => setTimeout(resolve, 1500));
   }
 
-  const log = useLog()
-  const toast = createToaster({ duration: 6000 })
+  const log = useLog();
+  const toast = createToaster({ duration: 6000 });
   onDestroy(() => {
-    toast.dismiss()
-  })
+    toast.dismiss();
+  });
 </script>
 
 <button
@@ -28,8 +28,8 @@
       action: {
         label: "Undo",
         onAction: async () => {
-          await restore()
-          log("Q3 report.pdf restored")
+          await restore();
+          log("Q3 report.pdf restored");
         },
       },
     })}

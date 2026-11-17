@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { CheckIcon, ChevronDownIcon } from "@lucide/svelte"
+  import { CheckIcon, ChevronDownIcon } from "@lucide/svelte";
   import {
     Combobox,
     ComboboxContent,
@@ -11,8 +11,8 @@
     ComboboxList,
     ComboboxStatus,
     ComboboxTrigger,
-  } from "@ui-sdk/svelte/combobox"
-  import { useAsyncOptions } from "@ui-sdk/svelte/async-options"
+  } from "@ui-sdk/svelte/combobox";
+  import { useAsyncOptions } from "@ui-sdk/svelte/async-options";
 
   const movieTitles = [
     "The Shawshank Redemption",
@@ -37,35 +37,33 @@
     "Casablanca",
     "Amélie",
     "Arrival",
-  ]
+  ];
 
   function searchMovies(query: string, { signal }: { signal: AbortSignal }) {
-    return new Promise<{ value: string; label: string }[]>(
-      (resolve, reject) => {
-        const timer = setTimeout(() => {
-          const needle = query.trim().toLowerCase()
-          resolve(
-            movieTitles
-              .filter((title) => title.toLowerCase().includes(needle))
-              .map((title) => ({
-                value: title.toLowerCase().replace(/\W+/g, "-"),
-                label: title,
-              }))
-          )
-        }, 500)
-        signal.addEventListener("abort", () => {
-          clearTimeout(timer)
-          reject(signal.reason)
-        })
-      }
-    )
+    return new Promise<{ value: string; label: string }[]>((resolve, reject) => {
+      const timer = setTimeout(() => {
+        const needle = query.trim().toLowerCase();
+        resolve(
+          movieTitles
+            .filter((title) => title.toLowerCase().includes(needle))
+            .map((title) => ({
+              value: title.toLowerCase().replace(/\W+/g, "-"),
+              label: title,
+            })),
+        );
+      }, 500);
+      signal.addEventListener("abort", () => {
+        clearTimeout(timer);
+        reject(signal.reason);
+      });
+    });
   }
 
   const movies = useAsyncOptions(searchMovies, {
     debounce: 300,
     query: "the",
     immediate: true,
-  })
+  });
 </script>
 
 <Combobox
@@ -102,11 +100,7 @@
     <ComboboxList>
       {#snippet children(state)}
         {#each state.items as { value: string; label: string; disabled?: boolean }[] as item (item.value)}
-          <ComboboxItem
-            value={item.value}
-            label={item.label}
-            disabled={item.disabled}
-          >
+          <ComboboxItem value={item.value} label={item.label} disabled={item.disabled}>
             {item.label}
             <ComboboxItemIndicator>
               <CheckIcon aria-hidden="true" />

@@ -8,7 +8,7 @@
     DialogShortcut,
     DialogTitle,
     DialogTrigger,
-  } from "@ui-sdk/svelte/dialog"
+  } from "@ui-sdk/svelte/dialog";
 </script>
 
 <Dialog>
@@ -32,9 +32,7 @@
           {/snippet}
         </DialogTitle>
         <DialogDescription>
-          {state.nested
-            ? "Opened from another dialog."
-            : "Quarterly report, updated today."}
+          {state.nested ? "Opened from another dialog." : "Quarterly report, updated today."}
         </DialogDescription>
       </div>
       <div data-slot="row">

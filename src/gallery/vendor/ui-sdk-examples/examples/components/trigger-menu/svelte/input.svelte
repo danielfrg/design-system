@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Field, FieldControl, FieldLabel } from "@ui-sdk/svelte/field"
+  import { Field, FieldControl, FieldLabel } from "@ui-sdk/svelte/field";
   import {
     type TriggerMenuDataItem,
     TriggerMenu,
@@ -7,7 +7,7 @@
     TriggerMenuInput,
     TriggerMenuItem,
     TriggerMenuList,
-  } from "@ui-sdk/svelte/trigger-menu"
+  } from "@ui-sdk/svelte/trigger-menu";
 
   const people = [
     { value: "hollis", label: "Hollis Grant" },
@@ -15,14 +15,10 @@
     { value: "kofi", label: "Kofi Mensah" },
     { value: "wren", label: "Wren Takahashi" },
     { value: "tomasz", label: "Tomasz Wójcik" },
-  ]
+  ];
 </script>
 
-<TriggerMenu
-  triggers={[{ char: "@", items: people }]}
-  autoHighlight={false}
-  loop={false}
->
+<TriggerMenu triggers={[{ char: "@", items: people }]} autoHighlight={false} loop={false}>
   <Field>
     <FieldLabel>Task</FieldLabel>
     <FieldControl>

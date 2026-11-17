@@ -6,7 +6,7 @@
     ColorPickerInput,
     ColorPickerSlider,
     ColorPickerSliderThumb,
-  } from "@ui-sdk/svelte/color-picker"
+  } from "@ui-sdk/svelte/color-picker";
 </script>
 
 <ColorPicker aria-label="Brand color" defaultValue="#0ea5e9" disabled>

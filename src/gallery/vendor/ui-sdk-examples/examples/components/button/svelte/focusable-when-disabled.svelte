@@ -1,13 +1,13 @@
 <script lang="ts">
-  import { Button } from "@ui-sdk/svelte/button"
-  import { Field, FieldLabel } from "@ui-sdk/svelte/field"
-  import { Input } from "@ui-sdk/svelte/input"
-  import { useLog } from "../../../shared/svelte/log"
+  import { Button } from "@ui-sdk/svelte/button";
+  import { Field, FieldLabel } from "@ui-sdk/svelte/field";
+  import { Input } from "@ui-sdk/svelte/input";
+  import { useLog } from "../../../shared/svelte/log";
 
-  const log = useLog()
-  let title = $state("")
-  const hint = $props.id()
-  const ready = $derived(title.trim() !== "")
+  const log = useLog();
+  let title = $state("");
+  const hint = $props.id();
+  const ready = $derived(title.trim() !== "");
 </script>
 
 <div data-slot="stack">

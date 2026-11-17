@@ -9,10 +9,10 @@
     CalendarWeekday,
     CalendarWeekdays,
     CalendarWeeks,
-  } from "@ui-sdk/svelte/calendar"
-  import { ChevronLeftIcon, ChevronRightIcon } from "@lucide/svelte"
+  } from "@ui-sdk/svelte/calendar";
+  import { ChevronLeftIcon, ChevronRightIcon } from "@lucide/svelte";
 
-  const priceOf = (date: string) => 80 + ((Number(date.slice(8)) * 7) % 5) * 10
+  const priceOf = (date: string) => 80 + ((Number(date.slice(8)) * 7) % 5) * 10;
 </script>
 
 <Calendar today="2026-10-16" defaultValue="2026-10-16">
@@ -32,9 +32,7 @@
           {#snippet children(state)}
             <abbr
               title={state.name}
-              data-weekend={state.weekday === 0 ||
-                state.weekday === 6 ||
-                undefined}
+              data-weekend={state.weekday === 0 || state.weekday === 6 || undefined}
             >
               {state.label}
             </abbr>

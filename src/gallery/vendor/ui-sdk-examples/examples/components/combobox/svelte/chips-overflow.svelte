@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { CheckIcon, XIcon } from "@lucide/svelte"
+  import { CheckIcon, XIcon } from "@lucide/svelte";
   import {
     Combobox,
     ComboboxChip,
@@ -14,7 +14,7 @@
     ComboboxLabel,
     ComboboxList,
     ComboboxValue,
-  } from "@ui-sdk/svelte/combobox"
+  } from "@ui-sdk/svelte/combobox";
 
   const countries = [
     { value: "ar", label: "Argentina", keywords: ["república argentina"] },
@@ -38,17 +38,13 @@
       label: "Switzerland",
       keywords: ["schweiz", "suisse", "svizzera"],
     },
-  ]
+  ];
 
   const countryLabel = (value: string) =>
-    countries.find((country) => country.value === value)?.label ?? value
+    countries.find((country) => country.value === value)?.label ?? value;
 </script>
 
-<Combobox
-  multiple
-  defaultValue={["fr", "jp", "se", "de", "ch"]}
-  itemToLabel={countryLabel}
->
+<Combobox multiple defaultValue={["fr", "jp", "se", "de", "ch"]} itemToLabel={countryLabel}>
   <div data-slot="stack">
     <ComboboxLabel>Countries</ComboboxLabel>
     <ComboboxChips>
@@ -74,10 +70,7 @@
       <ComboboxInput placeholder="Add…" />
     </ComboboxChips>
     <p data-slot="hint">
-      <ComboboxValue
-        maxLabels={2}
-        getMoreLabel={(count: number) => `${count} more`}
-      />
+      <ComboboxValue maxLabels={2} getMoreLabel={(count: number) => `${count} more`} />
     </p>
   </div>
   <ComboboxContent>

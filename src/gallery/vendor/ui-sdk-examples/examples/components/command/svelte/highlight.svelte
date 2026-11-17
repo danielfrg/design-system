@@ -7,7 +7,7 @@
     SettingsIcon,
     SmileIcon,
     UserIcon,
-  } from "@lucide/svelte"
+  } from "@lucide/svelte";
   import {
     Command,
     CommandEmpty,
@@ -16,7 +16,7 @@
     CommandItemIcon,
     CommandItemText,
     CommandList,
-  } from "@ui-sdk/svelte/command"
+  } from "@ui-sdk/svelte/command";
 
   const commands = [
     { value: "calendar", label: "Calendar", icon: CalendarIcon },
@@ -30,16 +30,13 @@
     { value: "profile", label: "Profile", icon: UserIcon },
     { value: "billing", label: "Billing", icon: CreditCardIcon },
     { value: "settings", label: "Settings", icon: SettingsIcon },
-  ]
+  ];
 </script>
 
 <Command>
   <div data-slot="row">
     <SearchIcon aria-hidden="true" />
-    <CommandInput
-      aria-label="Search commands"
-      placeholder="Try “prf” or “emo”…"
-    />
+    <CommandInput aria-label="Search commands" placeholder="Try “prf” or “emo”…" />
   </div>
   <CommandEmpty>No results found.</CommandEmpty>
   <CommandList>

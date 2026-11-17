@@ -1,13 +1,13 @@
 <script lang="ts">
-  import { MinusIcon, PlusIcon } from "@lucide/svelte"
-  import { Field, FieldDescription, FieldLabel } from "@ui-sdk/svelte/field"
+  import { MinusIcon, PlusIcon } from "@lucide/svelte";
+  import { Field, FieldDescription, FieldLabel } from "@ui-sdk/svelte/field";
   import {
     NumberInput,
     NumberInputControl,
     NumberInputDecrement,
     NumberInputGroup,
     NumberInputIncrement,
-  } from "@ui-sdk/svelte/number-input"
+  } from "@ui-sdk/svelte/number-input";
 </script>
 
 <Field>
@@ -23,7 +23,5 @@
       </NumberInputIncrement>
     </NumberInputGroup>
   </NumberInput>
-  <FieldDescription
-    >Each ticket admits one person to the workshop.</FieldDescription
-  >
+  <FieldDescription>Each ticket admits one person to the workshop.</FieldDescription>
 </Field>

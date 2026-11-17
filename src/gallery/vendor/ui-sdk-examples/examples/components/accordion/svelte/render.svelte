@@ -5,7 +5,7 @@
     AccordionItem,
     AccordionPanel,
     AccordionTrigger,
-  } from "@ui-sdk/svelte/accordion"
+  } from "@ui-sdk/svelte/accordion";
 
   const steps = [
     {
@@ -23,7 +23,7 @@
       label: "Style it",
       content: "Every part renders its state as data attributes you can style.",
     },
-  ]
+  ];
 </script>
 
 <Accordion multiple defaultValue={["install"]}>

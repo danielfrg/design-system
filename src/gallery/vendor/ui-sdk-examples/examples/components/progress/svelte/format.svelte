@@ -5,7 +5,7 @@
     ProgressLabel,
     ProgressTrack,
     ProgressValue,
-  } from "@ui-sdk/svelte/progress"
+  } from "@ui-sdk/svelte/progress";
 
   const bars = [
     {
@@ -27,12 +27,12 @@
     },
     { label: "Synchronisierung", value: 40, locale: "de-DE" },
   ] satisfies {
-    label: string
-    value: number
-    max?: number
-    format?: Intl.NumberFormatOptions | ((value: number) => string)
-    locale?: string
-  }[]
+    label: string;
+    value: number;
+    max?: number;
+    format?: Intl.NumberFormatOptions | ((value: number) => string);
+    locale?: string;
+  }[];
 </script>
 
 <div data-slot="stack">

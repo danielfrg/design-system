@@ -1,17 +1,15 @@
 <script lang="ts">
-  import { Button } from "@ui-sdk/svelte/button"
-  import { Field, FieldLabel } from "@ui-sdk/svelte/field"
-  import { Input } from "@ui-sdk/svelte/input"
-  import { useLog } from "../../../shared/svelte/log"
+  import { Button } from "@ui-sdk/svelte/button";
+  import { Field, FieldLabel } from "@ui-sdk/svelte/field";
+  import { Input } from "@ui-sdk/svelte/input";
+  import { useLog } from "../../../shared/svelte/log";
 
-  const log = useLog()
+  const log = useLog();
 
   function onSubmit(event: SubmitEvent) {
-    event.preventDefault()
-    const email = String(
-      new FormData(event.currentTarget as HTMLFormElement).get("email")
-    )
-    log(`Subscribed ${email}`)
+    event.preventDefault();
+    const email = String(new FormData(event.currentTarget as HTMLFormElement).get("email"));
+    log(`Subscribed ${email}`);
   }
 </script>
 

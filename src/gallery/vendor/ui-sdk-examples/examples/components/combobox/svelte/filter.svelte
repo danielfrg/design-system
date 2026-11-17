@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { CheckIcon, ChevronDownIcon } from "@lucide/svelte"
+  import { CheckIcon, ChevronDownIcon } from "@lucide/svelte";
   import {
     Combobox,
     ComboboxContent,
@@ -10,7 +10,7 @@
     ComboboxLabel,
     ComboboxList,
     ComboboxTrigger,
-  } from "@ui-sdk/svelte/combobox"
+  } from "@ui-sdk/svelte/combobox";
   import {
     Select,
     SelectContent,
@@ -19,7 +19,7 @@
     SelectLabel,
     SelectTrigger,
     SelectValue,
-  } from "@ui-sdk/svelte/select"
+  } from "@ui-sdk/svelte/select";
 
   const countries = [
     { value: "ar", label: "Argentina", keywords: ["república argentina"] },
@@ -43,40 +43,36 @@
       label: "Switzerland",
       keywords: ["schweiz", "suisse", "svizzera"],
     },
-  ]
+  ];
 
   function fuzzy(item: { label: string }, query: string) {
-    let at = 0
+    let at = 0;
     for (const char of item.label.toLowerCase()) {
       if (char === query[at]?.toLowerCase()) {
-        at++
+        at++;
       }
     }
-    return at === query.length
+    return at === query.length;
   }
 
   const filters = {
     contains: "contains",
     startsWith: "startsWith",
     fuzzy,
-  } as const
+  } as const;
   const modes = [
     { value: "contains", label: "Contains" },
     { value: "startsWith", label: "Starts with" },
     { value: "fuzzy", label: "Fuzzy" },
-  ]
-  type Mode = keyof typeof filters
+  ];
+  type Mode = keyof typeof filters;
 
-  let mode = $state<Mode>("contains")
+  let mode = $state<Mode>("contains");
 </script>
 
 <div data-slot="stack">
   <div data-slot="controls">
-    <Select
-      items={modes}
-      value={mode}
-      onValueChange={(next) => next && (mode = next as Mode)}
-    >
+    <Select items={modes} value={mode} onValueChange={(next) => next && (mode = next as Mode)}>
       <SelectLabel>Filter</SelectLabel>
       <SelectTrigger>
         <SelectValue />
@@ -108,11 +104,7 @@
       <ComboboxEmpty>No countries found.</ComboboxEmpty>
       <ComboboxList>
         {#each countries as country (country.value)}
-          <ComboboxItem
-            value={country.value}
-            label={country.label}
-            keywords={country.keywords}
-          >
+          <ComboboxItem value={country.value} label={country.label} keywords={country.keywords}>
             {country.label}
             <ComboboxItemIndicator>
               <CheckIcon aria-hidden="true" />

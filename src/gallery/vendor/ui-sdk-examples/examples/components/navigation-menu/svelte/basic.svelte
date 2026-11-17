@@ -5,7 +5,7 @@
     CircleIcon,
     CircleCheckIcon,
     CircleQuestionMarkIcon,
-  } from "@lucide/svelte"
+  } from "@lucide/svelte";
   import {
     NavigationMenu,
     NavigationMenuContent,
@@ -15,7 +15,7 @@
     NavigationMenuList,
     NavigationMenuTrigger,
     NavigationMenuViewport,
-  } from "@ui-sdk/svelte/navigation-menu"
+  } from "@ui-sdk/svelte/navigation-menu";
 
   const gettingStarted = [
     {
@@ -26,29 +26,25 @@
     {
       title: "Installation",
       href: "#",
-      description:
-        "Add the package for your framework and render your first part.",
+      description: "Add the package for your framework and render your first part.",
     },
     {
       title: "Styling",
       href: "#",
-      description:
-        "Style parts with data attributes, CSS variables and any CSS.",
+      description: "Style parts with data attributes, CSS variables and any CSS.",
     },
-  ]
+  ];
 
   const components = [
     {
       title: "Alert Dialog",
       href: "#",
-      description:
-        "Asks for a decision before anything else on the page can be used.",
+      description: "Asks for a decision before anything else on the page can be used.",
     },
     {
       title: "Hover Card",
       href: "#",
-      description:
-        "A preview of what a link points to, for people who pause on it.",
+      description: "A preview of what a link points to, for people who pause on it.",
     },
     {
       title: "Progress",
@@ -63,23 +59,21 @@
     {
       title: "Tabs",
       href: "#",
-      description:
-        "Shows one panel of content at a time, picked from a list of tabs.",
+      description: "Shows one panel of content at a time, picked from a list of tabs.",
     },
     {
       title: "Tooltip",
       href: "#",
-      description:
-        "A short label for a control, shown on hover or keyboard focus.",
+      description: "A short label for a control, shown on hover or keyboard focus.",
     },
-  ]
+  ];
 
   const statuses = [
     { title: "Backlog", href: "#", icon: CircleQuestionMarkIcon },
     { title: "To do", href: "#", icon: CircleIcon },
     { title: "Done", href: "#", icon: CircleCheckIcon },
     { title: "All issues", href: "#", icon: ArrowRightIcon, mirror: true },
-  ]
+  ];
 </script>
 
 <NavigationMenu aria-label="Main">
@@ -95,8 +89,7 @@
             <NavigationMenuLink href="#" data-variant="featured">
               <span>ui-sdk</span>
               <span data-slot="hint">
-                Accessible components for React, Vue, Svelte, Solid and Web
-                Components.
+                Accessible components for React, Vue, Svelte, Solid and Web Components.
               </span>
             </NavigationMenuLink>
           </li>

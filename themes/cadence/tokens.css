@@ -37,14 +37,11 @@
   /* Elevation */
   --shadow-drop: 0 1px 2px rgb(15 23 42 / 0.06);
   --shadow-drop-pressed: 0 0 0 rgb(15 23 42 / 0);
-  --shadow-1:
-    0 0 0 1px var(--line-faint),
-    0 1px 2px rgb(15 23 42 / 0.05);
+  --shadow-1: 0 0 0 1px var(--line-faint), 0 1px 2px rgb(15 23 42 / 0.05);
   --shadow-float: 0 6px 14px light-dark(rgb(24 39 75 / 0.09), rgb(0 0 0 / 0.45));
   --shadow-2: 0 0 0 1px var(--line-faint), var(--shadow-float);
   --shadow-3:
-    0 0 0 1px var(--line-faint),
-    0 22px 44px -14px light-dark(rgb(3 8 19 / 0.15), rgb(0 0 0 / 0.6)),
+    0 0 0 1px var(--line-faint), 0 22px 44px -14px light-dark(rgb(3 8 19 / 0.15), rgb(0 0 0 / 0.6)),
     0 4px 15px -4px light-dark(rgb(3 8 19 / 0.18), rgb(0 0 0 / 0.5));
 
   /* Shape */
@@ -74,7 +71,9 @@
   --text-sm: 13px;
   --text-md: 14px;
   --text-lg: 16px;
-  --sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --sans:
+    system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial,
+    sans-serif;
   --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   --leading: 20px;
 

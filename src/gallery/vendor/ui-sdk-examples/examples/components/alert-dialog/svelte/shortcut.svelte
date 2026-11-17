@@ -8,7 +8,7 @@
     AlertDialogShortcut,
     AlertDialogTitle,
     AlertDialogTrigger,
-  } from "@ui-sdk/svelte/alert-dialog"
+  } from "@ui-sdk/svelte/alert-dialog";
 </script>
 
 <AlertDialog>
@@ -26,9 +26,7 @@
     </div>
     <div data-slot="row">
       <AlertDialogClose>Cancel</AlertDialogClose>
-      <AlertDialogClose data-variant="solid" value="confirm"
-        >Clear</AlertDialogClose
-      >
+      <AlertDialogClose data-variant="solid" value="confirm">Clear</AlertDialogClose>
     </div>
   </AlertDialogContent>
 </AlertDialog>

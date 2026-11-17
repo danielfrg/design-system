@@ -7,7 +7,7 @@
     DrawerHandle,
     DrawerTitle,
     DrawerTrigger,
-  } from "@ui-sdk/svelte/drawer"
+  } from "@ui-sdk/svelte/drawer";
 
   const places = [
     { name: "Blue Bottle Coffee", detail: "Coffee · 0.2 mi" },
@@ -22,7 +22,7 @@
     { name: "Coit Tower", detail: "Landmark · 2.9 mi" },
     { name: "Golden Gate Park", detail: "Park · 3.0 mi" },
     { name: "Lands End", detail: "Trail · 5.4 mi" },
-  ]
+  ];
 </script>
 
 <Drawer snapPoints={[0.25, 0.5, 1]} defaultSnapPoint={0.5} expandOnScroll>
@@ -32,9 +32,7 @@
     <DrawerHandle aria-label="Resize" />
     <div data-slot="stack">
       <DrawerTitle>Places nearby</DrawerTitle>
-      <DrawerDescription
-        >Drag the drawer, or press the handle, to see more.</DrawerDescription
-      >
+      <DrawerDescription>Drag the drawer, or press the handle, to see more.</DrawerDescription>
     </div>
     <div data-slot="scroll">
       <ul data-slot="list">

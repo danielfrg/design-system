@@ -1,8 +1,8 @@
 // Builds the design system's portable CSS from the vendored ui-sdk docs styles
 // (src/gallery/vendor/ui-sdk-examples), which are scoped to the docs' demo boxes:
 //
-//   public/v2/<theme>/tokens.css      a theme's tokens on :root
-//   public/v2/<theme>/components.css  every rule that styles a ui-sdk part, unscoped,
+//   public/v1/<theme>/tokens.css      a theme's tokens on :root
+//   public/v1/<theme>/components.css  every rule that styles a ui-sdk part, unscoped,
 //                                     plus the theme's overrides, if any
 //   src/gallery/demo.css              the rest: rules for single demos and element
 //                                     resets, still scoped to [data-example]
@@ -37,8 +37,24 @@ function isComponentSlot(op, value) {
 // Generic layout slots the docs markup uses around and inside components, like a
 // calendar header in a "row".
 const layoutSlots = new Set([
-  "stack", "row", "controls", "hint", "grid", "card", "tile", "list", "bar", "scroll",
-  "log", "badge", "visually-hidden", "swatch", "initials", "media", "files", "output",
+  "stack",
+  "row",
+  "controls",
+  "hint",
+  "grid",
+  "card",
+  "tile",
+  "list",
+  "bar",
+  "scroll",
+  "log",
+  "badge",
+  "visually-hidden",
+  "swatch",
+  "initials",
+  "media",
+  "files",
+  "output",
 ]);
 
 function classify(selector) {
@@ -50,7 +66,8 @@ function classify(selector) {
   // Layout slots stay in components.css, in source order: some share specificity
   // with component rules (a card variant, say) and only the order decides.
   if (values.length && values.every(([, , value]) => layoutSlots.has(value))) return "component";
-  if (/(?<!:not\()\[data-slot\](?!=)|\[data-mirror\]|^:focus-visible/.test(selector)) return "component";
+  if (/(?<!:not\()\[data-slot\](?!=)|\[data-mirror\]|^:focus-visible/.test(selector))
+    return "component";
   return "demo";
 }
 
@@ -92,7 +109,8 @@ function withoutNot(selector) {
 
 function chain(node) {
   const parts = [];
-  for (let p = node.parent; p && p.type !== "root"; p = p.parent) if (p.selector) parts.unshift(p.selector);
+  for (let p = node.parent; p && p.type !== "root"; p = p.parent)
+    if (p.selector) parts.unshift(p.selector);
   return withoutNot(parts.join(" "));
 }
 
@@ -102,15 +120,26 @@ function semanticTokens(root) {
     if (/^background(-color)?$/.test(decl.prop) && value === "var(--ink)") {
       decl.value = "var(--fill)";
       decl.parent.each((sibling) => {
-        if (sibling.type === "decl" && sibling.prop === "color" && sibling.value.trim() === "var(--paper)") {
+        if (
+          sibling.type === "decl" &&
+          sibling.prop === "color" &&
+          sibling.value.trim() === "var(--paper)"
+        ) {
           sibling.value = "var(--on-fill)";
         }
       });
-    } else if (/^background/.test(decl.prop) && value === "color-mix(in oklab, var(--ink) 86%, var(--paper))") {
+    } else if (
+      /^background/.test(decl.prop) &&
+      value === "color-mix(in oklab, var(--ink) 86%, var(--paper))"
+    ) {
       decl.value = "var(--fill-hover)";
     } else if (decl.prop === "box-shadow" && /inset 0 0 0 1(\.5)?px var\(--ink\)/.test(value)) {
       const states = chain(decl);
-      const edge = activeState.test(states) ? "--edge-active" : hoverState.test(states) ? "--edge-hover" : "--edge";
+      const edge = activeState.test(states)
+        ? "--edge-active"
+        : hoverState.test(states)
+          ? "--edge-hover"
+          : "--edge";
       decl.value = decl.value.replace(/(inset 0 0 0 1(?:\.5)?px) var\(--ink\)/g, `$1 var(${edge})`);
     }
   });
@@ -153,7 +182,9 @@ function place(node, out) {
     out[kind].append(node.clone());
     const elements = node.selectors.map((sel) => sel.trim());
     if (kind === "demo" && elements.every((sel) => partElements.test(sel))) {
-      out.component.append(node.clone({ selectors: elements.map((el) => `${el}:where([data-slot])`) }));
+      out.component.append(
+        node.clone({ selectors: elements.map((el) => `${el}:where([data-slot])`) }),
+      );
     }
     return;
   }
@@ -198,7 +229,9 @@ function buildTokens() {
     ["--radius-xs", "0"],
     ["--radius-full", "0"],
   ]);
-  after("--mono", [["--sans", 'Geist, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif']]);
+  after("--mono", [
+    ["--sans", 'Geist, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif'],
+  ]);
   after("--backdrop", [
     ["--fill", "var(--ink)"],
     ["--fill-hover", "color-mix(in oklab, var(--ink) 86%, var(--paper))"],
@@ -272,8 +305,8 @@ const componentsBanner = (theme) =>
   ]);
 
 // Old single-theme files, from before themes had folders.
-rmSync("public/v2/tokens.css", { force: true });
-rmSync("public/v2/components.css", { force: true });
+rmSync("public/v1/tokens.css", { force: true });
+rmSync("public/v1/components.css", { force: true });
 
 const written = [];
 const write = (path, text) => {
@@ -281,26 +314,35 @@ const write = (path, text) => {
   written.push(path);
 };
 
-mkdirSync("public/v2/ui-sdk", { recursive: true });
+mkdirSync("public/v1/ui-sdk", { recursive: true });
 write(
-  "public/v2/ui-sdk/tokens.css",
+  "public/v1/ui-sdk/tokens.css",
   banner([
     "Theme: ui-sdk, the ui-sdk docs' own look. Design tokens for ui-sdk components;",
     "load before components.css. Light and dark come from light-dark(): set color-scheme",
     "(or data-color-scheme) on <html>. Corners are square: every --radius-* is 0.",
     "Generated by scripts/build-design-css.mjs from the ui-sdk docs' demo tokens.",
-  ]) + tokens.toString().trim() + "\n",
+  ]) +
+    tokens.toString().trim() +
+    "\n",
 );
-write("public/v2/ui-sdk/components.css", componentsBanner("ui-sdk") + component.toString().trim() + "\n");
+write(
+  "public/v1/ui-sdk/components.css",
+  componentsBanner("ui-sdk") + component.toString().trim() + "\n",
+);
 
 for (const theme of existsSync("themes") ? readdirSync("themes").sort() : []) {
   const dir = `themes/${theme}`;
-  mkdirSync(`public/v2/${theme}`, { recursive: true });
-  write(`public/v2/${theme}/tokens.css`, readFileSync(`${dir}/tokens.css`, "utf8"));
+  mkdirSync(`public/v1/${theme}`, { recursive: true });
+  write(`public/v1/${theme}/tokens.css`, readFileSync(`${dir}/tokens.css`, "utf8"));
   const overrides = existsSync(`${dir}/overrides.css`)
-    ? `\n/* ${theme} overrides (themes/${theme}/overrides.css) */\n` + readFileSync(`${dir}/overrides.css`, "utf8")
+    ? `\n/* ${theme} overrides (themes/${theme}/overrides.css) */\n` +
+      readFileSync(`${dir}/overrides.css`, "utf8")
     : "";
-  write(`public/v2/${theme}/components.css`, componentsBanner(theme) + component.toString().trim() + "\n" + overrides);
+  write(
+    `public/v1/${theme}/components.css`,
+    componentsBanner(theme) + component.toString().trim() + "\n" + overrides,
+  );
 }
 
 write(
@@ -308,7 +350,9 @@ write(
   banner([
     "The ui-sdk docs' demo scaffolding: rules for single demos, the demo box, and plain",
     "element resets. Gallery only. Generated by scripts/build-design-css.mjs.",
-  ]) + demo.toString().trim() + "\n",
+  ]) +
+    demo.toString().trim() +
+    "\n",
 );
 
 execFileSync("node_modules/.bin/oxfmt", written);

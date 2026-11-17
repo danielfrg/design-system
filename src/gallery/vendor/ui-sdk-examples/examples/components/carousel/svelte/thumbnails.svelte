@@ -4,7 +4,7 @@
     CarouselContent,
     CarouselItem,
     CarouselViewport,
-  } from "@ui-sdk/svelte/carousel"
+  } from "@ui-sdk/svelte/carousel";
 
   const photos = [
     { name: "Dunes" },
@@ -13,14 +13,14 @@
     { name: "Canyon" },
     { name: "Meadow" },
     { name: "Harbor" },
-  ]
+  ];
 
-  let page = $state(1)
-  let block: HTMLElement | undefined = $state()
+  let page = $state(1);
+  let block: HTMLElement | undefined = $state();
   const follow = (next: number) =>
     block
       ?.querySelectorAll("button")
-      [next - 1]?.scrollIntoView({ block: "nearest", inline: "nearest" })
+      [next - 1]?.scrollIntoView({ block: "nearest", inline: "nearest" });
 </script>
 
 <div data-slot="stack" bind:this={block}>

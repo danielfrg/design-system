@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { Field, FieldLabel } from "@ui-sdk/svelte/field"
-  import { Input } from "@ui-sdk/svelte/input"
+  import { Field, FieldLabel } from "@ui-sdk/svelte/field";
+  import { Input } from "@ui-sdk/svelte/input";
   import {
     Popover,
     PopoverClose,
@@ -8,7 +8,7 @@
     PopoverDescription,
     PopoverTitle,
     PopoverTrigger,
-  } from "@ui-sdk/svelte/popover"
+  } from "@ui-sdk/svelte/popover";
 </script>
 
 <div data-slot="row">
@@ -31,14 +31,10 @@
     <PopoverTrigger>Publish</PopoverTrigger>
     <PopoverContent initialFocus="[data-autofocus]">
       <PopoverTitle>Publish changes?</PopoverTitle>
-      <PopoverDescription
-        >Focus starts on Publish, not Cancel.</PopoverDescription
-      >
+      <PopoverDescription>Focus starts on Publish, not Cancel.</PopoverDescription>
       <div data-slot="row">
         <PopoverClose>Cancel</PopoverClose>
-        <PopoverClose data-autofocus="" data-variant="solid"
-          >Publish</PopoverClose
-        >
+        <PopoverClose data-autofocus="" data-variant="solid">Publish</PopoverClose>
       </div>
     </PopoverContent>
   </Popover>

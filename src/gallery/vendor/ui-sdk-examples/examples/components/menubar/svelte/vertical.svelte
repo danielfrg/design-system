@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { Menu, MenuContent, MenuItem, MenuTrigger } from "@ui-sdk/svelte/menu"
-  import { Menubar } from "@ui-sdk/svelte/menubar"
+  import { Menu, MenuContent, MenuItem, MenuTrigger } from "@ui-sdk/svelte/menu";
+  import { Menubar } from "@ui-sdk/svelte/menubar";
 </script>
 
 <Menubar orientation="vertical">

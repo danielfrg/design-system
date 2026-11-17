@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { ChevronDownIcon } from "@lucide/svelte"
+  import { ChevronDownIcon } from "@lucide/svelte";
   import {
     NavigationMenu,
     NavigationMenuContent,
@@ -8,7 +8,7 @@
     NavigationMenuList,
     NavigationMenuTrigger,
     NavigationMenuViewport,
-  } from "@ui-sdk/svelte/navigation-menu"
+  } from "@ui-sdk/svelte/navigation-menu";
 
   const sections = [
     {
@@ -53,7 +53,7 @@
         },
       ],
     },
-  ]
+  ];
 </script>
 
 <div dir="rtl">

@@ -1,11 +1,6 @@
 <script lang="ts">
-  import { CheckIcon, ChevronDownIcon } from "@lucide/svelte"
-  import {
-    Field,
-    FieldDescription,
-    FieldError,
-    FieldLabel,
-  } from "@ui-sdk/svelte/field"
+  import { CheckIcon, ChevronDownIcon } from "@lucide/svelte";
+  import { Field, FieldDescription, FieldError, FieldLabel } from "@ui-sdk/svelte/field";
   import {
     Select,
     SelectContent,
@@ -13,22 +8,22 @@
     SelectItemIndicator,
     SelectTrigger,
     SelectValue,
-  } from "@ui-sdk/svelte/select"
-  import { useLog } from "../../../shared/svelte/log"
+  } from "@ui-sdk/svelte/select";
+  import { useLog } from "../../../shared/svelte/log";
 
   const methods = [
     { value: "standard", label: "Standard" },
     { value: "express", label: "Express" },
     { value: "overnight", label: "Overnight" },
-  ]
+  ];
 
-  const log = useLog()
+  const log = useLog();
 
   function submit(event: SubmitEvent) {
-    event.preventDefault()
+    event.preventDefault();
     log(
-      `Submitted shipping=${new FormData(event.currentTarget as HTMLFormElement).get("shipping")}`
-    )
+      `Submitted shipping=${new FormData(event.currentTarget as HTMLFormElement).get("shipping")}`,
+    );
   }
 </script>
 

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { ChevronRightIcon } from "@lucide/svelte"
+  import { ChevronRightIcon } from "@lucide/svelte";
   import {
     Tree,
     TreeGroup,
@@ -7,8 +7,8 @@
     TreeItemIndicator,
     TreeItemLabel,
     type TreeItemData,
-  } from "@ui-sdk/svelte/tree"
-  import { useLog } from "../../../shared/svelte/log"
+  } from "@ui-sdk/svelte/tree";
+  import { useLog } from "../../../shared/svelte/log";
 
   const items: TreeItemData[] = [
     {
@@ -30,9 +30,9 @@
     },
     { value: "archive", label: "Archive" },
     { value: "trash", label: "Trash" },
-  ]
+  ];
 
-  const log = useLog()
+  const log = useLog();
 </script>
 
 {#snippet treeItems(nodes: TreeItemData[])}
@@ -60,8 +60,7 @@
   {items}
   mode="multiple"
   defaultValue={["updates", "website"]}
-  onValueChange={(value) =>
-    log(`${value.length} selected: ${value.join(", ")}`)}
+  onValueChange={(value) => log(`${value.length} selected: ${value.join(", ")}`)}
   expandOnPress={false}
   defaultExpanded={["inbox", "projects"]}
 >

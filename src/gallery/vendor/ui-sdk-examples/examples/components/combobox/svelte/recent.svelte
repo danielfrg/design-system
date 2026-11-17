@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { CheckIcon, ChevronDownIcon } from "@lucide/svelte"
+  import { CheckIcon, ChevronDownIcon } from "@lucide/svelte";
   import {
     Combobox,
     ComboboxContent,
@@ -13,8 +13,8 @@
     ComboboxLabel,
     ComboboxList,
     ComboboxTrigger,
-  } from "@ui-sdk/svelte/combobox"
-  import type { ListAnnouncement } from "@ui-sdk/core/combobox"
+  } from "@ui-sdk/svelte/combobox";
+  import type { ListAnnouncement } from "@ui-sdk/core/combobox";
 
   const countries = [
     { value: "ar", label: "Argentina", keywords: ["república argentina"] },
@@ -38,7 +38,7 @@
       label: "Switzerland",
       keywords: ["schweiz", "suisse", "svizzera"],
     },
-  ]
+  ];
 
   const recentCountries = [
     {
@@ -46,10 +46,10 @@
       label: "Recent",
       items: [countries[9], countries[12], countries[15]],
     },
-  ]
+  ];
 
   const announcement = (change: ListAnnouncement) =>
-    change.type === "results" ? `${change.count} countries match` : null
+    change.type === "results" ? `${change.count} countries match` : null;
 </script>
 
 <Combobox items={countries} emptyItems={recentCountries} {announcement}>
