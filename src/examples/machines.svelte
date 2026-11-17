@@ -551,8 +551,9 @@
   .count {
     padding: 1px 6px;
     border-radius: var(--radius-xs);
-    background: var(--line);
-    color: color-mix(in oklab, var(--ink) 80%, var(--muted));
+    /* Neutral badge: a soft gray in light mode, a raised charcoal in dark. */
+    background: light-dark(var(--line-faint), var(--line));
+    color: light-dark(#374151, #dad6d5);
     font-size: var(--text-xs);
     font-weight: 500;
   }
@@ -734,7 +735,9 @@
     padding: 0 8px;
     border: 1px solid var(--line);
     border-radius: 999px;
+    color: light-dark(var(--muted), var(--ink));
     font-size: var(--text-xs);
+    font-weight: 500;
   }
 
   .tags {
@@ -747,21 +750,22 @@
   .tag {
     padding: 0 5px;
     border-radius: var(--radius-xs);
-    background: var(--line);
-    color: color-mix(in oklab, var(--ink) 80%, var(--muted));
+    /* Neutral badge: a soft gray in light mode, a raised charcoal in dark. */
+    background: light-dark(var(--line-faint), var(--line));
+    color: light-dark(#374151, #dad6d5);
     font-size: var(--text-xs);
     font-weight: 500;
   }
 
   .tag[data-tag="subnets"],
   .tag[data-tag="exit"] {
-    background: light-dark(#e4ebfb, #3f5db3);
-    color: light-dark(#173f9c, #cedefd);
+    background: light-dark(#cedefd, #3f5db3);
+    color: light-dark(#3f5db3, #cedefd);
   }
 
   .tag[data-tag="ssh"] {
-    background: light-dark(#dcfce7, #09825d);
-    color: light-dark(#166534, #efffed);
+    background: light-dark(#cbf4c9, #09825d);
+    color: light-dark(#0e6245, #efffed);
   }
 
   .main :global(.address) {
