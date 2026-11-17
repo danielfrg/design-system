@@ -65,3 +65,9 @@ path = "../things"
 dest = "frontend/src/design-system"
 theme = "cadence"
 custom = ["status-badge", "theme-toggle"]
+
+[apps.budget]
+path = "../budget"
+dest = "frontend/src/design-system"
+theme = "cadence"
+custom = []
