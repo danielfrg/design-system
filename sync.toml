@@ -22,7 +22,7 @@ custom = ["theme-toggle"]
 path = "../ciview"
 dest = "frontend/src/design-system"
 theme = "cadence"
-custom = ["theme-toggle"]
+custom = ["status-badge", "theme-toggle"]
 
 [apps.chrome-url-redirector]
 path = "../chrome-url-redirector"

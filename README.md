@@ -21,7 +21,11 @@ import "./components.css"; // every @ui-sdk part by data-slot and state, plus th
 | `public/v1/ui-sdk`  | The ui-sdk docs' own demos: Geist, monochrome, square corners.                               |
 | `public/v1/cadence` | Tailwind-flavored: system fonts, cool grays, a blue primary, soft gray borders, 6px corners. |
 
-- Put `@layer ui-sdk;` at the top of the app's global stylesheet, as ui-sdk asks.
+- Put `@layer ui-sdk;` at the top of the app's global stylesheet (`app.css`), as ui-sdk asks.
+- Import order: the theme (`tokens.css`, `components.css`) and any `custom/*` CSS first, then the
+  app's `palette.css` if it overrides tokens, then the app's own `app.css` last. The theme is not
+  layered, so on a tie in specificity the later file wins: that way the app can override the theme
+  with a plain class selector, no `!important`.
 - Light/dark follows `color-scheme`. To let people choose, use ui-sdk's
   `createColorScheme({ global: true })`, which writes `data-color-scheme` on `<html>`.
 - Load the theme's fonts (Geist and Geist Mono for the ui-sdk theme; Cadence uses system fonts; see `src/index.html`).
