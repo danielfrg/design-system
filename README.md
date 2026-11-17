@@ -21,12 +21,12 @@ import "./components.css"; // every @ui-sdk part by data-slot and state, plus th
 | Theme | Look |
 | --- | --- |
 | `public/v2/ui-sdk` | The ui-sdk docs' own demos: Geist, monochrome, square corners. |
-| `public/v2/cadence` | Tailwind-flavored: Inter, cool grays, a blue primary, soft gray borders, 6px corners. |
+| `public/v2/cadence` | Tailwind-flavored: system fonts, cool grays, a blue primary, soft gray borders, 6px corners. |
 
 - Put `@layer ui-sdk;` at the top of the app's global stylesheet, as ui-sdk asks.
 - Light/dark follows `color-scheme`. To let people choose, use ui-sdk's
   `createColorScheme({ global: true })`, which writes `data-color-scheme` on `<html>`.
-- Load the theme's fonts (Geist and Geist Mono, or Inter; see `src/index.html`).
+- Load the theme's fonts (Geist and Geist Mono for the ui-sdk theme; Cadence uses system fonts; see `src/index.html`).
 - Write markup as the ui-sdk docs examples do, icons included: the styles expect an `<svg>`
   where the examples put one, like a select's chevron or a checkbox's check.
 - Restyle from `tokens.css`. Besides colors, the semantic tokens `--fill`, `--fill-hover`,
